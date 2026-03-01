@@ -1,0 +1,4225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+
+ <!-- Cabeçalho -->
+    <div class="ion-header">
+        <div class="ion-title">
+            <div class="ion-title-checkbox"></div>
+            <div class="ion-title-text"> </div>
+        </div>
+
+  <!-- Assinatura com efeito de marca d'água -->
+<div class="watermark">
+    <p><strong>Autor:</strong> Igor Stramandinoli Moita Pontes</p>
+    
+</div>
+
+<style>
+.watermark {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(19, 49, 52, 0.3); /* fundo com transparência */
+    border: 1px solid rgba(166, 207, 46, 0.4); /* borda verde translúcida */
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: rgba(255, 255, 255, 0.6); /* texto branco translúcido */
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 13px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    pointer-events: none;
+    user-select: none;
+    max-width: 400px;
+    opacity: 0.7; /* transparência geral do bloco */
+}
+
+.watermark p {
+    margin: 4px 0;
+}
+
+.watermark strong {
+    color: rgba(166, 207, 46, 0.7); /* destaque verde translúcido */
+}
+</style>
+</style>
+
+  </style>
+</head>
+<body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelagem de Liquidez e Bid-Ask Spread (Interativo)</title>
+    <!-- Importação de bibliotecas externas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+    <style>
+        :root {
+            --laranja: #EC7000;
+            --verde: #A6CF2E;
+            --fundo-escuro: #091B1E;
+            --fundo-secundario: #133134;
+            --branco: #FFFFFF;
+            --cinza-claro: rgba(255, 255, 255, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--fundo-escuro);
+            color: var(--branco);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            position: relative;
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, var(--fundo-secundario), var(--fundo-escuro));
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%, rgba(166, 207, 46, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        h1 {
+            color: var(--laranja);
+            margin-bottom: 15px;
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        h2 {
+            color: var(--verde);
+            margin: 30px 0 15px;
+            font-size: 1.8rem;
+            padding-left: 15px;
+            display: flex;
+            align-items: center;
+            border-left: 4px solid var(--laranja);
+        }
+
+        h2::after {
+            content: "";
+            flex-grow: 1;
+            height: 1px;
+            background: var(--verde);
+            opacity: 0.3;
+            margin-left: 15px;
+        }
+
+        h3 {
+            color: var(--verde);
+            margin: 25px 0 15px;
+            font-size: 1.4rem;
+        }
+
+        p {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            max-width: 800px;
+        }
+
+        .secao {
+            background-color: var(--fundo-secundario);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .secao:hover {
+            transform: translateY(-5px);
+        }
+
+        .secao::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--verde);
+        }
+
+        .insight-box {
+            background: linear-gradient(135deg, var(--fundo-secundario), rgba(19, 49, 52, 0.8));
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            border-left: 4px solid var(--laranja);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .insight-box::before {
+            content: "INSIGHT";
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            background: var(--laranja);
+            color: var(--fundo-escuro);
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 12px;
+            letter-spacing: 1px;
+        }
+
+        .insight-box h4 {
+            color: var(--laranja);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .insight-box p {
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+
+        .destaque {
+            background-color: rgba(166, 207, 46, 0.1);
+            border-left: 4px solid var(--verde);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .key-point {
+            display: inline-block;
+            margin: 8px 8px 8px 0;
+            background: rgba(236, 112, 0, 0.15);
+            border: 1px solid var(--laranja);
+            border-radius: 50px;
+            padding: 6px 15px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .flexrow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            flex: 1;
+            min-width: 300px;
+            background-color: var(--fundo-secundario);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--laranja);
+        }
+
+        .card h3 {
+            color: var(--laranja);
+            margin-top: 0;
+            border-bottom: 1px solid rgba(166, 207, 46, 0.3);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .stat-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(19, 49, 52, 0.8), var(--fundo-secundario));
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            min-width: 150px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(to right, var(--verde), var(--laranja));
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--verde);
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--cinza-claro);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .stat-change {
+            font-size: 0.9rem;
+            color: var(--verde);
+            margin-top: 5px;
+            padding: 3px 6px;
+            border-radius: 4px;
+            background: rgba(166, 207, 46, 0.15);
+        }
+
+        .stat-change.positive {
+            color: var(--verde);
+            background: rgba(166, 207, 46, 0.15);
+        }
+
+        .stat-change.negative {
+            color: #ff4d4d;
+            background: rgba(255, 77, 77, 0.15);
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            margin: 30px 0;
+            position: relative;
+            background-color: rgba(19, 49, 52, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .chart-container:hover {
+            transform: scale(1.01);
+        }
+
+        .chart-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .chart-control {
+            background-color: rgba(19, 49, 52, 0.7);
+            border: 1px solid rgba(166, 207, 46, 0.3);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .chart-control:hover {
+            background-color: rgba(166, 207, 46, 0.2);
+        }
+
+        .chart-control.active {
+            background-color: var(--verde);
+            color: var(--fundo-escuro);
+            font-weight: bold;
+            border-color: var(--verde);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 0;
+            border-bottom: 1px solid var(--fundo-secundario);
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: var(--fundo-secundario);
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            margin-right: 5px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab:hover {
+            background-color: rgba(166, 207, 46, 0.2);
+        }
+
+        .tab.active {
+            background-color: var(--verde);
+            color: var(--fundo-escuro);
+            font-weight: bold;
+            border: 1px solid var(--verde);
+            border-bottom: none;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: var(--fundo-secundario);
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+            border: 1px solid var(--fundo-secundario);
+            border-top: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            background: rgba(9, 27, 30, 0.5);
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background-color: var(--fundo-secundario);
+            color: var(--verde);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        tr:hover {
+            background-color: rgba(19, 49, 52, 0.7);
+        }
+
+        .calculator {
+            background: linear-gradient(to right, var(--fundo-secundario), rgba(19, 49, 52, 0.8));
+            border-radius: 8px;
+            padding: 25px;
+            margin: 30px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .calculator::before {
+            content: "CALCULADORA";
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--verde);
+            color: var(--fundo-escuro);
+            font-weight: bold;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--verde);
+            font-size: 0.9rem;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(9, 27, 30, 0.8);
+            color: var(--branco);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--verde);
+            box-shadow: 0 0 0 2px rgba(166, 207, 46, 0.3);
+        }
+
+        button {
+            background: linear-gradient(to right, var(--verde), #8daf1d);
+            color: var(--fundo-escuro);
+            border: none;
+            padding: 14px 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #8daf1d, var(--verde));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(166, 207, 46, 0.1);
+            border-radius: 8px;
+            display: none;
+            border-left: 4px solid var(--verde);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .result h3 {
+            margin-top: 0;
+            color: var(--laranja);
+            font-size: 1.2rem;
+        }
+
+        .quote {
+            font-style: italic;
+            padding: 15px 20px;
+            background-color: rgba(236, 112, 0, 0.1);
+            border-left: 4px solid var(--laranja);
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 1rem;
+        }
+
+        .accordion {
+            margin: 20px 0;
+        }
+
+        .accordion-item {
+            margin-bottom: 10px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .accordion-header {
+            background: linear-gradient(to right, var(--fundo-secundario), rgba(19, 49, 52, 0.9));
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background: linear-gradient(to right, rgba(19, 49, 52, 0.9), var(--fundo-secundario));
+        }
+
+        .accordion-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--cinza-claro);
+        }
+
+        .accordion-content {
+            background-color: rgba(19, 49, 52, 0.5);
+            padding: 20px;
+            display: none;
+            animation: fadeIn 0.5s ease;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .range-container {
+            margin: 20px 0;
+            background: rgba(9, 27, 30, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .range-slider {
+            width: 100%;
+            margin-top: 10px;
+            height: 6px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--verde);
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s ease;
+        }
+
+        .range-slider::-webkit-slider-thumb:hover {
+            background: var(--laranja);
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+
+        .slider-min,
+        .slider-max {
+            font-size: 0.8rem;
+            color: var(--cinza-claro);
+        }
+
+        .slider-value {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--verde);
+        }
+
+        ul,
+        ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        ul li::before {
+            content: "•";
+            color: var(--verde);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .color-laranja {
+            color: var(--laranja);
+        }
+
+        .color-verde {
+            color: var(--verde);
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: var(--cinza-claro);
+        }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--verde);
+            text-align: center;
+        }
+
+        .loading::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 40px;
+            margin: 10px auto;
+            border-radius: 50%;
+            border: 4px solid var(--verde);
+            border-color: var(--verde) transparent var(--verde) transparent;
+            animation: loading 1.2s linear infinite;
+        }
+
+        @keyframes loading {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .toggle-content {
+            cursor: pointer;
+            padding: 5px 10px;
+            background: var(--fundo-secundario);
+            color: var(--verde);
+            border: 1px solid var(--verde);
+            border-radius: 4px;
+            display: inline-block;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-content:hover {
+            background: var(--verde);
+            color: var(--fundo-escuro);
+        }
+
+        .hidden-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Animações e efeitos especiais */
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .highlight-text {
+            position: relative;
+            display: inline-block;
+            color: var(--laranja);
+            font-weight: bold;
+        }
+
+        .highlight-text::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--verde);
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease;
+        }
+
+        .highlight-text:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        .glow {
+            text-shadow: 0 0 5px var(--verde), 0 0 10px var(--verde), 0 0 15px var(--verde);
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px var(--verde), 0 0 10px var(--verde);
+            }
+
+            to {
+                text-shadow: 0 0 10px var(--verde), 0 0 20px var(--verde);
+            }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .flexrow {
+                flex-direction: column;
+            }
+
+            .card {
+                min-width: 100%;
+            }
+
+            .stat-card {
+                min-width: 120px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1 class="glow">Modelagem de Liquidez e Bid-Ask Spread</h1>
+            <p>Material técnico-educacional interativo de comportamento de BID-ASK nas tesourarias </p>
+        </header>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="introducao">Introdução</div>
+            <div class="tab" data-tab="evolucao">Evolução do Mercado</div>
+            <div class="tab" data-tab="comparativo">Comparativo</div>
+            <div class="tab" data-tab="modelagem">Modelagem</div>
+            <div class="tab" data-tab="aplicacoes">Aplicações Práticas</div>
+        </div>
+
+        <div class="tab-content active" id="introducao">
+            <section class="secao" id="introducao-liquidez">
+                <h2>O que é Liquidez no Mercado de Crédito Privado?</h2>
+
+                <div class="flexrow">
+                    <div class="stat-card floating">
+                        <div class="stat-label">Volume de Emissões em 2024</div>
+                        <div class="stat-value pulse">R$ 261Bi</div>
+                        <div class="stat-change positive">+66,7% vs 2023</div>
+                    </div>
+                    <div class="stat-card floating">
+                        <div class="stat-label">Emissões Jan/2025</div>
+                        <div class="stat-value">R$ 43Bi</div>
+                        <div class="stat-change positive">Ritmo Anual: R$ 516Bi</div>
+                    </div>
+                    <div class="stat-card floating">
+                        <div class="stat-label">Impacto da Crise 2020 em Spreads</div>
+                        <div class="stat-value">+300%</div>
+                        <div class="stat-change negative">105% → ~200% CDI</div>
+                    </div>
+                    <div class="stat-card floating">
+                        <div class="stat-label">Média de Bid-Ask Debêntures AA</div>
+                        <div class="stat-value">0,4%</div>
+                        <div class="stat-change positive">vs. 0,6% em 2023</div>
+                    </div>
+                </div>
+
+                <div class="destaque">
+                    <p><strong>Definição:</strong> A liquidez de mercado refere-se à capacidade de comprar ou vender um
+                        ativo sem causar alteração significativa em seu preço, enquanto o bid-ask spread representa a
+                        diferença entre o preço de compra (bid) e o preço de venda (ask) desse ativo.</p>
+                </div>
+
+                <div class="insight-box">
+                    <h4>Liquidez não é binária, é um espectro mensurável</h4>
+                    <p>Ao contrário do que muitas pessoas pensam, a liquidez não é uma característica binária
+                        ("tem" ou "não tem"), mas sim um espectro contínuo que pode ser quantificado. Os especialistas
+                        que dominam as métricas de liquidez conseguem oferecer recomendações muito mais precisas aos
+                        clientes.</p>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="liquidezChart"></canvas>
+                </div>
+            </section>
+
+            <section class="secao" id="papel-tesourarias">
+                <h2>O Papel das Tesourarias</h2>
+
+                <div class="flexrow">
+                    <div class="card">
+                        <h3>Ciclo de Vida do Ativo</h3>
+                        <ol>
+                            <li>Emissão primária da empresa/emissor</li>
+                            <li>Absorção pela tesouraria do banco coordenador</li>
+                            <li>Distribuição via canais (corretora) para o investidor final</li>
+                            <li>Negociação no mercado secundário</li>
+                        </ol>
+                    </div>
+
+                    <div class="card">
+                        <h3>Market Making</h3>
+                        <ul>
+                            <li>Prover liquidez no mercado secundário</li>
+                            <li>Estabelecer os spreads bid-ask</li>
+                            <li>Absorver volatilidade de curto prazo</li>
+                            <li>Gerenciar o risco de inventário</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <button class="toggle-content" data-target="fluxo-content">Ver Fluxo de Negociação</button>
+                <div id="fluxo-content" class="hidden-content">
+                    <div class="chart-container">
+                        <canvas id="fluxoChart"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="tab-content" id="evolucao">
+            <section class="secao" id="evolucao-mercado">
+                <h2>Evolução do Mercado de Crédito Privado (2020-2025)</h2>
+
+                <div class="chart-controls">
+                    <div class="chart-control active" data-period="all">2020-2025</div>
+                    <div class="chart-control" data-period="2020">2020</div>
+                    <div class="chart-control" data-period="2021">2021</div>
+                    <div class="chart-control" data-period="2022">2022</div>
+                    <div class="chart-control" data-period="2023">2023</div>
+                    <div class="chart-control" data-period="2024">2024</div>
+                    <div class="chart-control" data-period="2025">2025</div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="evolucaoChart"></canvas>
+                </div>
+
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3>A Crise de 2020: Impacto da Pandemia</h3>
+                            <span>+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>
+                                O mercado de crédito privado sofreu forte pressão em março de 2020, com a chegada da
+                                pandemia de COVID-19 ao Brasil. Este período foi marcado por:
+                            </p>
+                            <ul>
+                                <li>Resgates massivos em fundos de crédito privado (aproximadamente R$ 17,5 bilhões até
+                                    abril/2020)</li>
+                                <li>Ampliação expressiva dos spreads de crédito (alguns papéis chegaram a negociar com
+                                    spreads 3x maiores)</li>
+                                <li>Queda abrupta na liquidez do mercado secundário</li>
+                                <li>Reprecificação generalizada dos ativos</li>
+                            </ul>
+
+                            <div class="chart-container">
+                                <canvas id="criseChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3>Recuperação e Crescimento (2021-2023)</h3>
+                            <span>+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>
+                                Após o choque inicial, o mercado passou por uma fase de gradual recuperação:
+                            </p>
+                            <ul>
+                                <li>2021: Retorno do apetite por risco e normalização dos spreads</li>
+                                <li>2022: Ano promissor para o mercado, com R$ 362 bilhões captados via debêntures, CRIs
+                                    e CRAs (crescimento de 17% vs 2021)</li>
+                                <li>2023: Novo período de volatilidade no primeiro quadrimestre (caso Americanas),
+                                    seguido de recuperação</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <div class="accordion-header">
+                            <h3>Consolidação e Expansão (2024-2025)</h3>
+                            <span>+</span>
+                        </div>
+                        <div class="accordion-content">
+                            <p>
+                                O biênio 2024-2025 marcou a consolidação do crescimento:
+                            </p>
+                            <ul>
+                                <li>2024: Volume total de emissões no mercado de capitais de R$ 783 bilhões, sendo R$
+                                    261 bilhões provenientes de crédito privado (crescimento de 66,7% vs 2023)</li>
+                                <li>2025: Tendência de forte crescimento mantida, com R$ 43 bilhões emitidos apenas em
+                                    janeiro</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="tab-content" id="comparativo">
+            <section class="secao" id="comparativo-acoes">
+                <h2>Comparativo: Crédito Privado vs. Ações</h2>
+
+                <div class="tabs">
+                    <div class="tab active" data-tab="estrutura">Estrutura</div>
+                    <div class="tab" data-tab="formacao">Formação de Spread</div>
+                    <div class="tab" data-tab="volume">Volume</div>
+                    <div class="tab" data-tab="stress">Comportamento em Stress</div>
+                </div>
+
+                <div class="tab-content active" id="estrutura">
+                    <div class="chart-container">
+                        <canvas id="estruturaChart"></canvas>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Característica</th>
+                                    <th>Mercado de Ações</th>
+                                    <th>Mercado de Crédito Privado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Mecanismo de Negociação</td>
+                                    <td>Leilão contínuo (bolsa)</td>
+                                    <td>Mercado de balcão (OTC)</td>
+                                </tr>
+                                <tr>
+                                    <td>Transparência de Preços</td>
+                                    <td>Alta (preços públicos)</td>
+                                    <td>Baixa (preços por cotação)</td>
+                                </tr>
+                                <tr>
+                                    <td>Padronização</td>
+                                    <td>Alta (ações são fungíveis)</td>
+                                    <td>Baixa (cada emissão é única)</td>
+                                </tr>
+                                <tr>
+                                    <td>Participantes</td>
+                                    <td>Pulverizado</td>
+                                    <td>Concentrado</td>
+                                </tr>
+                                <tr>
+                                    <td>Book de Ofertas</td>
+                                    <td>Profundo e visível</td>
+                                    <td>Raso e não-visível</td>
+                                </tr>
+                                <tr>
+                                    <td>Vencimento</td>
+                                    <td>Perpétuo</td>
+                                    <td>Determinado</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="formacao">
+                    <div class="chart-container">
+                        <canvas id="formacaoChart"></canvas>
+                    </div>
+
+                    <div class="flexrow">
+                        <div class="card">
+                            <h3>Componentes do Spread em Ações</h3>
+                            <ul>
+                                <li>Custo de Inventário: <span class="highlight-text">Baixo</span> (alta liquidez)</li>
+                                <li>Custo de Processamento: <span class="highlight-text">Baixo</span> (automatizado)
+                                </li>
+                                <li>Custo de Informação Adversa: <span class="highlight-text">Alto</span> (assimetria)
+                                </li>
+                                <li>Competição entre Market Makers: <span class="highlight-text">Alta</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="card">
+                            <h3>Componentes do Spread em Crédito Privado</h3>
+                            <ul>
+                                <li>Custo de Inventário: <span class="highlight-text">Alto</span> (baixa liquidez)</li>
+                                <li>Custo de Processamento: <span class="highlight-text">Alto</span> (pouca
+                                    automatização)</li>
+                                <li>Custo de Informação Adversa: <span class="highlight-text">Médio</span></li>
+                                <li>Competição entre Market Makers: <span class="highlight-text">Baixa</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="volume">
+                    <div class="chart-container">
+                        <canvas id="volumeChart"></canvas>
+                    </div>
+
+                    <div class="insight-box">
+                        <h4>Volume negociado vs. Estoque total: A métrica crucial</h4>
+                        <p>Enquanto o estoque total de ações gira 70-80% ao mês, o crédito privado gira apenas 5-10%.
+                            Isso explica a necessidade de tesourarias como intermediários e a maior dificuldade em
+                            executar ordens grandes sem impacto no preço.</p>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="stress">
+                    <div class="chart-container">
+                        <canvas id="stressChart"></canvas>
+                    </div>
+
+                    <div class="destaque">
+                        <h3>Características-chave em Períodos de Stress</h3>
+                        <div class="flexrow">
+                            <div class="card">
+                                <h3>Ações</h3>
+                                <ul>
+                                    <li>Queda rápida e acentuada</li>
+                                    <li>Liquidez reduz, mas permanece</li>
+                                    <li>Recuperação pode ser rápida (V-shaped)</li>
+                                    <li>Custos de transação aumentam moderadamente</li>
+                                </ul>
+                            </div>
+
+                            <div class="card">
+                                <h3>Crédito Privado</h3>
+                                <ul>
+                                    <li>Queda gradual, mas persistente</li>
+                                    <li>Liquidez pode desaparecer completamente</li>
+                                    <li>Recuperação típicamente lenta (U-shaped)</li>
+                                    <li>Custos de transação disparam exponencialmente</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="tab-content" id="modelagem">
+            <section class="secao" id="modelagem-liquidez">
+                <h2>Modelagem de Liquidez e Bid-Ask Spread</h2>
+
+                <div class="quote">
+                    Spread Bid-Ask = α + β₁(Duration) + β₂(Rating) + β₃(Tamanho_Emissão) + β₄(Volume_Médio) +
+                    β₅(Volatilidade_Mercado) + ε
+                </div>
+
+                <h3>Calculadora Interativa de Bid-Ask Spread</h3>
+
+                <div class="calculator">
+                    <div class="form-group">
+                        <label for="tipo-ativo">Tipo de Ativo:</label>
+                        <select id="tipo-ativo">
+                            <option value="debenture">Debênture</option>
+                            <option value="cri">CRI</option>
+                            <option value="cra">CRA</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rating">Rating do Emissor:</label>
+                        <select id="rating">
+                            <option value="AAA">AAA</option>
+                            <option value="AA">AA</option>
+                            <option value="A">A</option>
+                            <option value="BBB">BBB</option>
+                            <option value="BB">BB</option>
+                        </select>
+                    </div>
+
+                    <div class="range-container">
+                        <label for="duration-slider">Duration (anos):</label>
+                        <input type="range" min="0.5" max="10" step="0.5" value="3.5" class="range-slider"
+                            id="duration-slider">
+                        <div class="slider-labels">
+                            <span class="slider-min">0.5</span>
+                            <span id="duration-value" class="slider-value">3.5</span>
+                            <span class="slider-max">10</span>
+                        </div>
+                    </div>
+
+                    <div class="range-container">
+                        <label for="emissao-slider">Tamanho da Emissão (R$ milhões):</label>
+                        <input type="range" min="50" max="1000" step="50" value="500" class="range-slider"
+                            id="emissao-slider">
+                        <div class="slider-labels">
+                            <span class="slider-min">50</span>
+                            <span id="emissao-value" class="slider-value">500</span>
+                            <span class="slider-max">1000</span>
+                        </div>
+                    </div>
+
+                    <div class="range-container">
+                        <label for="volatilidade-slider">Volatilidade de Mercado:</label>
+                        <input type="range" min="1" max="10" step="1" value="3" class="range-slider"
+                            id="volatilidade-slider">
+                        <div class="slider-labels">
+                            <span class="slider-min">Baixa</span>
+                            <span id="volatilidade-value" class="slider-value">3</span>
+                            <span class="slider-max">Alta</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cenario-mercado">Cenário de Mercado:</label>
+                        <select id="cenario-mercado">
+                            <option value="normal">Normal</option>
+                            <option value="stress">Stress</option>
+                            <option value="panico">Pânico</option>
+                        </select>
+                    </div>
+
+                    <button id="calcular-spread">Calcular Bid-Ask Spread</button>
+
+                    <div class="result" id="resultado-spread">
+                        <h3>Resultado da Análise</h3>
+                        <div id="bid-ask-estimado"></div>
+                        <div id="impacto-liquidez"></div>
+                        <div id="classificacao-liquidez"></div>
+                        <div id="recomendacao"></div>
+
+                        <div class="chart-container">
+                            <canvas id="resultadoChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Visualização de Cenários de Stress - Bid-Ask vs Duration</title>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+                    <script
+                        src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/2.1.0/chartjs-plugin-annotation.min.js"></script>
+                    <style>
+                        body {
+                            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                            background-color: #091B1E;
+                            color: #ffffff;
+                            margin: 0;
+                            padding: 20px;
+                        }
+
+                        .container {
+                            max-width: 1400px;
+                            margin: 0 auto;
+                        }
+
+                        .chart-container {
+                            background-color: #133134;
+                            border-radius: 10px;
+                            padding: 25px;
+                            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+                            margin-bottom: 30px;
+                            height: 500px;
+                            border: 1px solid rgba(166, 207, 46, 0.2);
+                        }
+
+                        .multi-chart-container {
+                            display: flex;
+                            gap: 20px;
+                            margin-bottom: 30px;
+                        }
+
+                        .chart-panel {
+                            flex: 1;
+                            background-color: #133134;
+                            border-radius: 10px;
+                            padding: 20px;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                            height: 300px;
+                            border: 1px solid rgba(166, 207, 46, 0.2);
+                        }
+
+                        h1,
+                        h2 {
+                            text-align: center;
+                            margin-bottom: 30px;
+                            color: #ffffff;
+                        }
+
+                        h1 {
+                            font-size: 1.8em;
+                            margin-top: 10px;
+                            position: relative;
+                            padding-bottom: 15px;
+                        }
+
+                        h1:after {
+                            content: '';
+                            position: absolute;
+                            bottom: 0;
+                            left: 50%;
+                            transform: translateX(-50%);
+                            width: 80px;
+                            height: 3px;
+                            background-color: #A6CF2E;
+                        }
+
+                        h2 {
+                            font-size: 1.4em;
+                            margin-top: 30px;
+                            margin-bottom: 20px;
+                            color: #A6CF2E;
+                        }
+
+                        .controls {
+                            display: flex;
+                            justify-content: center;
+                            gap: 20px;
+                            margin-bottom: 20px;
+                            flex-wrap: wrap;
+                        }
+
+                        button {
+                            background-color: #133134;
+                            color: #ffffff;
+                            border: 1px solid #A6CF2E;
+                            padding: 12px 18px;
+                            border-radius: 6px;
+                            cursor: pointer;
+                            transition: all 0.3s;
+                            font-weight: 500;
+                            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+                        }
+
+                        button:hover {
+                            background-color: rgba(166, 207, 46, 0.2);
+                            transform: translateY(-2px);
+                        }
+
+                        button.active {
+                            background-color: #A6CF2E;
+                            color: #091B1E;
+                        }
+
+                        .info-panel {
+                            background-color: #133134;
+                            border-radius: 10px;
+                            padding: 25px;
+                            margin-top: 25px;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                            border: 1px solid rgba(166, 207, 46, 0.2);
+                        }
+
+                        .footer {
+                            text-align: center;
+                            margin-top: 40px;
+                            font-size: 0.8em;
+                            color: #A6CF2E;
+                            padding: 20px;
+                            border-top: 1px solid rgba(166, 207, 46, 0.3);
+                        }
+
+                        .slider-container {
+                            width: 100%;
+                            margin: 30px auto 20px;
+                            text-align: center;
+                            background-color: rgba(19, 49, 52, 0.7);
+                            padding: 20px;
+                            border-radius: 8px;
+                            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+                            border: 1px solid rgba(166, 207, 46, 0.1);
+                        }
+
+                        .duration-slider {
+                            width: 90%;
+                            margin: 0 auto;
+                            display: block;
+                            -webkit-appearance: none;
+                            height: 8px;
+                            background: #133134;
+                            border-radius: 4px;
+                            outline: none;
+                        }
+
+                        .duration-slider::-webkit-slider-thumb {
+                            -webkit-appearance: none;
+                            appearance: none;
+                            width: 22px;
+                            height: 22px;
+                            background: #EC7000;
+                            border-radius: 50%;
+                            cursor: pointer;
+                            border: 2px solid #fff;
+                            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+                        }
+
+                        .duration-value {
+                            margin-top: 15px;
+                            font-size: 1.2em;
+                            font-weight: bold;
+                            color: #EC7000;
+                        }
+
+                        .progress-controls {
+                            display: flex;
+                            justify-content: center;
+                            gap: 20px;
+                            margin: 25px 0;
+                        }
+
+                        .duration-marker {
+                            display: flex;
+                            justify-content: space-between;
+                            width: 90%;
+                            margin: 10px auto;
+                            color: #A6CF2E;
+                            font-size: 0.9em;
+                        }
+
+                        .comparison-point {
+                            position: absolute;
+                            padding: 8px 12px;
+                            background: rgba(0, 0, 0, 0.7);
+                            border-radius: 4px;
+                            font-size: 12px;
+                            pointer-events: none;
+                        }
+
+                        .comparison-table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 20px;
+                            background-color: #133134;
+                            border-radius: 10px;
+                            overflow: hidden;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+                        }
+
+                        .comparison-table th,
+                        .comparison-table td {
+                            padding: 14px 18px;
+                            text-align: center;
+                            border: 1px solid #091B1E;
+                        }
+
+                        .comparison-table th {
+                            background-color: #091B1E;
+                            color: #A6CF2E;
+                            font-weight: bold;
+                            font-size: 1.05em;
+                        }
+
+                        .comparison-table .normal {
+                            color: #A6CF2E;
+                            font-weight: bold;
+                        }
+
+                        .comparison-table .moderado {
+                            color: #EC7000;
+                            font-weight: bold;
+                        }
+
+                        .comparison-table .severo {
+                            color: #FF4B4B;
+                            font-weight: bold;
+                        }
+
+                        .highlight-row {
+                            background-color: rgba(166, 207, 46, 0.1);
+                        }
+
+                        .key-insight {
+                            padding: 25px;
+                            background-color: #133134;
+                            border-left: 4px solid #EC7000;
+                            margin: 30px 0;
+                            border-radius: 0 10px 10px 0;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                        }
+
+                        .key-insight h3 {
+                            color: #A6CF2E;
+                            margin-top: 0;
+                            margin-bottom: 15px;
+                            font-size: 1.3em;
+                        }
+
+                        .key-insight strong {
+                            color: #EC7000;
+                        }
+
+                        .key-insight p {
+                            margin-bottom: 12px;
+                            line-height: 1.5;
+                        }
+
+                        .data-label {
+                            font-weight: bold;
+                            font-size: 12px;
+                        }
+
+                        #chartError {
+                            color: #FF4B4B;
+                            text-align: center;
+                            padding: 20px;
+                            font-weight: bold;
+                            display: none;
+                        }
+                    </style>
+                </head>
+
+                <body>
+                    <div class="container">
+                        <h1>Impacto da Duration no Bid-Ask Spread em Diferentes Cenários de Stress</h1>
+
+                        <!-- Gráfico principal -->
+                        <div class="chart-container">
+                            <canvas id="comparativoStressChart"></canvas>
+                            <div id="chartError"></div>
+                        </div>
+
+                        <!-- Controles de visualização -->
+                        <div class="controls">
+                            <button id="toggleBar" class="active">Visualização em Barras</button>
+                            <button id="toggleLine">Visualização em Linhas</button>
+                        </div>
+
+                        <!-- Gráficos de barras comparativas para durations específicas -->
+                        <h2>Comparativo em Durations Específicas</h2>
+                        <div class="multi-chart-container">
+                            <div class="chart-panel">
+                                <canvas id="comparisonChart1"></canvas>
+                            </div>
+                            <div class="chart-panel">
+                                <canvas id="comparisonChart3"></canvas>
+                            </div>
+                            <div class="chart-panel">
+                                <canvas id="comparisonChart5"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Tabela comparativa -->
+                        <h2>Tabela Comparativa dos Cenários</h2>
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Duration</th>
+                                    <th>Cenário Normal</th>
+                                    <th>Stress Moderado</th>
+                                    <th>Stress Severo</th>
+                                    <th>Diferença % (Normal vs Severo)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1 ano</td>
+                                    <td class="normal">0.20%</td>
+                                    <td class="moderado">0.60%</td>
+                                    <td class="severo">1.50%</td>
+                                    <td>+650%</td>
+                                </tr>
+                                <tr class="highlight-row">
+                                    <td>2 anos</td>
+                                    <td class="normal">0.30%</td>
+                                    <td class="moderado">0.90%</td>
+                                    <td class="severo">2.50%</td>
+                                    <td>+733%</td>
+                                </tr>
+                                <tr>
+                                    <td>3 anos</td>
+                                    <td class="normal">0.40%</td>
+                                    <td class="moderado">1.20%</td>
+                                    <td class="severo">3.50%</td>
+                                    <td>+775%</td>
+                                </tr>
+                                <tr class="highlight-row">
+                                    <td>4 anos</td>
+                                    <td class="normal">0.50%</td>
+                                    <td class="moderado">1.50%</td>
+                                    <td class="severo">4.50%</td>
+                                    <td>+800%</td>
+                                </tr>
+                                <tr>
+                                    <td>5 anos</td>
+                                    <td class="normal">0.60%</td>
+                                    <td class="moderado">1.80%</td>
+                                    <td class="severo">5.50%</td>
+                                    <td>+817%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="key-insight">
+                            <h3>Conclusões Principais:</h3>
+                            <p><strong>1. Efeito Exponencial:</strong> O aumento do bid-ask spread em cenários de stress
+                                é exponencialmente maior conforme a duration aumenta.</p>
+                            <p><strong>2. Ponto Crítico:</strong> Ativos com duration acima de 3 anos em cenário severo
+                                ultrapassam o limiar crítico de liquidez de 1.5%, tornando-os significativamente menos
+                                líquidos.</p>
+                            <p><strong>3. Vulnerabilidade Progressiva:</strong> A vulnerabilidade a condições de stress
+                                aumenta de forma desproporcional com a duration - ativos de longo prazo são
+                                desproporcionalmente afetados.</p>
+                        </div>
+
+                        <div class="info-panel">
+                            <h3>Sobre esta visualização</h3>
+                            <p>Este conjunto de visualizações demonstra como o Bid-Ask Spread (medida de liquidez) é
+                                afetado pela Duration (anos) em diferentes cenários de mercado:</p>
+                            <ul>
+                                <li><strong>Cenário Normal (verde):</strong> Condições padrão de mercado</li>
+                                <li><strong>Stress Moderado (laranja):</strong> Condições de volatilidade média</li>
+                                <li><strong>Stress Severo (vermelho):</strong> Cenário de crise e alta volatilidade</li>
+                            </ul>
+                            <p>A linha tracejada horizontal indica o limiar crítico de liquidez (1.5%).</p>
+                            <p>Alterne entre os tipos de visualização para obter diferentes perspectivas dos dados.</p>
+                        </div>
+
+                        <h2>Decomposição do Spread de Crédito</h2>
+
+                        <div class="chart-container">
+                            <canvas id="decomposicaoChart"></canvas>
+                        </div>
+
+                        <div class="destaque">
+                            <h3>Componentes do Spread de Crédito</h3>
+                            <p>O spread total observado em um título de crédito privado pode ser decomposto em:</p>
+                            <ul>
+                                <li><strong class="color-laranja">Risco de Crédito Puro:</strong> Probabilidade de
+                                    default × Loss Given
+                                    Default</li>
+                                <li><strong class="color-verde">Prêmio de Liquidez:</strong> Compensação pela
+                                    dificuldade de saída da
+                                    posição</li>
+                                <li><strong>Prêmio de Complexidade:</strong> Estrutura do papel e suas cláusulas</li>
+                                <li><strong>Prêmio de Duration:</strong> Relacionado ao prazo e sensibilidade a juros
+                                </li>
+                                <li><strong>Outros Fatores:</strong> Tributação, custos operacionais, etc.</li>
+                            </ul>
+                        </div>
+
+                        <div class="insight-box">
+                            <h4>A parcela de liquidez representa ~25% do spread total</h4>
+                            <p>Em média, 25% do spread de crédito privado é composto pelo prêmio de liquidez. Esta é uma
+                                oportunidade
+                                significativa para clientes com horizonte de longo prazo e que não necessitam de saídas
+                                rápidas da posição.
+                            </p>
+                        </div>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                try {
+                                    // Configuração básica dos gráficos
+                                    const chartConfig = {
+                                        responsive: true,
+                                        maintainAspectRatio: false,
+                                        plugins: {
+                                            legend: {
+                                                position: 'top',
+                                                labels: {
+                                                    font: {
+                                                        family: "'Segoe UI', sans-serif",
+                                                        size: 12
+                                                    },
+                                                    color: '#FFFFFF',
+                                                    usePointStyle: true,
+                                                    pointStyle: 'circle'
+                                                }
+                                            },
+                                            title: {
+                                                font: {
+                                                    family: "'Segoe UI', sans-serif",
+                                                    size: 16,
+                                                    weight: 'bold'
+                                                },
+                                                color: '#A6CF2E',
+                                                padding: {
+                                                    top: 10,
+                                                    bottom: 20
+                                                }
+                                            }
+                                        },
+                                        scales: {
+                                            y: {
+                                                grid: {
+                                                    color: 'rgba(166, 207, 46, 0.1)'
+                                                },
+                                                ticks: {
+                                                    color: '#FFFFFF'
+                                                }
+                                            },
+                                            x: {
+                                                grid: {
+                                                    color: 'rgba(166, 207, 46, 0.1)'
+                                                },
+                                                ticks: {
+                                                    color: '#FFFFFF'
+                                                }
+                                            }
+                                        }
+                                    };
+
+                                    // Dados para cenários
+                                    const normalData = [
+                                        { x: 1, y: 0.2 },
+                                        { x: 2, y: 0.3 },
+                                        { x: 3, y: 0.4 },
+                                        { x: 4, y: 0.5 },
+                                        { x: 5, y: 0.6 }
+                                    ];
+
+                                    const moderadoData = [
+                                        { x: 1, y: 0.6 },
+                                        { x: 2, y: 0.9 },
+                                        { x: 3, y: 1.2 },
+                                        { x: 4, y: 1.5 },
+                                        { x: 5, y: 1.8 }
+                                    ];
+
+                                    const severoData = [
+                                        { x: 1, y: 1.5 },
+                                        { x: 2, y: 2.5 },
+                                        { x: 3, y: 3.5 },
+                                        { x: 4, y: 4.5 },
+                                        { x: 5, y: 5.5 }
+                                    ];
+
+                                    // Variáveis para os gráficos
+                                    let mainChart = null;
+                                    let chart1Year = null;
+                                    let chart3Years = null;
+                                    let chart5Years = null;
+
+                                    // Função para criar o gráfico principal em modo de barras
+                                    function createBarChart() {
+                                        const ctx = document.getElementById('comparativoStressChart').getContext('2d');
+
+                                        // Limpar o gráfico anterior se existir
+                                        if (mainChart) {
+                                            mainChart.destroy();
+                                        }
+
+                                        // Preparar dados para o gráfico de barras
+                                        const labels = normalData.map(item => `${item.x} ano${item.x > 1 ? 's' : ''}`);
+                                        const normalValues = normalData.map(item => item.y);
+                                        const moderadoValues = moderadoData.map(item => item.y);
+                                        const severoValues = severoData.map(item => item.y);
+
+                                        mainChart = new Chart(ctx, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: labels,
+                                                datasets: [
+                                                    {
+                                                        label: 'Cenário Normal',
+                                                        data: normalValues,
+                                                        backgroundColor: 'rgba(166, 207, 46, 0.8)',
+                                                        borderColor: '#A6CF2E',
+                                                        borderWidth: 2
+                                                    },
+                                                    {
+                                                        label: 'Stress Moderado',
+                                                        data: moderadoValues,
+                                                        backgroundColor: 'rgba(236, 112, 0, 0.8)',
+                                                        borderColor: '#EC7000',
+                                                        borderWidth: 2
+                                                    },
+                                                    {
+                                                        label: 'Stress Severo',
+                                                        data: severoValues,
+                                                        backgroundColor: 'rgba(255, 75, 75, 0.8)',
+                                                        borderColor: '#FF4B4B',
+                                                        borderWidth: 2
+                                                    }
+                                                ]
+                                            },
+                                            options: {
+                                                ...chartConfig,
+                                                responsive: true,
+                                                maintainAspectRatio: false,
+                                                plugins: {
+                                                    ...chartConfig.plugins,
+                                                    title: {
+                                                        display: true,
+                                                        text: 'Bid-Ask Spread por Duration em Diferentes Cenários',
+                                                        ...chartConfig.plugins.title
+                                                    },
+                                                    annotation: {
+                                                        annotations: {
+                                                            line1: {
+                                                                type: 'line',
+                                                                yMin: 1.5,
+                                                                yMax: 1.5,
+                                                                borderColor: 'rgba(236, 112, 0, 0.8)',
+                                                                borderWidth: 2,
+                                                                borderDash: [5, 5],
+                                                                label: {
+                                                                    content: 'Limiar crítico de liquidez (1.5%)',
+                                                                    enabled: true,
+                                                                    position: 'end',
+                                                                    backgroundColor: 'rgba(9, 27, 30, 0.8)',
+                                                                    color: '#EC7000'
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    tooltip: {
+                                                        callbacks: {
+                                                            label: function (context) {
+                                                                const label = context.dataset.label || '';
+                                                                const value = context.parsed.y.toFixed(2);
+                                                                return `${label}: ${value}%`;
+                                                            },
+                                                            afterLabel: function (context) {
+                                                                if (context.datasetIndex > 0) {
+                                                                    const normalValue = normalValues[context.dataIndex];
+                                                                    const currentValue = context.parsed.y;
+                                                                    const diffPercent = ((currentValue - normalValue) / normalValue * 100).toFixed(0);
+                                                                    return `+${diffPercent}% vs. Cenário Normal`;
+                                                                }
+                                                                return '';
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                scales: {
+                                                    y: {
+                                                        beginAtZero: true,
+                                                        title: {
+                                                            display: true,
+                                                            text: 'Bid-Ask Spread (%)',
+                                                            color: '#FFFFFF'
+                                                        }
+                                                    },
+                                                    x: {
+                                                        title: {
+                                                            display: true,
+                                                            text: 'Duration',
+                                                            color: '#FFFFFF'
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            plugins: [{
+                                                id: 'customLabels',
+                                                afterDraw: function (chart) {
+                                                    var ctx = chart.ctx;
+
+                                                    chart.data.datasets.forEach(function (dataset, datasetIndex) {
+                                                        var meta = chart.getDatasetMeta(datasetIndex);
+                                                        if (!meta.hidden) {
+                                                            meta.data.forEach(function (element, index) {
+                                                                // Desenhar o valor acima de cada barra
+                                                                var dataString = dataset.data[index].toFixed(1) + '%';
+                                                                ctx.fillStyle = dataset.borderColor;
+                                                                ctx.font = 'bold 12px Arial';
+                                                                ctx.textAlign = 'center';
+                                                                ctx.textBaseline = 'bottom';
+
+                                                                // Posicionar o texto no topo da barra
+                                                                ctx.fillText(dataString, element.x, element.y - 5);
+                                                            });
+                                                        }
+                                                    });
+                                                }
+                                            }]
+                                        });
+
+                                        // Mostrar os botões de troca corretamente
+                                        document.getElementById('toggleBar').classList.add('active');
+                                        document.getElementById('toggleLine').classList.remove('active');
+                                    }
+
+                                    // Função para criar o gráfico principal em modo de linhas
+                                    function createLineChart() {
+                                        const ctx = document.getElementById('comparativoStressChart').getContext('2d');
+
+                                        // Limpar o gráfico anterior se existir
+                                        if (mainChart) {
+                                            mainChart.destroy();
+                                        }
+
+                                        mainChart = new Chart(ctx, {
+                                            type: 'line',
+                                            data: {
+                                                datasets: [
+                                                    {
+                                                        label: 'Cenário Normal',
+                                                        data: normalData,
+                                                        borderColor: '#A6CF2E',
+                                                        backgroundColor: 'rgba(166, 207, 46, 0.1)',
+                                                        borderWidth: 3,
+                                                        pointBackgroundColor: '#A6CF2E',
+                                                        pointBorderColor: '#FFFFFF',
+                                                        pointRadius: 5,
+                                                        pointHoverRadius: 8,
+                                                        tension: 0.4,
+                                                        fill: true
+                                                    },
+                                                    {
+                                                        label: 'Stress Moderado',
+                                                        data: moderadoData,
+                                                        borderColor: '#EC7000',
+                                                        backgroundColor: 'rgba(236, 112, 0, 0.1)',
+                                                        borderWidth: 3,
+                                                        pointBackgroundColor: '#EC7000',
+                                                        pointBorderColor: '#FFFFFF',
+                                                        pointRadius: 5,
+                                                        pointHoverRadius: 8,
+                                                        tension: 0.4,
+                                                        fill: true
+                                                    },
+                                                    {
+                                                        label: 'Stress Severo',
+                                                        data: severoData,
+                                                        borderColor: '#FF4B4B',
+                                                        backgroundColor: 'rgba(255, 75, 75, 0.1)',
+                                                        borderWidth: 3,
+                                                        pointBackgroundColor: '#FF4B4B',
+                                                        pointBorderColor: '#FFFFFF',
+                                                        pointRadius: 5,
+                                                        pointHoverRadius: 8,
+                                                        tension: 0.4,
+                                                        fill: true
+                                                    }
+                                                ]
+                                            },
+                                            options: {
+                                                ...chartConfig,
+                                                responsive: true,
+                                                maintainAspectRatio: false,
+                                                plugins: {
+                                                    ...chartConfig.plugins,
+                                                    title: {
+                                                        display: true,
+                                                        text: 'Relação entre Duration e Bid-Ask Spread',
+                                                        ...chartConfig.plugins.title
+                                                    },
+                                                    annotation: {
+                                                        annotations: {
+                                                            line1: {
+                                                                type: 'line',
+                                                                yMin: 1.5,
+                                                                yMax: 1.5,
+                                                                borderColor: 'rgba(236, 112, 0, 0.8)',
+                                                                borderWidth: 2,
+                                                                borderDash: [5, 5],
+                                                                label: {
+                                                                    content: 'Limiar crítico de liquidez (1.5%)',
+                                                                    enabled: true,
+                                                                    position: 'end',
+                                                                    backgroundColor: 'rgba(9, 27, 30, 0.8)',
+                                                                    color: '#EC7000'
+                                                                }
+                                                            }
+                                                        }
+                                                    },
+                                                    tooltip: {
+                                                        callbacks: {
+                                                            label: function (context) {
+                                                                const label = context.dataset.label || '';
+                                                                const value = context.parsed.y.toFixed(2);
+                                                                return `${label}: ${value}% (Duration: ${context.parsed.x} anos)`;
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                scales: {
+                                                    y: {
+                                                        beginAtZero: true,
+                                                        title: {
+                                                            display: true,
+                                                            text: 'Bid-Ask Spread (%)',
+                                                            color: '#FFFFFF'
+                                                        }
+                                                    },
+                                                    x: {
+                                                        type: 'linear',
+                                                        position: 'bottom',
+                                                        min: 0.5,
+                                                        max: 5.5,
+                                                        title: {
+                                                            display: true,
+                                                            text: 'Duration (anos)',
+                                                            color: '#FFFFFF'
+                                                        },
+                                                        ticks: {
+                                                            stepSize: 1,
+                                                            callback: function (value) {
+                                                                if (value % 1 === 0) return value;
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                interaction: {
+                                                    mode: 'index',
+                                                    intersect: false
+                                                }
+                                            }
+                                        });
+
+                                        // Mostrar os botões de troca corretamente
+                                        document.getElementById('toggleBar').classList.remove('active');
+                                        document.getElementById('toggleLine').classList.add('active');
+                                    }
+
+                                    // Função para criar os gráficos de comparação
+                                    function createComparisonCharts() {
+                                        // Gráfico para Duration = 1 ano
+                                        const ctx1 = document.getElementById('comparisonChart1').getContext('2d');
+                                        chart1Year = new Chart(ctx1, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: ['Cenário Normal', 'Stress Moderado', 'Stress Severo'],
+                                                datasets: [{
+                                                    label: 'Bid-Ask Spread (%) para Duration = 1 ano',
+                                                    data: [0.2, 0.6, 1.5],
+                                                    backgroundColor: [
+                                                        'rgba(166, 207, 46, 0.8)',
+                                                        'rgba(236, 112, 0, 0.8)',
+                                                        'rgba(255, 75, 75, 0.8)'
+                                                    ],
+                                                    borderColor: [
+                                                        '#A6CF2E',
+                                                        '#EC7000',
+                                                        '#FF4B4B'
+                                                    ],
+                                                    borderWidth: 2
+                                                }]
+                                            },
+                                            options: {
+                                                ...chartConfig,
+                                                plugins: {
+                                                    ...chartConfig.plugins,
+                                                    title: {
+                                                        display: true,
+                                                        text: 'Duration = 1 ano',
+                                                        ...chartConfig.plugins.title
+                                                    }
+                                                },
+                                                scales: {
+                                                    y: {
+                                                        ...chartConfig.scales.y,
+                                                        beginAtZero: true,
+                                                        suggestedMax: 2
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                        // Gráfico para Duration = 3 anos
+                                        const ctx3 = document.getElementById('comparisonChart3').getContext('2d');
+                                        chart3Years = new Chart(ctx3, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: ['Cenário Normal', 'Stress Moderado', 'Stress Severo'],
+                                                datasets: [{
+                                                    label: 'Bid-Ask Spread (%) para Duration = 3 anos',
+                                                    data: [0.4, 1.2, 3.5],
+                                                    backgroundColor: [
+                                                        'rgba(166, 207, 46, 0.8)',
+                                                        'rgba(236, 112, 0, 0.8)',
+                                                        'rgba(255, 75, 75, 0.8)'
+                                                    ],
+                                                    borderColor: [
+                                                        '#A6CF2E',
+                                                        '#EC7000',
+                                                        '#FF4B4B'
+                                                    ],
+                                                    borderWidth: 2
+                                                }]
+                                            },
+                                            options: {
+                                                ...chartConfig,
+                                                plugins: {
+                                                    ...chartConfig.plugins,
+                                                    title: {
+                                                        display: true,
+                                                        text: 'Duration = 3 anos',
+                                                        ...chartConfig.plugins.title
+                                                    },
+                                                    annotation: {
+                                                        annotations: {
+                                                            line1: {
+                                                                type: 'line',
+                                                                yMin: 1.5,
+                                                                yMax: 1.5,
+                                                                borderColor: 'rgba(236, 112, 0, 0.8)',
+                                                                borderWidth: 2,
+                                                                borderDash: [5, 5]
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                scales: {
+                                                    y: {
+                                                        ...chartConfig.scales.y,
+                                                        beginAtZero: true,
+                                                        suggestedMax: 4
+                                                    }
+                                                }
+                                            }
+                                        });
+
+                                        // Gráfico para Duration = 5 anos
+                                        const ctx5 = document.getElementById('comparisonChart5').getContext('2d');
+                                        chart5Years = new Chart(ctx5, {
+                                            type: 'bar',
+                                            data: {
+                                                labels: ['Cenário Normal', 'Stress Moderado', 'Stress Severo'],
+                                                datasets: [{
+                                                    label: 'Bid-Ask Spread (%) para Duration = 5 anos',
+                                                    data: [0.6, 1.8, 5.5],
+                                                    backgroundColor: [
+                                                        'rgba(166, 207, 46, 0.8)',
+                                                        'rgba(236, 112, 0, 0.8)',
+                                                        'rgba(255, 75, 75, 0.8)'
+                                                    ],
+                                                    borderColor: [
+                                                        '#A6CF2E',
+                                                        '#EC7000',
+                                                        '#FF4B4B'
+                                                    ],
+                                                    borderWidth: 2
+                                                }]
+                                            },
+                                            options: {
+                                                ...chartConfig,
+                                                plugins: {
+                                                    ...chartConfig.plugins,
+                                                    title: {
+                                                        display: true,
+                                                        text: 'Duration = 5 anos',
+                                                        ...chartConfig.plugins.title
+                                                    },
+                                                    annotation: {
+                                                        annotations: {
+                                                            line1: {
+                                                                type: 'line',
+                                                                yMin: 1.5,
+                                                                yMax: 1.5,
+                                                                borderColor: 'rgba(236, 112, 0, 0.8)',
+                                                                borderWidth: 2,
+                                                                borderDash: [5, 5]
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                scales: {
+                                                    y: {
+                                                        ...chartConfig.scales.y,
+                                                        beginAtZero: true,
+                                                        suggestedMax: 6
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+
+                                    // Inicializar os gráficos
+                                    try {
+                                        createBarChart();
+                                        createComparisonCharts();
+                                    } catch (error) {
+                                        console.error("Erro ao criar os gráficos:", error);
+                                        document.getElementById('chartError').innerText = "Erro ao carregar o gráfico. Por favor, tente novamente.";
+                                        document.getElementById('chartError').style.display = "block";
+                                    }
+
+                                    // Adicionar event listeners para os botões de toggle
+                                    document.getElementById('toggleBar').addEventListener('click', function () {
+                                        createBarChart();
+                                    });
+
+                                    document.getElementById('toggleLine').addEventListener('click', function () {
+                                        createLineChart();
+                                    });
+
+                                } catch (error) {
+                                    console.error("Erro na inicialização:", error);
+                                    document.getElementById('chartError').innerText = "Ocorreu um erro ao inicializar o gráfico. Por favor, atualize a página.";
+                                    document.getElementById('chartError').style.display = "block";
+                                }
+                            });
+                        </script>
+                </body>
+            </section>
+        </div>
+
+        <div class="tab-content" id="aplicacoes">
+            <section class="secao" id="aplicacao-pratica">
+                <h2>Aplicação Prática: Montando uma Carteira por Liquidez</h2>
+
+                <div class="insight-box">
+                    <h4>Estrutura em camadas: maximizando retorno com controle de risco</h4>
+                    <p>A distribuição adequada entre camadas de liquidez permite a captura de prêmios de forma
+                        consciente e a proteção contra cenários adversos. Ajuste os controles abaixo e veja como
+                        diferentes distribuições afetam o perfil da carteira.</p>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="carteiraChart"></canvas>
+                </div>
+
+                <h3>Composição da Carteira</h3>
+                <p>Ajuste os percentuais de cada camada abaixo. Os valores serão automaticamente rebalanceados para
+                    totalizarem 100%.</p>
+
+                <div class="range-container">
+                    <label for="alta-liquidez-slider">Camada de Alta Liquidez (%):</label>
+                    <input type="range" min="0" max="100" step="1" value="35" class="range-slider"
+                        id="alta-liquidez-slider">
+                    <div class="slider-labels">
+                        <span class="slider-min">0%</span>
+                        <span id="alta-liquidez-value" class="slider-value">35%</span>
+                        <span class="slider-max">100%</span>
+                    </div>
+                </div>
+
+                <div class="range-container">
+                    <label for="media-liquidez-slider">Camada de Média Liquidez (%):</label>
+                    <input type="range" min="0" max="100" step="1" value="45" class="range-slider"
+                        id="media-liquidez-slider">
+                    <div class="slider-labels">
+                        <span class="slider-min">0%</span>
+                        <span id="media-liquidez-value" class="slider-value">45%</span>
+                        <span class="slider-max">100%</span>
+                    </div>
+                </div>
+
+                <div class="range-container">
+                    <label for="baixa-liquidez-slider">Camada de Baixa Liquidez (%):</label>
+                    <input type="range" min="0" max="100" step="1" value="20" class="range-slider"
+                        id="baixa-liquidez-slider">
+                    <div class="slider-labels">
+                        <span class="slider-min">0%</span>
+                        <span id="baixa-liquidez-value" class="slider-value">20%</span>
+                        <span class="slider-max">100%</span>
+                    </div>
+                </div>
+
+                <div class="destaque" id="resultado-carteira">
+                    <h3>Características da Carteira Modelo</h3>
+                    <div id="caracteristicas-carteira"></div>
+                </div>
+
+                <div class="flexrow">
+                    <div class="card">
+                        <h3>Camada de Alta Liquidez</h3>
+                        <ul>
+                            <li><strong>Ativos:</strong> Duration curta, emissores AAA/AA</li>
+                            <li><strong>Bid-Ask Médio:</strong> 0,1% - 0,3%</li>
+                            <li><strong>Spread sobre CDI:</strong> CDI + 0,5% a 1,0%</li>
+                            <li><strong>Tempo de saída:</strong> D+0/D+1 em qualquer cenário</li>
+                            <li><strong>Função:</strong> Reserva de liquidez estratégica</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>Camada de Média Liquidez</h3>
+                        <ul>
+                            <li><strong>Ativos:</strong> Duration média, rating AA/A</li>
+                            <li><strong>Bid-Ask Médio:</strong> 0,3% - 0,8%</li>
+                            <li><strong>Spread sobre CDI:</strong> CDI + 1,0% a 2,0%</li>
+                            <li><strong>Tempo de saída:</strong> D+1/D+3 em cenário normal</li>
+                            <li><strong>Função:</strong> Equilíbrio entre retorno e liquidez</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>Camada de Baixa Liquidez</h3>
+                        <ul>
+                            <li><strong>Ativos:</strong> Duration longa, rating BBB+</li>
+                            <li><strong>Bid-Ask Médio:</strong> 0,8% - 2,0%</li>
+                            <li><strong>Spread sobre CDI:</strong> CDI + 2,0% a 3,5%</li>
+                            <li><strong>Tempo de saída:</strong> >D+5 ou manter até vencimento</li>
+                            <li><strong>Função:</strong> Captura de prêmio de liquidez</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="secao" id="argumentos-comerciais">
+                <h2>Transformando Conhecimento Técnico em Argumentos Comerciais</h2>
+
+                <div class="flexrow">
+                    <div class="card">
+                        <h3>Para Clientes Conservadores</h3>
+                        <ul>
+                            <li>"Podemos estimar previamente o impacto em D+1 com base na nossa modelagem avançada de
+                                liquidez"</li>
+                            <li>"Estruturamos uma camada de alta liquidez de 40% para minimizar o impacto de resgates
+                                inesperados"</li>
+                            <li>"Nossa análise técnica identifica papéis com menor sensibilidade a cenários de stress"
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3>Para Clientes Moderados/Arrojados</h3>
+                        <ul>
+                            <li>"O prêmio de liquidez representa em média 25% do spread - uma oportunidade para
+                                investidores de longo prazo"</li>
+                            <li>"Nossa abordagem permite capturar spreads maiores de forma controlada e consciente"</li>
+                            <li>"Podemos criar uma camada tática de 20% em papéis com maior prêmio de liquidez"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="destaque">
+                    <h3>Pontos-chave</h3>
+                    <ol>
+                        <li>A liquidez não é binária, mas um espectro contínuo que deve ser quantificado</li>
+                        <li>O bid-ask spread é um indicador valioso, mas insuficiente para avaliar toda a liquidez</li>
+                        <li>As tesourarias são atores centrais na formação de preços e liquidez</li>
+                        <li>O comportamento da liquidez é não-linear em momentos de stress</li>
+                        <li>A antecipação do impacto em D+1 é um diferencial técnico e comercial</li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>© 2025  - Material Educacional Interativo</p>
+        </footer>
+    </div>
+
+    <script>
+        // Dados para gráficos e simulações
+        const emissoes = {
+            'all': {
+                labels: ['2020', '2021', '2022', '2023', '2024', 'Jan/2025'],
+                data: [150, 210, 362, 157, 261, 43]
+            },
+            '2020': {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                data: [52, 20, 35, 43]
+            },
+            '2021': {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                data: [45, 50, 55, 60]
+            },
+            '2022': {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                data: [75, 92, 95, 100]
+            },
+            '2023': {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                data: [30, 40, 42, 45]
+            },
+            '2024': {
+                labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+                data: [55, 62, 70, 74]
+            },
+            '2025': {
+                labels: ['Jan'],
+                data: [43]
+            }
+        };
+
+        // Configuração comum para todos os gráficos
+        const chartConfig = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#FFFFFF'
+                    }
+                },
+                title: {
+                    color: '#FFFFFF',
+                    font: {
+                        size: 16
+                    },
+                    display: true
+                }
+            },
+            scales: {
+                y: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#FFFFFF'
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)'
+                    },
+                    ticks: {
+                        color: '#FFFFFF'
+                    }
+                }
+            },
+            animation: {
+                duration: 1500,
+                easing: 'easeOutQuart'
+            }
+        };
+
+        // Funções de interatividade
+        document.addEventListener('DOMContentLoaded', function () {
+            // Configuração das abas principais
+            setupMainTabs();
+
+            // Configuração das abas dentro das seções
+            setupTabs();
+
+            // Configuração dos acordeões
+            setupAccordions();
+
+            // Configuração dos sliders
+            setupSliders();
+
+            // Configuração dos toggles de conteúdo
+            setupToggles();
+
+            // Configuração dos cálculos da calculadora de bid-ask spread
+            setupBidAskCalculator();
+
+            // Configuração dos cálculos da calculadora de impacto D+1
+            setupImpactoCalculator();
+
+            // Configuração da simulação de carteira
+            setupCarteira();
+
+            // Cria os gráficos
+            createCharts();
+        });
+
+        // Função para configurar as abas principais
+        function setupMainTabs() {
+            const mainTabs = document.querySelectorAll('.container > .tabs > .tab');
+
+            mainTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.getAttribute('data-tab');
+
+                    // Remove a classe active de todas as abas e conteúdos
+                    document.querySelectorAll('.container > .tabs > .tab').forEach(t => {
+                        t.classList.remove('active');
+                    });
+
+                    document.querySelectorAll('.container > .tab-content').forEach(c => {
+                        c.classList.remove('active');
+                    });
+
+                    // Adiciona a classe active à aba clicada e seu conteúdo
+                    tab.classList.add('active');
+                    document.getElementById(tabName).classList.add('active');
+                });
+            });
+        }
+
+        // Função para configurar as abas internas
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.secao .tab');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.getAttribute('data-tab');
+                    const tabsContainer = tab.closest('.tabs');
+                    const tabContentContainer = tabsContainer.nextElementSibling.closest('.secao');
+
+                    // Remove a classe active de todas as abas neste container
+                    tabsContainer.querySelectorAll('.tab').forEach(t => {
+                        t.classList.remove('active');
+                    });
+
+                    // Remove a classe active de todos os conteúdos
+                    const tabContents = tabContentContainer.querySelectorAll('.tab-content');
+                    tabContents.forEach(c => {
+                        c.classList.remove('active');
+                    });
+
+                    // Adiciona a classe active à aba clicada e seu conteúdo
+                    tab.classList.add('active');
+                    const activeContent = document.getElementById(tabName);
+                    if (activeContent) {
+                        activeContent.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // Função para configurar os acordeões
+        function setupAccordions() {
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+            accordionHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const isOpen = content.style.display === 'block';
+
+                    // Fecha todos os acordeões neste container
+                    const accordion = header.closest('.accordion');
+                    accordion.querySelectorAll('.accordion-content').forEach(c => {
+                        c.style.display = 'none';
+                    });
+
+                    accordion.querySelectorAll('.accordion-header span').forEach(s => {
+                        s.textContent = '+';
+                    });
+
+                    // Se não estava aberto, abre o atual
+                    if (!isOpen) {
+                        content.style.display = 'block';
+                        header.querySelector('span').textContent = '-';
+                    }
+                });
+            });
+        }
+
+        // Função para configurar os controles deslizantes
+        function setupSliders() {
+            // Sliders da modelagem de liquidez
+            const durationSlider = document.getElementById('duration-slider');
+            const durationValue = document.getElementById('duration-value');
+
+            const emissaoSlider = document.getElementById('emissao-slider');
+            const emissaoValue = document.getElementById('emissao-value');
+
+            const volatilidadeSlider = document.getElementById('volatilidade-slider');
+            const volatilidadeValue = document.getElementById('volatilidade-value');
+
+            if (durationSlider && durationValue) {
+                durationSlider.addEventListener('input', () => {
+                    durationValue.textContent = durationSlider.value;
+                });
+            }
+
+            if (emissaoSlider && emissaoValue) {
+                emissaoSlider.addEventListener('input', () => {
+                    emissaoValue.textContent = emissaoSlider.value;
+                });
+            }
+
+            if (volatilidadeSlider && volatilidadeValue) {
+                volatilidadeSlider.addEventListener('input', () => {
+                    volatilidadeValue.textContent = volatilidadeSlider.value;
+                });
+            }
+
+            // Sliders da carteira
+            const altaLiquidezSlider = document.getElementById('alta-liquidez-slider');
+            const altaLiquidezValue = document.getElementById('alta-liquidez-value');
+
+            const mediaLiquidezSlider = document.getElementById('media-liquidez-slider');
+            const mediaLiquidezValue = document.getElementById('media-liquidez-value');
+
+            const baixaLiquidezSlider = document.getElementById('baixa-liquidez-slider');
+            const baixaLiquidezValue = document.getElementById('baixa-liquidez-value');
+
+            if (altaLiquidezSlider && altaLiquidezValue) {
+                altaLiquidezSlider.addEventListener('input', () => {
+                    altaLiquidezValue.textContent = altaLiquidezSlider.value + '%';
+                    updateCarteira();
+                });
+            }
+
+            if (mediaLiquidezSlider && mediaLiquidezValue) {
+                mediaLiquidezSlider.addEventListener('input', () => {
+                    mediaLiquidezValue.textContent = mediaLiquidezSlider.value + '%';
+                    updateCarteira();
+                });
+            }
+
+            if (baixaLiquidezSlider && baixaLiquidezValue) {
+                baixaLiquidezSlider.addEventListener('input', () => {
+                    baixaLiquidezValue.textContent = baixaLiquidezSlider.value + '%';
+                    updateCarteira();
+                });
+            }
+        }
+
+        // Função para configurar os botões de alternância de conteúdo
+        function setupToggles() {
+            const toggleButtons = document.querySelectorAll('.toggle-content');
+
+            toggleButtons.forEach(button => {
+                const targetId = button.getAttribute('data-target');
+                const targetContent = document.getElementById(targetId);
+
+                button.addEventListener('click', () => {
+                    if (targetContent.style.display === 'block') {
+                        targetContent.style.display = 'none';
+                        button.textContent = 'Ver ' + targetContent.getAttribute('data-title');
+                    } else {
+                        targetContent.style.display = 'block';
+                        button.textContent = 'Ocultar ' + targetContent.getAttribute('data-title');
+                    }
+                });
+            });
+        }
+
+        // Função para configurar a calculadora de Bid-Ask Spread
+        function setupBidAskCalculator() {
+            const calcButton = document.getElementById('calcular-spread');
+
+            if (calcButton) {
+                calcButton.addEventListener('click', () => {
+                    const tipoAtivo = document.getElementById('tipo-ativo').value;
+                    const rating = document.getElementById('rating').value;
+                    const duration = parseFloat(document.getElementById('duration-slider').value);
+                    const emissao = parseFloat(document.getElementById('emissao-slider').value);
+                    const volatilidade = parseFloat(document.getElementById('volatilidade-slider').value);
+                    const cenario = document.getElementById('cenario-mercado').value;
+
+                    // Fatores para o cálculo
+                    let fatorTipo = 1;
+                    if (tipoAtivo === 'cri') fatorTipo = 1.2;
+                    if (tipoAtivo === 'cra') fatorTipo = 1.3;
+
+                    let fatorRating = 1;
+                    if (rating === 'AA') fatorRating = 1.2;
+                    if (rating === 'A') fatorRating = 1.5;
+                    if (rating === 'BBB') fatorRating = 2;
+                    if (rating === 'BB') fatorRating = 2.5;
+
+                    let fatorCenario = 1;
+                    if (cenario === 'stress') fatorCenario = 2.5;
+                    if (cenario === 'panico') fatorCenario = 5;
+
+                    // Cálculo do bid-ask spread - simulação do que seria processado em C++
+                    const alpha = 0.05;
+                    const beta1 = 0.05; // Duration
+                    const beta2 = -0.05; // Rating (mais alto = menor spread)
+                    const beta3 = -0.0001; // Tamanho da emissão (maior = menor spread)
+                    const beta5 = 0.03; // Volatilidade
+
+                    let ratingNumeric = 5; // AAA
+                    if (rating === 'AA') ratingNumeric = 4;
+                    if (rating === 'A') ratingNumeric = 3;
+                    if (rating === 'BBB') ratingNumeric = 2;
+                    if (rating === 'BB') ratingNumeric = 1;
+
+                    // Fórmula do modelo
+                    const bidAskBase = alpha +
+                        beta1 * duration +
+                        beta2 * ratingNumeric +
+                        beta3 * emissao +
+                        beta5 * volatilidade;
+
+                    const bidAskTotal = Math.max(0.1, bidAskBase * fatorTipo * fatorCenario);
+
+                    // Classificação da liquidez
+                    let classificacao = '';
+                    if (bidAskTotal < 0.5) {
+                        classificacao = 'Alta liquidez';
+                    } else if (bidAskTotal < 1.5) {
+                        classificacao = 'Média liquidez';
+                    } else {
+                        classificacao = 'Baixa liquidez';
+                    }
+
+                    // Recomendação
+                    let recomendacao = '';
+                    if (bidAskTotal < 0.5) {
+                        recomendacao = 'Adequado para todos os perfis de investidores, inclusive aqueles com horizonte de curto prazo.';
+                    } else if (bidAskTotal < 1.5) {
+                        recomendacao = 'Recomendado para investidores com horizonte de médio prazo, que podem suportar alguma volatilidade.';
+                    } else {
+                        recomendacao = 'Adequado apenas para investidores com horizonte de longo prazo, dispostos a manter o ativo até o vencimento.';
+                    }
+
+                    // Atualiza a interface com os resultados
+                    document.getElementById('bid-ask-estimado').innerHTML = `<strong>Bid-Ask Spread Estimado:</strong> ${bidAskTotal.toFixed(2)}%`;
+                    document.getElementById('impacto-liquidez').innerHTML = `<strong>Impacto do Rating:</strong> +${((fatorRating - 1) * 100).toFixed(0)}% | <strong>Impacto da Duration:</strong> +${((duration * beta1) * 100).toFixed(0)}%`;
+                    document.getElementById('classificacao-liquidez').innerHTML = `<strong>Classificação de Liquidez:</strong> ${classificacao}`;
+                    document.getElementById('recomendacao').innerHTML = `<strong>Recomendação:</strong> ${recomendacao}`;
+
+                    // Exibe o resultado
+                    document.getElementById('resultado-spread').style.display = 'block';
+
+                    // Atualiza o gráfico com o resultado
+                    updateResultadoChart(duration, bidAskTotal);
+                });
+            }
+        }
+
+        // Função para atualizar o gráfico de resultado do bid-ask
+        function updateResultadoChart(duration, bidAskValue) {
+            const canvas = document.getElementById('resultadoChart');
+            if (!canvas) return;
+
+            // Se já existe um gráfico, destrua-o
+            if (window.resultadoChartInstance) {
+                window.resultadoChartInstance.destroy();
+            }
+
+            // Gera dados para o gráfico
+            const data = [];
+            const labels = [];
+
+            for (let i = 0.5; i <= 10; i += 0.5) {
+                labels.push(i);
+                if (i === duration) {
+                    data.push(bidAskValue);
+                } else {
+                    // Cria uma curva suave em torno do valor real
+                    const factor = Math.min(1 + Math.abs(i - duration) * 0.2, 2);
+                    data.push(i < duration ? bidAskValue / factor : bidAskValue * (i / duration) * 0.5);
+                }
+            }
+
+            // Cria o gráfico
+            window.resultadoChartInstance = new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Bid-Ask Spread por Duration',
+                        data: data,
+                        borderColor: '#A6CF2E',
+                        backgroundColor: 'rgba(166, 207, 46, 0.1)',
+                        pointBackgroundColor: '#EC7000',
+                        pointRadius: duration === 3.5 ? 8 : 0,
+                        pointHoverRadius: 8,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    ...chartConfig,
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Relação entre Duration e Bid-Ask Spread',
+                            ...chartConfig.plugins.title
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ...chartConfig.scales.y,
+                            title: {
+                                display: true,
+                                text: 'Bid-Ask Spread (%)',
+                                color: '#FFFFFF'
+                            },
+                            beginAtZero: true
+                        },
+                        x: {
+                            ...chartConfig.scales.x,
+                            title: {
+                                display: true,
+                                text: 'Duration (anos)',
+                                color: '#FFFFFF'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Função para configurar a calculadora de Impacto D+1
+        function setupImpactoCalculator() {
+            const calcButton = document.getElementById('calcular-marcacao');
+
+            if (calcButton) {
+                calcButton.addEventListener('click', () => {
+                    const tipoAtivo = document.getElementById('tipo-ativo-marcacao').value;
+                    const valorInvestido = parseFloat(document.getElementById('valor-investido').value);
+                    const duration = parseFloat(document.getElementById('duration-marcacao').value);
+                    const rating = document.getElementById('rating-marcacao').value;
+                    const variacaoSpread = parseFloat(document.getElementById('variacao-spread').value);
+                    const cenarioMercado = document.getElementById('cenario-mercado-marcacao').value;
+
+                    // Fator multiplicador baseado no cenário de mercado
+                    let fatorCenario = 1;
+                    if (cenarioMercado === 'stress') fatorCenario = 2.5;
+                    if (cenarioMercado === 'panico') fatorCenario = 5;
+
+                    // Fator multiplicador baseado no rating
+                    let fatorRating = 1;
+                    if (rating === 'AA') fatorRating = 1.2;
+                    if (rating === 'A') fatorRating = 1.5;
+                    if (rating === 'BBB') fatorRating = 2;
+                    if (rating === 'BB') fatorRating = 2.5;
+
+                    // Cálculo do impacto percentual
+                    // Esta seria a integração com C++ em um ambiente de produção
+                    // Comentário: Este cálculo seria realizado pelo módulo C++ em produção
+                    const impactoPercentual = -(duration * (variacaoSpread / 10000) * fatorCenario * fatorRating);
+                    const impactoValor = valorInvestido * impactoPercentual;
+
+                    // Estimativa de bid-ask spread
+                    let bidAskBase = 0;
+                    if (tipoAtivo === 'debenture') bidAskBase = 0.3;
+                    if (tipoAtivo === 'cri') bidAskBase = 0.5;
+                    if (tipoAtivo === 'cra') bidAskBase = 0.6;
+
+                    const bidAskEstimado = bidAskBase * fatorRating * fatorCenario;
+
+                    // Classificação da liquidez
+                    let liquidezTexto = '';
+                    if (bidAskEstimado < 1) liquidezTexto = 'Alta';
+                    else if (bidAskEstimado < 2.5) liquidezTexto = 'Média';
+                    else liquidezTexto = 'Baixa';
+
+                    // Texto de recomendação
+                    let recomendacao = '';
+                    if (Math.abs(impactoPercentual) < 0.005) {
+                        recomendacao = 'Impacto de marcação a mercado baixo. Pode ser comunicado ao cliente com tranquilidade.';
+                    } else if (Math.abs(impactoPercentual) < 0.015) {
+                        recomendacao = 'Impacto de marcação moderado. Recomenda-se explicar o comportamento esperado ao cliente.';
+                    } else {
+                        recomendacao = 'Impacto de marcação relevante. É essencial preparar o cliente para potencial volatilidade.';
+                    }
+
+                    // Atualiza a interface
+                    document.getElementById('impacto-valor').innerHTML = `<strong>Impacto Estimado em Valor:</strong> R$ ${impactoValor.toFixed(2)}`;
+                    document.getElementById('impacto-percentual').innerHTML = `<strong>Impacto Percentual:</strong> ${(impactoPercentual * 100).toFixed(2)}%`;
+                    document.getElementById('bid-ask-estimado-marcacao').innerHTML = `<strong>Bid-Ask Spread Estimado:</strong> ${bidAskEstimado.toFixed(2)}%`;
+                    document.getElementById('liquidez-estimada').innerHTML = `<strong>Classificação de Liquidez:</strong> ${liquidezTexto}`;
+                    document.getElementById('recomendacao-marcacao').innerHTML = `<strong>Recomendação:</strong> ${recomendacao}`;
+
+                    // Exibe o resultado
+                    document.getElementById('resultado-marcacao').style.display = 'block';
+
+                    // Atualiza o gráfico de impacto
+                    updateImpactoChart(duration, impactoPercentual);
+                });
+            }
+        }
+
+        // Função para atualizar o gráfico de impacto
+        function updateImpactoChart(duration, impactoPercentual) {
+            const canvas = document.getElementById('impactoChart');
+            if (!canvas) return;
+
+            // Se já existe um gráfico, destrua-o
+            if (window.impactoChartInstance) {
+                window.impactoChartInstance.destroy();
+            }
+
+            // Gera dados para o gráfico
+            const dataPositive = [];
+            const dataNegative = [];
+            const labels = [];
+
+            for (let i = 0.5; i <= 10; i += 0.5) {
+                labels.push(i);
+                if (impactoPercentual < 0) {
+                    dataPositive.push(null);
+                    dataNegative.push(-(i / duration) * Math.abs(impactoPercentual) * 100);
+                } else {
+                    dataPositive.push((i / duration) * impactoPercentual * 100);
+                    dataNegative.push(null);
+                }
+            }
+
+            // Cria o gráfico
+            window.impactoChartInstance = new Chart(canvas, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Impacto Positivo (%)',
+                            data: dataPositive,
+                            borderColor: '#A6CF2E',
+                            backgroundColor: 'rgba(166, 207, 46, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Impacto Negativo (%)',
+                            data: dataNegative,
+                            borderColor: '#EC7000',
+                            backgroundColor: 'rgba(236, 112, 0, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    ...chartConfig,
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Impacto da Marcação por Duration',
+                            ...chartConfig.plugins.title
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ...chartConfig.scales.y,
+                            title: {
+                                display: true,
+                                text: 'Impacto Percentual (%)',
+                                color: '#FFFFFF'
+                            }
+                        },
+                        x: {
+                            ...chartConfig.scales.x,
+                            title: {
+                                display: true,
+                                text: 'Duration (anos)',
+                                color: '#FFFFFF'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Função para configurar a simulação de carteira
+        function setupCarteira() {
+            // Inicialização do gráfico de carteira
+            createCarteiraChart();
+
+            // Atualização inicial das características da carteira
+            updateCarteira();
+
+            // Configurar os sliders para rebalancear automaticamente
+            const altaLiquidezSlider = document.getElementById('alta-liquidez-slider');
+            const mediaLiquidezSlider = document.getElementById('media-liquidez-slider');
+            const baixaLiquidezSlider = document.getElementById('baixa-liquidez-slider');
+
+            // Evento para o slider de alta liquidez
+            altaLiquidezSlider.addEventListener('input', () => {
+                const altaLiquidez = parseInt(altaLiquidezSlider.value);
+                const mediaLiquidez = parseInt(mediaLiquidezSlider.value);
+                const baixaLiquidez = parseInt(baixaLiquidezSlider.value);
+
+                const total = altaLiquidez + mediaLiquidez + baixaLiquidez;
+                const diff = total - 100;
+
+                // Rebalancear os outros sliders proporcionalmente
+                if (diff !== 0) {
+                    const mediaRatio = mediaLiquidez / (mediaLiquidez + baixaLiquidez);
+                    const novoMedia = Math.max(0, Math.min(100, Math.round(mediaLiquidez - diff * mediaRatio)));
+                    const novoBaixa = Math.max(0, Math.min(100, 100 - altaLiquidez - novoMedia));
+
+                    mediaLiquidezSlider.value = novoMedia;
+                    baixaLiquidezSlider.value = novoBaixa;
+                }
+
+                updateCarteira();
+            });
+
+            // Evento para o slider de média liquidez
+            mediaLiquidezSlider.addEventListener('input', () => {
+                const altaLiquidez = parseInt(altaLiquidezSlider.value);
+                const mediaLiquidez = parseInt(mediaLiquidezSlider.value);
+                const baixaLiquidez = parseInt(baixaLiquidezSlider.value);
+
+                const total = altaLiquidez + mediaLiquidez + baixaLiquidez;
+                const diff = total - 100;
+
+                // Rebalancear os outros sliders proporcionalmente
+                if (diff !== 0) {
+                    const altaRatio = altaLiquidez / (altaLiquidez + baixaLiquidez);
+                    const novoAlta = Math.max(0, Math.min(100, Math.round(altaLiquidez - diff * altaRatio)));
+                    const novoBaixa = Math.max(0, Math.min(100, 100 - novoAlta - mediaLiquidez));
+
+                    altaLiquidezSlider.value = novoAlta;
+                    baixaLiquidezSlider.value = novoBaixa;
+                }
+
+                updateCarteira();
+            });
+
+            // Evento para o slider de baixa liquidez
+            baixaLiquidezSlider.addEventListener('input', () => {
+                const altaLiquidez = parseInt(altaLiquidezSlider.value);
+                const mediaLiquidez = parseInt(mediaLiquidezSlider.value);
+                const baixaLiquidez = parseInt(baixaLiquidezSlider.value);
+
+                const total = altaLiquidez + mediaLiquidez + baixaLiquidez;
+                const diff = total - 100;
+
+                // Rebalancear os outros sliders proporcionalmente
+                if (diff !== 0) {
+                    const altaRatio = altaLiquidez / (altaLiquidez + mediaLiquidez);
+                    const novoAlta = Math.max(0, Math.min(100, Math.round(altaLiquidez - diff * altaRatio)));
+                    const novoMedia = Math.max(0, Math.min(100, 100 - novoAlta - baixaLiquidez));
+
+                    altaLiquidezSlider.value = novoAlta;
+                    mediaLiquidezSlider.value = novoMedia;
+                }
+
+                updateCarteira();
+            });
+        }
+
+        // Função para atualizar as características da carteira
+        function updateCarteira() {
+            const altaLiquidez = parseInt(document.getElementById('alta-liquidez-slider').value);
+            const mediaLiquidez = parseInt(document.getElementById('media-liquidez-slider').value);
+            const baixaLiquidez = parseInt(document.getElementById('baixa-liquidez-slider').value);
+
+            // Atualizar os valores exibidos
+            document.getElementById('alta-liquidez-value').textContent = altaLiquidez + '%';
+            document.getElementById('media-liquidez-value').textContent = mediaLiquidez + '%';
+            document.getElementById('baixa-liquidez-value').textContent = baixaLiquidez + '%';
+
+            // Calculando características da carteira baseadas na composição
+            const spreadMedio = (0.8 * altaLiquidez / 100) + (1.5 * mediaLiquidez / 100) + (2.8 * baixaLiquidez / 100);
+            const durationMedia = (1.5 * altaLiquidez / 100) + (3.5 * mediaLiquidez / 100) + (6.0 * baixaLiquidez / 100);
+            const liquidezGeral = 100 - (0.2 * mediaLiquidez) - (0.8 * baixaLiquidez);
+
+            let perfilCarteira = '';
+            if (baixaLiquidez > 30) {
+                perfilCarteira = 'Arrojado/Agressivo';
+            } else if (baixaLiquidez > 15) {
+                perfilCarteira = 'Moderado';
+            } else {
+                perfilCarteira = 'Conservador';
+            }
+
+            // Atualizar as características
+            const caracteristicas = document.getElementById('caracteristicas-carteira');
+            if (caracteristicas) {
+                caracteristicas.innerHTML = `
+                    <p><strong>Spread Médio Estimado:</strong> CDI + ${spreadMedio.toFixed(2)}%</p>
+                    <p><strong>Duration Média:</strong> ${durationMedia.toFixed(1)} anos</p>
+                    <p><strong>Tempo Médio de Execução (cenário normal):</strong> D+${Math.max(1, Math.round((baixaLiquidez * 0.1) + (mediaLiquidez * 0.02)))}</p>
+                    <p><strong>Índice de Liquidez:</strong> ${liquidezGeral.toFixed(0)}%</p>
+                    <p><strong>Perfil da Carteira:</strong> ${perfilCarteira}</p>
+                    <p><strong>Recomendação:</strong> ${getCarteirRecomendacao(perfilCarteira)}</p>
+                `;
+            }
+
+            // Atualizar o gráfico
+            updateCarteiraChart(altaLiquidez, mediaLiquidez, baixaLiquidez);
+        }
+
+        // Função para obter recomendação baseada no perfil da carteira
+        function getCarteirRecomendacao(perfil) {
+            switch (perfil) {
+                case 'Conservador':
+                    return 'Adequada para clientes que priorizam preservação de capital e baixa volatilidade. Horizonte mínimo recomendado de 1-2 anos.';
+                case 'Moderado':
+                    return 'Adequada para clientes que buscam equilíbrio entre rentabilidade e segurança. Horizonte mínimo recomendado de 2-3 anos.';
+                case 'Arrojado/Agressivo':
+                    return 'Adequada para clientes que buscam maximizar retornos e aceitam maior volatilidade. Horizonte mínimo recomendado de 3+ anos.';
+                default:
+                    return '';
+            }
+        }
+
+        // Função para criar o gráfico de carteira
+        function createCarteiraChart() {
+            const canvas = document.getElementById('carteiraChart');
+            if (!canvas) return;
+
+            window.carteiraChartInstance = new Chart(canvas, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Alta Liquidez (AAA/AA, <2 anos)',
+                        'Média Liquidez (AA/A, 2-4 anos)',
+                        'Baixa Liquidez (BBB+, >4 anos)'
+                    ],
+                    datasets: [{
+                        data: [35, 45, 20],
+                        backgroundColor: [
+                            '#A6CF2E',
+                            '#EC7000',
+                            '#5BCBF5'
+                        ],
+                        borderColor: '#091B1E',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Estrutura de Carteira Balanceada por Liquidez',
+                            ...chartConfig.plugins.title
+                        }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true
+                    }
+                }
+            });
+        }
+
+        // Função para atualizar o gráfico de carteira
+        function updateCarteiraChart(alta, media, baixa) {
+            if (!window.carteiraChartInstance) return;
+
+            window.carteiraChartInstance.data.datasets[0].data = [alta, media, baixa];
+            window.carteiraChartInstance.update();
+        }
+
+        // Função para criar os gráficos iniciais
+        function createCharts() {
+            createLiquidezChart();
+            createEvolucaoChart();
+            createFluxoChart();
+            createEstruturaChart();
+            createFormacaoChart();
+            createVolumeChart();
+            createStressChart();
+            createCriseChart();
+            createDecomposicaoChart();
+            createComparativoStressChart();
+        }
+
+        // Cria o gráfico de liquidez
+        function createLiquidezChart() {
+            const ctx = document.getElementById('liquidezChart');
+            if (!ctx) return;
+
+            window.liquidezChartInstance = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Ativos de Crédito Privado',
+                        data: [
+                            { x: 0.2, y: 8, r: 8 },
+                            { x: 0.3, y: 7, r: 12 },
+                            { x: 0.5, y: 6, r: 15 },
+                            { x: 0.7, y: 5, r: 10 },
+                            { x: 0.9, y: 4, r: 9 },
+                            { x: 1.2, y: 3, r: 16 },
+                            { x: 1.5, y: 2, r: 14 },
+                            { x: 2.0, y: 1, r: 20 }
+                        ],
+                        backgroundColor: (context) => {
+                            const value = context.raw.x;
+                            if (value < 0.5) return 'rgba(166, 207, 46, 0.7)';
+                            if (value < 1.0) return 'rgba(236, 172, 0, 0.7)';
+                            return 'rgba(236, 112, 0, 0.7)';
+                        },
+                        borderColor: '#091B1E',
+                        borderWidth: 1,
+                        pointRadius: (context) => {
+                            return context.raw.r;
+                        },
+                        pointHoverRadius: (context) => {
+                            return context.raw.r + 5;
+                        }
+                    }]
+                },
+                options: {
+                    ...chartConfig,
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Espectro de Liquidez: Bid-Ask vs. Frequência de Negociação',
+                            ...chartConfig.plugins.title
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    const point = context.raw;
+                                    return [
+                                        `Bid-Ask: ${point.x.toFixed(2)}%`,
+                                        `Freq. Negociação: ${point.y} dias/mês`,
+                                        `Volume Relativo: ${point.r}%`
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ...chartConfig.scales.y,
+                            title: {
+                                display: true,
+                                text: 'Frequência de Negociação (dias/mês)',
+                                color: '#FFFFFF'
+                            },
+                            reverse: false,
+                            min: 0,
+                            max: 10
+                        },
+                        x: {
+                            ...chartConfig.scales.x,
+                            title: {
+                                display: true,
+                                text: 'Bid-Ask Spread (%)',
+                                color: '#FFFFFF'
+                            },
+                            beginAtZero: true,
+                            max: 2.5
+                        }
+                    }
+                }
+            });
+        }
+
+        // Cria o gráfico de evolução do mercado
+        function createEvolucaoChart() {
+            const ctx = document.getElementById('evolucaoChart');
+            if (!ctx) return;
+
+            window.evolucaoChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: emissoes.all.labels,
+                    datasets: [
+                        {
+                            label: 'Volume de Emissões (R$ bilhões)',
+                            data: emissoes.all.data,
+                            backgroundColor: '#A6CF2E',
+                            borderColor: '#EC7000',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    ...chartConfig,
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Evolução do Volume de Emissões de Crédito Privado',
+                            ...chartConfig.plugins.title
+                        }
+                    }
+                }
+            });
+
+            // Configurar os controles de período
+            const periodControls = document.querySelectorAll('.chart-control');
+            periodControls.forEach(control => {
+                control.addEventListener('click', () => {
+                    // Remove active de todos os controles
+                    periodControls.forEach(c => c.classList.remove('active'));
+
+                    // Adiciona active ao controle clicado
+                    control.classList.add('active');
+
+                    // Atualiza o gráfico
+                    const period = control.getAttribute('data-period');
+                    window.evolucaoChartInstance.data.labels = emissoes[period].labels;
+                    window.evolucaoChartInstance.data.datasets[0].data = emissoes[period].data;
+
+                    // Se for 2025, muda o título
+                    if (period === '2025') {
+                        window.evolucaoChartInstance.options.plugins.title.text = 'Volume de Emissões em 2025 (R$ bilhões)';
+                    } else {
+                        window.evolucaoChartInstance.options.plugins.title.text = `Evolução do Volume de Emissões de Crédito Privado (${period})`;
+                    }
+
+                    window.evolucaoChartInstance.update();
+                });
+            });
+        }
+
+        // Cria o gráfico de fluxo de negociação
+        function createFluxoChart() {
+            const ctx = document.getElementById('fluxoChart');
+            if (!ctx) return;
+
+            window.fluxoChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Emissão Primária', 'Tesouraria', 'Distribuição (corretora)', 'Cliente Final'],
+                    datasets: [
+                        {
+                            label: 'Spread (% CDI)',
+                            data: [100, 120, 130, 140],
+                            backgroundColor: '#A6CF2E',
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Bid-Ask (%)',
+                            data: [0, 0.5, 0.3, 0],
+                            backgroundColor: '#EC7000',
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    ...chartConfig,
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Fluxo de Distribuição e Evolução de Spreads',
+                            ...chartConfig.plugins.title
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Spread (% CDI)',
+                                color: '#A6CF2E'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#FFFFFF'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Bid-Ask (%)',
+                                color: '#EC7000'
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            ticks: {
+                                color: '#FFFFFF'
+                            }
+                        },
+                        x: chartConfig.scales.x
+                    }
+                }
+            });
+        }
+
+        // Cria o gráfico de estrutura de mercado
+        function createEstruturaChart() {
+            const ctx = document.getElementById('estruturaChart');
+            if (!ctx) return;
+
+            window.estruturaChartInstance = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Transparência de Preços',
+                        'Padronização',
+                        'Pulverização de Participantes',
+                        'Profundidade do Book',
+                        'Automatização',
+                        'Competição entre Dealers'
+                    ],
+                    datasets: [
+                        {
+                            label: 'Mercado de Ações',
+                            data: [90, 95, 85, 80, 90, 85],
+                            borderColor: '#A6CF2E',
+                            backgroundColor: 'rgba(166, 207, 46, 0.2)'
+                        },
+                        {
+                            label: 'Mercado de Crédito Privado',
+                            data: [40, 30, 45, 35, 30, 35],
+                            borderColor: '#EC7000',
+                            backgroundColor: 'rgba(236, 112, 0, 0.2)'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Comparativo Estrutural dos Mercados',
+                            ...chartConfig.plugins.title
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            pointLabels: {
+                                color: '#FFFFFF'
+                            },
+                            ticks: {
+                                color: '#FFFFFF',
+                                backdropColor: 'rgba(0, 0, 0, 0)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Cria o gráfico de formação de spread
+        function createFormacaoChart() {
+            const ctx = document.getElementById('formacaoChart');
+            if (!ctx) return;
+
+            window.formacaoChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Custo de Inventário', 'Custo de Processamento', 'Custo de Informação Adversa', 'Competição entre Market Makers'],
+                    datasets: [
+                        {
+                            label: 'Ações',
+                            data: [0.05, 0.01, 0.15, 0.04],
+                            backgroundColor: '#A6CF2E'
+                        },
+                        {
+                            label: 'Crédito Privado',
+                            data: [0.25, 0.10, 0.10, 0.20],
+                            backgroundColor: '#EC7000'
+                        }
+                    ]
+                },
+                options: {
+                    ...chartConfig,
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Composição do Spread Bid-Ask por Mercado (%)',
+                            ...chartConfig.plugins.title
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ...chartConfig.scales.y,
+                            stacked: false,
+                            title: {
+                                display: true,
+                                text: 'Spread (%)',
+                                color: '#FFFFFF'
+                            },
+                            beginAtZero: true
+                        },
+                        x: {
+                            ...chartConfig.scales.x,
+                            stacked: false
+                        }
+                    }
+                }
+            });
+        }
+
+        // Cria o gráfico de volume
+        function createVolumeChart() {
+            const ctx = document.getElementById('volumeChart');
+            if (!ctx) return;
+
+            window.volumeChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    datasets: [
+                        {
+                            label: 'Volume Médio Diário - Ações (R$ bilhões)',
+                            data: [22, 23, 23, 25, 27, 26, 28, 29, 28, 27, 26, 25],
+                            borderColor: '#A6CF2E',
+                            backgroundColor: 'rgba(166, 207, 46, 0.1)',
+                            yAxisID: 'y',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Volume Médio Diário - Crédito Privado (R$ bilhões)',
+                            data:[1.8, 1.9, 1.7, 2.0, 2.1, 2.2, 2.3, 2.4, 2.3, 2.2, 2.1, 2.0]
+,
+                            borderColor: '#EC7000',
+                            backgroundColor: 'rgba(236, 112, 0, 0.1)',
+                            yAxisID: 'y1',
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    ...chartConfig,
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Volume Médio Diário por Mercado (2024)',
+                            ...chartConfig.plugins.title
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+			    min: 0,
+		            max: 30,
+                            title: {
+                                display: true,
+                                text: 'Ações (R$ bilhões)',
+                                color: '#A6CF2E'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#FFFFFF'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+			    min: 0,
+			    max: 30,
+                            title: {
+                                display: true,
+                                text: 'Crédito Privado (R$ bilhões)',
+                                color: '#EC7000'
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            ticks: {
+                                color: '#FFFFFF'
+                            }
+                        },
+                        x: chartConfig.scales.x
+                    }
+                }
+            });
+        }
+
+        // Cria o gráfico de stress
+        function createStressChart() {
+            const ctx = document.getElementById('stressChart');
+            if (!ctx) return;
+
+            window.stressChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['D-10', 'D-5', 'D-1', 'D-0 (Evento)', 'D+1', 'D+5', 'D+10', 'D+20', 'D+40', 'D+60'],
+                    datasets: [
+                        {
+                            label: 'Índice de Liquidez - Ações',
+                            data: [100, 100, 95, 60, 65, 75, 85, 95, 98, 100],
+                            borderColor: '#A6CF2E',
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Índice de Liquidez - Crédito Privado',
+                            data: [100, 98, 85, 30, 25, 30, 40, 55, 70, 85],
+                            borderColor: '#EC7000',
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    ...chartConfig,
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Comportamento da Liquidez em Período de Stress (Base 100)',
+                            ...chartConfig.plugins.title
+                        },
+                        annotation: {
+                            annotations: {
+                                box1: {
+                                    type: 'box',
+                                    xMin: 'D-0 (Evento)',
+                                    xMax: 'D+1',
+                                    backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                                    borderWidth: 0,
+                                    drawTime: 'beforeDatasetsDraw'
+                                },
+                                line1: {
+                                    type: 'line',
+                                    yMin: 60,
+                                    yMax: 60,
+                                    borderColor: 'rgba(255, 255, 255, 0.5)',
+                                    borderWidth: 2,
+                                    borderDash: [5, 5],
+                                    drawTime: 'beforeDatasetsDraw'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Cria o gráfico da crise de 2020
+        function createCriseChart() {
+            const ctx = document.getElementById('criseChart');
+            if (!ctx) return;
+
+            window.criseChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan/20', 'Fev/20', 'Mar/20', 'Abr/20', 'Mai/20', 'Jun/20', 'Jul/20', 'Ago/20', 'Set/20', 'Out/20', 'Nov/20', 'Dez/20'],
+                    datasets: [
+                        {
+                            label: 'Bid-Ask Médio Debêntures (%) - Emissor AAA',
+                            data: [0.3, 0.35, 2.8, 2.2, 1.8, 1.5, 1.2, 1.0, 0.8, 0.6, 0.5, 0.4],
+                            borderColor: '#A6CF2E',
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Resgates Líquidos em Fundos de Crédito (R$ bi)',
+                            data: [0.5, 0.8, 17.5, 10.2, 5.5, 2.1, 0.5, -1.2, -2.5, -3.0, -3.5, -4.0],
+                            borderColor: '#EC7000',
+                            tension: 0.4,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    ...chartConfig,
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Impacto da Crise de 2020 na Liquidez',
+                            ...chartConfig.plugins.title
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Bid-Ask (%)',
+                                color: '#A6CF2E'
+                            },
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#FFFFFF'
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Resgates (R$ bi)',
+                                color: '#EC7000'
+                            },
+                            grid: {
+                                drawOnChartArea: false
+                            },
+                            ticks: {
+                                color: '#FFFFFF'
+                            }
+                        },
+                        x: chartConfig.scales.x
+                    }
+                }
+            });
+        }
+
+        // Cria o gráfico de decomposição de spread
+        function createDecomposicaoChart() {
+            const ctx = document.getElementById('decomposicaoChart');
+            if (!ctx) return;
+
+            window.decomposicaoChartInstance = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'Risco de Crédito Puro',
+                        'Prêmio de Liquidez',
+                        'Prêmio de Complexidade',
+                        'Prêmio de Duration',
+                        'Outros Fatores'
+                    ],
+                    datasets: [{
+                        data: [40, 25, 15, 15, 5],
+                        backgroundColor: [
+                            '#EC7000',
+                            '#A6CF2E',
+                            '#5BCBF5',
+                            '#FFC300',
+                            '#9370DB'
+                        ],
+                        borderColor: '#091B1E',
+                        borderWidth: 2,
+                        hoverOffset: 15
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Decomposição do Spread de Crédito Privado',
+                            ...chartConfig.plugins.title
+                        }
+                    },
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true
+                    }
+                }
+            });
+        }
+
+        // Criar gráfico comparativo de cenários de stress
+        function createComparativoStressChart() {
+            const ctx = document.getElementById('comparativoStressChart');
+            if (!ctx) return;
+
+            // Dados do cenário normal
+            const normalData = [
+                { x: 1, y: 0.2 },
+                { x: 2, y: 0.3 },
+                { x: 3, y: 0.4 },
+                { x: 4, y: 0.5 },
+                { x: 5, y: 0.6 },
+                { x: 2.5, y: 0.25 },
+                { x: 3.5, y: 0.35 },
+                { x: 4.5, y: 0.45 },
+                { x: 1.5, y: 0.15 },
+                { x: 5.5, y: 0.55 }
+            ];
+
+            // Dados do cenário de stress moderado
+            const moderadoData = [
+                { x: 1, y: 0.6 },
+                { x: 2, y: 0.9 },
+                { x: 3, y: 1.2 },
+                { x: 4, y: 1.5 },
+                { x: 5, y: 1.8 },
+                { x: 2.5, y: 0.75 },
+                { x: 3.5, y: 1.05 },
+                { x: 4.5, y: 1.35 },
+                { x: 1.5, y: 0.45 },
+                { x: 5.5, y: 1.65 }
+            ];
+
+            // Dados do cenário de stress severo
+            const severoData = [
+                { x: 1, y: 1.5 },
+                { x: 2, y: 2.5 },
+                { x: 3, y: 3.5 },
+                { x: 4, y: 4.5 },
+                { x: 5, y: 5.5 },
+                { x: 2.5, y: 3.0 },
+                { x: 3.5, y: 4.0 },
+                { x: 4.5, y: 5.0 },
+                { x: 1.5, y: 2.0 },
+                { x: 5.5, y: 6.0 }
+            ];
+
+            // Criar curvas de tendência
+            function createTrendLine(data) {
+                // Ordenar os dados por x para uma curva suave
+                const sortedData = [...data].sort((a, b) => a.x - b.x);
+
+                // Extrair x e y para regressão
+                const xValues = sortedData.map(point => point.x);
+                const yValues = sortedData.map(point => point.y);
+
+                // Criar pontos para a curva
+                const trendPoints = [];
+
+                // Usar Math.js para regressão polinomial
+                // Simulando uma curva de potência: y = a * x^b
+                for (let x = 0.5; x <= 6; x += 0.1) {
+                    // Equação da curva (simplificada)
+                    let y;
+
+                    if (data === normalData) {
+                        y = 0.1 * Math.pow(x, 1.1);
+                    } else if (data === moderadoData) {
+                        y = 0.3 * Math.pow(x, 1.2);
+                    } else {
+                        y = 0.5 * Math.pow(x, 1.8);
+                    }
+
+                    trendPoints.push({ x, y });
+                }
+
+                return trendPoints;
+            }
+
+            // Criar curvas suaves de tendência para cada cenário
+            const normalTrend = createTrendLine(normalData);
+            const moderadoTrend = createTrendLine(moderadoData);
+            const severoTrend = createTrendLine(severoData);
+
+            window.comparativoStressChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [
+                        {
+                            label: 'Cenário Normal',
+                            data: normalTrend,
+                            borderColor: '#A6CF2E',
+                            backgroundColor: 'rgba(166, 207, 46, 0.1)',
+                            pointRadius: 0,
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 3
+                        },
+                        {
+                            label: 'Stress Moderado',
+                            data: moderadoTrend,
+                            borderColor: '#EC7000',
+                            backgroundColor: 'rgba(236, 112, 0, 0.1)',
+                            pointRadius: 0,
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 3
+                        },
+                        {
+                            label: 'Stress Severo',
+                            data: severoTrend,
+                            borderColor: '#FF4B4B',
+                            backgroundColor: 'rgba(255, 75, 75, 0.1)',
+                            pointRadius: 0,
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 3
+                        }
+                    ]
+                },
+                options: {
+                    ...chartConfig,
+                    plugins: {
+                        ...chartConfig.plugins,
+                        title: {
+                            display: true,
+                            text: 'Comparativo: Relação entre Duration e Bid-Ask em Diferentes Cenários',
+                            ...chartConfig.plugins.title
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const label = context.dataset.label || '';
+                                    const value = context.parsed.y.toFixed(2);
+                                    return `${label}: ${value}% (Duration: ${context.parsed.x.toFixed(1)} anos)`;
+                                }
+                            }
+                        },
+                        annotation: {
+                            annotations: {
+                                criticalLine: {
+                                    type: 'line',
+                                    yMin: 1.5,
+                                    yMax: 1.5,
+                                    borderColor: 'rgba(255, 255, 255, 0.5)',
+                                    borderWidth: 2,
+                                    borderDash: [5, 5],
+                                    label: {
+                                        content: 'Limiar crítico de liquidez',
+                                        enabled: true,
+                                        position: 'end',
+                                        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    scales: {
+                        y: {
+                            ...chartConfig.scales.y,
+                            title: {
+                                display: true,
+                                text: 'Bid-Ask Spread (%)',
+                                color: '#FFFFFF'
+                            },
+                            beginAtZero: true,
+                            suggestedMax: 7
+                        },
+                        x: {
+                            ...chartConfig.scales.x,
+                            title: {
+                                display: true,
+                                text: 'Duration (anos)',
+                                color: '#FFFFFF'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Adicionar interatividade ao gráfico
+            ctx.addEventListener('mousemove', (event) => {
+                const activePoints = window.comparativoStressChartInstance.getElementsAtEventForMode(event, 'nearest', { intersect: false }, true);
+
+                if (activePoints.length > 0) {
+                    const chart = window.comparativoStressChartInstance;
+                    const dataIndex = activePoints[0].index;
+                    const datasetIndex = activePoints[0].datasetIndex;
+
+                    // Atualizar raio do ponto ao passar o mouse
+                    chart.data.datasets.forEach((dataset, i) => {
+                        dataset.pointRadius = (i === datasetIndex) ?
+                            Array(dataset.data.length).fill(0).map((_, j) => j === dataIndex ? 8 : 0) :
+                            Array(dataset.data.length).fill(0);
+                    });
+
+                    chart.update();
+                }
+            });
+
+            // Resetar raios quando o mouse sai do gráfico
+            ctx.addEventListener('mouseout', () => {
+                const chart = window.comparativoStressChartInstance;
+
+                chart.data.datasets.forEach(dataset => {
+                    dataset.pointRadius = 0;
+                });
+
+                chart.update();
+            });
+        }
+
+        // Criar gráficos de cenários individuais para referência
+        function createCenariosIndividuais() {
+            // Estes gráficos não serão exibidos na interface,
+            // mas mantemos o código para referência
+
+            // Cenário normal
+            const normalData = [
+                { x: 1, y: 0.2 },
+                { x: 2, y: 0.3 },
+                { x: 3, y: 0.4 },
+                { x: 4, y: 0.5 },
+                { x: 5, y: 0.6 },
+                { x: 2.5, y: 0.25 },
+                { x: 3.5, y: 0.35 },
+                { x: 4.5, y: 0.45 },
+                { x: 1.5, y: 0.15 },
+                { x: 5.5, y: 0.55 }
+            ];
+
+            // Cenário moderado
+            const moderadoData = [
+                { x: 1, y: 0.6 },
+                { x: 2, y: 0.9 },
+                { x: 3, y: 1.2 },
+                { x: 4, y: 1.5 },
+                { x: 5, y: 1.8 },
+                { x: 2.5, y: 0.75 },
+                { x: 3.5, y: 1.05 },
+                { x: 4.5, y: 1.35 },
+                { x: 1.5, y: 0.45 },
+                { x: 5.5, y: 1.65 }
+            ];
+
+            // Cenário severo
+            const severoData = [
+                { x: 1, y: 1.5 },
+                { x: 2, y: 2.5 },
+                { x: 3, y: 3.5 },
+                { x: 4, y: 4.5 },
+                { x: 5, y: 5.5 },
+                { x: 2.5, y: 3.0 },
+                { x: 3.5, y: 4.0 },
+                { x: 4.5, y: 5.0 },
+                { x: 1.5, y: 2.0 },
+                { x: 5.5, y: 6.0 }
+            ];
+        }
+
+        // Implementação de função C++ simulada para cálculos complexos
+        // Esta seria a interface com WebAssembly em um ambiente real
+        class CPPCalculator {
+            constructor() {
+                console.log("Inicializando módulo de cálculos C++");
+
+                // Simulação de dados de cálculos C++
+                this.ratingsFactors = {
+                    'AAA': 1.0,
+                    'AA': 1.2,
+                    'A': 1.5,
+                    'BBB': 2.0,
+                    'BB': 2.5
+                };
+
+                this.scenarioFactors = {
+                    'normal': 1.0,
+                    'stress': 2.5,
+                    'panico': 5.0
+                };
+
+                this.bidAskBaseValues = {
+                    'debenture': 0.3,
+                    'cri': 0.5,
+                    'cra': 0.6
+                };
+
+                console.log("Módulo C++ inicializado com sucesso");
+            }
+
+            // Função de alto desempenho para cálculos de bid-ask spread
+            calculateBidAsk(params) {
+                console.log("Executando cálculo C++ de bid-ask spread");
+
+                const {
+                    tipoAtivo,
+                    rating,
+                    duration,
+                    emissaoSize,
+                    volatilidade,
+                    cenario
+                } = params;
+
+                // Algoritmo simplificado simulando o processamento C++
+                const baseValue = this.bidAskBaseValues[tipoAtivo] || 0.3;
+                const ratingFactor = this.ratingsFactors[rating] || 1.0;
+                const scenarioFactor = this.scenarioFactors[cenario] || 1.0;
+
+                // Modelo não-linear simulado
+                const durationEffect = duration * 0.15;
+                const emissaoEffect = Math.max(0, 0.5 - (emissaoSize / 2000));
+                const volatilityEffect = volatilidade * 0.05;
+
+                const bidAsk = baseValue * ratingFactor * scenarioFactor * (1 + durationEffect + emissaoEffect + volatilityEffect);
+
+                return {
+                    bidAsk: Math.max(0.1, bidAsk),
+                    components: {
+                        baseValue,
+                        ratingImpact: ratingFactor,
+                        durationImpact: durationEffect,
+                        emissaoImpact: emissaoEffect,
+                        volatilityImpact: volatilityEffect,
+                        scenarioImpact: scenarioFactor
+                    }
+                };
+            }
+
+            // Função para calcular impacto da marcação a mercado
+            calculateImpacto(params) {
+                console.log("Executando cálculo C++ de impacto de marcação");
+
+                const {
+                    duration,
+                    spread,
+                    rating,
+                    cenario
+                } = params;
+
+                const ratingFactor = this.ratingsFactors[rating] || 1.0;
+                const scenarioFactor = this.scenarioFactors[cenario] || 1.0;
+
+                // Implementação do modelo de precificação
+                const baseImpact = -duration * (spread / 10000);
+                const impacto = baseImpact * ratingFactor * scenarioFactor;
+
+                return {
+                    impactoPercentual: impacto,
+                    components: {
+                        baseImpact,
+                        ratingFactor,
+                        scenarioFactor
+                    }
+                };
+            }
+        }
+
+        // Inicializa a calculadora C++ simulada
+        let cppCalculator;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            cppCalculator = new CPPCalculator();
+
+            // Utiliza o módulo C++ para cálculos mais precisos após inicializado
+            const calcBidAskButton = document.getElementById('calcular-spread');
+            if (calcBidAskButton) {
+                calcBidAskButton.addEventListener('click', () => {
+                    const tipoAtivo = document.getElementById('tipo-ativo').value;
+                    const rating = document.getElementById('rating').value;
+                    const duration = parseFloat(document.getElementById('duration-slider').value);
+                    const emissao = parseFloat(document.getElementById('emissao-slider').value);
+                    const volatilidade = parseFloat(document.getElementById('volatilidade-slider').value);
+                    const cenario = document.getElementById('cenario-mercado').value;
+
+                    // Utiliza o calculador C++ para resultados de alta precisão
+                    const result = cppCalculator.calculateBidAsk({
+                        tipoAtivo,
+                        rating,
+                        duration,
+                        emissaoSize: emissao,
+                        volatilidade,
+                        cenario
+                    });
+
+                    const bidAskTotal = result.bidAsk;
+
+                    // Classificação da liquidez
+                    let classificacao = '';
+                    if (bidAskTotal < 0.5) {
+                        classificacao = 'Alta liquidez';
+                    } else if (bidAskTotal < 1.5) {
+                        classificacao = 'Média liquidez';
+                    } else {
+                        classificacao = 'Baixa liquidez';
+                    }
+
+                    // Recomendação
+                    let recomendacao = '';
+                    if (bidAskTotal < 0.5) {
+                        recomendacao = 'Adequado para todos os perfis de investidores, inclusive aqueles com horizonte de curto prazo.';
+                    } else if (bidAskTotal < 1.5) {
+                        recomendacao = 'Recomendado para investidores com horizonte de médio prazo, que podem suportar alguma volatilidade.';
+                    } else {
+                        recomendacao = 'Adequado apenas para investidores com horizonte de longo prazo, dispostos a manter o ativo até o vencimento.';
+                    }
+
+                    // Atualiza a interface com os resultados
+                    document.getElementById('bid-ask-estimado').innerHTML = `<strong>Bid-Ask Spread Estimado:</strong> ${bidAskTotal.toFixed(2)}%`;
+                    document.getElementById('impacto-liquidez').innerHTML = `<strong>Impacto do Rating:</strong> +${((result.components.ratingImpact - 1) * 100).toFixed(0)}% | <strong>Impacto da Duration:</strong> +${(result.components.durationImpact * 100).toFixed(0)}%`;
+                    document.getElementById('classificacao-liquidez').innerHTML = `<strong>Classificação de Liquidez:</strong> ${classificacao}`;
+                    document.getElementById('recomendacao').innerHTML = `<strong>Recomendação:</strong> ${recomendacao}`;
+
+                    // Exibe o resultado
+                    document.getElementById('resultado-spread').style.display = 'block';
+
+                    // Atualiza o gráfico com o resultado
+                    updateResultadoChart(duration, bidAskTotal);
+                });
+            }
+
+            // Utiliza o módulo C++ para cálculos de impacto
+            const calcImpactoButton = document.getElementById('calcular-marcacao');
+            if (calcImpactoButton) {
+                calcImpactoButton.addEventListener('click', () => {
+                    const tipoAtivo = document.getElementById('tipo-ativo-marcacao').value;
+                    const valorInvestido = parseFloat(document.getElementById('valor-investido').value);
+                    const duration = parseFloat(document.getElementById('duration-marcacao').value);
+                    const rating = document.getElementById('rating-marcacao').value;
+                    const variacaoSpread = parseFloat(document.getElementById('variacao-spread').value);
+                    const cenario = document.getElementById('cenario-mercado-marcacao').value;
+
+                    // Utiliza o calculador C++ para resultados de alta precisão
+                    const result = cppCalculator.calculateImpacto({
+                        duration,
+                        spread: variacaoSpread,
+                        rating,
+                        cenario
+                    });
+
+                    const impactoPercentual = result.impactoPercentual;
+                    const impactoValor = valorInvestido * impactoPercentual;
+
+                    // Estimativa de bid-ask spread
+                    const bidAskBase = cppCalculator.bidAskBaseValues[tipoAtivo] || 0.3;
+                    const bidAskEstimado = bidAskBase * result.components.ratingFactor * result.components.scenarioFactor;
+
+                    // Classificação da liquidez
+                    let liquidezTexto = '';
+                    if (bidAskEstimado < 1) liquidezTexto = 'Alta';
+                    else if (bidAskEstimado < 2.5) liquidezTexto = 'Média';
+                    else liquidezTexto = 'Baixa';
+
+                    // Texto de recomendação
+                    let recomendacao = '';
+                    if (Math.abs(impactoPercentual) < 0.005) {
+                        recomendacao = 'Impacto de marcação a mercado baixo. Pode ser comunicado ao cliente com tranquilidade.';
+                    } else if (Math.abs(impactoPercentual) < 0.015) {
+                        recomendacao = 'Impacto de marcação moderado. Recomenda-se explicar o comportamento esperado ao cliente.';
+                    } else {
+                        recomendacao = 'Impacto de marcação relevante. É essencial preparar o cliente para potencial volatilidade.';
+                    }
+
+                    // Atualiza a interface
+                    document.getElementById('impacto-valor').innerHTML = `<strong>Impacto Estimado em Valor:</strong> R$ ${impactoValor.toFixed(2)}`;
+                    document.getElementById('impacto-percentual').innerHTML = `<strong>Impacto Percentual:</strong> ${(impactoPercentual * 100).toFixed(2)}%`;
+                    document.getElementById('bid-ask-estimado-marcacao').innerHTML = `<strong>Bid-Ask Spread Estimado:</strong> ${bidAskEstimado.toFixed(2)}%`;
+                    document.getElementById('liquidez-estimada').innerHTML = `<strong>Classificação de Liquidez:</strong> ${liquidezTexto}`;
+                    document.getElementById('recomendacao-marcacao').innerHTML = `<strong>Recomendação:</strong> ${recomendacao}`;
+
+                    // Exibe o resultado
+                    document.getElementById('resultado-marcacao').style.display = 'block';
+
+                    // Atualiza o gráfico de impacto
+                    updateImpactoChart(duration, impactoPercentual);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

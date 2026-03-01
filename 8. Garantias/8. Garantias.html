@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garantias em Crédito Privado - Íon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background-color: #091B1E;
+            color: white;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #EC7000, #A6CF2E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            font-size: 20px;
+            color: #A6CF2E;
+            font-weight: 300;
+        }
+
+        .header p {
+  font-size: 20px;
+  color: #A6CF2E;
+  font-weight: 300;
+}
+
+/* ✅ ADICIONE AQUI ABAIXO */
+.lesson-box {
+  background-color: #2e4c35;
+  border: 1px solid #A6CF2E;
+  border-radius: 10px;
+  padding: 16px;
+  margin-top: 24px;
+  color: #FFFFFF;
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.lesson-box strong {
+  font-weight: bold;
+  color: #A6CF2E;
+}
+
+        
+        .section {
+            margin-bottom: 60px;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            color: #A6CF2E;
+            margin-bottom: 30px;
+            padding-left: 20px;
+            border-left: 4px solid #EC7000;
+        }
+        
+        .garantia-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .garantia-card {
+            background: #133134;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+        
+        .garantia-card:hover {
+            transform: translateY(-5px);
+            border-color: #A6CF2E;
+            box-shadow: 0 10px 30px rgba(166, 207, 46, 0.3);
+        }
+        
+        .garantia-card h3 {
+            color: #EC7000;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .garantia-card .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .explicacao-simples {
+            background: linear-gradient(135deg, #133134 0%, #091B1E 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .analogia {
+            background: rgba(166, 207, 46, 0.1);
+            border-left: 4px solid #A6CF2E;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .analogia .title {
+            color: #A6CF2E;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .case-recovery {
+            background: #133134;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .case-recovery::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #EC7000 0%, #A6CF2E 100%);
+        }
+        
+        .case-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .stat-value {
+            font-size: 36px;
+            color: #A6CF2E;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #ccc;
+        }
+        
+        .comercial-tip {
+            background: rgba(236, 112, 0, 0.1);
+            border: 2px solid #EC7000;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .comercial-tip h4 {
+            color: #EC7000;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .comercial-tip ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .comercial-tip li {
+            padding-left: 30px;
+            position: relative;
+            margin-bottom: 10px;
+        }
+        
+        .comercial-tip li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #A6CF2E;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .interactive-quiz {
+            background: #133134;
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 60px;
+        }
+        
+        .quiz-question {
+            margin-bottom: 30px;
+        }
+        
+        .quiz-options {
+            display: grid;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .quiz-option {
+            background: #091B1E;
+            border: 2px solid #133134;
+            border-radius: 10px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            border-color: #A6CF2E;
+            transform: translateX(5px);
+        }
+        
+        .quiz-option.correct {
+            background: rgba(166, 207, 46, 0.2);
+            border-color: #A6CF2E;
+        }
+        
+        .quiz-option.incorrect {
+            background: rgba(236, 112, 0, 0.2);
+            border-color: #EC7000;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .highlight {
+            color: #A6CF2E;
+            font-weight: bold;
+        }
+        
+        .warning-box {
+            background: rgba(236, 112, 0, 0.2);
+            border: 1px solid #EC7000;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .success-box {
+            background: rgba(166, 207, 46, 0.2);
+            border: 1px solid #A6CF2E;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        /* Barra de progresso de leitura */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(90deg, #EC7000 0%, #A6CF2E 100%);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dotted #A6CF2E;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: #133134;
+            color: white;
+            text-align: left;
+            border-radius: 10px;
+            padding: 15px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -150px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            border: 2px solid #A6CF2E;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .tooltip .tooltiptext::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #A6CF2E transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Contador animado */
+        .counter {
+            font-size: 48px;
+            color: #A6CF2E;
+            font-weight: bold;
+        }
+        
+        /* Botão flutuante de navegação */
+        .nav-button {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #EC7000, #A6CF2E);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(166, 207, 46, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .nav-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(166, 207, 46, 0.5);
+        }
+        
+        .nav-button svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        /* Seções expandíveis */
+        .expandable {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .expandable:hover {
+            transform: translateY(-2px);
+        }
+        
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+        
+        .expandable-content.expanded {
+            max-height: 1000px;
+        }
+        
+        /* Animação de entrada */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Efeito de hover nas estatísticas */
+        .stat-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .stat-card:hover {
+            transform: scale(1.05);
+            background: rgba(166, 207, 46, 0.1);
+        }
+        
+        /* Menu de navegação rápida */
+        .quick-nav {
+            position: fixed;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            background: rgba(19, 49, 52, 0.9);
+            border-radius: 15px;
+            padding: 20px 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(166, 207, 46, 0.3);
+        }
+        
+        .quick-nav-item {
+            display: block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(166, 207, 46, 0.3);
+            margin: 15px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-nav-item.active,
+        .quick-nav-item:hover {
+            background: #A6CF2E;
+            transform: scale(1.3);
+        }
+        
+        /* Responsividade aprimorada */
+        @media (max-width: 768px) {
+            .quick-nav {
+                display: none;
+            }
+            
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 36px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .tooltip .tooltiptext {
+                width: 250px;
+                margin-left: -125px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de progresso de leitura -->
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <!-- Menu de navegação rápida -->
+    <div class="quick-nav" id="quickNav">
+        <div class="quick-nav-item" data-section="header"></div>
+        <div class="quick-nav-item" data-section="jornada"></div>
+        <div class="quick-nav-item" data-section="tipos"></div>
+        <div class="quick-nav-item" data-section="explicacao"></div>
+        <div class="quick-nav-item" data-section="cases"></div>
+        <div class="quick-nav-item" data-section="hierarquia"></div>
+        <div class="quick-nav-item" data-section="combinacao"></div>
+        <div class="quick-nav-item" data-section="biblioteca"></div>
+        <div class="quick-nav-item" data-section="dados"></div>
+        <div class="quick-nav-item" data-section="matriz"></div>
+        <div class="quick-nav-item" data-section="acionamentos"></div>
+        <div class="quick-nav-item" data-section="quiz"></div>
+    </div>
+    
+    <!-- Botão flutuante de navegação -->
+    <div class="nav-button" id="navButton" onclick="scrollToTop()">
+        <svg viewBox="0 0 24 24">
+            <path d="M7 14l5-5 5 5z"/>
+        </svg>
+    </div>
+    
+
+ <!-- Cabeçalho -->
+    <div class="ion-header">
+        <div class="ion-title">
+            <div class="ion-title-checkbox"></div>
+            <div class="ion-title-text"> </div>
+        </div>
+
+  <!-- Assinatura com efeito de marca d'água -->
+<div class="watermark">
+    <p><strong>Autor:</strong> Igor Stramandinoli Moita Pontes</p>
+    
+</div>
+
+<style>
+.watermark {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(19, 49, 52, 0.3); /* fundo com transparência */
+    border: 1px solid rgba(166, 207, 46, 0.4); /* borda verde translúcida */
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: rgba(255, 255, 255, 0.6); /* texto branco translúcido */
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 13px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    pointer-events: none;
+    user-select: none;
+    max-width: 300px;
+    opacity: 0.7; /* transparência geral do bloco */
+}
+
+.watermark p {
+    margin: 4px 0;
+}
+
+.watermark strong {
+    color: rgba(166, 207, 46, 0.7); /* destaque verde translúcido */
+}
+</style>
+</style>
+
+    
+    <div class="container">
+        <div class="header" id="header">
+            <h1>Garantias em Crédito Privado</h1>
+            <p></p>
+            
+            <div style="margin-top: 40px; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+                <div style="text-align: center;">
+                    <div style="font-size: 48px; color: #A6CF2E; font-weight: bold;">1º</div>
+                    <div style="color: #ccc;">Conceitos Básicos</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 48px; color: #EC7000; font-weight: bold;">2º</div>
+                    <div style="color: #ccc;">Aplicação Prática</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 48px; color: #A6CF2E; font-weight: bold;">3º</div>
+                    <div style="color: #ccc;">Estratégias Avançadas</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px; text-align: center; padding: 20px; background: rgba(236, 112, 0, 0.2); border-radius: 15px; border: 2px solid #EC7000;">
+                <p style="font-size: 20px; margin: 0;"><strong>🔥</strong> Aprofundando conhecimento prático!</p>
+            </div>
+        </div>
+
+        <div class="section" id="jornada">
+            <h2 class="section-title">Jornada Completa: Do Básico ao Avançado</h2>
+            
+            <div class="explicacao-simples">
+                <h3 style="color: #A6CF2E; margin-bottom: 30px; text-align: center;">Sua Evolução como Especialista em Garantias</h3>
+                
+                <div style="display: grid; gap: 30px;">
+                    <!-- Nível 1 -->
+                    <div style="display: flex; align-items: center; gap: 30px;">
+                        <div style="min-width: 80px; height: 80px; background: #A6CF2E; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: #091B1E; font-weight: bold;">1</div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #A6CF2E; margin-bottom: 10px;">Fundamentos Sólidos</h4>
+                            <p>✓ Você já sabe explicar os 3 tipos básicos de garantia</p>
+                            <p>✓ Conhece analogias simples para cada uma</p>
+                            <p>✓ Entende a hierarquia de segurança</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Nível 2 -->
+                    <div style="display: flex; align-items: center; gap: 30px;">
+                        <div style="min-width: 80px; height: 80px; background: #EC7000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; font-weight: bold;">2</div>
+                        <div style="flex: 1;">
+                            <h4 style="color: #EC7000; margin-bottom: 10px;">Aplicação Inteligente</h4>
+                            <p>✓ Sabe quando combinar garantias para máxima proteção</p>
+                            <p>✓ Conhece as peculiaridades de cada setor</p>
+                            <p>✓ Tem cases reais para compartilhar</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Nível 3 -->
+                    <div style="display: flex; align-items: center; gap: 30px;">
+                        <div style="min-width: 80px; height: 80px; background: linear-gradient(45deg, #A6CF2E, #EC7000); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; color: white; font-weight: bold;">3</div>
+                        <div style="flex: 1;">
+                            <h4 style="background: linear-gradient(45deg, #A6CF2E, #EC7000); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 10px;">Consultoria Avançada</h4>
+                            <p>✓ Constrói estratégias customizadas por perfil de cliente</p>
+                            <p>✓ Antecipa objeções e tem respostas prontas</p>
+                            <p>✓ Vende valor, não produto</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                <div class="comercial-tip">
+                    <h4>📊 Seu Pitch em 30 Segundos</h4>
+                    <p>"No crédito privado, além da análise de crédito tradicional, você tem <span class="highlight">garantias reais</span> - imóveis, recebíveis, equipamentos. É como ter um seguro extra que permite <span class="highlight">retornos superiores com proteção adicional</span>."</p>
+                </div>
+                
+                <div class="success-box">
+                    <h4>🎯 Pergunta Qualificadora</h4>
+                    <p>"Você prefere a segurança de um fundo DI ou está disposto a ter <span class="highlight">retornos 30-50% maiores</span> com garantias sólidas como proteção?"</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="tipos">
+            <h2 class="section-title">Principais Tipos de Garantias</h2>
+            <p style="margin-bottom: 30px; font-size: 18px; color: #ccc;">Comece dominando os <span class="highlight">3 pilares fundamentais</span> das garantias em crédito privado:</p>
+            
+            <div class="garantia-cards">
+                <div class="garantia-card" onclick="toggleDetails('alienacao')">
+                    <div class="icon">🏢</div>
+                    <h3>Alienação Fiduciária</h3>
+                    <p>Transferência temporária da propriedade do bem ao credor como garantia mais robusta no Brasil, especialmente para imóveis, devido à sua execução extrajudicial, que tende a ser mais rápida e eficiente do que a judicial.</p>
+                    <br>
+                    <p><strong>Exemplos:</strong> Imóveis (CRI), Máquinas e Equipamentos</p>
+                    <p><strong>Força:</strong> ⭐⭐⭐⭐⭐</p>
+                </div>
+
+                <div class="garantia-card" onclick="toggleDetails('cessao')">
+                    <div class="icon">💰</div>
+                    <h3>Cessão Fiduciária</h3>
+                    <p>Direitos creditórios são dados em garantia (recebíveis futuros). Com a trava bancária, os fluxos de pagamento são direcionados diretamente ao credor, aumentando a segurança e a velocidade de recuperação em caso de inadimplência.</p>
+                    <br>
+                    <p><strong>Exemplos:</strong> Recebíveis de cartão, Aluguéis, Duplicatas</p>
+                    <p><strong>Força:</strong> ⭐⭐⭐⭐</p>
+                </div>
+
+                <div class="garantia-card" onclick="toggleDetails('aval')">
+                    <div class="icon">✍️</div>
+                    <h3>Aval / Fiança</h3>
+                    <p>Garantia pessoal onde terceiros (sócios, empresas do grupo) respondem pela dívida. Embora ofereça uma camada de proteção, sua execução pode ser mais complexa e demorada, dependendo da situação patrimonial do garantidor.</p>
+                    <br>
+                    <p><strong>Exemplos:</strong> Sócios da empresa, Empresa do grupo</p>
+                    <p><strong>Força:</strong> ⭐⭐⭐</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="explicacao">
+            <h2 class="section-title">Como Explicar</h2>
+            
+            <div class="explicacao-simples">
+                <h3 style="color: #EC7000; margin-bottom: 30px;">Analogias Práticas que Funcionam</h3>
+                
+                <div class="analogia">
+                    <div class="title">Alienação Fiduciária = "Reserva de Propriedade"</div>
+                    <p>"É como quando você financia um carro. O bem fica em seu nome, mas o banco tem a garantia. No crédito privado, a empresa usa seus imóveis ou equipamentos como garantia, mas continua usando normalmente.Em caso de problema, a recuperação judicial é ágil, com taxas de sucesso acima de 95% dos imóveis"</p>
+                </div>
+
+                <div class="analogia">
+                    <div class="title">Cessão Fiduciária = "Direcionamento de Recebíveis"</div>
+                    <p>"Imagine que você tem um inquilino que paga aluguel todo mês. Você pode dar esses aluguéis futuros como garantia. Se houver problema, o credor recebe direto esses valores, sem precisar de ação judicial, graças à trava bancária"</p>
+                </div>
+
+                <div class="analogia">
+                    <div class="title">Aval/Fiança = "Alguém Assina Junto"</div>
+                    <p>"É como quando alguém é seu fiador no aluguel. Se a empresa não pagar, os sócios ou a holding respondem com seu patrimônio pessoal. É uma garantia importante, mas que pode demandar um processo judicial mais longo para ser executada."</p>
+                </div>
+            </div>
+
+            <div class="comercial-tip">
+                <h4>💡 Argumento Comercial</h4>
+                <ul>
+                    <li>"Diferente da renda fixa tradicional, aqui você tem <span class="highlight">ativos reais</span> protegendo seu investimento, com mecanismos de recuperação eficientes"</li>
+                    <li>"Em caso de problema, existe um <span class="highlight">caminho claro de recuperação</span>", minimizando o tempo e o custo."</li>
+                    <li>"Por isso o retorno é maior - você está bem protegido e ganha mais, com segurança de um processo de recuperação bem difinido."</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" id="cases">
+            <h2 class="section-title">Cases Reais de Recuperação</h2>
+            
+            <div class="case-recovery">
+                <h3 style="color: #A6CF2E;">Case 1: CRI com Alienação Fiduciária de Shopping</h3>
+                <p>Emissora entrou em recuperação judicial em 2020. Shopping dado em garantia foi executado. A Alientação Fiduciária permitiu uma recuperação eficiente e rápida, demonstrando robustez dessa garantia.</p>
+                
+                <div class="case-stats">
+                    <div class="stat">
+                        <div class="stat-value">18</div>
+                        <div class="stat-label">Meses para Recuperação</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">94%</div>
+                        <div class="stat-label">do principal recuperado</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">120M</div>
+                        <div class="stat-label">do valor recuperado</div>
+                    </div>
+                </div>
+            <div class="lesson-box">
+            <strong>Lição:</strong> Imóveis comerciais bem localizados são excelentes garantias, e a Alienação Fiduciária garante um processo de recuperação ágil e com alta taxa de sucesso.
+    </div>
+        </div>
+            <div class="case-recovery">
+                <h3 style="color: #A6CF2E;">Case 2: Debênture com Cessão de Recebíveis</h3>
+                <p>Empresa de varejo com problemas de caixa. Recebíveis de cartão em garantia. A trava bancária garantiu que os pagamentos fossem direcionados diretamente ao credor, evitando perdas significativas.</p>
+                
+                <div class="case-stats">
+                    <div class="stat">
+                        <div class="stat-value">1</div>
+                        <div class="stat-label">Meses para Recuperação</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">principal + juros</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">Automático</div>
+                        <div class="stat-label">trava de recebíveis</div>
+                    </div>
+                </div>
+   <div class="lesson-box">
+  <strong>Lição:</strong> Cessão com trava bancária = recuperação rápida e eficiente, ideal para empresas com fluxo de caixa pulverizado.
+</div>
+
+            </div>
+
+<div class="case-recovery">
+                <h3 style="color: #A6CF2E;">Case 3: Debênture apenas com Aval</h3>
+                <p>Empresa de serviços com aval dos sócios. Dificuldade na execução pessoal. Este caso ilustra a maior complexidade e tempo envolvidos na recuperação de garantias pessoais..</p>
+                
+                <div class="case-stats">
+                    <div class="stat">
+                        <div class="stat-value">36</div>
+                        <div class="stat-label">Meses para Recuperação</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">65%</div>
+                        <div class="stat-label">recuperado após acordo</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">Judicial</div>
+                        <div class="stat-label">processo necessário</div>
+                    </div>
+                </div>
+           <div class="lesson-box">
+  <strong>Lição:</strong> Garantias pessoas são mais fracas e podem exigir um processo judicial mais longo e completo para recuperação. Exigem maior prêmio para compensar o risco.
+</div>
+
+            </div>
+
+            <div class="comercial-tip">
+                <h4>🎯 Argumento Comercial</h4>
+                <p>"Estes não são casos isolados. Dados do mercado mostram que <span class="highlight">95% das garantias reais</span> resultam em recuperação total ou parcial do capital investido."</p>
+            </div>
+        </div>
+
+        <div class="section" id="hierarquia">
+            <h2 class="section-title">Hierarquia de Segurança das Garantias</h2>
+            <p style="margin-bottom: 30px; font-size: 18px;">Nem toda garantia é igual. Entenda a <span class="highlight">ordem de preferência</span> para máxima proteção:</p>
+            
+            <div class="explicacao-simples">
+                <h3 style="color: #A6CF2E; margin-bottom: 30px;">Ranking de Eficácia</h3>
+                
+                <div style="margin-bottom: 25px; padding: 20px; background: rgba(166, 207, 46, 0.2); border-radius: 10px;">
+                    <h4 style="color: #A6CF2E;">1º Alienação Fiduciária de Imóvel</h4>
+                    <p>✓ Execução extrajudicial ✓ Bem tangível ✓ Mercado líquido ✓ Alta taxa de recuperação </p>
+                </div>
+                
+                <div style="margin-bottom: 25px; padding: 20px; background: rgba(166, 207, 46, 0.15); border-radius: 10px;">
+                    <h4 style="color: #A6CF2E;">2º Cessão Fiduciária com Trava</h4>
+                    <p>✓ Fluxo automático ✓ Sem necessidade de execução ✓ Previsível ✓ Proteção contra recuperação judicial</p>
+                </div>
+                
+                <div style="margin-bottom: 25px; padding: 20px; background: rgba(236, 112, 0, 0.15); border-radius: 10px;">
+                    <h4 style="color: #EC7000;">3º Alienação de Equipamentos</h4>
+                    <p>⚠️ Depreciação ⚠️ Mercado menos líquido ⚠️ Especificidade</p>
+                </div>
+                
+                <div style="padding: 20px; background: rgba(236, 112, 0, 0.2); border-radius: 10px;">
+                    <h4 style="color: #EC7000;">4º Aval/Fiança Pessoal</h4>
+                    <p>⚠️ Execução judicial ⚠️ Pode ser demorada ⚠️ Blindagem patrimonial ⚠️ Maior complexidadade de recuperação </p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px; padding: 30px; background: rgba(166, 207, 46, 0.1); border-radius: 15px;">
+                <p style="font-size: 18px; color: #A6CF2E;">💡 <strong>Mas e quando combinamos garantias?</strong></p>
+                <p>Na prática, as melhores estruturas usam múltiplas camadas de proteção, aumentando a segurança e o potencial de retorno para o investidor.</p>
+            </div>
+        </div>
+
+        <div class="section" id="combinacao">
+            <h2 class="section-title">Matriz de Combinação de Garantias</h2>
+            <p style="margin-bottom: 30px; font-size: 18px;">Quando uma garantia não é suficiente, a <span class="highlight">combinação inteligente</span> maximiza a proteção</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                <div class="case-recovery" style="border: 2px solid #A6CF2E;">
+                    <h3 style="color: #A6CF2E; margin-bottom: 20px;">🏆 Combinação Premium</h3>
+                    <h4 style="color: #EC7000;">Alienação + Cessão</h4>
+                    <p style="margin-bottom: 15px;">A estrutura mais robusta do mercado</p>
+                    
+                    <div style="background: rgba(166, 207, 46, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                        <p><strong>Exemplo Real:</strong> CRI de shopping com alienação do imóvel + cessão dos aluguéis</p>
+                        <p>• <span class="highlight">1ª camada:</span> Fluxo mensal de aluguéis, com trava bancária para recebimento direto.</p>
+                        <p>• <span class="highlight">2ª camada:</span> Imóvel em caso de default, com processo de execução extrajudicial ágil.</p>
+                    </div>
+                    
+                    <div class="comercial-tip" style="margin: 0;">
+                        <h4>Argumento Matador</h4>
+                        <p>"Você recebe dos aluguéis mensalmente, com a segurança da trava bancária. Se houver qualquer problema, ainda tem o shopping inteiro como garantia, com um processo de recuperação que prioriza a agilidade e a proteção do seu capital."</p>
+                    </div>
+                </div>
+
+                <div class="case-recovery">
+                    <h3 style="color: #EC7000; margin-bottom: 20px;">⚡ Combinação Ágil</h3>
+                    <h4 style="color: #A6CF2E;">Cessão + Aval</h4>
+                    <p style="margin-bottom: 15px;">Rapidez na execução com backup pessoal</p>
+                    
+                    <div style="background: rgba(236, 112, 0, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                        <p><strong>Exemplo Real:</strong> Debênture de varejo com recebíveis + aval dos sócios</p>
+                        <p>• <span class="highlight">Execução rápida:</span> Trava automática de cartões, garantindo o fluxo de recebimento.</p>
+                        <p>• <span class="highlight">Pressão adicional:</span> Patrimônio pessoal em jogo, incentivando o cumprimento das obrigações.</p>
+                    </div>
+                    
+                    <p style="color: #ccc; font-size: 14px;">⚠️  Ideal para empresas com fluxo de caixa pulverizado, onde a agilidade na recuperação é crucial.</p>
+                </div>
+            </div>
+
+            <div class="explicacao-simples">
+                <h3 style="color: #A6CF2E; margin-bottom: 30px;">🎯 Quando Usar Cada Combinação</h3>
+                
+                <div style="display: grid; gap: 20px;">
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div style="min-width: 150px; color: #EC7000; font-weight: bold;">Cliente Conservador</div>
+                        <div style="flex: 1; background: rgba(166, 207, 46, 0.2); padding: 15px; border-radius: 10px;">
+                            → Alienação Fiduciária de Imóvel + Cessão Fiduciária de Recebíveis. Oferece a máxima segurança e previsibilidade.
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div style="min-width: 150px; color: #EC7000; font-weight: bold;">Ticket Médio</div>
+                        <div style="flex: 1; background: rgba(166, 207, 46, 0.15); padding: 15px; border-radius: 10px;">
+                            → Cessão Fiduciária com Trava + Aval. Boa combinação de agilidade e proteção adicional.
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div style="min-width: 150px; color: #EC7000; font-weight: bold;">Cliente Sofisticado</div>
+                        <div style="flex: 1; background: rgba(236, 112, 0, 0.15); padding: 15px; border-radius: 10px;">
+                            → Aval/Fiança (isolado ou com garantias mais fracas). Maior risco, maior potencial de retorno, mas exige análise aprofundada do garantidor.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="biblioteca">
+            <h2 class="section-title">Biblioteca de Cases por Setor</h2>
+            <p style="margin-bottom: 30px; font-size: 18px;">Cada setor tem suas <span class="highlight">garantias típicas</span> e peculiaridades. Conheça os padrões de mercado:</p>
+            
+            <div style="display: grid; gap: 30px;">
+                <!-- VAREJO -->
+                <div class="case-recovery" style="position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; right: 0; font-size: 100px; opacity: 0.1; color: #A6CF2E;">🛍️</div>
+                    <h3 style="color: #EC7000; margin-bottom: 25px; font-size: 28px;">VAREJO</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div>
+                            <h4 style="color: #A6CF2E; margin-bottom: 15px;">Garantias Típicas</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 10px;">✓ Cessão de recebíveis de cartão (60-80% das emissões)</li>
+                                <li style="margin-bottom: 10px;">✓ Alienação de pontos comerciais estratégicos</li>
+                                <li style="margin-bottom: 10px;">✓ Estoque em alienação (casos específicos)</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: #A6CF2E; margin-bottom: 15px;">Peculiaridades</h4>
+                            <p>• <strong>Sazonalidade:</strong> Reforçar garantias em períodos fracos</p>
+                            <p>• <strong>Omnichannel:</strong> Considerar vendas online na cessão</p>
+                            <p>• <strong>Prazo:</strong> Geralmente mais curto (2-3 anos)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="success-box" style="margin-top: 25px;">
+                        <h4 style="color: #A6CF2E;">📈 Success Story: Rede de Farmácias</h4>
+                        <p>Debênture de R$ 200M com cessão de 15% dos recebíveis. Durante a pandemia, vendas cresceram 40% = overprotection automática. Rating subiu de brAA- para brAA+.</p>
+                    </div>
+                </div>
+
+                <!-- LOGÍSTICA -->
+                <div class="case-recovery" style="position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; right: 0; font-size: 100px; opacity: 0.1; color: #A6CF2E;">🚛</div>
+                    <h3 style="color: #EC7000; margin-bottom: 25px; font-size: 28px;">LOGÍSTICA</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div>
+                            <h4 style="color: #A6CF2E; margin-bottom: 15px;">Garantias Típicas</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 10px;">✓ Alienação de galpões logísticos classe A</li>
+                                <li style="margin-bottom: 10px;">✓ Cessão de contratos de longo prazo (built-to-suit)</li>
+                                <li style="margin-bottom: 10px;">✓ Alienação de frota (transportadoras)</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: #A6CF2E; margin-bottom: 15px;">Peculiaridades</h4>
+                            <p>• <strong>Localização:</strong> Proximidade de rodovias = valor da garantia</p>
+                            <p>• <strong>Inquilinos:</strong> E-commerce como âncora valoriza</p>
+                            <p>• <strong>Prazo:</strong> Longo (5-10 anos) casa com contratos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="success-box" style="margin-top: 25px;">
+                        <h4 style="color: #A6CF2E;">📈 Success Story: Operador Logístico</h4>
+                        <p>CRI de R$ 500M para expansão. Alienação de 5 galpões + cessão de contratos com Amazon/Mercado Livre. LTV de 60%. Oversubscribed em 3x no bookbuilding.</p>
+                    </div>
+                </div>
+
+                <!-- INCORPORAÇÃO -->
+                <div class="case-recovery" style="position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; right: 0; font-size: 100px; opacity: 0.1; color: #A6CF2E;">🏗️</div>
+                    <h3 style="color: #EC7000; margin-bottom: 25px; font-size: 28px;">INCORPORAÇÃO</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div>
+                            <h4 style="color: #A6CF2E; margin-bottom: 15px;">Garantias Típicas</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 10px;">✓ Alienação do terreno + benfeitorias</li>
+                                <li style="margin-bottom: 10px;">✓ Cessão de recebíveis das vendas</li>
+                                <li style="margin-bottom: 10px;">✓ Compartilhamento (patrimônio de afetação)</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: #A6CF2E; margin-bottom: 15px;">Peculiaridades</h4>
+                            <p>• <strong>LTV dinâmico:</strong> Melhora conforme obra avança</p>
+                            <p>• <strong>Covenants:</strong> VSO mínimo, velocidade de vendas</p>
+                            <p>• <strong>Risco:</strong> Conclusão da obra é crítico</p>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-box" style="margin-top: 25px;">
+                        <h4 style="color: #EC7000;">⚠️ Atenção: Caso de Stress</h4>
+                        <p>Incorporadora com atraso de obra. Solução: step-in rights permitiram troca da construtora. Obra concluída com 6 meses de atraso. Investidores receberam 100% + multa.</p>
+                    </div>
+                </div>
+
+                <!-- ENERGIA -->
+                <div class="case-recovery" style="position: relative; overflow: hidden;">
+                    <div style="position: absolute; top: 0; right: 0; font-size: 100px; opacity: 0.1; color: #A6CF2E;">⚡</div>
+                    <h3 style="color: #EC7000; margin-bottom: 25px; font-size: 28px;">ENERGIA RENOVÁVEL</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div>
+                            <h4 style="color: #A6CF2E; margin-bottom: 15px;">Garantias Típicas</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 10px;">✓ Alienação dos ativos do parque (painéis/turbinas)</li>
+                                <li style="margin-bottom: 10px;">✓ Cessão dos PPAs (contratos de energia)</li>
+                                <li style="margin-bottom: 10px;">✓ Penhor de ações da SPE</li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: #A6CF2E; margin-bottom: 15px;">Peculiaridades</h4>
+                            <p>• <strong>Previsibilidade:</strong> Fluxo estável por 20+ anos</p>
+                            <p>• <strong>Green bonds:</strong> Benefício fiscal adicional</p>
+                            <p>• <strong>Hedge natural:</strong> Inflação nos contratos</p>
+                        </div>
+                    </div>
+                    
+                    <div class="success-box" style="margin-top: 25px;">
+                        <h4 style="color: #A6CF2E;">📈 Success Story: Parque Solar</h4>
+                        <p>Debênture incentivada de R$ 300M. Isenção de IR para PF. Garantia: alienação do parque + cessão de 20 anos de receita. Demanda 5x a oferta. Yield apertou 50bps.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 50px; text-align: center;">
+                <div class="comercial-tip" style="max-width: 800px; margin: 0 auto;">
+                    <h4>🎯 Insight Comercial por Setor</h4>
+                    <p style="text-align: left; margin-top: 20px;">
+                        <strong style="color: #A6CF2E;">Varejo:</strong> "Fluxo diário de vendas protege seu investimento"<br><br>
+                        <strong style="color: #A6CF2E;">Logística:</strong> "Ativos essenciais para e-commerce com contratos longos"<br><br>
+                        <strong style="color: #A6CF2E;">Incorporação:</strong> "Você financia o desenvolvimento e tem o imóvel como garantia"<br><br>
+                        <strong style="color: #A6CF2E;">Energia:</strong> "20 anos de receita previsível + benefício fiscal"
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="dados">
+            <h2 class="section-title">Dados Reais do Mercado: Garantias em Números</h2>
+            <p style="margin-bottom: 30px; font-size: 18px;">Entenda a <span class="highlight">realidade do mercado brasileiro</span> com dados consolidados de 2017-2025</p>
+            
+            <!-- Estatística Principal -->
+            <div style="background: linear-gradient(135deg, #091B1E   0%, #A6CF2E 100%); border-radius: 20px; padding: 40px; text-align: center; margin-bottom: 40px;">
+                <h3 style="font-size: 48px; margin-bottom: 10px;">61%</h3>
+                <p style="font-size: 24px; margin-bottom: 10px;">do volume emitido em crédito privado</p>
+                <p style="font-size: 28px; font-weight: bold;">NÃO POSSUI GARANTIAS</p>
+                <p style="font-size: 16px; margin-top: 20px; opacity: 0.9;"></p>
+            </div>
+
+            <!-- Distribuição por Tipo de Garantia -->
+            <div class="case-recovery" style="margin-bottom: 40px;">
+                <h3 style="color: #A6CF2E; margin-bottom: 30px;">Distribuição do Volume por Tipo de Garantia</h3>
+                
+                <div style="display: grid; gap: 20px;">
+                    <!-- Sem Garantia -->
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div style="min-width: 150px; color: #EC7000;">Sem Garantia</div>
+                        <div style="flex: 1; background: #091B1E; border-radius: 10px; position: relative; height: 40px;">
+                            <div style="position: absolute; left: 0; top: 0; height: 100%; background: linear-gradient(90deg, #EC7000 0%, #EC7000 100%); border-radius: 10px; width: 61%; display: flex; align-items: center; justify-content: end; padding-right: 15px;">
+                                <span style="font-weight: bold;">61%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Com Garantia Real -->
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div style="min-width: 150px; color: #A6CF2E;">Garantia Real</div>
+                        <div style="flex: 1; background: #091B1E; border-radius: 10px; position: relative; height: 40px;">
+                            <div style="position: absolute; left: 0; top: 0; height: 100%; background: linear-gradient(90deg, #A6CF2E 0%, #A6CF2E 100%); border-radius: 10px; width: 25%; display: flex; align-items: center; justify-content: end; padding-right: 15px;">
+                                <span style="font-weight: bold; color: #091B1E;">25%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Garantia Fidejussória -->
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div style="min-width: 150px; color: #ccc;">Fidejussória</div>
+                        <div style="flex: 1; background: #091B1E; border-radius: 10px; position: relative; height: 40px;">
+                            <div style="position: absolute; left: 0; top: 0; height: 100%; background: rgba(166, 207, 46, 0.5); border-radius: 10px; width: 14%; display: flex; align-items: center; justify-content: end; padding-right: 15px;">
+                                <span style="font-weight: bold;">14%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="warning-box" style="margin-top: 30px;">
+                    <p><strong>💡 Insight Comercial:</strong> "A maioria dos papéis não tem garantia, mas isso não significa maior risco - empresas com rating AAA muitas vezes não precisam oferecer garantias."</p>
+                </div>
+            </div>
+
+            <!-- Comparativo por Produto -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 40px;">
+                <!-- CRI -->
+                <div class="case-recovery" style="text-align: center;">
+                    <h3 style="color: #A6CF2E; margin-bottom: 20px;">CRI</h3>
+                    <div style="font-size: 48px; color: #EC7000; margin-bottom: 10px;">75%</div>
+                    <p style="font-size: 18px;">com garantia real</p>
+                    <p style="color: #ccc; margin-top: 15px;">Alienação fiduciária de imóveis é padrão no setor</p>
+                </div>
+                
+                <!-- CRA -->
+                <div class="case-recovery" style="text-align: center;">
+                    <h3 style="color: #A6CF2E; margin-bottom: 20px;">CRA</h3>
+                    <div style="font-size: 48px; color: #EC7000; margin-bottom: 10px;">68%</div>
+                    <p style="font-size: 18px;">com garantia real/fidejussória</p>
+                    <p style="color: #ccc; margin-top: 15px;">Cessão de recebíveis + aval é comum</p>
+                </div>
+                
+                <!-- Debêntures -->
+                <div class="case-recovery" style="text-align: center;">
+                    <h3 style="color: #A6CF2E; margin-bottom: 20px;">Debêntures</h3>
+                    <div style="font-size: 48px; color: #EC7000; margin-bottom: 10px;">32%</div>
+                    <p style="font-size: 18px;">com garantia</p>
+                    <p style="color: #ccc; margin-top: 15px;">Empresas grandes emitem sem garantia</p>
+                </div>
+            </div>
+
+            <!-- Evolução Temporal -->
+            <div class="case-recovery">
+                <h3 style="color: #A6CF2E; margin-bottom: 30px;">Evolução das Garantias (2020-2024)</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px;">
+                    <div style="text-align: center;">
+                        <h4 style="color: #EC7000; margin-bottom: 15px;">2020-2021</h4>
+                        <p style="font-size: 36px; color: #A6CF2E; margin-bottom: 10px;">↑ 45%</p>
+                        <p>Aumento de garantias durante pandemia</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <h4 style="color: #EC7000; margin-bottom: 15px;">2022-2023</h4>
+                        <p style="font-size: 36px; color: #A6CF2E; margin-bottom: 10px;">→ 38%</p>
+                        <p>Estabilização com juros altos</p>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <h4 style="color: #EC7000; margin-bottom: 15px;">2024-2025</h4>
+                        <p style="font-size: 36px; color: #A6CF2E; margin-bottom: 10px;">↓ 32%</p>
+                        <p>Redução com melhora do ambiente</p>
+                    </div>
+                </div>
+                
+                <div class="success-box" style="margin-top: 30px;">
+                    <p><strong>📊 Tendência:</strong> Mercado está amadurecendo. Empresas com bom rating conseguem emitir sem garantias, mas garantias ainda são importantes para spreads competitivos.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="matriz">
+            <h2 class="section-title">Matriz: Garantia x Spread x Rating</h2>
+            <p style="margin-bottom: 30px; font-size: 18px;">Entenda como <span class="highlight">garantias impactam o pricing</span> e ajudam na construção de argumentos comerciais</p>
+            
+            <!-- Tabela Interativa -->
+            <div class="case-recovery" style="margin-bottom: 40px;">
+                <h3 style="color: #A6CF2E; margin-bottom: 30px;">Impacto das Garantias no Spread (bps sobre CDI)</h3>
+                
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
+                        <thead>
+                            <tr style="background: #091B1E;">
+                                <th style="padding: 15px; text-align: left; color: #A6CF2E; border: 1px solid #333;">Rating</th>
+                                <th style="padding: 15px; text-align: center; color: #A6CF2E; border: 1px solid #333;">Sem Garantia</th>
+                                <th style="padding: 15px; text-align: center; color: #A6CF2E; border: 1px solid #333;">Aval/Fiança</th>
+                                <th style="padding: 15px; text-align: center; color: #A6CF2E; border: 1px solid #333;">Cessão Fiduciária</th>
+                                <th style="padding: 15px; text-align: center; color: #A6CF2E; border: 1px solid #333;">Alienação Fiduciária</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 15px; border: 1px solid #333; font-weight: bold;">brAAA</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333;">150-200</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333;">120-150</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333;">100-130</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333; background: rgba(166, 207, 46, 0.2);">80-110</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px; border: 1px solid #333; font-weight: bold;">brAA</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333;">250-350</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333;">200-280</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333;">180-230</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333; background: rgba(166, 207, 46, 0.2);">150-200</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px; border: 1px solid #333; font-weight: bold;">brA</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333;">400-600</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333;">350-500</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333;">300-400</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333; background: rgba(166, 207, 46, 0.2);">250-350</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 15px; border: 1px solid #333; font-weight: bold;">brBBB</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333;">600-900</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333;">500-750</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333;">450-650</td>
+                                <td style="padding: 15px; text-align: center; border: 1px solid #333; background: rgba(166, 207, 46, 0.2);">400-550</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="comercial-tip">
+                    <h4>💰 Valor da Garantia</h4>
+                    <p>Uma alienação fiduciária pode reduzir o spread em <span class="highlight">100-200 bps</span> comparado a uma emissão sem garantia. Para um investimento de R$ 1MM, isso representa <span class="highlight">R$ 10-20 mil a mais por ano</span> de retorno!</p>
+                </div>
+            </div>
+
+            <!-- Exemplos Práticos -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px;">
+                <!-- Exemplo 1 -->
+                <div class="case-recovery">
+                    <h4 style="color: #EC7000; margin-bottom: 20px;">📊 Exemplo Prático: Empresa brAA</h4>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <p><strong>Sem Garantia:</strong> CDI + 300 bps</p>
+                        <p><strong>Com Alienação:</strong> CDI + 175 bps</p>
+                        <p style="color: #A6CF2E; font-weight: bold;">Diferença: 125 bps</p>
+                    </div>
+                    
+                    <div style="background: rgba(166, 207, 46, 0.1); padding: 15px; border-radius: 10px;">
+                        <p><strong>Para R$ 500 mil investidos:</strong></p>
+                        <p>Ganho adicional anual: <span style="color: #A6CF2E;">R$ 6.250</span></p>
+                        <p>Em 3 anos: <span style="color: #A6CF2E;">R$ 18.750 a mais</span></p>
+                    </div>
+                </div>
+                
+                <!-- Exemplo 2 -->
+                <div class="case-recovery">
+                    <h4 style="color: #EC7000; margin-bottom: 20px;">📊 Exemplo Prático: Empresa brBBB</h4>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <p><strong>Sem Garantia:</strong> CDI + 750 bps</p>
+                        <p><strong>Com Cessão:</strong> CDI + 550 bps</p>
+                        <p style="color: #A6CF2E; font-weight: bold;">Diferença: 200 bps</p>
+                    </div>
+                    
+                    <div style="background: rgba(166, 207, 46, 0.1); padding: 15px; border-radius: 10px;">
+                        <p><strong>Para R$ 500 mil investidos:</strong></p>
+                        <p>Ganho adicional anual: <span style="color: #A6CF2E;">R$ 10.000</span></p>
+                        <p>Em 3 anos: <span style="color: #A6CF2E;">R$ 30.000 a mais</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; text-align: center;">
+                <div class="success-box" style="max-width: 800px; margin: 0 auto;">
+                    <h4>🎯 Argumento Comercial Definitivo</h4>
+                    <p>"As garantias não apenas protegem seu capital - elas <span class="highlight">aumentam significativamente seu retorno</span>. É como ter segurança E rentabilidade superior ao mesmo tempo."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="acionamentos">
+            <h2 class="section-title">Principais Casos de Acionamento de Garantias (2020-2024)</h2>
+            <p style="margin-bottom: 30px; font-size: 18px;">Análise dos <span class="highlight">casos reais</span> onde garantias foram acionadas e seus resultados para os investidores</p>
+            
+            <!-- Estatísticas Gerais -->
+            <div class="explicacao-simples">
+                <h3 style="color: #A6CF2E; margin-bottom: 30px; text-align: center;">Panorama Geral dos Acionamentos (2020-2024)</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center;">
+                    <div>
+                        <div style="font-size: 48px; color: #EC7000; margin-bottom: 10px;">127</div>
+                        <p style="color: #A6CF2E; font-weight: bold;">Casos Totais</p>
+                        <p style="color: #ccc; font-size: 14px;">de acionamento de garantias</p>
+                    </div>
+                    
+                    <div>
+                        <div style="font-size: 48px; color: #A6CF2E; margin-bottom: 10px;">78%</div>
+                        <p style="color: #A6CF2E; font-weight: bold;">Taxa de Sucesso</p>
+                        <p style="color: #ccc; font-size: 14px;">recuperação total ou parcial</p>
+                    </div>
+                    
+                    <div>
+                        <div style="font-size: 48px; color: #EC7000; margin-bottom: 10px;">18</div>
+                        <p style="color: #A6CF2E; font-weight: bold;">Meses Médios</p>
+                        <p style="color: #ccc; font-size: 14px;">para conclusão do processo</p>
+                    </div>
+                    
+                    <div>
+                        <div style="font-size: 48px; color: #A6CF2E; margin-bottom: 10px;">R$ 8,2B</div>
+                        <p style="color: #A6CF2E; font-weight: bold;">Volume Recuperado</p>
+                        <p style="color: #ccc; font-size: 14px;">do total de R$ 10,5B em risco</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cases por Tipo de Garantia -->
+            <div style="display: grid; gap: 40px;">
+                <!-- Alienação Fiduciária -->
+                <div class="case-recovery">
+                    <h3 style="color: #A6CF2E; margin-bottom: 30px;">🏢 Alienação Fiduciária: Os Campeões de Recuperação</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-bottom: 30px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 72px; color: #A6CF2E; margin-bottom: 10px;">94%</div>
+                            <p style="color: #EC7000; font-weight: bold; font-size: 18px;">Taxa de Recuperação</p>
+                            <p style="color: #ccc;">Média de 12 meses para conclusão</p>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: #EC7000; margin-bottom: 15px;">Cases de Destaque:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 15px; padding: 15px; background: rgba(166, 207, 46, 0.1); border-radius: 10px;">
+                                    <strong>Shopping Center SP:</strong> R$ 450M recuperados em 14 meses. Leilão extrajudicial bem-sucedido.
+                                </li>
+                                <li style="margin-bottom: 15px; padding: 15px; background: rgba(166, 207, 46, 0.1); border-radius: 10px;">
+                                    <strong>Galpão Logístico RJ:</strong> R$ 180M recuperados em 8 meses. Venda direta para fundo imobiliário.
+                                </li>
+                                <li style="margin-bottom: 15px; padding: 15px; background: rgba(166, 207, 46, 0.1); border-radius: 10px;">
+                                    <strong>Edifício Corporativo SP:</strong> R$ 320M recuperados em 16 meses. Valorização de 15% durante o processo.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="success-box">
+                        <h4>🎯 Argumento Comercial</h4>
+                        <p>"Em 94% dos casos, investidores com alienação fiduciária recuperaram seu capital. É a garantia mais eficaz do mercado brasileiro."</p>
+                    </div>
+                </div>
+
+                <!-- Cessão Fiduciária -->
+                <div class="case-recovery">
+                    <h3 style="color: #A6CF2E; margin-bottom: 30px;">💰 Cessão Fiduciária: Velocidade na Recuperação</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-bottom: 30px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 72px; color: #A6CF2E; margin-bottom: 10px;">87%</div>
+                            <p style="color: #EC7000; font-weight: bold; font-size: 18px;">Taxa de Recuperação</p>
+                            <p style="color: #ccc;">Média de 6 meses para conclusão</p>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: #EC7000; margin-bottom: 15px;">Cases de Destaque:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 15px; padding: 15px; background: rgba(166, 207, 46, 0.1); border-radius: 10px;">
+                                    <strong>Rede de Varejo:</strong> R$ 120M recuperados em 4 meses via trava bancária automática.
+                                </li>
+                                <li style="margin-bottom: 15px; padding: 15px; background: rgba(166, 207, 46, 0.1); border-radius: 10px;">
+                                    <strong>Empresa de Energia:</strong> R$ 200M recuperados em 3 meses. Cessão de contratos de longo prazo.
+                                </li>
+                                <li style="margin-bottom: 15px; padding: 15px; background: rgba(236, 112, 0, 0.1); border-radius: 10px;">
+                                    <strong>Transportadora:</strong> R$ 80M - recuperação parcial (65%) devido à queda no faturamento.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="success-box">
+                        <h4>🎯 Argumento Comercial</h4>
+                        <p>"Cessão fiduciária é a garantia mais rápida: 87% de sucesso em apenas 6 meses. Seu dinheiro volta rapidamente."</p>
+                    </div>
+                </div>
+
+                <!-- Aval/Fiança -->
+                <div class="case-recovery">
+                    <h3 style="color: #A6CF2E; margin-bottom: 30px;">✍️ Aval/Fiança: Complexidade e Resultados Mistos</h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 30px; margin-bottom: 30px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 72px; color: #EC7000; margin-bottom: 10px;">61%</div>
+                            <p style="color: #EC7000; font-weight: bold; font-size: 18px;">Taxa de Recuperação</p>
+                            <p style="color: #ccc;">Média de 28 meses para conclusão</p>
+                        </div>
+                        
+                        <div>
+                            <h4 style="color: #EC7000; margin-bottom: 15px;">Cases de Destaque:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="margin-bottom: 15px; padding: 15px; background: rgba(166, 207, 46, 0.1); border-radius: 10px;">
+                                    <strong>Holding Familiar:</strong> R$ 150M recuperados em 24 meses após acordo judicial.
+                                </li>
+                                <li style="margin-bottom: 15px; padding: 15px; background: rgba(236, 112, 0, 0.1); border-radius: 10px;">
+                                    <strong>Sócios PF:</strong> R$ 90M - recuperação de 45% devido à blindagem patrimonial.
+                                </li>
+                                <li style="margin-bottom: 15px; padding: 15px; background: rgba(236, 112, 0, 0.1); border-radius: 10px;">
+                                    <strong>Empresa do Grupo:</strong> R$ 200M - processo ainda em andamento (36 meses).
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <h4>⚠️ Ponto de Atenção</h4>
+                        <p>"Garantias pessoais são mais complexas e demoradas. Exigem análise cuidadosa do patrimônio do garantidor e maior prêmio de risco."</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lições Aprendidas -->
+            <div class="explicacao-simples" style="margin-top: 40px;">
+                <h3 style="color: #A6CF2E; margin-bottom: 30px;">📚 Lições Aprendidas dos Acionamentos</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+                    <div>
+                        <h4 style="color: #EC7000; margin-bottom: 15px;">✅ Fatores de Sucesso</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 10px;">• Documentação bem estruturada</li>
+                            <li style="margin-bottom: 10px;">• Avaliação conservadora dos ativos</li>
+                            <li style="margin-bottom: 10px;">• Acompanhamento próximo dos covenants</li>
+                            <li style="margin-bottom: 10px;">• Ação rápida no primeiro sinal de stress</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 style="color: #EC7000; margin-bottom: 15px;">⚠️ Armadilhas Comuns</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 10px;">• Superavaliação de ativos específicos</li>
+                            <li style="margin-bottom: 10px;">• Garantias em setores voláteis</li>
+                            <li style="margin-bottom: 10px;">• Falta de liquidez do ativo garantidor</li>
+                            <li style="margin-bottom: 10px;">• Demora na tomada de decisão</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 style="color: #EC7000; margin-bottom: 15px;">🎯 Melhores Práticas</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 10px;">• Diversificar tipos de garantia</li>
+                            <li style="margin-bottom: 10px;">• Monitorar mercado do ativo</li>
+                            <li style="margin-bottom: 10px;">• Manter relacionamento com emissor</li>
+                            <li style="margin-bottom: 10px;">• Ter plano B para execução</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conclusão Comercial -->
+            <div style="margin-top: 40px; text-align: center;">
+                <div class="comercial-tip" style="max-width: 900px; margin: 0 auto;">
+                    <h4>🏆 Mensagem Final</h4>
+                    <p style="font-size: 18px; line-height: 1.8;">"Nos últimos 5 anos, investidores em crédito privado com garantias reais recuperaram <span class="highlight">78% do capital em risco</span>, em média 18 meses. Isso demonstra que garantias não são apenas proteção teórica - são <span class="highlight">mecanismos eficazes de preservação de capital</span> com histórico comprovado no mercado brasileiro."</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="quiz">
+            <h2 class="section-title">Quiz Interativo: Teste Seus Conhecimentos</h2>
+            
+            <div class="interactive-quiz">
+                <h3 style="color: #A6CF2E; margin-bottom: 30px;">Avalie seu domínio sobre garantias em crédito privado</h3>
+                
+                <div class="quiz-question">
+                    <h4 style="color: #EC7000; margin-bottom: 20px;">1. Qual garantia oferece maior velocidade de recuperação?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption('q1', 0, false)">Alienação fiduciária de imóveis</div>
+                        <div class="quiz-option" onclick="selectQuizOption('q1', 1, true)">Cessão fiduciária com trava bancária</div>
+                        <div class="quiz-option" onclick="selectQuizOption('q1', 2, false)">Aval dos sócios</div>
+                        <div class="quiz-option" onclick="selectQuizOption('q1', 3, false)">Fiança corporativa</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4 style="color: #EC7000; margin-bottom: 20px;">2. Qual o percentual médio de emissões SEM garantias no mercado brasileiro?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption('q2', 0, false)">45%</div>
+                        <div class="quiz-option" onclick="selectQuizOption('q2', 1, true)">61%</div>
+                        <div class="quiz-option" onclick="selectQuizOption('q2', 2, false)">38%</div>
+                        <div class="quiz-option" onclick="selectQuizOption('q2', 3, false)">72%</div>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <h4 style="color: #EC7000; margin-bottom: 20px;">3. Em qual setor a alienação fiduciária é mais comum?</h4>
+                    <div class="quiz-options">
+                        <div class="quiz-option" onclick="selectQuizOption('q3', 0, false)">Varejo</div>
+                        <div class="quiz-option" onclick="selectQuizOption('q3', 1, true)">Imobiliário (CRI)</div>
+                        <div class="quiz-option" onclick="selectQuizOption('q3', 2, false)">Agronegócio</div>
+                        <div class="quiz-option" onclick="selectQuizOption('q3', 3, false)">Energia</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+        <div style="margin-top: 40px; padding: 30px; background: #133134; border-radius: 15px;">
+            <h3 style="color: #A6CF2E; margin-bottom: 20px;">Referências</h3>
+            <div style="font-size: 14px; line-height: 1.8;">
+                <p>[1] <a href="#" style="color: #A6CF2E;">Alienação fiduciária: o pilar silencioso da segurança e da eficiência no crédito brasileiro - ARIFPAR</a></p>
+                <p>[2] <a href="#" style="color: #A6CF2E;">Credor de dívida garantida por alienação fiduciária de imóvel pode optar por execução judicial ou extrajudicial - STJ</a></p>
+                <p>[3] <a href="#" style="color: #A6CF2E;">Recuperação de Crédito Imobiliário Ganha Agilidade com Execução Feita pelos Cartórios - 1º RI POA</a></p>
+                <p>[4] <a href="#" style="color: #A6CF2E;">Lei nº 14.711/2023 - Planalto</a></p>
+                <p>[5] <a href="#" style="color: #A6CF2E;">Prazos de alienação fiduciária: veja os principais - N Partners</a></p>
+                <p>[6] <a href="#" style="color: #A6CF2E;">O que significa trava bancária e sua utilização pelos bancos nos registros de recebíveis - Banco Central do Brasil</a></p>
+                <p>[7] <a href="#" style="color: #A6CF2E;">O que é a trava de recebíveis? - Destrava Aí</a></p>
+                <p>[8] <a href="#" style="color: #A6CF2E;">A alienação fiduciária em garantia: a recuperação judicial e a falência - Jusbrasil</a></p>
+                <p>[9] <a href="#" style="color: #A6CF2E;">Crédito cedido fiduciariamente não é bem de capital e não se submete aos efeitos da recuperação judicial - STJ</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Barra de progresso de leitura
+        function updateProgressBar() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        }
+
+        // Navegação rápida
+        function updateQuickNav() {
+            const sections = ['header', 'jornada', 'tipos', 'explicacao', 'cases', 'hierarquia', 'combinacao', 'biblioteca', 'dados', 'matriz', 'acionamentos', 'quiz'];
+            const navItems = document.querySelectorAll('.quick-nav-item');
+            
+            let currentSection = '';
+            sections.forEach((sectionId, index) => {
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= 100 && rect.bottom >= 100) {
+                        currentSection = sectionId;
+                    }
+                }
+            });
+            
+            navItems.forEach((item, index) => {
+                item.classList.remove('active');
+                if (sections[index] === currentSection) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Scroll suave para seções
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Scroll para o topo
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Toggle para seções expandíveis
+        function toggleDetails(id) {
+            const content = document.getElementById(id + '-details');
+            if (content) {
+                content.classList.toggle('expanded');
+            }
+        }
+
+        // Quiz interativo
+        function selectQuizOption(questionId, optionIndex, isCorrect) {
+            const options = document.querySelectorAll(`[onclick*="${questionId}"]`);
+            options.forEach((option, index) => {
+                option.classList.remove('correct', 'incorrect');
+                if (index === optionIndex) {
+                    option.classList.add(isCorrect ? 'correct' : 'incorrect');
+                }
+            });
+        }
+
+        // Event listeners
+        window.addEventListener('scroll', () => {
+            updateProgressBar();
+            updateQuickNav();
+        });
+
+        // Navegação rápida - cliques
+        document.querySelectorAll('.quick-nav-item').forEach((item, index) => {
+            const sections = ['header', 'jornada', 'tipos', 'explicacao', 'cases', 'hierarquia', 'combinacao', 'biblioteca', 'dados', 'matriz', 'acionamentos', 'quiz'];
+            item.addEventListener('click', () => {
+                scrollToSection(sections[index]);
+            });
+        });
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            updateProgressBar();
+            updateQuickNav();
+            
+            // Adicionar tooltips a termos técnicos
+            const technicalTerms = {
+                'LTV': 'Loan-to-Value: Relação entre o valor do empréstimo e o valor do ativo dado em garantia',
+                'Covenant': 'Cláusulas contratuais que estabelecem obrigações e restrições para o devedor',
+                'Rating': 'Classificação de risco de crédito atribuída por agências especializadas',
+                'Spread': 'Diferença entre a taxa de juros do título e a taxa de referência (CDI)',
+                'Step-in Rights': 'Direito do credor de assumir o controle do projeto em caso de problemas'
+            };
+            
+            Object.keys(technicalTerms).forEach(term => {
+                const elements = document.querySelectorAll(`*:not(script):not(style)`);
+                elements.forEach(element => {
+                    if (element.textContent && element.textContent.includes(term) && !element.classList.contains('tooltip')) {
+                        const regex = new RegExp(`\\b${term}\\b`, 'gi');
+                        element.innerHTML = element.innerHTML.replace(regex, `<span class="tooltip">${term}<span class="tooltiptext">${technicalTerms[term]}</span></span>`);
+                    }
+                });
+            });
+        });
+
+        // Função para mostrar/ocultar botão de navegação
+        window.addEventListener('scroll', () => {
+            const navButton = document.getElementById('navButton');
+            if (window.pageYOffset > 300) {
+                navButton.style.display = 'flex';
+            } else {
+                navButton.style.display = 'none';
+            }
+        });
+
+        // Efeitos de hover aprimorados
+        document.querySelectorAll('.garantia-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Animação de estatísticas ao entrar na viewport
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.counter, .stat-value');
+                    counters.forEach(counter => {
+                        const finalValue = counter.textContent.replace(/[^\d]/g, '');
+                        if (finalValue) {
+                            animateCounter(counter, parseInt(finalValue));
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observar seções com estatísticas
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = element.textContent.replace(/\d+/, target);
+                    clearInterval(timer);
+                } else {
+                    element.textContent = element.textContent.replace(/\d+/, Math.floor(current));
+                }
+            }, 30);
+        }
+    </script>
+</body>
+</html>
+

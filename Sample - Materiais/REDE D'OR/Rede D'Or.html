@@ -1,0 +1,3043 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rede D'Or São Luiz | Credit Research Report - 3T25</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-orange: #EC7000;
+            --accent-green: #A6CF2E;
+            --dark-bg: #091B1E;
+            --dark-secondary: #133134;
+            --white: #FFFFFF;
+            --gray-light: #B8C5C7;
+            --gray-mid: #6B8285;
+            --orange: #EC7000;
+            --orange-light: #FF8C33;
+            --green: #A6CF2E;
+            --green-dark: #8AB526;
+            --dark: #091B1E;
+            --dark-card: #133134;
+            --dark-border: #1E4347;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --red: #EF4444;
+            --yellow: #F59E0B;
+            --blue: #3B82F6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--white);
+            line-height: 1.7;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+        }
+
+        .mono {
+            font-family: 'Montserrat', monospace;
+        }
+
+        /* Header - Full Screen Cover */
+        .header {
+            background: linear-gradient(135deg, #0f2f35 0%, #091b1e 50%, #051113 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            padding: 0;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(236, 112, 0, 0.03),
+                    rgba(236, 112, 0, 0.03) 1px,
+                    transparent 1px,
+                    transparent 40px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(236, 112, 0, 0.03),
+                    rgba(236, 112, 0, 0.03) 1px,
+                    transparent 1px,
+                    transparent 40px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        
+        .header .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 100%;
+            padding: 0 60px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 0;
+            gap: 24px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .company-info h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 80px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--primary-orange);
+            letter-spacing: -2px;
+        }
+
+        .company-info .subtitle {
+            font-size: 20px;
+            color: var(--white);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .report-meta {
+            text-align: center;
+            position: absolute;
+            top: 48px;
+            right: 60px;
+            background: rgba(12, 47, 53, 0.6);
+            padding: 16px 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(236, 112, 0, 0.2);
+        }
+
+        .report-date {
+            font-size: 13px;
+            color: var(--gray-300);
+            margin-bottom: 4px;
+        }
+
+        /* Watermark */
+        .watermark {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(19, 49, 52, 0.3);
+            border: 1px solid rgba(166, 207, 46, 0.4);
+            border-radius: 10px;
+            padding: 14px 18px;
+            color: rgba(255, 255, 255, 0.6);
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 13px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            pointer-events: none;
+            user-select: none;
+            max-width: 400px;
+            opacity: 0.7;
+        }
+
+        .watermark p {
+            margin: 4px 0;
+        }
+
+        .watermark strong {
+            color: rgba(166, 207, 46, 0.7);
+        }
+
+        /* Rating Badges */
+        .ratings-row {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .rating-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(166, 207, 46, 0.1);
+            border: 1px solid rgba(166, 207, 46, 0.3);
+            padding: 10px 16px;
+            border-radius: 8px;
+        }
+
+        .rating-agency {
+            font-size: 12px;
+            color: var(--gray-400);
+            font-weight: 500;
+        }
+
+        .rating-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .metric-card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .metric-card.highlight {
+            background: linear-gradient(135deg, rgba(236, 112, 0, 0.15) 0%, var(--dark-secondary) 100%);
+            border-color: var(--primary-orange);
+        }
+
+        .metric-card.green {
+            background: linear-gradient(135deg, rgba(166, 207, 46, 0.15) 0%, var(--dark-secondary) 100%);
+            border-color: var(--accent-green);
+        }
+
+        .metric-card .label {
+            font-size: 12px;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .metric-card .value {
+            font-family: 'Montserrat', monospace;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 6px;
+        }
+
+        .metric-card .delta {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .delta.positive { color: var(--accent-green); }
+        .delta.negative { color: var(--red); }
+        .delta.neutral { color: var(--gray-400); }
+
+        /* Main Content */
+        .main {
+            padding: 48px 0;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 64px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .section-number {
+            font-family: 'Montserrat', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-orange);
+            background: rgba(236, 112, 0, 0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-orange);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-content {
+            color: var(--gray-200);
+            font-size: 15px;
+        }
+
+        .card-content p {
+            margin-bottom: 12px;
+        }
+
+        .card-content strong {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* Lists */
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        .list-icon.green { background: var(--accent-green); }
+        .list-icon.red { background: var(--red); }
+        .list-icon.orange { background: var(--primary-orange); }
+
+        .summary-box {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            border-left: 4px solid var(--primary-orange);
+            padding: 24px 32px;
+            margin-bottom: 32px;
+            margin-top: 40px;
+        }
+
+        .summary-box h3 {
+            font-size: 16px;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .summary-box p {
+            color: var(--gray-200);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            table-layout: fixed;
+        }
+
+        .data-table th {
+            text-align: center;
+            padding: 14px 16px;
+            background: rgba(236, 112, 0, 0.1);
+            color: var(--primary-orange);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .data-table th:first-child { 
+            border-radius: 8px 0 0 0; 
+            text-align: left;
+            width: 35%;
+        }
+        .data-table th:last-child { border-radius: 0 8px 0 0; }
+        .data-table th.number { text-align: center; }
+
+        .data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--gray-200);
+            text-align: center;
+        }
+
+        .data-table td:first-child {
+            text-align: left;
+        }
+
+        .data-table td.mono {
+            font-family: 'Montserrat', monospace;
+            color: var(--white);
+        }
+
+        .data-table td.number {
+            font-family: 'Montserrat', monospace;
+            text-align: center;
+        }
+
+        .data-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--white);
+        }
+
+        .chart-wrapper {
+            height: 300px;
+            position: relative;
+        }
+
+        .chart-wrapper.tall {
+            height: 400px;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: rgba(166, 207, 46, 0.08);
+            border: 1px solid rgba(166, 207, 46, 0.3);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+
+        .highlight-box.warning {
+            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .highlight-box.danger {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .highlight-box h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .highlight-box h4 { color: var(--accent-green); }
+        .highlight-box.warning h4 { color: var(--primary-orange); }
+        .highlight-box.danger h4 { color: var(--red); }
+
+        .highlight-box p {
+            font-size: 14px;
+            color: var(--gray-200);
+        }
+
+        /* Insight Card */
+        .insight-card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-left: 4px solid var(--primary-orange);
+            border-radius: 0 12px 12px 0;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .insight-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary-orange);
+            margin-bottom: 12px;
+        }
+
+        .insight-card p {
+            font-size: 14px;
+            color: var(--gray-300);
+            line-height: 1.7;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 1rem 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--gray-300);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--dark-border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .progress-fill.orange {
+            background: linear-gradient(90deg, var(--primary-orange) 0%, #ff8c33 100%);
+        }
+
+        .progress-fill.green {
+            background: linear-gradient(90deg, var(--accent-green) 0%, #c2e54c 100%);
+        }
+
+        /* Segment Cards */
+        .segment-card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .segment-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .segment-header.hospital { 
+            background: linear-gradient(135deg, rgba(236, 112, 0, 0.15) 0%, rgba(236, 112, 0, 0.05) 100%);
+            border-top: 3px solid var(--primary-orange);
+        }
+        .segment-header.seguros { 
+            background: linear-gradient(135deg, rgba(166, 207, 46, 0.15) 0%, rgba(166, 207, 46, 0.05) 100%);
+            border-top: 3px solid var(--accent-green);
+        }
+        .segment-header.onco { 
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border-top: 3px solid #3B82F6;
+        }
+
+        .segment-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .segment-body {
+            padding: 24px;
+        }
+
+        .segment-metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .segment-metric:last-child {
+            border-bottom: none;
+        }
+
+        .segment-metric .label {
+            color: var(--gray-400);
+            font-size: 14px;
+        }
+
+        .segment-metric .value {
+            font-family: 'Montserrat', monospace;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        /* Composition Grid */
+        .composition-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 1rem 0;
+        }
+
+        .composition-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            border: 1px solid var(--dark-border);
+        }
+
+        .composition-value {
+            font-family: 'Montserrat', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-orange);
+        }
+
+        .composition-label {
+            font-size: 13px;
+            color: var(--gray-400);
+            margin-top: 8px;
+        }
+
+        /* Conclusion Box */
+        .conclusion-box {
+            background: linear-gradient(135deg, rgba(236, 112, 0, 0.1) 0%, var(--dark-secondary) 100%);
+            border: 1px solid var(--primary-orange);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 32px;
+        }
+
+        .conclusion-box h3 {
+            color: var(--primary-orange);
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .conclusion-box p {
+            line-height: 1.8;
+            color: var(--gray-200);
+            margin-bottom: 16px;
+        }
+
+        .conclusion-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Sector Stat */
+        .sector-stat {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .sector-stat:last-child {
+            border-bottom: none;
+        }
+
+        .sector-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-orange) 0%, #d46200 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .sector-info h4 {
+            font-size: 13px;
+            color: var(--gray-400);
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+
+        .sector-info p {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        /* Rating Container */
+        .rating-container {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Toggle Buttons */
+        .toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--dark-border);
+            color: var(--gray-400);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(236, 112, 0, 0.1);
+            border-color: rgba(236, 112, 0, 0.3);
+            color: var(--white);
+        }
+
+        .toggle-btn.active {
+            background: var(--primary-orange);
+            border-color: var(--primary-orange);
+            color: var(--white);
+        }
+
+        .rating-box {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--dark-border);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .rating-box .rating-agency {
+            font-size: 12px;
+            color: var(--gray-400);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .rating-box .rating-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-green);
+            display: block;
+        }
+
+        .rating-outlook {
+            font-size: 11px;
+            color: var(--gray-500);
+            margin-top: 6px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-secondary);
+            border-top: 1px solid var(--dark-border);
+            padding: 32px 0;
+            margin-top: 48px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .header-top { flex-direction: column; gap: 24px; }
+            .company-info h1 { font-size: 48px; }
+            .container { padding: 0 20px; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .ratings-row { flex-wrap: wrap; }
+            .composition-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Watermark -->
+    <div class="watermark">
+        <p><strong>Autor:</strong> Igor Stramandinoli Moita Pontes</p>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="company-info">
+                    <h1>Rede D'or</h1>
+                    <p class="subtitle">Maior grupo privado de saúde do Brasil | Credit Research Report</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <!-- Key Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card highlight">
+                    <div class="label">Dívida Líquida / EBITDA</div>
+                    <div class="value">1,54x</div>
+                    <div class="delta positive">↓ 0,5x vs. 3T24</div>
+                    <div style="font-size: 11px; color: var(--accent-green); margin-top: 4px;">0,88x c/ provisões técnicas</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">EBITDA 12 Meses</div>
+                    <div class="value">R$ 11,0 bi</div>
+                    <div class="delta neutral">Consolidado Ajustado</div>
+                </div>
+                <div class="metric-card green">
+                    <div class="label">Índice de Liquidez</div>
+                    <div class="value">13,5x</div>
+                    <div class="delta positive">Caixa / Dívida CP</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">Lucro Líquido 3T25</div>
+                    <div class="value">R$ 1,5 bi</div>
+                    <div class="delta positive">↑ 19,8% a/a</div>
+                </div>
+            </div>
+
+            <!-- Section 01: Visão Geral -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">01</span>
+                    <h2 class="section-title">Visão Geral da Companhia</h2>
+                </div>
+
+                <div class="summary-box">
+                    <p>
+                        A <strong>Rede D'Or São Luiz</strong> é o maior grupo privado de saúde do Brasil, com 47 anos de existência. A companhia opera um ecossistema integrado de serviços de saúde que inclui: <strong>Hospitais</strong> (maior rede de hospitais privados do país, com 79 hospitais totalizando 13.270 leitos em 13 estados + DF), <strong>Seguros (SulAmérica)</strong> (maior seguradora independente do Brasil, com 5,7 milhões de beneficiários), <strong>Oncologia</strong> (maior rede integrada de tratamento oncológico do país), <strong>Medicina Diagnóstica</strong> (uma das maiores redes diagnósticas do Brasil) e <strong>Educação e Pesquisa (IDOR)</strong> (instituto de pesquisa com colaborações em +80 países).
+                    </p>
+                    <br>
+                    <p style="font-size: 13px; color: var(--gray-400);">
+                        Em agosto/2024, estabeleceu a <strong>Atlântica D'Or</strong> em parceria com Bradesco Seguros, reforçando seu potencial de expansão.
+                    </p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3 class="card-title" style="color: var(--accent-green);">✓ Pontos Fortes</h3>
+                        <div class="card-content">
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Referência no setor de saúde:</strong> Hospitais e serviços com elevado nível técnico e de atendimento</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Maior sistema de saúde privado do Brasil:</strong> Liderança absoluta com escala incomparável</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Integração vertical:</strong> Sistema que integra plano de saúde (SulAmérica), hospitais e laboratórios, otimizando custos (sinergias) e melhorando o atendimento</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Setor com grande potencial de expansão:</strong> Envelhecimento da população, déficit de leitos e crescimento demográfico impulsionam demanda</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Desalavancagem consistente:</strong> Dívida Líquida/EBITDA caiu de 2,77x (dez/22) para 1,54x (set/25)</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Sem covenants financeiros:</strong> Flexibilidade total na gestão do balanço sem restrições contratuais</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Forte geração de caixa:</strong> R$ 6,0 bilhões de caixa operacional no 9M25 (+22,6% a/a)</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Liquidez robusta:</strong> Caixa líquido cobre 13,5x a dívida de curto prazo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title" style="color: var(--primary-orange);">⚠ Pontos de Atenção</h3>
+                        <div class="card-content">
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>Elevada sinistralidade pós-pandemia:</strong> SulAmérica e outros planos de saúde com percentual elevado de receitas gastas com atendimento dos beneficiários</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>Inflação médica elevada:</strong> Custos do setor de saúde crescem significativamente acima dos demais índices de inflação</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>Setor fragmentado e competitivo:</strong> Forte competição regional pode pressionar margens</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>Risco de expansão agressiva:</strong> Elevados investimentos em aquisições e abertura de novos hospitais podem aumentar endividamento</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>Exposição a juros:</strong> 92,3% da dívida líquida atrelada a CDI; despesas financeiras +34,2% a/a no 3T25</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>Concentração de amortizações:</strong> R$ 17,1 bilhões vencem entre 2028-2030</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>CAPEX intensivo:</strong> R$ 2,4 bilhões investidos no 9M25 para expansão (+10% a/a)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ratings -->
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📊 Classificação de Ratings</h3>
+                    <div class="rating-container">
+                        <div class="rating-box">
+                            <span class="rating-agency">S&P Global</span>
+                            <span class="rating-value">brAAA</span>
+                            <div class="rating-outlook">Outlook Estável</div>
+                        </div>
+                        <div class="rating-box">
+                            <span class="rating-agency">Fitch Ratings</span>
+                            <span class="rating-value">AAA(bra)</span>
+                            <div class="rating-outlook">Outlook Estável</div>
+                        </div>
+                        <div class="rating-box">
+                            <span class="rating-agency">Moody's</span>
+                            <span class="rating-value" style="color: var(--gray-400);">—</span>
+                            <div class="rating-outlook">Não Avaliado</div>
+                        </div>
+                    </div>
+                    <div class="highlight-box" style="margin-top: 20px;">
+                        <h4>💡 Insight</h4>
+                        <p>Os ratings AAA em escala nacional refletem a posição dominante da Rede D'Or no setor de saúde, a trajetória consistente de desalavancagem e a liquidez confortável. A integração bem-sucedida da SulAmérica e a melhora gradual da sinistralidade reforçam a visão construtiva para os instrumentos de dívida.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 02: Modelo de Negócios -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">02</span>
+                    <h2 class="section-title">Modelo de Negócios</h2>
+                </div>
+
+                <div class="composition-grid">
+                    <div class="composition-item">
+                        <div class="composition-value">79</div>
+                        <div class="composition-label">Hospitais</div>
+                    </div>
+                    <div class="composition-item">
+                        <div class="composition-value" style="color: var(--accent-green);">5,7M</div>
+                        <div class="composition-label">Beneficiários Seguros</div>
+                    </div>
+                    <div class="composition-item">
+                        <div class="composition-value">13.270</div>
+                        <div class="composition-label">Leitos Totais</div>
+                    </div>
+                </div>
+
+                <!-- Segmentos de Atuação -->
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">📋 Segmentos de Atuação</h3>
+                    
+                    <!-- Grid de 3 segmentos principais -->
+                    <div class="grid-3" style="margin-bottom: 24px;">
+                        <!-- Hospitais -->
+                        <div style="background: rgba(236, 112, 0, 0.08); border: 1px solid rgba(236, 112, 0, 0.3); border-radius: 12px; padding: 20px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                <div class="sector-icon" style="background: linear-gradient(135deg, #EC7000 0%, #d46200 100%); width: 40px; height: 40px; font-size: 1rem;">🏥</div>
+                                <h4 style="color: var(--primary-orange); font-size: 16px; margin: 0;">Hospitais</h4>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon orange"></div>
+                                <span style="font-size: 13px;">Maior rede de hospitais privados do Brasil</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon orange"></div>
+                                <span style="font-size: 13px;">Referência em qualidade de atendimento e tecnologia</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon orange"></div>
+                                <span style="font-size: 13px;">70 hospitais próprios, 3 administrados</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: none;">
+                                <div class="list-icon orange"></div>
+                                <span style="font-size: 13px;">+40 projetos hospitalares em desenvolvimento</span>
+                            </div>
+                        </div>
+
+                        <!-- Seguros (SulAmérica) -->
+                        <div style="background: rgba(166, 207, 46, 0.08); border: 1px solid rgba(166, 207, 46, 0.3); border-radius: 12px; padding: 20px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                <div class="sector-icon" style="background: linear-gradient(135deg, #A6CF2E 0%, #8AB526 100%); width: 40px; height: 40px; font-size: 1rem;">🛡️</div>
+                                <h4 style="color: var(--accent-green); font-size: 16px; margin: 0;">Seguros (SulAmérica)</h4>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon green"></div>
+                                <span style="font-size: 13px;">Maior seguradora independente do país</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon green"></div>
+                                <span style="font-size: 13px;">7 milhões de clientes (5 mi saúde + odonto)</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon green"></div>
+                                <span style="font-size: 13px;">Diversificação: seguros, saúde, previdência e investimentos</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: none;">
+                                <div class="list-icon green"></div>
+                                <span style="font-size: 13px;">Fundada há 127 anos</span>
+                            </div>
+                        </div>
+
+                        <!-- Oncologia -->
+                        <div style="background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 20px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                <div class="sector-icon" style="background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%); width: 40px; height: 40px; font-size: 1rem;">💉</div>
+                                <h4 style="color: #3B82F6; font-size: 16px; margin: 0;">Oncologia</h4>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon" style="background: #3B82F6;"></div>
+                                <span style="font-size: 13px;">Liderança no setor oncológico</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon" style="background: #3B82F6;"></div>
+                                <span style="font-size: 13px;">Serviços totalmente integrados à rede hospitalar</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon" style="background: #3B82F6;"></div>
+                                <span style="font-size: 13px;">55 clínicas oncológicas</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: none;">
+                                <div class="list-icon" style="background: #3B82F6;"></div>
+                                <span style="font-size: 13px;">Atua desde 2011</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Grid de 3 segmentos secundários -->
+                    <div class="grid-3">
+                        <!-- Medicina Diagnóstica -->
+                        <div style="background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.3); border-radius: 12px; padding: 20px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                <div class="sector-icon" style="background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%); width: 40px; height: 40px; font-size: 1rem;">🔬</div>
+                                <h4 style="color: #8B5CF6; font-size: 16px; margin: 0;">Medicina Diagnóstica</h4>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon" style="background: #8B5CF6;"></div>
+                                <span style="font-size: 13px;">3ª maior empresa de diagnósticos do Brasil</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon" style="background: #8B5CF6;"></div>
+                                <span style="font-size: 13px;">Fundada em 1977 (atividade original)</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon" style="background: #8B5CF6;"></div>
+                                <span style="font-size: 13px;">Voltou a atender terceiros a partir de 2018</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: none;">
+                                <div class="list-icon" style="background: #8B5CF6;"></div>
+                                <span style="font-size: 13px;">11 laboratórios integrados aos hospitais</span>
+                            </div>
+                        </div>
+
+                        <!-- Educação e Pesquisa (IDOR) -->
+                        <div style="background: rgba(20, 184, 166, 0.08); border: 1px solid rgba(20, 184, 166, 0.3); border-radius: 12px; padding: 20px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                <div class="sector-icon" style="background: linear-gradient(135deg, #14B8A6 0%, #0D9488 100%); width: 40px; height: 40px; font-size: 1rem;">🎓</div>
+                                <h4 style="color: #14B8A6; font-size: 16px; margin: 0;">Educação e Pesquisa (IDOR)</h4>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon" style="background: #14B8A6;"></div>
+                                <span style="font-size: 13px;">Colaborações científicas com +60 países</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon" style="background: #14B8A6;"></div>
+                                <span style="font-size: 13px;">38 programas de residência médica</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon" style="background: #14B8A6;"></div>
+                                <span style="font-size: 13px;">Lançada em 2010 para reputação científica</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: none;">
+                                <div class="list-icon" style="background: #14B8A6;"></div>
+                                <span style="font-size: 13px;">Plano de educação privada</span>
+                            </div>
+                        </div>
+
+                        <!-- Serviços Complementares -->
+                        <div style="background: rgba(249, 115, 22, 0.08); border: 1px solid rgba(249, 115, 22, 0.3); border-radius: 12px; padding: 20px;">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                <div class="sector-icon" style="background: linear-gradient(135deg, #F97316 0%, #EA580C 100%); width: 40px; height: 40px; font-size: 1rem;">🩸</div>
+                                <h4 style="color: #F97316; font-size: 16px; margin: 0;">Serviços Complementares</h4>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon" style="background: #F97316;"></div>
+                                <span style="font-size: 13px;">Banco de sangue, diálise, ambulatório e educação</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon" style="background: #F97316;"></div>
+                                <span style="font-size: 13px;">Maior banco de sangue do Brasil (34,5%)</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                <div class="list-icon" style="background: #F97316;"></div>
+                                <span style="font-size: 13px;">Controle de 28,5% da Quali (Qualicorp)</span>
+                            </div>
+                            <div class="list-item" style="padding: 8px 0; border-bottom: none;">
+                                <div class="list-icon" style="background: #F97316;"></div>
+                                <span style="font-size: 13px;">Maior corretora de planos coletivos do Brasil</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+
+                <!-- Presença Geográfica -->
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">🗺️ Presença Geográfica</h3>
+                    <p style="margin-bottom: 20px; color: var(--gray-300);">Presença em <strong style="color: var(--white);">13 estados + Distrito Federal</strong>, com forte concentração nos mercados mais relevantes:</p>
+                    
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>São Paulo</span>
+                            <span>Principal mercado</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill orange" style="width: 85%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Rio de Janeiro</span>
+                            <span>Origem da companhia</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill orange" style="width: 75%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Nordeste (PE, BA, MA, SE, CE, PB, AL, PA)</span>
+                            <span>Expansão estratégica</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill green" style="width: 55%;"></div>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Centro-Oeste e Sul (DF, PR, MG, MS)</span>
+                            <span>Crescimento acelerado</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill green" style="width: 45%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estratégia de Crescimento -->
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📈 Estratégia e Modelo de Crescimento de Negócios</h3>
+                    
+                    <!-- Pilares Estratégicos -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                        <div>
+                            <h4 style="color: var(--accent-green); margin-bottom: 16px; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px;">Pilares Estratégicos</h4>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Atração dos melhores médicos:</strong> Investimento em capacitação e corpo clínico de excelência</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Marca e reputação:</strong> Investimento para ter maior preferência do paciente e do médico</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Rede abrangente:</strong> Hospitais Gerais, Oncologia e Medicina Diagnóstica integrados</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Referência para planos de saúde:</strong> Importante constar na lista referenciada para atrair clientes</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Saúde financeira:</strong> Foco em margens operacionais e alavancagem adequadas</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Excelência e diferenciação:</strong> Investimento em pessoas, pesquisa e tecnologia</span>
+                            </div>
+                        </div>
+                        <div style="background: rgba(166, 207, 46, 0.08); border: 1px solid rgba(166, 207, 46, 0.3); border-radius: 12px; padding: 24px; display: flex; flex-direction: column; justify-content: center;">
+                            <h4 style="color: var(--accent-green); margin-bottom: 16px; text-align: center;">Resultado da Estratégia</h4>
+                            <p style="color: var(--gray-200); text-align: center; line-height: 1.8;">
+                                Atendimento amplo e de padrões elevados, levando ao:<br><br>
+                                <strong style="color: var(--white);">(i)</strong> Forte posicionamento da marca do grupo Rede D'Or<br>
+                                <strong style="color: var(--white);">(ii)</strong> Conquista e manutenção do <em>market share</em><br>
+                                <strong style="color: var(--white);">(iii)</strong> Crescimento das receitas e EBITDA
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="color: var(--primary-orange); margin-bottom: 16px;">🏗️ Expansão Orgânica</h4>
+                            <p style="margin-bottom: 12px; color: var(--gray-300);">Programa robusto com mais de <strong style="color: var(--white);">30 projetos</strong> em desenvolvimento:</p>
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>Greenfield:</strong> 755 leitos previstos (2025-2028)</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>Brownfield:</strong> 2.448 leitos previstos (2025-2028)</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>Total:</strong> 3.203 novos leitos no pipeline</span>
+                            </div>
+                            <p style="margin-top: 16px; font-size: 13px; color: var(--gray-500);">CAPEX 9M25: R$ 2,4 bilhões (+10% a/a)</p>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--accent-green); margin-bottom: 16px;">🤝 Parcerias Estratégicas</h4>
+                            <p style="margin-bottom: 12px; color: var(--gray-300);"><strong style="color: var(--white);">Atlântica D'Or (ago/24):</strong> Joint venture com Bradesco Seguros</p>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>4 hospitais já em operação no 3T25</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Diversos projetos em desenvolvimento</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Alinhamento com parceiro comercial estratégico</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Expansão do potencial de crescimento</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="highlight-box" style="margin-top: 24px;">
+                        <h4>💡 Insight</h4>
+                        <p>A estratégia de crescimento equilibrada entre expansão orgânica e parcerias demonstra disciplina de capital. O pipeline de 3.203 leitos representa um incremento de ~24% sobre a base atual de 13.270 leitos totais, indicando crescimento sustentável sem comprometer as métricas de endividamento.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 03: Análise Financeira -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">03</span>
+                    <h2 class="section-title">Análise Financeira</h2>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">💰 Liquidez Consolidada (Rede D'Or + SulAmérica)</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>R$ milhões</th>
+                                <th class="number">Dez/22</th>
+                                <th class="number">Dez/23</th>
+                                <th class="number">Dez/24</th>
+                                <th class="number">Set/25</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Caixa Total</td>
+                                <td class="number">32.153</td>
+                                <td class="number">33.434</td>
+                                <td class="number">40.486</td>
+                                <td class="number"><strong style="color: var(--white);">44.955</strong></td>
+                            </tr>
+                            <tr>
+                                <td>(-) Provisões Técnicas Seguros</td>
+                                <td class="number">(4.141)</td>
+                                <td class="number">(5.335)</td>
+                                <td class="number">(6.817)</td>
+                                <td class="number">(8.422)</td>
+                            </tr>
+                            <tr>
+                                <td>(-) Provisões Técnicas Previdência</td>
+                                <td class="number">(10.111)</td>
+                                <td class="number">(10.881)</td>
+                                <td class="number">(12.641)</td>
+                                <td class="number">(11.216)</td>
+                            </tr>
+                            <tr style="background: rgba(236, 112, 0, 0.08);">
+                                <td><strong>Caixa Líquido de Provisões</strong></td>
+                                <td class="number"><strong>17.901</strong></td>
+                                <td class="number"><strong>17.218</strong></td>
+                                <td class="number"><strong>21.028</strong></td>
+                                <td class="number" style="color: var(--accent-green);"><strong>25.317</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Dívida de Curto Prazo</td>
+                                <td class="number">5.549</td>
+                                <td class="number">3.508</td>
+                                <td class="number">3.007</td>
+                                <td class="number">1.877</td>
+                            </tr>
+                            <tr style="background: rgba(166, 207, 46, 0.1);">
+                                <td><strong>Índice de Liquidez (Caixa/Dívida CP)</strong></td>
+                                <td class="number"><strong>3,1x</strong></td>
+                                <td class="number"><strong>4,5x</strong></td>
+                                <td class="number"><strong>7,0x</strong></td>
+                                <td class="number" style="color: var(--accent-green);"><strong>13,5x</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="highlight-box" style="margin-top: 20px;">
+                        <h4>💡 Insight</h4>
+                        <p>A liquidez de 13,5x é excepcional para o setor. O caixa líquido de R$ 25,3 bilhões cobre confortavelmente todas as amortizações até 2029 (R$ 14,9 bilhões). A redução da dívida de curto prazo de R$ 5,5 bi (dez/22) para R$ 1,9 bi (set/25) demonstra gestão ativa do passivo.</p>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top: 20px;">
+                    <div class="chart-container">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <h4 class="chart-title" style="margin-bottom: 0;">Evolução de Leitos e Taxa de Ocupação</h4>
+                            <div style="display: flex; gap: 8px;">
+                                <button id="btnBedsQuarterly" class="toggle-btn active" onclick="toggleBedsChart('quarterly')">Trimestral</button>
+                                <button id="btnBedsAnnual" class="toggle-btn" onclick="toggleBedsChart('annual')">Anual</button>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="bedsOccupancyChart"></canvas>
+                        </div>
+                        <p id="bedsChartNote" style="font-size: 12px; color: var(--gray-500); margin-top: 12px;">* Taxa de ocupação do 3T25 (81,6%) é recorde histórico para terceiros trimestres</p>
+                        <div class="highlight-box" style="margin-top: 12px; padding: 12px 16px;">
+                            <p style="font-size: 12px; color: var(--gray-300); margin: 0; line-height: 1.6;">A taxa de ocupação voltou a níveis pré-pandemia, com o número de diárias hospitalares e tratamentos oncológicos crescendo, com o fim do isolamento e retomada dos atendimentos (retomada de tratamentos adiados e maior consciência de saúde da população).</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <h4 class="chart-title" style="margin-bottom: 0;">Volume Operacional e Ticket Médio</h4>
+                            <div style="display: flex; gap: 8px;">
+                                <button id="btnVolumeQuarterly" class="toggle-btn active" onclick="toggleVolumeChart('quarterly')">Trimestral</button>
+                                <button id="btnVolumeAnnual" class="toggle-btn" onclick="toggleVolumeChart('annual')">Anual</button>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper">
+                            <canvas id="volumeTicketChart"></canvas>
+                        </div>
+                        <p id="volumeChartNote" style="font-size: 12px; color: var(--gray-500); margin-top: 12px;">* Ticket médio acumulado 12M: R$ 11.587,8 (+8,3% a/a) | CAGR +6,7% desde set/20</p>
+                    </div>
+                </div>
+
+                <!-- Desempenho Oncologia -->
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">💉 Desempenho da Oncologia <span style="background: rgba(166, 207, 46, 0.2); color: var(--accent-green); padding: 4px 12px; border-radius: 12px; font-size: 12px; margin-left: 12px;">Recorde no 3T25</span></h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="label">Receita Bruta 3T25</div>
+                            <div class="value">R$ 1,05 bi</div>
+                            <div class="delta positive">↑ 28,1% a/a</div>
+                        </div>
+                        <div class="metric-card highlight">
+                            <div class="label">Infusões 3T25</div>
+                            <div class="value">72,4 mil</div>
+                            <div class="delta positive">↑ 16,0% a/a</div>
+                        </div>
+                        <div class="metric-card green">
+                            <div class="label">Ticket Médio</div>
+                            <div class="value">+10,4%</div>
+                            <div class="delta neutral">vs. 3T24</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="label">% da Receita Total</div>
+                            <div class="value">11,2%</div>
+                            <div class="delta neutral">vs. 10,2% no 3T24</div>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper" style="margin-top: 20px;">
+                        <canvas id="oncologyChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 04: Estrutura de Dívida -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">04</span>
+                    <h2 class="section-title">Estrutura de Dívida</h2>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="label">Dívida Bruta</div>
+                        <div class="value">R$ 42,3 bi</div>
+                        <div class="delta neutral">+22,1% vs. set/24</div>
+                    </div>
+                    <div class="metric-card green">
+                        <div class="label">Caixa Líquido de Provisões</div>
+                        <div class="value">R$ 25,3 bi</div>
+                        <div class="delta positive">+44,6% vs. set/24</div>
+                    </div>
+                    <div class="metric-card highlight">
+                        <div class="label">Dívida Líquida</div>
+                        <div class="value">R$ 17,0 bi</div>
+                        <div class="delta positive">-0,9% vs. set/24</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">Prazo Médio</div>
+                        <div class="value">5,8 anos</div>
+                        <div class="delta neutral">Custo: CDI + 1,0%</div>
+                    </div>
+                </div>
+
+                <!-- Disclaimer sobre os gráficos de dívida -->
+                <div class="highlight-box" style="margin-top: 20px; margin-bottom: 20px;">
+                    <p style="font-size: 13px; color: var(--gray-300); line-height: 1.7; margin: 0;">
+                        <strong style="color: var(--white);">📋 Nota:</strong> Os gráficos abaixo ilustram (i) a evolução do endividamento, medido pela relação dívida líquida sobre EBITDA dos últimos 12 meses; (ii) o cronograma de amortização referente aos saldos atualizados de empréstimos, financiamentos e debêntures; e (iii) a evolução do custo médio da dívida e seu prazo médio.
+                    </p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Cronograma de Amortização (R$ milhões)</h4>
+                        <div class="chart-wrapper" style="height: 400px;">
+                            <canvas id="amortizationChart"></canvas>
+                        </div>
+                        <p style="font-size: 12px; color: var(--gray-500); margin-top: 12px;">* Caixa em set/25: R$ 25,3 bi | Caixa cobre 25x a dívida de curto prazo (2025-2026)</p>
+                    </div>
+                    <div class="chart-container">
+                        <h4 class="chart-title">Composição da Dívida</h4>
+                        <div class="chart-wrapper" style="height: 200px;">
+                            <canvas id="debtCompositionChart"></canvas>
+                        </div>
+                        <div class="composition-grid" style="margin-top: 20px;">
+                            <div class="composition-item" style="border-color: var(--primary-orange);">
+                                <div class="composition-value" style="color: var(--primary-orange);">71%</div>
+                                <div class="composition-label">Debêntures</div>
+                            </div>
+                            <div class="composition-item" style="border-color: var(--accent-green);">
+                                <div class="composition-value" style="color: var(--accent-green);">25%</div>
+                                <div class="composition-label">Empréstimos</div>
+                            </div>
+                            <div class="composition-item" style="border-color: #3B82F6;">
+                                <div class="composition-value" style="color: #3B82F6;">4%</div>
+                                <div class="composition-label">CRIs</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📊 Perfil da Dívida</h3>
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="margin-bottom: 16px; color: var(--gray-300);">Por Moeda</h4>
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>BRL</span>
+                                    <span>79%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill orange" style="width: 79%;"></div>
+                                </div>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>USD (100% hedge)</span>
+                                    <span>21%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill green" style="width: 21%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="margin-bottom: 16px; color: var(--gray-300);">Por Indexador (Dívida Líquida)</h4>
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>Flutuante (CDI)</span>
+                                    <span>92,3%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill orange" style="width: 92.3%;"></div>
+                                </div>
+                            </div>
+                            <div class="progress-container">
+                                <div class="progress-label">
+                                    <span>Prefixado</span>
+                                    <span>7,7%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill green" style="width: 7.7%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="highlight-box warning" style="margin-top: 20px;">
+                        <h4>⚠️ Ponto de Atenção</h4>
+                        <p>A concentração de 92,3% em taxas flutuantes expõe a companhia ao ciclo de alta de juros. Com CDI a 12,25% a.a. (dez/24), o custo efetivo da dívida é de aproximadamente CDI + 1,0% = 13,25% a.a. A estratégia se justifica pela expectativa de queda da Selic no médio prazo e pelo colchão de liquidez robusto.</p>
+                    </div>
+                </div>
+
+                <div class="chart-container" style="margin-top: 20px;">
+                    <h4 class="chart-title">Evolução da Alavancagem</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="leverageChart"></canvas>
+                    </div>
+                    <p style="font-size: 12px; color: var(--gray-500); margin-top: 12px; text-align: center;">* EBITDA 12M considera EBITDA Ajustado da SulAmérica a partir do 1T23</p>
+                </div>
+            </section>
+
+            <!-- Section 05: SulAmérica -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">05</span>
+                    <h2 class="section-title">SulAmérica (Seguros)</h2>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="label">Receita Líquida 3T25</div>
+                        <div class="value">R$ 8,5 bi</div>
+                        <div class="delta positive">↑ 10,8% a/a</div>
+                    </div>
+                    <div class="metric-card highlight">
+                        <div class="label">Sinistralidade 3T25</div>
+                        <div class="value">80,1%</div>
+                        <div class="delta positive">↓ 2,0 p.p. vs. 3T24</div>
+                    </div>
+                    <div class="metric-card green">
+                        <div class="label">EBITDA Ajustado 3T25</div>
+                        <div class="value">R$ 1,0 bi</div>
+                        <div class="delta positive">↑ 68,1% a/a</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">Beneficiários Saúde+Odonto</div>
+                        <div class="value">5,7M</div>
+                        <div class="delta positive">↑ 10,1% a/a</div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Evolução da Sinistralidade</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="lossRatioChart"></canvas>
+                        </div>
+                        <div class="highlight-box" style="margin-top: 16px;">
+                            <h4>💡 Insight</h4>
+                            <p>A sinistralidade caiu de 88,4% (pico 2022) para 80,1% (3T25), mas ainda está 5 p.p. acima do pré-pandemia (~75%). A normalização gradual é positiva, porém o retorno completo aos níveis históricos pode levar mais 4-6 trimestres.</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h4 class="chart-title">Evolução de Beneficiários (mil)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="beneficiariesChart"></canvas>
+                        </div>
+                        <table class="data-table" style="margin-top: 16px; font-size: 13px;">
+                            <thead>
+                                <tr>
+                                    <th>Segmento</th>
+                                    <th class="number">3T24</th>
+                                    <th class="number">3T25</th>
+                                    <th class="number">Δ %</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Saúde Empresarial/Adesão</td>
+                                    <td class="number">1.517</td>
+                                    <td class="number">1.623</td>
+                                    <td class="number" style="color: var(--accent-green);">+7,0%</td>
+                                </tr>
+                                <tr>
+                                    <td>Saúde PME</td>
+                                    <td class="number">561</td>
+                                    <td class="number">694</td>
+                                    <td class="number" style="color: var(--accent-green);">+23,7%</td>
+                                </tr>
+                                <tr>
+                                    <td>Saúde Individual</td>
+                                    <td class="number">658</td>
+                                    <td class="number">680</td>
+                                    <td class="number" style="color: var(--accent-green);">+3,3%</td>
+                                </tr>
+                                <tr>
+                                    <td>Odonto</td>
+                                    <td class="number">2.335</td>
+                                    <td class="number">2.603</td>
+                                    <td class="number" style="color: var(--accent-green);">+11,5%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📈 EBITDA SulAmérica (R$ milhões)</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="sulaEbitdaChart"></canvas>
+                    </div>
+                    <div class="grid-2" style="margin-top: 24px;">
+                        <div>
+                            <h4 style="color: var(--gray-300); margin-bottom: 8px;">Despesas Administrativas / Receita</h4>
+                            <p class="mono" style="font-size: 32px; font-weight: 700; color: var(--accent-green);">4,4%</p>
+                            <p style="font-size: 13px; color: var(--gray-500);">9M25 (ex-provisões para contingências)</p>
+                            <p style="font-size: 13px; color: var(--gray-500);">vs. 6,9% no 9M22 pré-incorporação</p>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--gray-300); margin-bottom: 8px;">Sinergias Capturadas</h4>
+                            <p style="color: var(--gray-300); line-height: 1.7;">A redução de 2,5 p.p. nas despesas administrativas representa captura significativa de sinergias pós-incorporação. Com receita de ~R$ 33 bi/ano, isso equivale a economia anual de aproximadamente <strong style="color: var(--accent-green);">R$ 825 milhões</strong>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Indicadores Operacionais SulAmérica - Visão Anual -->
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📊 Indicadores Operacionais SulAmérica <span style="background: rgba(236, 112, 0, 0.2); color: var(--primary-orange); padding: 4px 12px; border-radius: 12px; font-size: 12px; margin-left: 12px;">Visão Anual</span></h3>
+                    <div class="grid-2">
+                        <div class="chart-container">
+                            <h4 class="chart-title">Sinistralidade e Nº de Beneficiários de Saúde & Odontologia</h4>
+                            <div class="chart-wrapper" style="height: 280px;">
+                                <canvas id="sinistralityBeneficiariesChart"></canvas>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="highlight-box" style="margin-bottom: 16px;">
+                                <h4 style="color: var(--primary-orange);">⚠️ Impacto da Pandemia nos Planos de Saúde</h4>
+                                <p style="font-size: 13px; line-height: 1.7;">Os planos de saúde foram prejudicados, pois são os pagadores dos tratamentos médicos. A <strong>sinistralidade atingiu 88,4%</strong> das receitas da SulAmérica (4T21 e 2T22), caindo para <strong>85,1% (4T23)</strong> com ações de seletividade de clientes, reajustes e uso racional dos planos.</p>
+                            </div>
+                            <div class="highlight-box warning">
+                                <h4>🔍 Ponto de Atenção</h4>
+                                <p style="font-size: 13px; line-height: 1.7;">A sinistralidade é um dos principais pontos de atenção para a Rede D'Or, pois exige mais ações de redução de custos e ampliação de receita, uma vez que ainda está elevada em relação aos níveis pré-pandemia (~75%).</p>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
+                                <div style="background: var(--dark-secondary); border-radius: 8px; padding: 16px; text-align: center;">
+                                    <div style="color: var(--gray-400); font-size: 12px; margin-bottom: 4px;">Pico de Sinistralidade</div>
+                                    <div style="color: var(--primary-orange); font-size: 24px; font-weight: 700;">88,4%</div>
+                                    <div style="color: var(--gray-500); font-size: 11px;">4T21 / 2T22</div>
+                                </div>
+                                <div style="background: var(--dark-secondary); border-radius: 8px; padding: 16px; text-align: center;">
+                                    <div style="color: var(--gray-400); font-size: 12px; margin-bottom: 4px;">Atual (3T25)</div>
+                                    <div style="color: var(--accent-green); font-size: 24px; font-weight: 700;">80,1%</div>
+                                    <div style="color: var(--gray-500); font-size: 11px;">Queda de 8,3 p.p.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">06</span>
+                    <h2 class="section-title">Análise Setorial</h2>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">🏥 Sistema de Saúde Privado no Brasil</h3>
+                    
+                    <!-- Métricas Principais -->
+                    <div class="metrics-grid" style="margin-bottom: 24px;">
+                        <div class="metric-card">
+                            <div class="label">Beneficiários Médicos</div>
+                            <div class="value">53,3M</div>
+                            <div class="delta positive">Out/2025 (recorde)</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="label">Beneficiários Odonto</div>
+                            <div class="value">35,1M</div>
+                            <div class="delta positive">Out/2025 (recorde)</div>
+                        </div>
+                        <div class="metric-card highlight">
+                            <div class="label">Cobertura Populacional</div>
+                            <div class="value">26,2%</div>
+                            <div class="delta neutral">Planos médico-hospitalares</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="label">Sinistralidade 9M25</div>
+                            <div class="value">81,9%</div>
+                            <div class="delta positive">↓ 2,4 p.p. vs. 9M24</div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="color: var(--primary-orange); margin-bottom: 16px;">📊 Concentração e Desproporcionalidade</h4>
+                            <p style="color: var(--gray-300); line-height: 1.8; margin-bottom: 16px;">
+                                O setor privado responde por uma parcela <strong style="color: var(--white);">desproporcional dos gastos em saúde</strong>: os planos privados atendem cerca de 26% da população, porém concentram aproximadamente 60% dos recursos totais investidos em saúde no país. Essa dinâmica reflete tanto o maior poder aquisitivo dos beneficiários quanto a intensidade de uso dos serviços disponíveis.
+                            </p>
+                            <div class="sector-stat">
+                                <div class="sector-icon">💰</div>
+                                <div class="sector-info">
+                                    <h4>Gastos em Saúde Privada</h4>
+                                    <p>~R$ 350 bilhões/ano (receita do setor em 2024)</p>
+                                </div>
+                            </div>
+                            <div class="sector-stat">
+                                <div class="sector-icon">📈</div>
+                                <div class="sector-info">
+                                    <h4>Crescimento vs. População</h4>
+                                    <p>Beneficiários +12% vs. População +6,5% (2010-2022)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-wrapper" style="height: 250px;">
+                            <canvas id="healthcareStructureChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Análise Detalhada do Setor -->
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📈 Dinâmica e Vetores de Crescimento do Setor</h3>
+                    
+                    <div class="grid-2">
+                        <div>
+                            <h4 style="color: var(--accent-green); margin-bottom: 16px;">✓ Fatores Estruturais de Expansão</h4>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Envelhecimento populacional:</strong> A pirâmide etária brasileira está em transformação acelerada, com a população idosa (65+) crescendo 3x mais rápido que a média, gerando demanda crescente por serviços de saúde mais complexos e frequentes</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Déficit de infraestrutura:</strong> O setor privado opera com carência estrutural de leitos, especialmente em regiões fora do eixo Sul-Sudeste, criando oportunidades para consolidadores com capacidade de investimento</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Crescimento vegetativo:</strong> A taxa de natalidade, embora em declínio, ainda adiciona cerca de 0,6% ao ano à população, gerando novas vidas a serem cobertas pelos planos</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span><strong>Fragmentação do mercado:</strong> Os grandes grupos detêm menos de 10% dos leitos no Brasil, evidenciando um mercado pulverizado com hospitais menores, de menor infraestrutura e eficiência financeira limitada — criando potencial de aquisição por players com escala</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 style="color: var(--primary-orange); margin-bottom: 16px;">⚠️ Desafios e Pressões do Setor</h4>
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>Sinistralidade elevada pós-pandemia:</strong> Os planos de saúde sofreram forte impacto com a explosão de custos assistenciais, atingindo pico de 88,6% em 2022. A normalização tem sido gradual, com índice de 81,9% nos 9M25</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>Inflação médica persistente:</strong> Os custos do setor de saúde crescem sistematicamente acima dos índices gerais de preços, pressionando margens e exigindo reajustes constantes nas mensalidades</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>Sustentabilidade financeira:</strong> Para crescer de forma saudável, as operadoras precisam equilibrar controle de custos (prevenção de fraudes, uso racional), eficiência operacional (tecnologia, combate a desperdícios) e adequação de preços por perfil de risco</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon orange"></div>
+                                <span><strong>Risco de glosas e inadimplência:</strong> Operadoras com alta sinistralidade tendem a aumentar glosas (recusas de pagamento) e postergar repasses a hospitais, gerando tensão na cadeia de valor</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráficos do Setor: Sinistralidade e Beneficiários -->
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📊 Planos de Saúde Privados: Sinistralidade e Número de Beneficiários</h3>
+                    
+                    <div class="grid-2">
+                        <div class="chart-container">
+                            <h4 class="chart-title">Sinistralidade dos Planos de Saúde <span style="background: rgba(236, 112, 0, 0.2); color: var(--primary-orange); padding: 4px 12px; border-radius: 12px; font-size: 11px; margin-left: 8px;">Trimestral</span></h4>
+                            <div class="chart-wrapper" style="height: 250px;">
+                                <canvas id="sectorSinistralityChart"></canvas>
+                            </div>
+                            <p style="font-size: 12px; color: var(--gray-500); margin-top: 12px;">Fonte: ANS - Painel Econômico-Financeiro da Saúde Suplementar</p>
+                        </div>
+                        <div class="chart-container">
+                            <h4 class="chart-title">Beneficiários de Planos de Saúde <span style="background: rgba(166, 207, 46, 0.2); color: var(--accent-green); padding: 4px 12px; border-radius: 12px; font-size: 11px; margin-left: 8px;">Histórico (milhões)</span></h4>
+                            <div class="chart-wrapper" style="height: 250px;">
+                                <canvas id="sectorBeneficiariesChart"></canvas>
+                            </div>
+                            <p style="font-size: 12px; color: var(--gray-500); margin-top: 12px;">Fonte: ANS - Sala de Situação</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box" style="margin-top: 20px;">
+                        <h4>💡 Perspectiva</h4>
+                        <p style="line-height: 1.8;">O setor atravessa um momento de <strong>recuperação financeira</strong> após os anos críticos de 2022-2023. A sinistralidade, que atingiu 88,6% no pico da demanda reprimida pós-pandemia, recuou para 81,9% nos primeiros nove meses de 2025 — o menor patamar desde 2021. Esse movimento foi viabilizado pela <strong>recomposição das mensalidades</strong> em ritmo superior ao avanço das despesas assistenciais e por ações de <strong>gestão de carteira</strong> (seletividade de clientes, programas de uso consciente). O lucro líquido do setor no 1S25 atingiu R$ 12,9 bilhões (+132% a/a), já superando o resultado de todo o ano de 2024. Contudo, a recuperação não é homogênea: cerca de 7,5 milhões de beneficiários estão vinculados a operadoras em regimes especiais de acompanhamento da ANS, sinalizando que o ajuste estrutural ainda está em curso.</p>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top: 20px;">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Densidade de Leitos Hospitalares <span style="background: rgba(245, 158, 11, 0.2); color: var(--yellow); padding: 4px 12px; border-radius: 12px; font-size: 11px; margin-left: 8px;">Leitos/100 mil hab.</span></h4>
+                        <div class="chart-wrapper tall">
+                            <canvas id="bedDensityChart"></canvas>
+                        </div>
+                        <div class="highlight-box warning" style="margin-top: 16px;">
+                            <h4>⚠️ Déficit Estrutural</h4>
+                            <p>O Brasil possui apenas 2,0 leitos/100 mil habitantes, abaixo da recomendação da OMS (3-5 leitos). Este déficit estrutural representa oportunidade de longo prazo para a Rede D'Or, que possui pipeline de 3.203 novos leitos.</p>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h4 class="chart-title">Déficit de Leitos Privados</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="bedDeficitChart"></canvas>
+                        </div>
+                        <table class="data-table" style="margin-top: 16px;">
+                            <thead>
+                                <tr>
+                                    <th>Ano</th>
+                                    <th class="number">Déficit (leitos)</th>
+                                    <th class="number">Var. %</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>2019</td>
+                                    <td class="number">14.246</td>
+                                    <td class="number">—</td>
+                                </tr>
+                                <tr>
+                                    <td>2024</td>
+                                    <td class="number">25.131</td>
+                                    <td class="number" style="color: var(--red);">+76,4%</td>
+                                </tr>
+                                <tr>
+                                    <td>2029E</td>
+                                    <td class="number">31.581</td>
+                                    <td class="number" style="color: var(--red);">+25,7%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📉 Sinistralidade do Setor de Planos de Saúde</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="sectorLossRatioChart"></canvas>
+                    </div>
+                    <div class="grid-2" style="margin-top: 24px;">
+                        <div class="highlight-box">
+                            <h4>📈 Drivers de Crescimento do Setor</h4>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Envelhecimento populacional (maior demanda por saúde)</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Déficit estrutural de leitos privados</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Crescimento demográfico ainda positivo (+0,6% a.a.)</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Fragmentação do mercado (grandes grupos detêm &lt;10% dos leitos)</span>
+                            </div>
+                        </div>
+                        <div class="highlight-box danger">
+                            <h4>⚠️ Desafios do Setor</h4>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Normalização da sinistralidade pós-pandemia</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Inflação médica acima da inflação geral</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Pressão regulatória (ANS)</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Inadimplência em planos empresariais (PMEs)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparativo Setorial -->
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📊 Comparativo Setorial - 3T25 <span style="background: rgba(166, 207, 46, 0.2); color: var(--accent-green); padding: 4px 12px; border-radius: 12px; font-size: 11px; margin-left: 8px;">Fonte: XP Research</span></h3>
+                    <div class="highlight-box" style="margin-bottom: 20px;">
+                        <h4>📊 Posicionamento Rede D'Or vs. Setor</h4>
+                        <p>O setor de saúde apresentou crescimento moderado no 3T25, sustentado por reajustes contratuais e expansão de beneficiários. A Rede D'Or se destaca como a empresa mais bem posicionada, combinando escala, integração vertical e eficiência operacional. A alavancagem do setor está em níveis confortáveis na maioria das empresas, exceto casos específicos.</p>
+                    </div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Empresa</th>
+                                <th class="number">Alavancagem (x)</th>
+                                <th class="number">Situação</th>
+                                <th>Observação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: rgba(166, 207, 46, 0.1);">
+                                <td><strong style="color: var(--white);">Rede D'Or</strong></td>
+                                <td class="number"><strong style="color: var(--accent-green);">1,54x</strong></td>
+                                <td class="number" style="color: var(--accent-green);"><strong>Confortável</strong></td>
+                                <td>Líder absoluto; sem covenants; forte geração de caixa</td>
+                            </tr>
+                            <tr>
+                                <td>Oncoclínicas</td>
+                                <td class="number" style="color: var(--red);"><strong>4,5x</strong></td>
+                                <td class="number" style="color: var(--red);">Elevada</td>
+                                <td>Prejuízo recorrente; necessita desinvestimentos e gestão ativa de liquidez</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Section 07: Métricas de Crédito -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">07</span>
+                    <h2 class="section-title">Métricas de Crédito</h2>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">📊 Dashboard de Métricas de Crédito</h3>
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="label">Dívida Líquida / EBITDA</div>
+                            <div class="value">1,54x</div>
+                            <div class="delta neutral">Meta implícita: &lt; 2,5x</div>
+                        </div>
+                        <div class="metric-card green">
+                            <div class="label">Alavancagem c/ Provisões</div>
+                            <div class="value" style="color: var(--accent-green);">0,88x</div>
+                            <div class="delta neutral">Inclui R$ 19,6 bi prov. técnicas</div>
+                        </div>
+                        <div class="metric-card highlight">
+                            <div class="label">EBITDA / Despesa Financeira</div>
+                            <div class="value">2,4x</div>
+                            <div class="delta neutral">Cobertura de juros</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="label">Covenants Financeiros</div>
+                            <div class="value" style="color: var(--accent-green);">Nenhum</div>
+                            <div class="delta positive">Flexibilidade total</div>
+                        </div>
+                    </div>
+
+                    <table class="data-table" style="margin-top: 24px;">
+                        <thead>
+                            <tr>
+                                <th>Métrica</th>
+                                <th class="number">Dez/22</th>
+                                <th class="number">Dez/23</th>
+                                <th class="number">Set/24</th>
+                                <th class="number">Set/25</th>
+                                <th class="number">Tendência</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dívida Líquida (R$ bi)</td>
+                                <td class="number">14,7</td>
+                                <td class="number">16,9</td>
+                                <td class="number">17,1</td>
+                                <td class="number"><strong style="color: var(--white);">17,0</strong></td>
+                                <td class="number" style="color: var(--accent-green);">◆ Estável</td>
+                            </tr>
+                            <tr>
+                                <td>Dív. Líquida/EBITDA (ajustado)</td>
+                                <td class="number">2,77x</td>
+                                <td class="number">2,30x</td>
+                                <td class="number">1,92x</td>
+                                <td class="number"><strong style="color: var(--accent-green);">1,54x</strong></td>
+                                <td class="number" style="color: var(--accent-green);">▼ Melhora</td>
+                            </tr>
+                            <tr>
+                                <td>Índice de Liquidez*</td>
+                                <td class="number">3,1x</td>
+                                <td class="number">4,5x</td>
+                                <td class="number">5,8x</td>
+                                <td class="number"><strong style="color: var(--accent-green);">13,5x</strong></td>
+                                <td class="number" style="color: var(--accent-green);">▲ Forte</td>
+                            </tr>
+                            <tr>
+                                <td>Margem EBITDA Hospitais</td>
+                                <td class="number">25,7%</td>
+                                <td class="number">25,1%</td>
+                                <td class="number">27,1%</td>
+                                <td class="number"><strong style="color: var(--white);">26,0%</strong></td>
+                                <td class="number" style="color: var(--accent-green);">◆ Sólida</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size: 12px; color: var(--gray-500); margin-top: 12px; font-style: italic;">* Índice de Liquidez = Caixa e Equivalentes / Dívida de Curto Prazo</p>
+                </div>
+
+                <div class="chart-container" style="margin-top: 20px;">
+                    <h4 class="chart-title">Evolução das Principais Métricas</h4>
+                    <div class="chart-wrapper tall">
+                        <canvas id="creditMetricsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Conclusão -->
+                <div class="conclusion-box">
+                    <h3>📋 Conclusão</h3>
+                    <p>
+                        A Rede D'Or apresenta perfil de crédito <strong style="color: var(--accent-green);">sólido</strong>, sustentado por sua posição de liderança absoluta no setor de saúde brasileiro, trajetória consistente de desalavancagem e robusto colchão de liquidez. Os ratings AAA em escala nacional estão bem fundamentados. Destaque adicional: a companhia <strong style="color: var(--white);">não possui covenants financeiros</strong>, conferindo flexibilidade total na gestão do balanço.
+                    </p>
+                    <p>
+                        <strong style="color: var(--accent-green);">Pontos Positivos:</strong> A queda da alavancagem de 2,77x (dez/22) para 1,54x (set/25) — ou 0,88x considerando provisões técnicas de R$ 19,6 bi — demonstra disciplina financeira excepcional e integração bem-sucedida da SulAmérica. A liquidez de 13,5x proporciona ampla flexibilidade. Em comparação setorial, a Rede D'Or se destaca significativamente versus pares como Oncoclínicas (alavancagem de 4,5x com prejuízo recorrente).
+                    </p>
+                    <p>
+                        <strong style="color: var(--primary-orange);">Pontos de Monitoramento:</strong> A sinistralidade da SulAmérica (80,1%) permanece acima do pré-pandemia (~75%), embora em normalização gradual. A exposição de 92,3% da dívida a taxas flutuantes resultou em aumento de 34,2% a/a nas despesas financeiras no 3T25 (impacto do CDI elevado). A concentração de amortizações 2028-2030 (R$ 17,1 bi) requer planejamento de refinanciamento.
+                    </p>
+                    <p>
+                        <strong style="color: var(--white);">Recomendação:</strong> Visão <span style="color: var(--accent-green); font-weight: 700;">CONSTRUTIVA</span> para instrumentos de dívida da Rede D'Or. O spread de CDI+1,0% parece adequado ao perfil de risco AAA em escala local. A empresa é a melhor posicionada do setor, combinando escala, integração vertical e eficiência operacional.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 08: Glossário -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">08</span>
+                    <h2 class="section-title">Glossário de Indicadores Financeiros</h2>
+                </div>
+
+                <div class="grid-2">
+                    <!-- Coluna Esquerda -->
+                    <div>
+                        <!-- EBITDA -->
+                        <div class="card" style="margin-bottom: 16px;">
+                            <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">EBITDA</h4>
+                            <p style="color: var(--gray-300); font-size: 13px; line-height: 1.7;">
+                                Sigla em inglês para <em>Earnings Before Interest, Taxes, Depreciation and Amortization</em>, ou em português Lucro antes dos Juros, Impostos, Depreciação e Amortização (LAJIDA). É um indicativo do potencial de geração de caixa operacional da empresa, sem levar em consideração os efeitos de receitas e despesas financeiras, impostos, depreciação e amortização. Amplamente utilizado para análise de empresas e comparabilidade.
+                            </p>
+                        </div>
+
+                        <!-- Dívida Líquida -->
+                        <div class="card" style="margin-bottom: 16px;">
+                            <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">Dívida Líquida</h4>
+                            <p style="color: var(--gray-300); font-size: 13px; line-height: 1.7;">
+                                Também chamada de endividamento líquido, consiste no saldo de empréstimos e financiamentos, após reduzido o caixa da empresa. No geral, considera-se que quanto maior o volume de Dívida em relação às disponibilidades financeiras, mais endividada é a empresa. Quando a quantidade de caixa é superior à quantidade da Dívida, considera-se que a empresa é "aplicadora líquida" ou que possui um "endividamento líquido negativo".
+                            </p>
+                        </div>
+
+                        <!-- Dívida Líquida / EBITDA -->
+                        <div class="card" style="margin-bottom: 16px;">
+                            <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">Dívida Líquida / EBITDA <span style="color: var(--accent-green); font-size: 11px; font-weight: 400;">(quanto menor, melhor)</span></h4>
+                            <p style="color: var(--gray-300); font-size: 13px; line-height: 1.7;">
+                                Relação entre a Dívida Líquida e o EBITDA, é uma das métricas mais comumente utilizadas na análise de Crédito como medida da alavancagem. Em contratos de Dívida que possuem cláusulas contratuais (<em>covenants</em>), costuma ser o principal indicador a ser monitorado, uma vez que demonstra o quanto do crescimento da Dívida está sendo acompanhado pelo crescimento do resultado operacional.
+                            </p>
+                        </div>
+
+                        <!-- EBITDA / Despesas Financeiras -->
+                        <div class="card" style="margin-bottom: 16px;">
+                            <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">EBITDA / Despesas Financeiras <span style="color: var(--accent-green); font-size: 11px; font-weight: 400;">(quanto maior, melhor)</span></h4>
+                            <p style="color: var(--gray-300); font-size: 13px; line-height: 1.7;">
+                                Também conhecido como Índice de Cobertura de Juros (ICJ), é um indicador da saúde financeira da empresa, pois mede a capacidade da empresa em honrar com as despesas de juros de seus empréstimos a partir de seu potencial de geração de caixa operacional (EBITDA), servindo também como um Índice de solvência. Considera-se que empresas com ICJ abaixo de 1x podem ter dificuldade em arcar com o pagamento das despesas financeiras.
+                            </p>
+                        </div>
+
+                        <!-- Patrimônio Líquido / Ativo Total -->
+                        <div class="card" style="margin-bottom: 16px;">
+                            <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">Patrimônio Líquido / Ativo Total <span style="color: var(--accent-green); font-size: 11px; font-weight: 400;">(quanto maior, melhor)</span></h4>
+                            <p style="color: var(--gray-300); font-size: 13px; line-height: 1.7;">
+                                Indicador relativo à estrutura de capitais da empresa, demonstra o quanto dos seus ativos são cobertos por capital próprio (Patrimônio Líquido), ou seja, a diferença relaciona o quanto a empresa precisa se endividar com capital de terceiros para financiar seus ativos. Quanto mais próximo a 100% (ou 1x vez), significa que a empresa possui maior autonomia de recursos em detrimento à assunção de Dívidas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Coluna Direita -->
+                    <div>
+                        <!-- Liquidez Corrente -->
+                        <div class="card" style="margin-bottom: 16px;">
+                            <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">Liquidez Corrente <span style="color: var(--accent-green); font-size: 11px; font-weight: 400;">(quanto maior, melhor)</span></h4>
+                            <p style="color: var(--gray-300); font-size: 13px; line-height: 1.7;">
+                                Calculada pela razão entre o Ativo Circulante e o Passivo Circulante classificados no Balanço Patrimonial, é um indicador financeiro que mostra a capacidade da empresa de quitar todas as suas obrigações de curto prazo, ou seja, considera os valores previstos de entrada de caixa e de saída de caixa no horizonte de até doze meses.
+                            </p>
+                        </div>
+
+                        <!-- Fluxo de Caixa das Operações -->
+                        <div class="card" style="margin-bottom: 16px;">
+                            <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">Fluxo de Caixa das Operações</h4>
+                            <p style="color: var(--gray-300); font-size: 13px; line-height: 1.7;">
+                                O Demonstrativo de Fluxo de Caixa (DFC) das empresas é geralmente dividido em três seções: a das operações, a de investimento e a de financiamento. No caso "das operações", demonstra as entradas e saídas de caixa da empresa oriundas essencialmente de sua atividade, ou seja, considera as receitas e as despesas operacionais em determinado período, e não leva em consideração o resultado financeiro e os investimentos (capex).
+                            </p>
+                        </div>
+
+                        <!-- Fluxo de Caixa de Investimento -->
+                        <div class="card" style="margin-bottom: 16px;">
+                            <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">Fluxo de Caixa de Investimento</h4>
+                            <p style="color: var(--gray-300); font-size: 13px; line-height: 1.7;">
+                                Seção do Demonstrativo de Fluxo de Caixa que destaca como a empresa alocou recursos nas despesas de capital, ou seja, em capex, seja de manutenção, modernização ou expansão, incluindo aquisições de outras marcas ou empresas.
+                            </p>
+                        </div>
+
+                        <!-- Fluxo de Caixa de Financiamento -->
+                        <div class="card" style="margin-bottom: 16px;">
+                            <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">Fluxo de Caixa de Financiamento</h4>
+                            <p style="color: var(--gray-300); font-size: 13px; line-height: 1.7;">
+                                Seção do Demonstrativo de Fluxo de Caixa que destaca o valor dispendido pela empresa com captação e pagamento de empréstimos e financiamentos, bem como em custo da Dívida. Inclui também os itens relacionados à estrutura de capitais, como emissão e recompra de ações e de dividendos e juros sob capital próprio. A soma das três seções do DFC (Operação, Investimento e Financiamento) resulta na variação do caixa da empresa no período.
+                            </p>
+                        </div>
+
+                        <!-- LTV (Loan-to-Value) -->
+                        <div class="card" style="margin-bottom: 16px;">
+                            <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">LTV (Loan-to-Value)</h4>
+                            <p style="color: var(--gray-300); font-size: 13px; line-height: 1.7;">
+                                Representa a relação entre a Dívida Líquida e o valor contábil dos veículos (frota). A ideia é medir o quanto os ativos líquidos da Companhia cobririam da Dívida em caso de necessidade de venda. Quanto menor o LTV, maior a margem de segurança para os credores, indicando que os ativos da empresa são suficientes para cobrir suas obrigações mesmo em cenários de estresse.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+                <div>
+                    <h4 style="color: var(--primary-orange); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Fontes de Dados</h4>
+                    <ul style="list-style: none; font-size: 13px; color: var(--gray-400); line-height: 1.8;">
+                        <li>📄 ITR/DFP - Informações Trimestrais 3T25 (CVM)
+                        <li>📞 Conference Call de Resultados 3T25 (14/Nov/2025)
+                        <li>📊 Divulgação de Resultados - Relação com Investidores
+                        <li>📈 Formulário de Referência - Relação com Investidores
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--primary-orange); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Disclaimer</h4>
+                    <p style="font-size: 12px; color: var(--gray-500); line-height: 1.7;">
+                        Este relatório é de caráter informativo e educacional, elaborado com base em informações públicas disponíveis. 
+                        As análises e opiniões aqui expressas não constituem recomendação de investimento. 
+                        Consulte seu assessor financeiro antes de tomar decisões de investimento.
+                    </p>
+                </div>
+            </div>
+            <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--dark-border); text-align: center;">
+                <p style="font-size: 12px; color: var(--gray-500);">
+                    <strong style="color: var(--gray-400);">Rede D'Or São Luiz Credit Research Report</strong> | 
+                    Dados: Set/2025 (3T25) | Atualizado: Janeiro 2026
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Chart.js Configuration
+        Chart.defaults.font.family = "'Source Sans Pro', sans-serif";
+        Chart.defaults.color = '#9CA3AF';
+
+        const colors = {
+            orange: '#EC7000',
+            orangeLight: 'rgba(236, 112, 0, 0.3)',
+            green: '#A6CF2E',
+            greenLight: 'rgba(166, 207, 46, 0.3)',
+            dark: '#091B1E',
+            darkSecondary: '#133134',
+            blue: '#3B82F6',
+            red: '#EF4444',
+            gray: '#6B7280',
+            grayLight: 'rgba(255, 255, 255, 0.1)'
+        };
+
+        // ========== GRÁFICOS COM TOGGLE (Trimestral/Anual) ==========
+
+        // Dados dos gráficos
+        const bedsData = {
+            quarterly: {
+                labels: ['3T23', '4T23', '1T24', '2T24', '3T24', '4T24', '1T25', '2T25', '3T25'],
+                beds: [9600, 9598, 9729, 9891, 9830, 9857, 10148, 10413, 10443],
+                occupancy: [78.6, 76.4, 79.7, 84.4, 78.6, 75.8, 77.0, 82.9, 81.6],
+                yMin: 9000,
+                note: '* Taxa de ocupação do 3T25 (81,6%) é recorde histórico para terceiros trimestres'
+            },
+            annual: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025E'],
+                beds: [4200, 4800, 5400, 6100, 6800, 7200, 7800, 8500, 9600, 9900, 10500],
+                occupancy: [72.5, 74.0, 75.5, 76.8, 78.2, 68.5, 75.0, 79.5, 78.0, 80.5, 81.5],
+                yMin: 3000,
+                note: '* Crescimento expressivo pós-aquisição da SulAmérica (2022) e expansões orgânicas'
+            }
+        };
+
+        const volumeData = {
+            quarterly: {
+                labels: ['3T23', '4T23', '1T24', '2T24', '3T24', '4T24', '1T25', '2T25', '3T25'],
+                patients: [707, 673, 699, 758, 712, 688, 699, 780, 784],
+                surgeries: [113, 108, 112, 118, 115, 112, 114, 125, 128],
+                ticket: [10.8, 11.1, 11.0, 11.2, 11.1, 11.5, 11.7, 11.5, 11.6],
+                ticketMin: 10,
+                ticketMax: 12.5,
+                note: '* Ticket médio acumulado 12M: R$ 11.587,8 (+8,3% a/a) | CAGR +6,7% desde set/20'
+            },
+            annual: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025E'],
+                patients: [1150, 1320, 1510, 1720, 1950, 1680, 2100, 2450, 2750, 2880, 3100],
+                surgeries: [185, 210, 245, 285, 330, 290, 365, 410, 450, 470, 510],
+                ticket: [5.8, 6.2, 6.7, 7.3, 7.9, 8.5, 9.2, 10.0, 10.8, 11.3, 11.8],
+                ticketMin: 4,
+                ticketMax: 14,
+                note: '* CAGR Pacientes-dia: +12,5% a.a. (2015-2025) | CAGR Ticket Médio: +8,2% a.a.'
+            }
+        };
+
+        // Instâncias dos gráficos
+        let bedsChart = null;
+        let volumeChart = null;
+
+        // Função para criar gráfico de Leitos e Ocupação
+        function createBedsChart(mode) {
+            const data = bedsData[mode];
+            const ctx = document.getElementById('bedsOccupancyChart').getContext('2d');
+            
+            if (bedsChart) {
+                bedsChart.destroy();
+            }
+
+            bedsChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Leitos Operacionais',
+                        data: data.beds,
+                        backgroundColor: colors.orangeLight,
+                        borderColor: colors.orange,
+                        borderWidth: 2,
+                        yAxisID: 'y',
+                        order: 2,
+                        borderRadius: 4
+                    }, {
+                        label: 'Taxa de Ocupação (%)',
+                        data: data.occupancy,
+                        type: 'line',
+                        borderColor: colors.green,
+                        backgroundColor: colors.green,
+                        fill: false,
+                        tension: 0.4,
+                        yAxisID: 'y1',
+                        order: 1,
+                        pointRadius: 5,
+                        pointBackgroundColor: colors.green,
+                        borderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { duration: 500 },
+                    plugins: { legend: { position: 'bottom', labels: { color: '#FFFFFF' } } },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            position: 'left',
+                            beginAtZero: false,
+                            min: data.yMin,
+                            grid: { color: colors.grayLight },
+                            title: { display: true, text: 'Leitos', color: '#9CA3AF' },
+                            ticks: { color: '#9CA3AF' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            position: 'right',
+                            min: 60,
+                            max: 90,
+                            grid: { display: false },
+                            title: { display: true, text: 'Ocupação (%)', color: '#9CA3AF' },
+                            ticks: { callback: (v) => v + '%', color: '#9CA3AF' }
+                        },
+                        x: { grid: { display: false }, ticks: { color: '#9CA3AF' } }
+                    }
+                }
+            });
+
+            document.getElementById('bedsChartNote').textContent = data.note;
+        }
+
+        // Função para criar gráfico de Volume e Ticket
+        function createVolumeChart(mode) {
+            const data = volumeData[mode];
+            const ctx = document.getElementById('volumeTicketChart').getContext('2d');
+            
+            if (volumeChart) {
+                volumeChart.destroy();
+            }
+
+            volumeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [{
+                        label: 'Pacientes-dia (mil)',
+                        data: data.patients,
+                        backgroundColor: colors.orange,
+                        borderRadius: 4,
+                        yAxisID: 'y',
+                        order: 2
+                    }, {
+                        label: 'Cirurgias (mil)',
+                        data: data.surgeries,
+                        backgroundColor: '#4A9EBF',
+                        borderColor: '#5BB5D5',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        yAxisID: 'y',
+                        order: 3
+                    }, {
+                        label: 'Ticket Médio (R$ mil)',
+                        data: data.ticket,
+                        type: 'line',
+                        borderColor: colors.green,
+                        backgroundColor: colors.green,
+                        fill: false,
+                        tension: 0.4,
+                        yAxisID: 'y1',
+                        pointRadius: 5,
+                        pointBackgroundColor: colors.green,
+                        borderWidth: 3,
+                        order: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: { duration: 500 },
+                    plugins: { legend: { position: 'bottom', labels: { color: '#FFFFFF' } } },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: colors.grayLight },
+                            title: { display: true, text: 'Volume (mil)', color: '#9CA3AF' },
+                            ticks: { color: '#9CA3AF' }
+                        },
+                        y1: {
+                            position: 'right',
+                            min: data.ticketMin,
+                            max: data.ticketMax,
+                            grid: { display: false },
+                            title: { display: true, text: 'Ticket (R$ mil)', color: '#9CA3AF' },
+                            ticks: { color: '#9CA3AF' }
+                        },
+                        x: { grid: { display: false }, ticks: { color: '#9CA3AF' } }
+                    }
+                }
+            });
+
+            document.getElementById('volumeChartNote').textContent = data.note;
+        }
+
+        // Funções de toggle
+        function toggleBedsChart(mode) {
+            document.getElementById('btnBedsQuarterly').classList.toggle('active', mode === 'quarterly');
+            document.getElementById('btnBedsAnnual').classList.toggle('active', mode === 'annual');
+            createBedsChart(mode);
+        }
+
+        function toggleVolumeChart(mode) {
+            document.getElementById('btnVolumeQuarterly').classList.toggle('active', mode === 'quarterly');
+            document.getElementById('btnVolumeAnnual').classList.toggle('active', mode === 'annual');
+            createVolumeChart(mode);
+        }
+
+        // Inicializar gráficos com visão trimestral
+        createBedsChart('quarterly');
+        createVolumeChart('quarterly');
+
+        // Oncology Chart - LINHA NA FRENTE
+        new Chart(document.getElementById('oncologyChart'), {
+            type: 'bar',
+            data: {
+                labels: ['3T23', '4T23', '1T24', '2T24', '3T24', '4T24', '1T25', '2T25', '3T25'],
+                datasets: [{
+                    label: 'Receita Bruta (R$ mi)',
+                    data: [701, 791, 758, 841, 820, 933, 920, 993, 1050],
+                    backgroundColor: colors.orange,
+                    borderRadius: 4,
+                    yAxisID: 'y',
+                    order: 2
+                }, {
+                    label: 'Infusões (mil)',
+                    data: [54.4, 57.8, 55.0, 62.0, 62.4, 66.5, 66.5, 71.0, 72.4],
+                    type: 'line',
+                    borderColor: colors.green,
+                    backgroundColor: colors.green,
+                    fill: false,
+                    tension: 0.4,
+                    yAxisID: 'y1',
+                    pointRadius: 5,
+                    pointBackgroundColor: colors.green,
+                    borderWidth: 3,
+                    order: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#9CA3AF' } } },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 600,
+                        grid: { color: colors.grayLight },
+                        title: { display: true, text: 'Receita (R$ mi)', color: '#9CA3AF' },
+                        ticks: { color: '#9CA3AF' }
+                    },
+                    y1: {
+                        position: 'right',
+                        min: 50,
+                        max: 80,
+                        grid: { display: false },
+                        title: { display: true, text: 'Infusões (mil)', color: '#9CA3AF' },
+                        ticks: { color: '#9CA3AF' }
+                    },
+                    x: { grid: { display: false }, ticks: { color: '#9CA3AF' } }
+                }
+            }
+        });
+
+        // Amortization Chart - DADOS COMPLETOS COM CAIXA
+        new Chart(document.getElementById('amortizationChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Caixa', '2025', '2026', '2027', '2028', '2029', '2030', '2031', '2032', '2033', '2034', '2035', '2036-45'],
+                datasets: [{
+                    label: 'R$ milhões',
+                    data: [25317, 647, 364, 3903, 5666, 4277, 7134, 4403, 3112, 913, 5570, 3622, 2290],
+                    backgroundColor: [
+                        '#D4A84B',         // Caixa - dourado
+                        colors.green,      // 2025 - verde (curto prazo)
+                        colors.green,      // 2026 - verde (curto prazo)
+                        colors.orange,     // 2027 - laranja
+                        '#4A9EBF',         // 2028 - azul
+                        '#4A9EBF',         // 2029 - azul
+                        '#4A9EBF',         // 2030 - azul
+                        '#6B8285',         // 2031 - cinza
+                        '#6B8285',         // 2032 - cinza
+                        '#6B8285',         // 2033 - cinza
+                        '#6B8285',         // 2034 - cinza
+                        '#6B8285',         // 2035 - cinza
+                        '#6B8285'          // 2036-45 - cinza
+                    ],
+                    borderColor: [
+                        '#E8C66B',
+                        colors.green,
+                        colors.green,
+                        colors.orange,
+                        '#5BB5D5',
+                        '#5BB5D5',
+                        '#5BB5D5',
+                        '#8A9FA2',
+                        '#8A9FA2',
+                        '#8A9FA2',
+                        '#8A9FA2',
+                        '#8A9FA2',
+                        '#8A9FA2'
+                    ],
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { 
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => `R$ ${ctx.parsed.x.toLocaleString('pt-BR')} milhões`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: { color: colors.grayLight },
+                        ticks: { 
+                            callback: (v) => v >= 1000 ? (v/1000).toFixed(0) + ' bi' : v,
+                            color: '#9CA3AF' 
+                        }
+                    },
+                    y: { 
+                        grid: { display: false }, 
+                        ticks: { 
+                            color: '#FFFFFF',
+                            font: { size: 11 }
+                        } 
+                    }
+                }
+            }
+        });
+
+        // Debt Composition Chart - CORES ALINHADAS
+        new Chart(document.getElementById('debtCompositionChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Debêntures', 'Empréstimos Bancários', 'CRIs'],
+                datasets: [{
+                    data: [71, 25, 4],
+                    backgroundColor: [colors.orange, colors.green, '#3B82F6'],
+                    borderColor: ['#FF8C33', '#B8E05E', '#60A5FA'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: { position: 'bottom', labels: { color: '#FFFFFF', padding: 16 } }
+                }
+            }
+        });
+
+        // Leverage Chart
+        new Chart(document.getElementById('leverageChart'), {
+            type: 'line',
+            data: {
+                labels: ['Dez/22', 'Mar/23', 'Jun/23', 'Set/23', 'Dez/23', 'Mar/24', 'Jun/24', 'Set/24', 'Dez/24', 'Mar/25', 'Jun/25', 'Set/25'],
+                datasets: [{
+                    label: 'Dív. Líquida/EBITDA (x)',
+                    data: [2.77, 2.80, 2.70, 2.60, 2.30, 2.15, 2.05, 1.92, 1.88, 1.75, 1.65, 1.54],
+                    borderColor: colors.orange,
+                    backgroundColor: colors.orangeLight,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 4,
+                    pointBackgroundColor: colors.orange
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        min: 1,
+                        max: 3,
+                        grid: { color: colors.grayLight },
+                        title: { display: true, text: 'Alavancagem (x)', color: '#9CA3AF' },
+                        ticks: { color: '#9CA3AF' }
+                    },
+                    x: { grid: { display: false }, ticks: { color: '#9CA3AF' } }
+                }
+            }
+        });
+
+        // Loss Ratio Chart
+        new Chart(document.getElementById('lossRatioChart'), {
+            type: 'line',
+            data: {
+                labels: ['1T22', '2T22', '3T22', '4T22', '1T23', '2T23', '3T23', '4T23', '1T24', '2T24', '3T24', '4T24', '1T25', '2T25', '3T25'],
+                datasets: [{
+                    label: 'Sinistralidade (%)',
+                    data: [85.8, 88.4, 88.7, 87.2, 85.5, 84.2, 82.6, 82.0, 81.5, 82.5, 82.1, 80.2, 78.6, 81.3, 80.1],
+                    borderColor: colors.orange,
+                    backgroundColor: colors.orangeLight,
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 3,
+                    pointBackgroundColor: colors.orange
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        min: 75,
+                        max: 92,
+                        grid: { color: colors.grayLight },
+                        ticks: { callback: (v) => v + '%', color: '#9CA3AF' }
+                    },
+                    x: { grid: { display: false }, ticks: { color: '#9CA3AF' } }
+                }
+            }
+        });
+
+        // Beneficiaries Chart
+        new Chart(document.getElementById('beneficiariesChart'), {
+            type: 'bar',
+            data: {
+                labels: ['3T23', '4T23', '1T24', '2T24', '3T24', '4T24', '1T25', '2T25', '3T25'],
+                datasets: [{
+                    label: 'Beneficiários Saúde (mil)',
+                    data: [2550, 2600, 2650, 2750, 2736, 2850, 2900, 2950, 2997],
+                    backgroundColor: colors.orange,
+                    borderRadius: 4
+                }, {
+                    label: 'Beneficiários Odonto (mil)',
+                    data: [2100, 2150, 2200, 2300, 2335, 2400, 2450, 2550, 2603],
+                    backgroundColor: colors.green,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#9CA3AF' } } },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 1800,
+                        grid: { color: colors.grayLight },
+                        ticks: { color: '#9CA3AF' }
+                    },
+                    x: { grid: { display: false }, ticks: { color: '#9CA3AF' } }
+                }
+            }
+        });
+
+        // SulAmérica EBITDA Chart
+        new Chart(document.getElementById('sulaEbitdaChart'), {
+            type: 'bar',
+            data: {
+                labels: ['1T23', '2T23', '3T23', '4T23', '1T24', '2T24', '3T24', '4T24', '1T25', '2T25', '3T25'],
+                datasets: [{
+                    label: 'EBITDA (R$ mi)',
+                    data: [-6.7, -111.9, 71.0, 60.5, 68.1, 121.4, 357.9, 299.9, 660.1, 399.0, 564.8],
+                    backgroundColor: (ctx) => ctx.parsed.y >= 0 ? colors.orange : colors.red,
+                    borderRadius: 4
+                }, {
+                    label: 'EBITDA + Rec. Fin. Ativos Vinc.',
+                    data: [118.2, 234.4, 339.2, 301.7, 286.5, 677.5, 609.5, 555.6, 990.6, 729.6, 1024.3],
+                    type: 'line',
+                    borderColor: colors.green,
+                    pointBackgroundColor: colors.green,
+                    fill: false,
+                    tension: 0.3,
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#9CA3AF' } } },
+                scales: {
+                    y: {
+                        grid: { color: colors.grayLight },
+                        ticks: { callback: (v) => 'R$ ' + v, color: '#9CA3AF' }
+                    },
+                    x: { grid: { display: false }, ticks: { color: '#9CA3AF' } }
+                }
+            }
+        });
+
+        // Sinistralidade e Beneficiários - Visão Anual
+        new Chart(document.getElementById('sinistralityBeneficiariesChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025E'],
+                datasets: [{
+                    label: 'Sinistralidade (%)',
+                    data: [74.7, 74.8, 76.4, 84.9, 88.4, 86.4, 82.5, 80.5],
+                    backgroundColor: '#5B8FB9',
+                    borderColor: '#7AAFCC',
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    yAxisID: 'y',
+                    order: 2
+                }, {
+                    label: 'Beneficiários (milhões)',
+                    data: [3.42, 4.07, 4.20, 4.54, 4.90, 4.93, 5.40, 5.70],
+                    type: 'line',
+                    borderColor: colors.orange,
+                    backgroundColor: colors.orange,
+                    fill: false,
+                    tension: 0.4,
+                    yAxisID: 'y1',
+                    pointRadius: 8,
+                    pointBackgroundColor: colors.orange,
+                    borderWidth: 3,
+                    order: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { 
+                    legend: { position: 'bottom', labels: { color: '#FFFFFF' } },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => {
+                                if (ctx.dataset.label.includes('Sinistralidade')) {
+                                    return `Sinistralidade: ${ctx.parsed.y}%`;
+                                } else {
+                                    return `Beneficiários: ${ctx.parsed.y} milhões`;
+                                }
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        position: 'left',
+                        min: 70,
+                        max: 95,
+                        grid: { color: colors.grayLight },
+                        title: { display: true, text: 'Sinistralidade (%)', color: '#9CA3AF' },
+                        ticks: { callback: (v) => v + '%', color: '#9CA3AF' }
+                    },
+                    y1: {
+                        type: 'linear',
+                        position: 'right',
+                        min: 3,
+                        max: 6.5,
+                        grid: { display: false },
+                        title: { display: true, text: 'Beneficiários (mi)', color: '#9CA3AF' },
+                        ticks: { color: '#9CA3AF' }
+                    },
+                    x: { 
+                        grid: { display: false }, 
+                        ticks: { color: '#FFFFFF' } 
+                    }
+                }
+            }
+        });
+
+        // Healthcare Structure Chart - TOTALMENTE VISÍVEL
+        new Chart(document.getElementById('healthcareStructureChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Setor Privado (25% pop., 60% gastos)', 'Setor Público (75% pop., 40% gastos)'],
+                datasets: [{
+                    data: [60, 40],
+                    backgroundColor: [colors.orange, '#4A9EBF'],
+                    borderColor: ['#FF8C33', '#5BB5D5'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '50%',
+                plugins: {
+                    legend: { 
+                        position: 'bottom', 
+                        labels: { 
+                            color: '#FFFFFF', 
+                            padding: 16,
+                            font: { size: 12 }
+                        } 
+                    },
+                    title: {
+                        display: true,
+                        text: 'Participação nos Gastos de Saúde',
+                        font: { size: 14, weight: 'bold' },
+                        color: '#FFFFFF',
+                        padding: { bottom: 20 }
+                    }
+                }
+            }
+        });
+
+        // Sector Sinistrality Chart - Trimestral
+        new Chart(document.getElementById('sectorSinistralityChart'), {
+            type: 'line',
+            data: {
+                labels: ['1T21', '2T21', '3T21', '4T21', '1T22', '2T22', '3T22', '4T22', '1T23', '2T23', '3T23', '4T23', '1T24', '2T24', '3T24', '4T24', '1T25', '2T25', '3T25'],
+                datasets: [{
+                    label: 'Sinistralidade (%)',
+                    data: [80.9, 84.1, 85.7, 86.2, 85.8, 88.7, 90.2, 89.1, 87.1, 86.7, 87.3, 85.1, 82.5, 83.3, 83.0, 82.2, 79.4, 81.1, 81.9],
+                    borderColor: '#5B8FB9',
+                    backgroundColor: 'rgba(91, 143, 185, 0.15)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#5B8FB9',
+                    borderWidth: 3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { 
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => `Sinistralidade: ${ctx.parsed.y}%`
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 75,
+                        max: 95,
+                        grid: { color: colors.grayLight },
+                        ticks: { callback: (v) => v + '%', color: '#9CA3AF' }
+                    },
+                    x: { 
+                        grid: { display: false }, 
+                        ticks: { color: '#FFFFFF', maxRotation: 45, minRotation: 45 } 
+                    }
+                }
+            }
+        });
+
+        // Sector Beneficiaries Chart - Historical
+        new Chart(document.getElementById('sectorBeneficiariesChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2000', '2005', '2010', '2012', '2014', '2016', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'Beneficiários (milhões)',
+                    data: [31.0, 35.4, 44.9, 47.8, 50.5, 47.7, 47.1, 47.1, 47.5, 48.9, 50.4, 50.5, 52.2, 53.3],
+                    backgroundColor: '#5B8FB9',
+                    borderColor: '#7AAFCC',
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { 
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => `${ctx.parsed.y} milhões de beneficiários`
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 25,
+                        max: 60,
+                        grid: { color: colors.grayLight },
+                        ticks: { color: '#9CA3AF' }
+                    },
+                    x: { 
+                        grid: { display: false }, 
+                        ticks: { color: '#FFFFFF' } 
+                    }
+                }
+            }
+        });
+
+        // Bed Density Chart - BARRAS VISÍVEIS
+        new Chart(document.getElementById('bedDensityChart'), {
+            type: 'bar',
+            data: {
+                labels: ['México', 'Peru', 'Brasil', 'Chile', 'Canadá', 'EUA', 'Itália', 'China', 'Argentina', 'França', 'Alemanha', 'Japão'],
+                datasets: [{
+                    label: 'Leitos/100 mil hab.',
+                    data: [1.0, 1.6, 2.0, 2.1, 2.5, 2.9, 3.1, 4.3, 5.0, 5.9, 8.0, 13.0],
+                    backgroundColor: (ctx) => {
+                        if (ctx.dataIndex === 2) return colors.orange; // Brasil destacado em laranja
+                        return colors.green; // Todos os outros em verde
+                    },
+                    borderColor: (ctx) => {
+                        if (ctx.dataIndex === 2) return '#FF8C33';
+                        return '#B8E05E';
+                    },
+                    borderWidth: 1,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: { color: colors.grayLight },
+                        title: { display: true, text: 'Leitos/100 mil hab.', color: '#9CA3AF' },
+                        ticks: { color: '#9CA3AF' }
+                    },
+                    y: { grid: { display: false }, ticks: { color: '#FFFFFF' } }
+                }
+            }
+        });
+
+        // Bed Deficit Chart - TODAS AS BARRAS LARANJAS
+        new Chart(document.getElementById('bedDeficitChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2019', '2024', '2029E'],
+                datasets: [{
+                    label: 'Déficit de Leitos Privados',
+                    data: [14246, 25131, 31581],
+                    backgroundColor: [colors.orange, colors.orange, colors.orange],
+                    borderColor: ['#FF8C33', '#FF8C33', '#FF8C33'],
+                    borderWidth: 1,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => `Déficit: ${ctx.parsed.y.toLocaleString('pt-BR')} leitos`
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: colors.grayLight },
+                        ticks: { callback: (v) => (v/1000).toFixed(0) + ' mil', color: '#9CA3AF' }
+                    },
+                    x: { grid: { display: false }, ticks: { color: '#FFFFFF' } }
+                }
+            }
+        });
+
+        // Sector Loss Ratio Chart
+        new Chart(document.getElementById('sectorLossRatioChart'), {
+            type: 'line',
+            data: {
+                labels: ['1T21', '2T21', '3T21', '4T21', '1T22', '2T22', '3T22', '4T22', '1T23', '2T23', '3T23', '4T23', '1T24', '2T24', '3T24', '4T24', '1T25', '2T25', '3T25'],
+                datasets: [{
+                    label: 'Sinistralidade Setor (%)',
+                    data: [80.9, 84.1, 85.7, 86.2, 85.8, 88.7, 90.2, 89.1, 87.1, 85.0, 83.5, 82.0, 81.5, 82.5, 82.1, 80.2, 78.6, 81.3, 80.1],
+                    borderColor: colors.orange,
+                    backgroundColor: colors.orangeLight,
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    y: {
+                        min: 75,
+                        max: 95,
+                        grid: { color: colors.grayLight },
+                        ticks: { callback: (v) => v + '%', color: '#9CA3AF' }
+                    },
+                    x: { grid: { display: false }, ticks: { color: '#9CA3AF', maxRotation: 45 } }
+                }
+            }
+        });
+
+        // Credit Metrics Chart
+        new Chart(document.getElementById('creditMetricsChart'), {
+            type: 'line',
+            data: {
+                labels: ['Dez/22', 'Mar/23', 'Jun/23', 'Set/23', 'Dez/23', 'Mar/24', 'Jun/24', 'Set/24', 'Dez/24', 'Mar/25', 'Jun/25', 'Set/25'],
+                datasets: [{
+                    label: 'Dív. Líquida/EBITDA (x)',
+                    data: [2.77, 2.80, 2.70, 2.60, 2.30, 2.15, 2.05, 1.92, 1.88, 1.75, 1.65, 1.54],
+                    borderColor: colors.orange,
+                    backgroundColor: colors.orangeLight,
+                    fill: true,
+                    tension: 0.4,
+                    yAxisID: 'y',
+                    pointRadius: 4,
+                    pointBackgroundColor: colors.orange
+                }, {
+                    label: 'Margem EBITDA Hospitais (%)',
+                    data: [25.7, 24.0, 25.5, 26.5, 25.1, 25.0, 26.5, 27.1, 26.0, 25.5, 25.9, 28.0],
+                    borderColor: colors.green,
+                    borderDash: [5, 5],
+                    fill: false,
+                    tension: 0.4,
+                    yAxisID: 'y1',
+                    pointRadius: 4,
+                    pointBackgroundColor: colors.green
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#9CA3AF' } } },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        position: 'left',
+                        min: 1,
+                        max: 3,
+                        grid: { color: colors.grayLight },
+                        title: { display: true, text: 'Alavancagem (x)', color: '#9CA3AF' },
+                        ticks: { color: '#9CA3AF' }
+                    },
+                    y1: {
+                        type: 'linear',
+                        position: 'right',
+                        min: 20,
+                        max: 32,
+                        grid: { display: false },
+                        title: { display: true, text: 'Margem EBITDA (%)', color: '#9CA3AF' },
+                        ticks: { callback: (v) => v + '%', color: '#9CA3AF' }
+                    },
+                    x: { grid: { display: false }, ticks: { color: '#9CA3AF' } }
+                }
+            }
+        });
+
+        // Animate progress bars on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.dataset.width;
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.progress-fill').forEach(bar => {
+            bar.dataset.width = bar.style.width;
+            bar.style.width = '0';
+            observer.observe(bar);
+        });
+    </script>
+</body>
+</html>

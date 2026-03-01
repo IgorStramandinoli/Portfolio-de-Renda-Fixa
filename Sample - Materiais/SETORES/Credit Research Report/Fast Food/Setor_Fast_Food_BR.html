@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Setorial Fast-Food Brasil | Checklist Completo</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #1a365d;
+            --secondary: #2b6cb0;
+            --accent: #ed8936;
+            --success: #38a169;
+            --danger: #e53e3e;
+            --bg-dark: #0d1117;
+            --bg-card: #161b22;
+            --bg-elevated: #21262d;
+            --border: #30363d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --text-muted: #6e7681;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+        /* Header */
+        header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-weight: 700; font-size: 1.1rem; color: var(--accent); }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 0.8rem;
+            transition: color 0.2s;
+        }
+        nav a:hover { color: var(--text-primary); }
+
+        /* Hero */
+        .hero {
+            padding: 48px 0 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(237, 137, 54, 0.15);
+            color: var(--accent);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 8px; }
+        .hero-sub { color: var(--text-secondary); font-size: 1rem; margin-bottom: 24px; }
+
+        /* KPI Grid */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .kpi-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .kpi-value { font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+        .kpi-label { font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; }
+
+        /* Sections */
+        .section { padding: 40px 0; border-bottom: 1px solid var(--border); }
+
+        .section-header { margin-bottom: 24px; }
+
+        .section-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 4px; }
+        .section-desc { color: var(--text-secondary); font-size: 0.9rem; }
+
+        /* Chart Container */
+        .chart-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .chart-header { padding: 16px 20px 12px; border-bottom: 1px solid var(--border); }
+        .chart-title { font-size: 0.95rem; font-weight: 600; margin-bottom: 2px; }
+        .chart-source { font-size: 0.7rem; color: var(--text-muted); }
+        .chart-body { padding: 20px; }
+
+        .chart-area { position: relative; width: 100%; }
+        .chart-area-xs { height: 180px; }
+        .chart-area-sm { height: 220px; }
+        .chart-area-md { height: 280px; }
+        .chart-area-lg { height: 320px; }
+
+        /* Analysis Boxes */
+        .chart-footer { border-top: 1px solid var(--border); }
+
+        .analysis-row { display: grid; grid-template-columns: 1fr 1fr; }
+        .analysis-box { padding: 14px 18px; }
+        .analysis-box:first-child { border-right: 1px solid var(--border); }
+        .analysis-box.full { grid-column: 1 / -1; }
+
+        .analysis-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        .analysis-label.why { color: var(--secondary); }
+        .analysis-label.insight { color: var(--success); }
+
+        .analysis-text { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
+        .analysis-text strong { color: var(--text-primary); }
+
+        /* Two Column */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+        /* Stats Row */
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+
+        .stat-box {
+            background: var(--bg-elevated);
+            border-radius: 8px;
+            padding: 14px;
+            text-align: center;
+        }
+
+        .stat-value { font-size: 1.1rem; font-weight: 700; color: var(--success); }
+        .stat-label { font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; }
+
+        /* Cards Grid */
+        .cards-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            transition: border-color 0.2s;
+        }
+        .card:hover { border-color: var(--accent); }
+
+        .card-icon { font-size: 1.5rem; margin-bottom: 8px; }
+        .card-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 4px; }
+        .card-desc { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; }
+
+        .card-tag {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.65rem;
+            font-weight: 600;
+        }
+
+        /* Quote */
+        .quote {
+            background: var(--bg-elevated);
+            border-left: 3px solid var(--secondary);
+            border-radius: 0 8px 8px 0;
+            padding: 16px 20px;
+            margin: 20px 0;
+        }
+
+        .quote-text { font-style: italic; color: var(--text-secondary); margin-bottom: 6px; font-size: 0.9rem; }
+        .quote-author { font-size: 0.75rem; color: var(--secondary); font-weight: 500; }
+
+        /* Info Box */
+        .info-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h4 { font-size: 0.95rem; margin-bottom: 12px; color: var(--accent); }
+        .info-box ul { list-style: none; }
+        .info-box li { font-size: 0.85rem; color: var(--text-secondary); padding: 6px 0; border-bottom: 1px solid var(--border); }
+        .info-box li:last-child { border-bottom: none; }
+        .info-box li strong { color: var(--text-primary); }
+
+        /* Table */
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+        .data-table th {
+            background: var(--primary);
+            color: white;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); }
+        .data-table tr:hover td { background: var(--bg-elevated); }
+
+        /* Comparison */
+        .comparison-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+
+        .comparison-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .comparison-flag { font-size: 1.75rem; margin-bottom: 6px; }
+        .comparison-country { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 2px; }
+        .comparison-value { font-size: 1.5rem; font-weight: 700; }
+        .comparison-label { font-size: 0.65rem; color: var(--text-muted); }
+
+        /* Footer */
+        footer {
+            padding: 24px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+        footer strong { color: var(--accent); }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .grid-2, .cards-grid, .comparison-grid, .grid-3 { grid-template-columns: 1fr 1fr; }
+            .kpi-grid, .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .analysis-row { grid-template-columns: 1fr; }
+            .analysis-box:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+        }
+
+        @media (max-width: 600px) {
+            .cards-grid, .comparison-grid, .grid-3 { grid-template-columns: 1fr; }
+            nav { display: none; }
+            .hero h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+
+ <!-- Cabeçalho -->
+    <div class="ion-header">
+        <div class="ion-title">
+            <div class="ion-title-checkbox"></div>
+            <div class="ion-title-text"> </div>
+        </div>
+
+  <!-- Assinatura com efeito de marca d'água -->
+<div class="watermark">
+    <p><strong>Autor:</strong> Igor Stramandinoli Moita Pontes</p>
+    
+</div>
+
+<style>
+.watermark {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(19, 49, 52, 0.3); /* fundo com transparência */
+    border: 1px solid rgba(166, 207, 46, 0.4); /* borda verde translúcida */
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: rgba(255, 255, 255, 0.6); /* texto branco translúcido */
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 13px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    pointer-events: none;
+    user-select: none;
+    max-width: 300px;
+    opacity: 0.7; /* transparência geral do bloco */
+}
+
+.watermark p {
+    margin: 4px 0;
+}
+
+.watermark strong {
+    color: rgba(166, 207, 46, 0.7); /* destaque verde translúcido */
+}
+</style>
+</style>
+
+  </style>
+</head>
+<body>
+
+<header>
+    <div class="container header-content">
+        <div class="logo">📊 Análise Setorial Fast-Food </div>
+        <nav>
+            <a href="#item1">1-Categorias</a>
+            <a href="#item5">5-Franquias</a>
+            <a href="#item8">8-Consumo</a>
+            <a href="#item11">11-Demografia</a>
+            <a href="#item13">13-Delivery</a>
+        </nav>
+    </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+    <div class="container">
+        
+        <h1>Setor de Fast-Food Brasil</h1>
+        <p class="hero-sub">Análise setorial completa seguindo todos os critérios do checklist</p>
+        
+        <div class="kpi-grid">
+            <div class="kpi-item">
+                <div class="kpi-value">R$ 455 bi</div>
+                <div class="kpi-label">Mercado Foodservice 2024</div>
+            </div>
+            <div class="kpi-item">
+                <div class="kpi-value">US$ 408 bi</div>
+                <div class="kpi-label">Top 10 Marcas Globais</div>
+            </div>
+            <div class="kpi-item">
+                <div class="kpi-value">+16,1%</div>
+                <div class="kpi-label">Cresc. Franquias Food 2024</div>
+            </div>
+            <div class="kpi-item">
+                <div class="kpi-value">2.665</div>
+                <div class="kpi-label">Lojas ZAMP</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ITEM 1 ==================== -->
+<section class="section" id="item1">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-num">1</div>
+            <h2 class="section-title">Funcionamento das Redes de Fast-Food e Categorias</h2>
+            <p class="section-desc">Como operam, modelo de negócio e diferenças entre segmentos</p>
+        </div>
+
+        <div class="info-box">
+            <h4>🏢 Como Funciona uma Rede de Fast-Food</h4>
+            <ul>
+                <li><strong>Velocidade:</strong> Tempo médio de preparo inferior a 5-10 minutos — foco em rotatividade</li>
+                <li><strong>Padronização:</strong> Mesmo produto em qualquer unidade da rede no mundo (sabor, apresentação, experiência)</li>
+                <li><strong>Escalabilidade:</strong> Expansão via franquias com processos replicáveis e treinamento padronizado</li>
+                <li><strong>Ticket Acessível:</strong> Posicionamento de preço para volume alto, margens dependem de escala</li>
+                <li><strong>Supply Chain Integrado:</strong> Centrais de distribuição, fornecedores homologados, controle de qualidade</li>
+                <li><strong>Marketing Nacional:</strong> Fundo de propaganda pago por franqueados, campanhas coordenadas</li>
+            </ul>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card">
+                <div class="card-icon">🍟</div>
+                <div class="card-title">Fast-Food (QSR)</div>
+                <div class="card-desc">Serviço rápido, cardápio padronizado, balcão ou self-service. Foco em velocidade e escala.</div>
+                <div class="card-tag">R$ 25-45</div>
+                <div style="margin-top: 8px; font-size: 0.7rem; color: #6e7681;">McDonald's, Burger King, Subway, KFC</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🥗</div>
+                <div class="card-title">Fast Casual</div>
+                <div class="card-desc">Qualidade superior, ambiente confortável, sem garçom. Ingredientes premium.</div>
+                <div class="card-tag">R$ 50-90</div>
+                <div style="margin-top: 8px; font-size: 0.7rem; color: #6e7681;">Madero, Outback, Chipotle, Spoleto</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🍽️</div>
+                <div class="card-title">Casual Dining</div>
+                <div class="card-desc">Serviço de mesa completo, cardápio extenso, experiência elaborada.</div>
+                <div class="card-tag">R$ 80-150</div>
+                <div style="margin-top: 8px; font-size: 0.7rem; color: #6e7681;">Applebee's, Coco Bambu, Abbraccio</div>
+            </div>
+            <div class="card">
+                <div class="card-icon">☕</div>
+                <div class="card-title">Cafeterias</div>
+                <div class="card-desc">Foco em bebidas, lanches leves, ambiente trabalho/social. Alta margem em bebidas.</div>
+                <div class="card-tag">R$ 20-40</div>
+                <div style="margin-top: 8px; font-size: 0.7rem; color: #6e7681;">Starbucks, Illy Caffè, Café do Mercado</div>
+            </div>
+        </div>
+
+        <div class="chart-block">
+            <div class="chart-header">
+                <div class="chart-title">Comparativo de Modelos de Negócio por Categoria</div>
+                <div class="chart-source">Fonte: Análise setorial baseada em ABF, ANR</div>
+            </div>
+            <div class="chart-body">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Característica</th>
+                            <th>Fast-Food</th>
+                            <th>Fast Casual</th>
+                            <th>Casual Dining</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tempo de Atendimento</td>
+                            <td>2-5 min</td>
+                            <td>10-15 min</td>
+                            <td>30-60 min</td>
+                        </tr>
+                        <tr>
+                            <td>Ticket Médio</td>
+                            <td>R$ 25-45</td>
+                            <td>R$ 50-90</td>
+                            <td>R$ 80-150</td>
+                        </tr>
+                        <tr>
+                            <td>Modelo Predominante</td>
+                            <td>Franquia (60-90%)</td>
+                            <td>Misto (40-60%)</td>
+                            <td>Próprio (60-80%)</td>
+                        </tr>
+                        <tr>
+                            <td>Margem Bruta Típica</td>
+                            <td>60-68%</td>
+                            <td>55-65%</td>
+                            <td>50-60%</td>
+                        </tr>
+                        <tr>
+                            <td>Foco Principal</td>
+                            <td>Volume + Velocidade</td>
+                            <td>Qualidade + Ambiente</td>
+                            <td>Experiência Completa</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="chart-footer">
+                <div class="analysis-row">
+                    <div class="analysis-box full">
+                        <div class="analysis-label why">📌 Por que esta comparação?</div>
+                        <div class="analysis-text">
+                            Define onde cada rede compete. O <strong>Fast-Food (QSR)</strong> domina em volume por sua proposta de 
+                            <strong>velocidade + preço acessível + padronização</strong>. O <strong>Fast Casual</strong> é o segmento de maior crescimento 
+                            (+14,3% Madero), capturando consumidores que buscam qualidade sem espera longa. A ZAMP opera principalmente no QSR 
+                            (Burger King, Popeyes, Subway) com expansão para cafeterias (Starbucks).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ITEM 2 ==================== -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-num">2</div>
+            <h2 class="section-title">Marcas de Fast-Food Mais Valiosas do Mundo</h2>
+            <p class="section-desc">Ranking Kantar BrandZ 2025 — Top 10 vale US$ 408,1 bilhões</p>
+        </div>
+
+        <div class="chart-block">
+            <div class="chart-header">
+                <div class="chart-title">Valor de Marca das Maiores Redes Globais (US$ bilhões)</div>
+                <div class="chart-source">Fonte: Kantar BrandZ Global 2025</div>
+            </div>
+            <div class="chart-body">
+                <div class="chart-area chart-area-lg">
+                    <canvas id="brandChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <div class="analysis-row">
+                    <div class="analysis-box">
+                        <div class="analysis-label why">📌 Por que este gráfico?</div>
+                        <div class="analysis-text">
+                            O ranking de valor de marca revela a <strong>concentração de mercado e poder competitivo</strong> das redes globais. 
+                            Demonstra quais empresas conseguiram converter escala operacional em valor intangível reconhecido pelos consumidores.
+                        </div>
+                    </div>
+                    <div class="analysis-box">
+                        <div class="analysis-label insight">💡 Principais Insights</div>
+                        <div class="analysis-text">
+                            <strong>McDonald's concentra 54%</strong> do valor total do Top 10 (US$ 221,9 bi). <strong>Chipotle (+44%)</strong> e 
+                            <strong>Chick-fil-A (+25%)</strong> lideram crescimento via digitalização. A categoria valorizou <strong>700% em 20 anos</strong>.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote">
+            <p class="quote-text">"O valor das marcas de fast food cresceu 700% desde 2006, impulsionado por globalização e percepção de valor. Esse é o maior índice de crescimento entre todas as categorias que monitoramos."</p>
+            <div class="quote-author">— Fernanda Bassanello, Diretora de Brand na Kantar Brasil</div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ITEM 3 ==================== -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-num">3</div>
+            <h2 class="section-title">Divisão do Mercado de Serviços de Alimentação</h2>
+            <p class="section-desc">Como o mercado está segmentado: fast-food, café, restaurante, self-service</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-value">R$ 455 bi</div>
+                <div class="stat-label">Faturamento Total 2024</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">1,6 mi</div>
+                <div class="stat-label">Estabelecimentos</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">10-12%</div>
+                <div class="stat-label">Share Top 10 Redes</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">30%</div>
+                <div class="stat-label">Share Top 10 nos EUA</div>
+            </div>
+        </div>
+
+        <div class="chart-block">
+            <div class="chart-header">
+                <div class="chart-title">Divisão do Mercado de Foodservice por Segmento</div>
+                <div class="chart-source">Fonte: Mordor Intelligence, ANR, ABRASEL</div>
+            </div>
+            <div class="chart-body">
+                <div class="chart-area chart-area-sm">
+                    <canvas id="segmentChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <div class="analysis-row">
+                    <div class="analysis-box">
+                        <div class="analysis-label why">📌 Por que este gráfico?</div>
+                        <div class="analysis-text">
+                            Mostra onde cada tipo de negócio compete e o tamanho relativo de cada segmento. 
+                            Essencial para entender o <strong>posicionamento da ZAMP</strong> no mercado brasileiro.
+                        </div>
+                    </div>
+                    <div class="analysis-box">
+                        <div class="analysis-label insight">💡 Principais Insights</div>
+                        <div class="analysis-text">
+                            <strong>Fast-Food (~28%)</strong> é o segmento mais organizado com redes franqueadas. 
+                            <strong>Cloud Kitchens (CAGR 16,5%)</strong> é o que mais cresce, sinalizando futuro delivery-first.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ITEM 4 ==================== -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-num">4</div>
+            <h2 class="section-title">Crescimento do Setor nos Últimos Anos</h2>
+            <p class="section-desc">Evolução histórica e projeções para o mercado de serviços de alimentação</p>
+        </div>
+
+        <div class="grid-2">
+            <div class="chart-block">
+                <div class="chart-header">
+                    <div class="chart-title">Evolução do Mercado de Fast-Food Brasil</div>
+                    <div class="chart-source">Fonte: Expert Market Research, 2025</div>
+                </div>
+                <div class="chart-body">
+                    <div class="chart-area chart-area-sm">
+                        <canvas id="marketChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-footer">
+                    <div class="analysis-row">
+                        <div class="analysis-box full">
+                            <div class="analysis-label why">📌 Justificativa</div>
+                            <div class="analysis-text">
+                                Mostra a <strong>resiliência do setor</strong>: queda abrupta em 2020 (COVID) e 
+                                <strong>recuperação acelerada via delivery</strong>. Projeção de <strong>CAGR 5,9% até 2034</strong> — 
+                                crescimento consistente acima do PIB brasileiro.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-block">
+                <div class="chart-header">
+                    <div class="chart-title">Desempenho do Franchising de Alimentação</div>
+                    <div class="chart-source">Fonte: ABF — Pesquisa de Desempenho 2024</div>
+                </div>
+                <div class="chart-body">
+                    <div class="chart-area chart-area-sm">
+                        <canvas id="franchiseGrowthChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-footer">
+                    <div class="analysis-row">
+                        <div class="analysis-box full">
+                            <div class="analysis-label why">📌 Justificativa</div>
+                            <div class="analysis-text">
+                                O setor de <strong>franquias de alimentação cresceu +16,1%</strong> em 2024, superando a média do franchising (+13,5%). 
+                                <strong>84% das redes</strong> tiveram aumento de faturamento. Taxa de fechamento de apenas <strong>5%</strong>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ITEM 5 ==================== -->
+<section class="section" id="item5">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-num">5</div>
+            <h2 class="section-title">Perfil do Fast-Food no Brasil: Franquias e Modelo Vencedor</h2>
+            <p class="section-desc">Quem consome, percentual franqueado por rede e qual modelo de negócio vence</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-value">R$ 273 bi</div>
+                <div class="stat-label">Franquias Brasil 2024</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">900+</div>
+                <div class="stat-label">Redes de Alimentação</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">R$ 63,53</div>
+                <div class="stat-label">Ticket Médio Franquias</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">91%</div>
+                <div class="stat-label">Redes com Lucro</div>
+            </div>
+        </div>
+
+        <div class="chart-block">
+            <div class="chart-header">
+                <div class="chart-title">Percentual de Franquias vs Lojas Próprias por Rede</div>
+                <div class="chart-source">Fonte: Relatórios das empresas, ABF 2024</div>
+            </div>
+            <div class="chart-body">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Rede</th>
+                            <th>Total Lojas</th>
+                            <th>Próprias</th>
+                            <th>Franquias</th>
+                            <th>% Franq.</th>
+                            <th>Modelo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>McDonald's</strong></td>
+                            <td>2.704</td>
+                            <td>~1.150</td>
+                            <td>~1.554</td>
+                            <td style="color: var(--accent);">57%</td>
+                            <td>Misto</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Burger King (ZAMP)</strong></td>
+                            <td>966</td>
+                            <td>687</td>
+                            <td>279</td>
+                            <td>29%</td>
+                            <td>Mais próprias</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Subway (ZAMP)</strong></td>
+                            <td>1.500</td>
+                            <td>0</td>
+                            <td>1.500</td>
+                            <td style="color: var(--success); font-weight: 700;">100%</td>
+                            <td>100% Franquia</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bob's</strong></td>
+                            <td>~1.000</td>
+                            <td>~100</td>
+                            <td>~900</td>
+                            <td style="color: var(--success);">~90%</td>
+                            <td>Franquia</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Habib's</strong></td>
+                            <td>~500</td>
+                            <td>~50</td>
+                            <td>~450</td>
+                            <td style="color: var(--success);">~90%</td>
+                            <td>Franquia</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Giraffas</strong></td>
+                            <td>~400</td>
+                            <td>~40</td>
+                            <td>~360</td>
+                            <td style="color: var(--success);">~90%</td>
+                            <td>Franquia</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="chart-footer">
+                <div class="analysis-row">
+                    <div class="analysis-box">
+                        <div class="analysis-label why">📌 Por que esta tabela?</div>
+                        <div class="analysis-text">
+                            Revela o <strong>modelo de expansão</strong> de cada rede. A maioria opta por franquias (menor capex), 
+                            enquanto Burger King mantém mais lojas próprias para <strong>controle de qualidade e testes de inovação</strong>.
+                        </div>
+                    </div>
+                    <div class="analysis-box">
+                        <div class="analysis-label insight">💡 Modelo Vencedor</div>
+                        <div class="analysis-text">
+                            <strong>Multifranqueados</strong> (52% das redes priorizam) + <strong>Lojas de menu reduzido</strong> (52% planejam expandir). 
+                            Tendência: locais não tradicionais (hospitais, universidades, terminais) — 45% das redes investindo.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h4>📊 Dados ABF sobre Franquias de Alimentação (2024)</h4>
+            <ul>
+                <li><strong>84% das redes</strong> tiveram aumento de faturamento em 2024</li>
+                <li><strong>41%</strong> tiveram incremento superior a 10%</li>
+                <li><strong>91% tiveram lucro</strong> (66% com lucro &gt;10%, 28% com lucro &gt;15%)</li>
+                <li><strong>90% atuam com delivery</strong> — 42% têm &gt;16% da receita via entrega</li>
+                <li><strong>86% consideram fidelização essencial</strong> — 69% operam programas ativos</li>
+                <li><strong>Taxa de fechamento:</strong> apenas 5% em 2024 (baixíssima)</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ITEM 6 ==================== -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-num">6</div>
+            <h2 class="section-title">Principais Players do Mercado Brasileiro</h2>
+            <p class="section-desc">Ranking por Consumer Reach Points (CRP) — Kantar 2025</p>
+        </div>
+
+        <div class="chart-block">
+            <div class="chart-header">
+                <div class="chart-title">Ranking CRP Brasil — Milhões de Pontos de Contato</div>
+                <div class="chart-source">Fonte: Kantar Worldpanel — Brand Footprint Brasil Out of Home QSR 2025</div>
+            </div>
+            <div class="chart-body">
+                <div class="chart-area chart-area-md">
+                    <canvas id="crpChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <div class="analysis-row">
+                    <div class="analysis-box">
+                        <div class="analysis-label why">📌 Por que este gráfico?</div>
+                        <div class="analysis-text">
+                            O CRP combina <strong>penetração + frequência</strong>, sendo a métrica mais completa para avaliar força de marca. 
+                            Revela não apenas quem lidera, mas <strong>quem está crescendo</strong>.
+                        </div>
+                    </div>
+                    <div class="analysis-box">
+                        <div class="analysis-label insight">💡 Principais Insights</div>
+                        <div class="analysis-text">
+                            <strong>McDonald's lidera</strong> (76,4M), mas <strong>Burger King conquistou +5M novos clientes</strong> em 2024. 
+                            No premium, <strong>Cabana (+87,5%)</strong> captura classes A/B.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ITEM 7 ==================== -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-num">7</div>
+            <h2 class="section-title">Principais Proteínas Consumidas no Brasil</h2>
+            <p class="section-desc">Preferências do consumidor brasileiro e impacto no fast-food</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-value">🐔 46-47 kg</div>
+                <div class="stat-label">Frango/Ano</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">🥩 39-40 kg</div>
+                <div class="stat-label">Carne Bovina</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">🥓 18 kg</div>
+                <div class="stat-label">Carne Suína</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">🥚 258</div>
+                <div class="stat-label">Ovos/Ano (proj.)</div>
+            </div>
+        </div>
+
+        <div class="chart-block">
+            <div class="chart-header">
+                <div class="chart-title">Penetração de Proteínas nos Lares Brasileiros (%)</div>
+                <div class="chart-source">Fonte: ABPA / CEAP / ABIEC</div>
+            </div>
+            <div class="chart-body">
+                <div class="chart-area chart-area-sm">
+                    <canvas id="proteinChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <div class="analysis-row">
+                    <div class="analysis-box">
+                        <div class="analysis-label why">📌 Por que este gráfico?</div>
+                        <div class="analysis-text">
+                            Mostra a <strong>preferência do brasileiro por proteínas</strong>, essencial para redes definirem cardápios. 
+                            A dominância do frango justifica o sucesso de <strong>Popeyes e KFC</strong>.
+                        </div>
+                    </div>
+                    <div class="analysis-box">
+                        <div class="analysis-label insight">💡 Principais Insights</div>
+                        <div class="analysis-text">
+                            <strong>Frango é a proteína mais consumida</strong> (46 kg/pessoa). Hambúrguer cresceu <strong>+228%</strong> em ocasiões 
+                            desde pré-pandemia. <strong>Popeyes: SSS +24,4%</strong>. Plant-based &lt;2%.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ITEM 8 ==================== -->
+<section class="section" id="item8">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-num">8</div>
+            <h2 class="section-title">Consumo de Fast-Food por Renda, Idade e Gênero</h2>
+            <p class="section-desc">Perfil demográfico completo do consumidor brasileiro de fast-food</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-value">62%</div>
+                <div class="stat-label">Consumiram Fast-Food 2024</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">R$ 263</div>
+                <div class="stat-label">Gasto Médio/Ano</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">5x</div>
+                <div class="stat-label">Frequência Anual</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">+16%</div>
+                <div class="stat-label">Crescimento Ocasiões</div>
+            </div>
+        </div>
+
+        <div class="grid-3">
+            <div class="chart-block">
+                <div class="chart-header">
+                    <div class="chart-title">Por Faixa Etária</div>
+                    <div class="chart-source">Fonte: Kantar Worldpanel 2025</div>
+                </div>
+                <div class="chart-body">
+                    <div class="chart-area chart-area-xs">
+                        <canvas id="ageChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-footer">
+                    <div class="analysis-row">
+                        <div class="analysis-box full">
+                            <div class="analysis-label insight">💡 Insight</div>
+                            <div class="analysis-text">
+                                <strong>25-29 anos: 24%</strong> (maior índice). Jovens 11-29 impulsionam PDV físico. <strong>50+ cresce no digital</strong>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-block">
+                <div class="chart-header">
+                    <div class="chart-title">Por Classe Social</div>
+                    <div class="chart-source">Fonte: Kantar Worldpanel 2025</div>
+                </div>
+                <div class="chart-body">
+                    <div class="chart-area chart-area-xs">
+                        <canvas id="classConsumptionChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-footer">
+                    <div class="analysis-row">
+                        <div class="analysis-box full">
+                            <div class="analysis-label insight">💡 Insight</div>
+                            <div class="analysis-text">
+                                <strong>Classes A/B: +5%</strong> em ocasiões (maior crescimento). Classe C: maior volume absoluto.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-block">
+                <div class="chart-header">
+                    <div class="chart-title">Por Gênero</div>
+                    <div class="chart-source">Fonte: Pesquisa Fast-Food Brasil</div>
+                </div>
+                <div class="chart-body">
+                    <div class="chart-area chart-area-xs">
+                        <canvas id="genderChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-footer">
+                    <div class="analysis-row">
+                        <div class="analysis-box full">
+                            <div class="analysis-label insight">💡 Insight</div>
+                            <div class="analysis-text">
+                                Distribuição equilibrada. <strong>Mulheres</strong>: mais cafeterias. <strong>Homens</strong>: maior ticket médio.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-block">
+            <div class="chart-header">
+                <div class="chart-title">Frequência de Consumo de Fast-Food</div>
+                <div class="chart-source">Fonte: Pesquisa com 5.815 entrevistados</div>
+            </div>
+            <div class="chart-body">
+                <div class="chart-area chart-area-sm">
+                    <canvas id="frequencyChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <div class="analysis-row">
+                    <div class="analysis-box full">
+                        <div class="analysis-label why">📌 Por que este gráfico?</div>
+                        <div class="analysis-text">
+                            Revela a <strong>intensidade de consumo</strong>. <strong>55% consomem pelo menos 1x por semana</strong> (28% mais de 1x + 27% 1x). 
+                            Apenas 2% nunca consomem. <strong>Oportunidade</strong>: converter o grupo "1x/mês ou menos" (23%) em consumidores mais frequentes.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ITEM 9 ==================== -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-num">9</div>
+            <h2 class="section-title">Distribuição de Classes Econômicas e Comportamento Histórico</h2>
+            <p class="section-desc">Quem mais consome e como isso evoluiu ao longo dos anos</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-value">50,1%</div>
+                <div class="stat-label">Lares A/B/C (2025)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">54,7%</div>
+                <div class="stat-label">Projeção 2034</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">R$ 3 tri</div>
+                <div class="stat-label">Consumo Classes B1/B2</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">+9,5%</div>
+                <div class="stat-label">Renda Classe C 2024</div>
+            </div>
+        </div>
+
+        <div class="chart-block">
+            <div class="chart-header">
+                <div class="chart-title">Evolução Histórica da Classe Média Brasileira (% Lares A/B/C)</div>
+                <div class="chart-source">Fonte: Tendências Consultoria, IPC Maps</div>
+            </div>
+            <div class="chart-body">
+                <div class="chart-area chart-area-sm">
+                    <canvas id="classHistoryChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <div class="analysis-row">
+                    <div class="analysis-box">
+                        <div class="analysis-label why">📌 Por que este gráfico?</div>
+                        <div class="analysis-text">
+                            A classe média é o <strong>principal consumidor de fast-food</strong>. Mostra recuperação pós-recessão (2017) até 
+                            <strong>maior patamar desde 2015</strong>. Sustenta projeção de crescimento do setor.
+                        </div>
+                    </div>
+                    <div class="analysis-box">
+                        <div class="analysis-label insight">💡 Quem Mais Consome?</div>
+                        <div class="analysis-text">
+                            <strong>Classe B:</strong> Maior frequência e ticket — 22% dos domicílios, 40% do consumo total (R$ 3 tri). 
+                            <strong>Classe C:</strong> Maior volume absoluto (~35% da população).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ITEM 10 ==================== -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-num">10</div>
+            <h2 class="section-title">Consumo Per Capita: Brasil Atual vs Anos Anteriores</h2>
+            <p class="section-desc">Evolução do gasto per capita e comparativo internacional</p>
+        </div>
+
+        <div class="grid-2">
+            <div class="chart-block">
+                <div class="chart-header">
+                    <div class="chart-title">Evolução do Gasto Per Capita no Brasil</div>
+                    <div class="chart-source">Fonte: Kantar, Análise setorial</div>
+                </div>
+                <div class="chart-body">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Ano</th>
+                                <th>Gasto Per Capita</th>
+                                <th>Variação</th>
+                                <th>Contexto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2019</td>
+                                <td>R$ 180-200</td>
+                                <td>Base</td>
+                                <td>Pré-pandemia</td>
+                            </tr>
+                            <tr>
+                                <td>2020</td>
+                                <td>R$ 150-170</td>
+                                <td style="color: var(--danger);">-15%</td>
+                                <td>COVID-19</td>
+                            </tr>
+                            <tr>
+                                <td>2022</td>
+                                <td>R$ 210-230</td>
+                                <td style="color: var(--success);">+25%</td>
+                                <td>Reabertura + Delivery</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2024</strong></td>
+                                <td><strong>R$ 263</strong></td>
+                                <td style="color: var(--success); font-weight: 700;">+15%</td>
+                                <td>Consolidação digital</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="chart-footer">
+                    <div class="analysis-row">
+                        <div class="analysis-box full">
+                            <div class="analysis-label why">📌 Justificativa</div>
+                            <div class="analysis-text">
+                                Mostra a <strong>recuperação pós-pandemia</strong> e crescimento consistente. O gasto per capita cresceu 
+                                <strong>~46% desde 2019</strong> (de R$ 180 para R$ 263), impulsionado por delivery e digitalização.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-block">
+                <div class="chart-header">
+                    <div class="chart-title">Comparativo Internacional</div>
+                    <div class="chart-source">Fonte: Kantar, EAE Business School</div>
+                </div>
+                <div class="chart-body">
+                    <div class="comparison-grid" style="margin: 0;">
+                        <div class="comparison-item">
+                            <div class="comparison-flag">🇧🇷</div>
+                            <div class="comparison-country">Brasil</div>
+                            <div class="comparison-value" style="color: var(--accent);">US$ 115</div>
+                            <div class="comparison-label">per capita/ano</div>
+                        </div>
+                        <div class="comparison-item">
+                            <div class="comparison-flag">🇪🇺</div>
+                            <div class="comparison-country">Europa</div>
+                            <div class="comparison-value" style="color: var(--secondary);">US$ 220</div>
+                            <div class="comparison-label">per capita/ano</div>
+                        </div>
+                        <div class="comparison-item">
+                            <div class="comparison-flag">🇺🇸</div>
+                            <div class="comparison-country">EUA</div>
+                            <div class="comparison-value" style="color: var(--primary);">US$ 1.000+</div>
+                            <div class="comparison-label">per capita/ano</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-footer">
+                    <div class="analysis-row">
+                        <div class="analysis-box full">
+                            <div class="analysis-label insight">💡 Potencial de Crescimento</div>
+                            <div class="analysis-text">
+                                Brasil = <strong>11,5% do consumo americano</strong> e <strong>52% do europeu</strong>. 
+                                Se atingisse nível europeu, mercado dobraria. Nível americano = <strong>crescimento de 8x</strong>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ITEM 11 ==================== -->
+<section class="section" id="item11">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-num">11</div>
+            <h2 class="section-title">Fatores Demográficos que Impulsionam o Crescimento</h2>
+            <p class="section-desc">Vida urbana, grandes cidades, mulheres no trabalho, moradores sozinhos</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-value">186,8 mi</div>
+                <div class="stat-label">Pop. Urbana (87,5%)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">37 mi</div>
+                <div class="stat-label">10 Maiores Cidades</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">128 mi</div>
+                <div class="stat-label">PEA (59,8%)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">29%</div>
+                <div class="stat-label">Mulheres Chefes de Lar</div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h4>🏙️ Fatores Demográficos que Impulsionam o Fast-Food</h4>
+            <ul>
+                <li><strong>Urbanização (87,5%):</strong> 186,8 milhões vivem em áreas urbanas. Consumo per capita urbano (R$ 40,4 mil) é <strong>79% superior ao rural</strong> (R$ 22,6 mil)</li>
+                <li><strong>Concentração em Grandes Cidades:</strong> As 10 maiores cidades concentram <strong>37 milhões de habitantes</strong> — público prioritário para redes de fast-food</li>
+                <li><strong>Mulheres no Mercado de Trabalho:</strong> Mulheres são <strong>maioria da PEA</strong> (128 mi economicamente ativos). 29% das famílias têm mulheres como chefe de lar</li>
+                <li><strong>Dupla Jornada:</strong> Menos tempo para preparo de refeições em casa → mais fast-food e delivery como solução de conveniência</li>
+                <li><strong>Envelhecimento Populacional:</strong> Índice de 80 idosos (60+) para cada 100 jovens. Público 50+ crescendo no consumo digital</li>
+                <li><strong>Moradores Sozinhos:</strong> 18,9% dos domicílios são unipessoais — maior propensão ao consumo fora de casa</li>
+            </ul>
+        </div>
+
+        <div class="chart-block">
+            <div class="chart-header">
+                <div class="chart-title">Consumo Per Capita: Urbano vs Rural</div>
+                <div class="chart-source">Fonte: IPC Maps 2025</div>
+            </div>
+            <div class="chart-body">
+                <div class="chart-area chart-area-xs">
+                    <canvas id="urbanRuralChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <div class="analysis-row">
+                    <div class="analysis-box full">
+                        <div class="analysis-label why">📌 Justificativa</div>
+                        <div class="analysis-text">
+                            O consumo per capita urbano (R$ 40,4 mil) é <strong>79% superior ao rural</strong> (R$ 22,6 mil). 
+                            Com 87,5% da população em áreas urbanas, a <strong>demanda concentrada em cidades</strong> favorece 
+                            a expansão de redes de fast-food em regiões metropolitanas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ITEM 12 ==================== -->
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-num">12</div>
+            <h2 class="section-title">Residências com Morador Único e Correlação com Fast-Food</h2>
+            <p class="section-desc">Crescimento dos domicílios unipessoais e impacto no consumo</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-value">18,9%</div>
+                <div class="stat-label">Domicílios Unipessoais</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">+55%</div>
+                <div class="stat-label">Crescimento (2010→2022)</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">13,7 mi</div>
+                <div class="stat-label">Pessoas Morando Sozinhas</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">54,9%</div>
+                <div class="stat-label">Homens (vs 45,1% Mulheres)</div>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="chart-block">
+                <div class="chart-header">
+                    <div class="chart-title">Evolução dos Domicílios Unipessoais (%)</div>
+                    <div class="chart-source">Fonte: IBGE — PNAD / Censo 2022</div>
+                </div>
+                <div class="chart-body">
+                    <div class="chart-area chart-area-sm">
+                        <canvas id="soloChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-footer">
+                    <div class="analysis-row">
+                        <div class="analysis-box full">
+                            <div class="analysis-label why">📌 Justificativa</div>
+                            <div class="analysis-text">
+                                Quase <strong>1 em cada 5 lares</strong> brasileiros tem morador único. 
+                                Crescimento de <strong>+55% desde 2010</strong> — tendência estrutural que beneficia o fast-food.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-block">
+                <div class="chart-header">
+                    <div class="chart-title">Perfil Regional dos Moradores Únicos</div>
+                    <div class="chart-source">Fonte: IBGE — Censo 2022</div>
+                </div>
+                <div class="chart-body">
+                    <div class="chart-area chart-area-sm">
+                        <canvas id="soloRegionChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-footer">
+                    <div class="analysis-row">
+                        <div class="analysis-box full">
+                            <div class="analysis-label insight">💡 Insight Regional</div>
+                            <div class="analysis-text">
+                                <strong>Rio de Janeiro lidera</strong> (19,5%), seguido por Sudeste/Centro-Oeste (18,9%). 
+                                Norte tem menor índice (13,9%). Correlação direta com presença de redes de fast-food.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h4>🔗 Correlação: Moradores Sozinhos × Consumo de Fast-Food</h4>
+            <ul>
+                <li><strong>Menos incentivo para cozinhar:</strong> Preparar refeição para uma pessoa é menos eficiente em tempo e custo</li>
+                <li><strong>Porções individuais:</strong> Fast-food e delivery oferecem porções ideais para consumo individual</li>
+                <li><strong>Conveniência como prioridade:</strong> Economia de tempo é fator decisivo para quem mora sozinho</li>
+                <li><strong>Maior renda disponível:</strong> Sem dependentes, maior % da renda pode ir para alimentação fora de casa</li>
+                <li><strong>Delivery perfeito:</strong> Apps de entrega eliminam a "solidão" de ir a restaurantes sozinho</li>
+                <li><strong>Correlação estatística:</strong> Regiões com mais domicílios unipessoais (SE/CO) têm maior penetração de fast-food</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== ITEM 13 ==================== -->
+<section class="section" id="item13">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-num">13</div>
+            <h2 class="section-title">Novos Entrantes de Delivery por Aplicativo</h2>
+            <p class="section-desc">Guerra bilionária que facilita o consumo de food services</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-value" style="color: var(--danger);">80-92%</div>
+                <div class="stat-label">Market Share iFood</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">76%</div>
+                <div class="stat-label">Brasileiros Usam Apps</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">R$ 139 bi</div>
+                <div class="stat-label">Mercado Delivery 2023</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">350 mi</div>
+                <div class="stat-label">Pedidos/Mês (Telefone)</div>
+            </div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="card" style="border-top: 3px solid #e53e3e;">
+                <div class="card-icon">🇨🇳</div>
+                <div class="card-title">Meituan (Keeta)</div>
+                <div style="font-size: 1.3rem; font-weight: 700; color: var(--success);">R$ 5,6 bi</div>
+                <div class="card-desc">Gigante chinês — 770M usuários, 98M entregas/dia na China</div>
+            </div>
+            <div class="card" style="border-top: 3px solid var(--accent);">
+                <div class="card-icon">🇨🇴</div>
+                <div class="card-title">Rappi</div>
+                <div style="font-size: 1.3rem; font-weight: 700; color: var(--success);">R$ 1,4 bi</div>
+                <div class="card-desc">Taxa zero para restaurantes; R$ 10 mínimo entregadores fins de semana</div>
+            </div>
+            <div class="card" style="border-top: 3px solid var(--secondary);">
+                <div class="card-icon">🇧🇷</div>
+                <div class="card-title">99Food</div>
+                <div style="font-size: 1.3rem; font-weight: 700; color: var(--success);">R$ 1,0 bi</div>
+                <div class="card-desc">Retorno ao mercado; taxa zero por 12 meses; R$ 250/dia entregadores</div>
+            </div>
+            <div class="card" style="border-top: 3px solid var(--danger);">
+                <div class="card-icon">🇧🇷</div>
+                <div class="card-title">iFood (Líder)</div>
+                <div style="font-size: 1.3rem; font-weight: 700; color: var(--danger);">80-92%</div>
+                <div class="card-desc">380 mil estabelecimentos; 40M usuários; defende liderança</div>
+            </div>
+        </div>
+
+        <div class="chart-block">
+            <div class="chart-header">
+                <div class="chart-title">Evolução do Market Share de Delivery</div>
+                <div class="chart-source">Fonte: Abrasel, Sebrae, Análise setorial</div>
+            </div>
+            <div class="chart-body">
+                <div class="chart-area chart-area-sm">
+                    <canvas id="deliveryShareChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-footer">
+                <div class="analysis-row">
+                    <div class="analysis-box">
+                        <div class="analysis-label why">📌 Por que este gráfico?</div>
+                        <div class="analysis-text">
+                            Mostra a <strong>concentração extrema</strong> do mercado (iFood 80-92%) e o espaço que novos entrantes 
+                            tentam capturar com investimentos bilionários. A Rappi já perdeu share (de 25% para 9%).
+                        </div>
+                    </div>
+                    <div class="analysis-box">
+                        <div class="analysis-label insight">💡 Impacto no Fast-Food</div>
+                        <div class="analysis-text">
+                            A guerra beneficia restaurantes (<strong>taxas menores/zero</strong>) e consumidores (<strong>mais opções</strong>). 
+                            <strong>90% das franquias</strong> já atuam com delivery. Projeção: US$ 21,18 bi em 2025, CAGR 7% até 2029.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quote">
+            <p class="quote-text">"O setor de delivery movimentou R$ 139 bilhões em 2023, com crescimento superior a 20% ao ano. Há ainda 350 milhões de pedidos mensais por telefone ou WhatsApp, representando enorme potencial de digitalização."</p>
+            <div class="quote-author">— Análise baseada em dados Abrasel / Sebrae</div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p><strong>✅ Checklist Completo — 13 Itens Cobertos</strong></p>
+        <p>Fontes: Kantar BrandZ, ABF, ABRASEL, ABIA, IBGE, ABPA, ZAMP S.A. | Dezembro 2025</p>
+    </div>
+</footer>
+
+<script>
+    Chart.defaults.color = '#8b949e';
+    Chart.defaults.borderColor = '#30363d';
+    Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+    Chart.defaults.font.size = 10;
+
+    // Brand Chart
+    new Chart(document.getElementById('brandChart'), {
+        type: 'bar',
+        data: {
+            labels: ["McDonald's", 'Starbucks', 'KFC', 'Chipotle (+44%)', "Domino's (+22%)", "Chick-fil-A (+25%)", 'Pizza Hut', 'Taco Bell', 'Subway', 'Burger King'],
+            datasets: [{ data: [221.9, 69.6, 22.0, 18.0, 12.5, 10.8, 8.3, 7.9, 6.5, 6.0], backgroundColor: ['#ffc000', '#00704a', '#c00000', '#7b2927', '#006491', '#e51636', '#c00000', '#702082', '#009639', '#ff6600'], borderRadius: 4, barThickness: 20 }]
+        },
+        options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#21262d' }, ticks: { callback: v => 'US$ ' + v + ' bi' } }, y: { grid: { display: false } } } }
+    });
+
+    // Segment Chart
+    new Chart(document.getElementById('segmentChart'), {
+        type: 'doughnut',
+        data: { labels: ['Fast-Food (28%)', 'Restaurantes (37%)', 'Cafeterias (16%)', 'Self-Service (11%)', 'Cloud Kitchens (4%)'], datasets: [{ data: [28, 37, 16, 11, 4], backgroundColor: ['#ed8936', '#1a365d', '#00704a', '#ffc000', '#c00000'], borderWidth: 0 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { padding: 10, font: { size: 9 } } } } }
+    });
+
+    // Market Chart
+    new Chart(document.getElementById('marketChart'), {
+        type: 'line',
+        data: { labels: ['2019', '2020', '2022', '2024', '2028', '2034'], datasets: [{ data: [28, 24.5, 32, 37.4, 48, 66.3], borderColor: '#ed8936', backgroundColor: 'rgba(237, 137, 54, 0.1)', fill: true, tension: 0.4, pointBackgroundColor: '#ed8936', pointRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#21262d' }, ticks: { callback: v => 'US$ ' + v + ' bi' } }, x: { grid: { display: false } } } }
+    });
+
+    // Franchise Growth Chart
+    new Chart(document.getElementById('franchiseGrowthChart'), {
+        type: 'bar',
+        data: { labels: ['Franchising Total', 'Food Service', 'Alimentação - Varejo'], datasets: [{ data: [13.5, 16.1, 14.2], backgroundColor: ['#2b6cb0', '#ed8936', '#38a169'], borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#21262d' }, ticks: { callback: v => '+' + v + '%' } }, x: { grid: { display: false } } } }
+    });
+
+    // CRP Chart
+    new Chart(document.getElementById('crpChart'), {
+        type: 'bar',
+        data: { labels: ["McDonald's", 'Burger King (+5M)', 'Pizza Hut', "Habib's", 'Giraffas', 'Subway', 'Cabana (+87%)', 'Madero (+14%)'], datasets: [{ data: [76.4, 68.5, 26.3, 19.8, 16.5, 10.9, 6.0, 5.8], backgroundColor: ['#ffc000', '#ff6600', '#c00000', '#38a169', '#7030a0', '#009933', '#8b4513', '#404040'], borderRadius: 4, barThickness: 18 }] },
+        options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: '#21262d' }, ticks: { callback: v => v + 'M' } }, y: { grid: { display: false } } } }
+    });
+
+    // Protein Chart
+    new Chart(document.getElementById('proteinChart'), {
+        type: 'bar',
+        data: { labels: ['Ovos', 'Frango', 'Suína', 'Bovina', 'Peixe'], datasets: [{ data: [96, 94, 80, 79, 65], backgroundColor: ['#ffc000', '#ed8936', '#ff9999', '#8b0000', '#2b6cb0'], borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, grid: { color: '#21262d' }, ticks: { callback: v => v + '%' } }, x: { grid: { display: false } } } }
+    });
+
+    // Age Chart
+    new Chart(document.getElementById('ageChart'), {
+        type: 'bar',
+        data: { labels: ['11-29', '30-39', '40-49', '50+'], datasets: [{ data: [38, 27, 17, 14], backgroundColor: ['#ed8936', '#2b6cb0', '#38a169', '#ffc000'], borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 50, grid: { color: '#21262d' }, ticks: { callback: v => v + '%' } }, x: { grid: { display: false } } } }
+    });
+
+    // Class Consumption Chart
+    new Chart(document.getElementById('classConsumptionChart'), {
+        type: 'bar',
+        data: { labels: ['Classe A', 'Classe B', 'Classe C', 'Classes D/E'], datasets: [{ label: 'Crescimento 2024', data: [5, 5, 3, 1], backgroundColor: ['#38a169', '#38a169', '#2b6cb0', '#6e7681'], borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#21262d' }, ticks: { callback: v => '+' + v + '%' } }, x: { grid: { display: false } } } }
+    });
+
+    // Gender Chart
+    new Chart(document.getElementById('genderChart'), {
+        type: 'doughnut',
+        data: { labels: ['Mulheres', 'Homens'], datasets: [{ data: [52, 48], backgroundColor: ['#ed8936', '#2b6cb0'], borderWidth: 0 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { padding: 8, font: { size: 9 } } } } }
+    });
+
+    // Frequency Chart
+    new Chart(document.getElementById('frequencyChart'), {
+        type: 'bar',
+        data: { labels: ['>1x/sem', '1x/sem', '1x/quinz', '1x/mês', '<1x/mês', 'Nunca'], datasets: [{ data: [28, 27, 20, 13, 10, 2], backgroundColor: ['#38a169', '#38a169', '#2b6cb0', '#2b6cb0', '#6e7681', '#6e7681'], borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#21262d' }, ticks: { callback: v => v + '%' } }, x: { grid: { display: false } } } }
+    });
+
+    // Class History Chart
+    new Chart(document.getElementById('classHistoryChart'), {
+        type: 'line',
+        data: { labels: ['2014', '2017', '2020', '2023', '2025', '2034'], datasets: [{ data: [52, 46, 47, 49, 50.1, 54.7], borderColor: '#38a169', backgroundColor: 'rgba(56, 161, 105, 0.1)', fill: true, tension: 0.4, pointBackgroundColor: '#38a169', pointRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { min: 40, max: 60, grid: { color: '#21262d' }, ticks: { callback: v => v + '%' } }, x: { grid: { display: false } } } }
+    });
+
+    // Urban Rural Chart
+    new Chart(document.getElementById('urbanRuralChart'), {
+        type: 'bar',
+        data: { labels: ['Urbano', 'Rural'], datasets: [{ data: [40.4, 22.6], backgroundColor: ['#ed8936', '#6e7681'], borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: '#21262d' }, ticks: { callback: v => 'R$ ' + v + ' mil' } }, x: { grid: { display: false } } } }
+    });
+
+    // Solo Chart
+    new Chart(document.getElementById('soloChart'), {
+        type: 'line',
+        data: { labels: ['2010', '2015', '2020', '2023', '2024'], datasets: [{ data: [12.2, 14.6, 16.5, 18.0, 18.9], borderColor: '#2b6cb0', backgroundColor: 'rgba(43, 108, 176, 0.1)', fill: true, tension: 0.4, pointBackgroundColor: '#2b6cb0', pointRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 25, grid: { color: '#21262d' }, ticks: { callback: v => v + '%' } }, x: { grid: { display: false } } } }
+    });
+
+    // Solo Region Chart
+    new Chart(document.getElementById('soloRegionChart'), {
+        type: 'bar',
+        data: { labels: ['RJ', 'SE/CO', 'Sul', 'Nordeste', 'Norte'], datasets: [{ data: [19.5, 18.9, 17.5, 15.2, 13.9], backgroundColor: ['#ed8936', '#ed8936', '#2b6cb0', '#2b6cb0', '#6e7681'], borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 25, grid: { color: '#21262d' }, ticks: { callback: v => v + '%' } }, x: { grid: { display: false } } } }
+    });
+
+    // Delivery Share Chart
+    new Chart(document.getElementById('deliveryShareChart'), {
+        type: 'bar',
+        data: { labels: ['iFood', 'Rappi', 'Uber Eats', '99Food', 'Outros'], datasets: [{ data: [85, 9, 3, 2, 1], backgroundColor: ['#e53e3e', '#ed8936', '#2b6cb0', '#38a169', '#6e7681'], borderRadius: 4 }] },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, max: 100, grid: { color: '#21262d' }, ticks: { callback: v => v + '%' } }, x: { grid: { display: false } } } }
+    });
+</script>
+
+</body>
+</html>

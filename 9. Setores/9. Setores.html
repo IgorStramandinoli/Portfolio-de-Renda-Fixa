@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Setorial em Crédito Privado - Íon/Itaú</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #091B1E;
+            color: white;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            border: 2px solid #EC7000;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #091B1E 0%, #133134 100%);
+        }
+
+        .header h1 {
+            color: #EC7000;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            color: #A6CF2E;
+            font-size: 1.2rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-tab {
+            background: linear-gradient(135deg, #133134 0%, #091B1E 100%);
+            color: white;
+            border: 2px solid #EC7000;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-tab:hover {
+            background: linear-gradient(135deg, #EC7000 0%, #A6CF2E 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(236, 112, 0, 0.3);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #A6CF2E 0%, #EC7000 100%);
+            color: #091B1E;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sector-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .sector-card {
+            background: linear-gradient(135deg, #133134 0%, #091B1E 100%);
+            border: 2px solid #EC7000;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sector-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(236, 112, 0, 0.2);
+            border-color: #A6CF2E;
+        }
+
+        .sector-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #EC7000 0%, #A6CF2E 100%);
+        }
+
+        .sector-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .sector-title {
+            color: #A6CF2E;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .spread-badge {
+            background: linear-gradient(135deg, #EC7000 0%, #A6CF2E 100%);
+            color: #091B1E;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .characteristics {
+            margin-bottom: 20px;
+        }
+
+        .characteristics h4 {
+            color: #EC7000;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .characteristics ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .characteristics li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .characteristics li::before {
+            content: '▶';
+            color: #A6CF2E;
+            position: absolute;
+            left: 0;
+        }
+
+        .attention-points {
+            background: rgba(236, 112, 0, 0.1);
+            border-left: 4px solid #EC7000;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .attention-points h4 {
+            color: #EC7000;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .commercial-tips {
+            background: rgba(166, 207, 46, 0.1);
+            border-left: 4px solid #A6CF2E;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .commercial-tips h4 {
+            color: #A6CF2E;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .calculator-container {
+            background: linear-gradient(135deg, #133134 0%, #091B1E 100%);
+            border: 2px solid #EC7000;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .calculator-title {
+            color: #A6CF2E;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #EC7000;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #EC7000;
+            border-radius: 8px;
+            background-color: #133134;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #A6CF2E;
+            box-shadow: 0 0 10px rgba(166, 207, 46, 0.3);
+        }
+
+        .calculate-btn {
+            background: linear-gradient(135deg, #EC7000 0%, #A6CF2E 100%);
+            color: #091B1E;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(236, 112, 0, 0.3);
+        }
+
+        .result-container {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #A6CF2E 0%, #EC7000 100%);
+            color: #091B1E;
+            border-radius: 15px;
+            display: none;
+        }
+
+        .result-container.show {
+            display: block;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .spread-result {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .justification {
+            background: rgba(9, 27, 30, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .justification h4 {
+            margin-bottom: 10px;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .insight-card {
+            background: linear-gradient(135deg, #133134 0%, #091B1E 100%);
+            border: 2px solid #EC7000;
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(236, 112, 0, 0.2);
+        }
+
+        .insight-title {
+            color: #EC7000;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .insight-content {
+            color: white;
+            line-height: 1.6;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #133134;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .matrix-table th,
+        .matrix-table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #EC7000;
+        }
+
+        .matrix-table th {
+            background: linear-gradient(135deg, #EC7000 0%, #A6CF2E 100%);
+            color: #091B1E;
+            font-weight: bold;
+        }
+
+        .matrix-table td {
+            background: #091B1E;
+            color: white;
+        }
+
+        .matrix-table tr:hover td {
+            background: #133134;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .sector-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .calculator-container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+<!-- Assinatura com efeito de marca d'água no canto superior DIREITO-->
+<div class="watermark">
+    <p><strong>Autor:</strong> Igor Stramandinoli Moita Pontes</p>
+    <p><strong>E-mail:</strong> igor.pontes@itau-unibanco.com.br</p>
+</div>
+
+<style>
+.watermark {
+    position: fixed;
+    top: 20px; /* trocado de bottom para top */
+    right: 20px; /* trocado de right para left */
+    background-color: rgba(19, 49, 52, 0.3); /* fundo com transparência */
+    border: 1px solid rgba(166, 207, 46, 0.4); /* borda verde translúcida */
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: rgba(255, 255, 255, 0.6); /* texto branco translúcido */
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 13px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    pointer-events: none;
+    user-select: none;
+    max-width: 300px;
+    opacity: 0.7; /* transparência geral do bloco */
+}
+
+.watermark p {
+    margin: 4px 0;
+}
+
+.watermark strong {
+    color: rgba(166, 207, 46, 0.7); /* destaque verde translúcido */
+}
+</style>
+
+    <div class="container">
+        <div class="header">
+            <h1>Análise Setorial em Crédito Privado</h1>
+            <p>Material de Consulta para Especialistas de Investimentos - Íon/Itaú</p>
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" data-section="overview">Visão Geral</button>
+            <button class="nav-tab" data-section="sectors">Análise Setorial</button>
+            <button class="nav-tab" data-section="matrix">Matriz de Spreads</button>
+            <button class="nav-tab" data-section="calculator">Calculadora</button>
+            <button class="nav-tab" data-section="insights">Insights Research</button>
+        </div>
+
+        <!-- Seção Visão Geral -->
+        <div id="overview" class="section active">
+            <h2 style="color: #A6CF2E; font-size: 2rem; margin-bottom: 20px;">Panorama do Mercado 2024-2025</h2>
+            
+            <div class="sector-card">
+                <h3 style="color: #EC7000; margin-bottom: 15px;">Mercado de Crédito Privado</h3>
+                <p style="margin-bottom: 15px;">O mercado de crédito privado brasileiro registrou captação recorde de <strong>R$ 633,6 bilhões em 2024</strong>, consolidando-se como uma alternativa robusta aos títulos públicos.</p>
+                
+                <div class="characteristics">
+                    <h4>Principais Tendências 2025:</h4>
+                    <ul>
+                        <li>Maior seletividade na escolha de emissores</li>
+                        <li>Foco em qualidade de crédito e análise setorial aprofundada</li>
+                        <li>Crescimento dos FIAGROs e CRAs no agronegócio</li>
+                        <li>Expansão do crédito privado incentivado</li>
+                        <li>Digitalização e inovação nos processos de análise</li>
+                    </ul>
+                </div>
+
+                <div class="commercial-tips">
+                    <h4>💡 Estratégia Comercial:</h4>
+                    <p>Posicione o crédito privado como alternativa superior aos títulos públicos, destacando a rentabilidade adicional e a diversificação setorial como fatores de proteção e crescimento do patrimônio.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção Análise Setorial -->
+        <div id="sectors" class="section">
+            <h2 style="color: #A6CF2E; font-size: 2rem; margin-bottom: 20px;">Análise por Setores</h2>
+            
+            <div class="sector-grid">
+                <!-- Energia - Transmissão -->
+                <div class="sector-card">
+                    <span class="sector-icon">⚡</span>
+                    <h3 class="sector-title">Energia - Transmissão</h3>
+                    <div class="spread-badge">Spread: CDI + 0,8% a 1,5%</div>
+                    
+                    <div class="characteristics">
+                        <h4>Características Principais:</h4>
+                        <ul>
+                            <li>Receita Anual Permitida (RAP) - alta previsibilidade</li>
+                            <li>Contratos de longo prazo (30 anos)</li>
+                            <li>Serviço essencial e regulado</li>
+                            <li>Baixa correlação com ciclo econômico</li>
+                        </ul>
+                    </div>
+
+                    <div class="attention-points">
+                        <h4>⚠️ Pontos de Atenção:</h4>
+                        <ul>
+                            <li>Mudanças regulatórias podem afetar a RAP</li>
+                            <li>Investimentos intensivos em capital</li>
+                            <li>Riscos de construção em novos projetos</li>
+                            <li>Pressão por redução de tarifas</li>
+                        </ul>
+                    </div>
+
+                    <div class="commercial-tips">
+                        <h4>💡 Dicas para Fomento Comercial:</h4>
+                        <ul>
+                            <li><strong>Para Conservadores:</strong> Enfatize a segurança e previsibilidade da RAP como garantia de estabilidade</li>
+                            <li><strong>Para Moderados:</strong> Destaque a regulação sólida e contratos de longo prazo</li>
+                            <li><strong>Para Arrojados:</strong> Explore oportunidades em novos projetos com potencial de upside</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Saneamento -->
+                <div class="sector-card">
+                    <span class="sector-icon">💧</span>
+                    <h3 class="sector-title">Saneamento</h3>
+                    <div class="spread-badge">Spread: CDI + 1,2% a 2,0%</div>
+                    
+                    <div class="characteristics">
+                        <h4>Características Principais:</h4>
+                        <ul>
+                            <li>Demanda essencial e inelástica</li>
+                            <li>Marco Legal do Saneamento (universalização até 2033)</li>
+                            <li>Contratos de longo prazo</li>
+                            <li>Crescimento da participação privada</li>
+                        </ul>
+                    </div>
+
+                    <div class="attention-points">
+                        <h4>⚠️ Pontos de Atenção:</h4>
+                        <ul>
+                            <li>Complexidade regulatória e licenciamento</li>
+                            <li>Altos investimentos iniciais em infraestrutura</li>
+                            <li>Riscos políticos e mudanças de gestão municipal</li>
+                            <li>Pressão tarifária e social</li>
+                        </ul>
+                    </div>
+
+                    <div class="commercial-tips">
+                        <h4>💡 Dicas para Fomento Comercial:</h4>
+                        <ul>
+                            <li><strong>Impacto Social:</strong> Destaque o investimento com impacto social e ambiental positivo</li>
+                            <li><strong>Marco Legal:</strong> Enfatize as oportunidades criadas pela universalização</li>
+                            <li><strong>ESG:</strong> Posicione como investimento alinhado com critérios ESG</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Logística e Transportes -->
+                <div class="sector-card">
+                    <span class="sector-icon">🚛</span>
+                    <h3 class="sector-title">Logística e Transportes</h3>
+                    <div class="spread-badge">Spread: CDI + 1,5% a 2,5%</div>
+                    
+                    <div class="characteristics">
+                        <h4>Características Principais:</h4>
+                        <ul>
+                            <li>Essencial para a economia brasileira</li>
+                            <li>Diversificação de clientes e contratos</li>
+                            <li>Crescimento do e-commerce</li>
+                            <li>Modernização da frota e tecnologia</li>
+                        </ul>
+                    </div>
+
+                    <div class="attention-points">
+                        <h4>⚠️ Pontos de Atenção:</h4>
+                        <ul>
+                            <li>Sensibilidade ao ciclo econômico</li>
+                            <li>Volatilidade dos preços de combustíveis</li>
+                            <li>Competição acirrada e pressão sobre margens</li>
+                            <li>Riscos operacionais e de segurança</li>
+                        </ul>
+                    </div>
+
+                    <div class="commercial-tips">
+                        <h4>💡 Dicas para Fomento Comercial:</h4>
+                        <ul>
+                            <li><strong>Resiliência:</strong> Destaque a capacidade de adaptação e diversificação operacional</li>
+                            <li><strong>Economia Real:</strong> Posicione como financiamento da infraestrutura brasileira</li>
+                            <li><strong>Análise Criteriosa:</strong> Enfatize a importância da análise de crédito detalhada</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Agronegócio -->
+                <div class="sector-card">
+                    <span class="sector-icon">🌾</span>
+                    <h3 class="sector-title">Agronegócio</h3>
+                    <div class="spread-badge">Spread: CDI + 1,0% a 2,2%</div>
+                    
+                    <div class="characteristics">
+                        <h4>Características Principais:</h4>
+                        <ul>
+                            <li>Setor estratégico para o Brasil (25% do PIB)</li>
+                            <li>Liderança global em commodities</li>
+                            <li>Crescimento acelerado dos FIAGROs</li>
+                            <li>Diversificação para mitigar riscos de commodities</li>
+                        </ul>
+                    </div>
+
+                    <div class="attention-points">
+                        <h4>⚠️ Pontos de Atenção:</h4>
+                        <ul>
+                            <li>Volatilidade dos preços de commodities</li>
+                            <li>Riscos climáticos e sazonalidade</li>
+                            <li>Questões ESG e sustentabilidade</li>
+                            <li>Dependência de mercados externos</li>
+                        </ul>
+                    </div>
+
+                    <div class="commercial-tips">
+                        <h4>💡 Dicas para Fomento Comercial:</h4>
+                        <ul>
+                            <li><strong>Setor Essencial:</strong> Destaque a importância e resiliência do agronegócio brasileiro</li>
+                            <li><strong>Diversificação:</strong> Posicione como forma de acessar setor fundamental da economia</li>
+                            <li><strong>Gestão de Riscos:</strong> Explique como a gestão profissional mitiga riscos setoriais</li>
+                            <li><strong>Benefícios Fiscais:</strong> Reforce a isenção de IR para CRAs e FIAGROs (PF)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Setor Financeiro -->
+                <div class="sector-card">
+                    <span class="sector-icon">🏦</span>
+                    <h3 class="sector-title">Setor Financeiro</h3>
+                    <div class="spread-badge">Spread: CDI + 0,5% a 1,8%</div>
+                    
+                    <div class="characteristics">
+                        <h4>Características Principais:</h4>
+                        <ul>
+                            <li>Remuneração superior a títulos públicos</li>
+                            <li>Renda passiva com cupons periódicos</li>
+                            <li>Diversificação de prazos e riscos</li>
+                            <li>Benefícios fiscais para PF</li>
+                        </ul>
+                    </div>
+
+                    <div class="attention-points">
+                        <h4>⚠️ Pontos de Atenção:</h4>
+                        <ul>
+                            <li>Risco de crédito da instituição emissora</li>
+                            <li>Sensibilidade a mudanças regulatórias</li>
+                            <li>Concentração em poucos emissores grandes</li>
+                            <li>Liquidez limitada no mercado secundário</li>
+                        </ul>
+                    </div>
+
+                    <div class="commercial-tips">
+                        <h4>💡 Dicas para Fomento Comercial:</h4>
+                        <ul>
+                            <li><strong>Rentabilidade:</strong> Comece destacando o potencial de retorno superior</li>
+                            <li><strong>Personalização:</strong> Enfatize a capacidade de personalizar prazos e riscos</li>
+                            <li><strong>Vantagens Tributárias:</strong> Destaque os benefícios fiscais específicos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Petróleo e Gás -->
+                <div class="sector-card">
+                    <span class="sector-icon">🛢️</span>
+                    <h3 class="sector-title">Petróleo e Gás</h3>
+                    <div class="spread-badge">Spread: CDI + 1,8% a 3,0%</div>
+                    
+                    <div class="characteristics">
+                        <h4>Características Principais:</h4>
+                        <ul>
+                            <li>Demanda global robusta por energia</li>
+                            <li>Preços favoráveis para 2025</li>
+                            <li>Investimentos em exploração e produção</li>
+                            <li>Integração vertical oferece resiliência</li>
+                        </ul>
+                    </div>
+
+                    <div class="attention-points">
+                        <h4>⚠️ Pontos de Atenção:</h4>
+                        <ul>
+                            <li>Alta volatilidade dos preços de commodities</li>
+                            <li>Pressão ESG e transição energética</li>
+                            <li>Riscos regulatórios e ambientais</li>
+                            <li>Altos custos de exploração e produção</li>
+                        </ul>
+                    </div>
+
+                    <div class="commercial-tips">
+                        <h4>💡 Dicas para Fomento Comercial:</h4>
+                        <ul>
+                            <li><strong>Empresas Resilientes:</strong> Priorize empresas com balanços sólidos e boa gestão de custos</li>
+                            <li><strong>Fluxo de Caixa Definido:</strong> Destaque projetos com previsibilidade de receita</li>
+                            <li><strong>Demanda Global:</strong> Enfatize a importância estratégica do setor energético</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Mineração -->
+                <div class="sector-card">
+                    <span class="sector-icon">⛏️</span>
+                    <h3 class="sector-title">Mineração</h3>
+                    <div class="spread-badge">Spread: CDI + 1,5% a 2,8%</div>
+                    
+                    <div class="characteristics">
+                        <h4>Características Principais:</h4>
+                        <ul>
+                            <li>Demanda global por metais e minerais</li>
+                            <li>Investimentos de US$ 64,5 bi até 2028</li>
+                            <li>Relevância para balança comercial</li>
+                            <li>Diversificação de minérios no Brasil</li>
+                        </ul>
+                    </div>
+
+                    <div class="attention-points">
+                        <h4>⚠️ Pontos de Atenção:</h4>
+                        <ul>
+                            <li>Volatilidade dos preços de commodities</li>
+                            <li>Riscos ambientais e sociais (ESG)</li>
+                            <li>Custos operacionais elevados</li>
+                            <li>Complexidade regulatória e tributária</li>
+                        </ul>
+                    </div>
+
+                    <div class="commercial-tips">
+                        <h4>💡 Dicas para Fomento Comercial:</h4>
+                        <ul>
+                            <li><strong>Governança ESG:</strong> Destaque empresas com forte compromisso ESG</li>
+                            <li><strong>Diversificação:</strong> Priorize empresas com portfólio diversificado de minérios</li>
+                            <li><strong>Transição Energética:</strong> Posicione como fundamental para a transição energética global</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Telecomunicações -->
+                <div class="sector-card">
+                    <span class="sector-icon">📡</span>
+                    <h3 class="sector-title">Telecomunicações</h3>
+                    <div class="spread-badge">Spread: CDI + 1,0% a 2,2%</div>
+                    
+                    <div class="characteristics">
+                        <h4>Características Principais:</h4>
+                        <ul>
+                            <li>Crescimento da conectividade e 5G</li>
+                            <li>Serviço essencial com receita estável</li>
+                            <li>Inovação tecnológica (IA, IoT, Open RAN)</li>
+                            <li>Consolidação do mercado</li>
+                        </ul>
+                    </div>
+
+                    <div class="attention-points">
+                        <h4>⚠️ Pontos de Atenção:</h4>
+                        <ul>
+                            <li>Alta competição e pressão sobre margens</li>
+                            <li>Investimentos intensivos em capital (5G)</li>
+                            <li>Riscos regulatórios dinâmicos</li>
+                            <li>Cibersegurança e fraudes</li>
+                        </ul>
+                    </div>
+
+                    <div class="commercial-tips">
+                        <h4>💡 Dicas para Fomento Comercial:</h4>
+                        <ul>
+                            <li><strong>Base de Clientes:</strong> Destaque empresas com grande base e alta retenção</li>
+                            <li><strong>Expansão de Infraestrutura:</strong> Priorize empresas expandindo redes (fibra, 5G)</li>
+                            <li><strong>Diversificação de Receitas:</strong> Busque empresas com serviços de valor agregado</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Proteína Animal -->
+                <div class="sector-card">
+                    <span class="sector-icon">🥩</span>
+                    <h3 class="sector-title">Proteína Animal</h3>
+                    <div class="spread-badge">Spread: CDI + 1,2% a 2,5%</div>
+                    
+                    <div class="characteristics">
+                        <h4>Características Principais:</h4>
+                        <ul>
+                            <li>Liderança global em carne bovina e frango</li>
+                            <li>Demanda crescente por proteína animal</li>
+                            <li>Diversificação de mercados de exportação</li>
+                            <li>Inovação e tecnologia na produção</li>
+                        </ul>
+                    </div>
+
+                    <div class="attention-points">
+                        <h4>⚠️ Pontos de Atenção:</h4>
+                        <ul>
+                            <li>Barreiras sanitárias e comerciais</li>
+                            <li>Volatilidade dos preços de grãos (insumos)</li>
+                            <li>Riscos climáticos e sazonalidade</li>
+                            <li>Questões ESG (desmatamento, bem-estar animal)</li>
+                        </ul>
+                    </div>
+
+                    <div class="commercial-tips">
+                        <h4>💡 Dicas para Fomento Comercial:</h4>
+                        <ul>
+                            <li><strong>Gestão de Riscos:</strong> Destaque empresas com sólida gestão de riscos sanitários e climáticos</li>
+                            <li><strong>Mercados Premium:</strong> Explore empresas em mercados de alto valor agregado</li>
+                            <li><strong>Benefícios Fiscais:</strong> Reforce isenção de IR para CRAs e FIAGROs (PF)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção Matriz de Spreads -->
+        <div id="matrix" class="section">
+            <h2 style="color: #A6CF2E; font-size: 2rem; margin-bottom: 20px;">Matriz de Spreads Setoriais</h2>
+            
+            <div class="sector-card">
+                <h3 style="color: #EC7000; margin-bottom: 20px;">Spreads Típicos por Setor e Rating (2025)</h3>
+                
+                <table class="matrix-table">
+                    <thead>
+                        <tr>
+                            <th>Setor</th>
+                            <th>AAA/AA</th>
+                            <th>A</th>
+                            <th>BBB</th>
+                            <th>BB</th>
+                            <th>Tendência 2025</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Energia - Transmissão</strong></td>
+                            <td>CDI + 0,8%</td>
+                            <td>CDI + 1,2%</td>
+                            <td>CDI + 1,5%</td>
+                            <td>CDI + 2,0%</td>
+                            <td style="color: #A6CF2E;">Estável</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Saneamento</strong></td>
+                            <td>CDI + 1,2%</td>
+                            <td>CDI + 1,6%</td>
+                            <td>CDI + 2,0%</td>
+                            <td>CDI + 2,5%</td>
+                            <td style="color: #A6CF2E;">Crescimento</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Logística</strong></td>
+                            <td>CDI + 1,5%</td>
+                            <td>CDI + 2,0%</td>
+                            <td>CDI + 2,5%</td>
+                            <td>CDI + 3,2%</td>
+                            <td style="color: #EC7000;">Volátil</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Agronegócio</strong></td>
+                            <td>CDI + 1,0%</td>
+                            <td>CDI + 1,5%</td>
+                            <td>CDI + 2,2%</td>
+                            <td>CDI + 3,0%</td>
+                            <td style="color: #A6CF2E;">Crescimento</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Financeiro</strong></td>
+                            <td>CDI + 0,5%</td>
+                            <td>CDI + 1,0%</td>
+                            <td>CDI + 1,8%</td>
+                            <td>CDI + 2,5%</td>
+                            <td style="color: #A6CF2E;">Estável</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Petróleo e Gás</strong></td>
+                            <td>CDI + 1,8%</td>
+                            <td>CDI + 2,2%</td>
+                            <td>CDI + 3,0%</td>
+                            <td>CDI + 4,0%</td>
+                            <td style="color: #EC7000;">Volátil</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mineração</strong></td>
+                            <td>CDI + 1,5%</td>
+                            <td>CDI + 2,0%</td>
+                            <td>CDI + 2,8%</td>
+                            <td>CDI + 3,8%</td>
+                            <td style="color: #EC7000;">Volátil</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Telecomunicações</strong></td>
+                            <td>CDI + 1,0%</td>
+                            <td>CDI + 1,5%</td>
+                            <td>CDI + 2,2%</td>
+                            <td>CDI + 3,0%</td>
+                            <td style="color: #A6CF2E;">Estável</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Proteína Animal</strong></td>
+                            <td>CDI + 1,2%</td>
+                            <td>CDI + 1,8%</td>
+                            <td>CDI + 2,5%</td>
+                            <td>CDI + 3,5%</td>
+                            <td style="color: #EC7000;">Volátil</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 20px; padding: 15px; background: rgba(166, 207, 46, 0.1); border-radius: 8px;">
+                    <h4 style="color: #A6CF2E; margin-bottom: 10px;">Legenda das Tendências:</h4>
+                    <p><span style="color: #A6CF2E;">●</span> <strong>Estável/Crescimento:</strong> Setores com perspectivas positivas e spreads estáveis ou em redução</p>
+                    <p><span style="color: #EC7000;">●</span> <strong>Volátil:</strong> Setores sujeitos a maior volatilidade de spreads devido a fatores externos</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção Calculadora -->
+        <div id="calculator" class="section">
+            <div class="calculator-container">
+                <h2 class="calculator-title">Calculadora de Spread Estimado</h2>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div class="form-group">
+                        <label for="sector">Setor:</label>
+                        <select id="sector">
+                            <option value="">Selecione o setor</option>
+                            <option value="energia">Energia - Transmissão</option>
+                            <option value="saneamento">Saneamento</option>
+                            <option value="logistica">Logística e Transportes</option>
+                            <option value="agronegocio">Agronegócio</option>
+                            <option value="financeiro">Setor Financeiro</option>
+                            <option value="petroleo">Petróleo e Gás</option>
+                            <option value="mineracao">Mineração</option>
+                            <option value="telecom">Telecomunicações</option>
+                            <option value="proteina">Proteína Animal</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rating">Rating:</label>
+                        <select id="rating">
+                            <option value="">Selecione o rating</option>
+                            <option value="AAA">AAA</option>
+                            <option value="AA">AA</option>
+                            <option value="A">A</option>
+                            <option value="BBB">BBB</option>
+                            <option value="BB">BB</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="prazo">Prazo (anos):</label>
+                        <input type="number" id="prazo" placeholder="Ex: 5" min="1" max="30">
+                    </div>
+                </div>
+
+                <button class="calculate-btn" onclick="calculateSpread()">Calcular Spread Estimado</button>
+
+                <div id="result" class="result-container">
+                    <div class="result-title">Resultado da Análise</div>
+                    <div id="spread-result" class="spread-result"></div>
+                    <div><strong>Setor:</strong> <span id="result-sector"></span></div>
+                    <div><strong>Rating:</strong> <span id="result-rating"></span></div>
+                    <div><strong>Prazo:</strong> <span id="result-prazo"></span> anos</div>
+                    
+                    <div class="justification">
+                        <h4>Justificativa:</h4>
+                        <p id="justification-text"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seção Insights Research -->
+        <div id="insights" class="section">
+            <h2 style="color: #A6CF2E; font-size: 2rem; margin-bottom: 20px;">Insights de Research por Banco</h2>
+            
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <h3 class="insight-title">XP Investimentos</h3>
+                    <div class="insight-content">
+                        <p><strong>Energia (Taesa/ISA CTEEP):</strong> Destaca a previsibilidade da RAP e contratos de longo prazo como principais atrativos. Recomenda foco na estabilidade regulatória.</p>
+                        <p><strong>Saneamento (Iguá):</strong> Enfatiza o potencial de crescimento pós-Marco Legal e a natureza essencial do serviço.</p>
+                        <p><strong>Logística (JSL):</strong> Valoriza a diversificação de clientes e contratos de longo prazo, mas alerta para alavancagem.</p>
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <h3 class="insight-title">Itaú BBA</h3>
+                    <div class="insight-content">
+                        <p><strong>Agronegócio (FIAGROs):</strong> Destaca a relevância do setor (25% do PIB) e o crescimento acelerado dos FIAGROs. Recomenda diversificação para mitigar riscos de commodities.</p>
+                        <p><strong>Estratégia:</strong> Foco em empresas com boa gestão de riscos e diversificação geográfica.</p>
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <h3 class="insight-title">Santander</h3>
+                    <div class="insight-content">
+                        <p><strong>Crédito Privado Geral:</strong> Enfatiza o potencial de retorno superior, renda passiva com cupons e benefícios fiscais. Recomenda diversificação de prazos e riscos.</p>
+                        <p><strong>Estratégia:</strong> Priorizar qualidade de crédito e análise setorial detalhada.</p>
+                    </div>
+                </div>
+
+                <div class="insight-card">
+                    <h3 class="insight-title">Tendências 2025</h3>
+                    <div class="insight-content">
+                        <p><strong>Estratégia Seletiva:</strong> Consenso do mercado aponta para maior seletividade na escolha de emissores, foco em qualidade de crédito e análise setorial aprofundada.</p>
+                        <p><strong>Crescimento:</strong> Expectativa de crescimento contínuo do mercado de crédito privado, especialmente em setores de infraestrutura e agronegócio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navegação entre seções
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const targetSection = this.getAttribute('data-section');
+                
+                // Remove active class from all tabs and sections
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked tab and target section
+                this.classList.add('active');
+                document.getElementById(targetSection).classList.add('active');
+            });
+        });
+
+        // Calculadora de Spread
+        function calculateSpread() {
+            const sector = document.getElementById('sector').value;
+            const rating = document.getElementById('rating').value;
+            const prazo = document.getElementById('prazo').value;
+
+            if (!sector || !rating || !prazo) {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+            // Matriz de spreads base
+            const spreadMatrix = {
+                energia: { AAA: 0.8, AA: 0.8, A: 1.2, BBB: 1.5, BB: 2.0 },
+                saneamento: { AAA: 1.2, AA: 1.2, A: 1.6, BBB: 2.0, BB: 2.5 },
+                logistica: { AAA: 1.5, AA: 1.5, A: 2.0, BBB: 2.5, BB: 3.2 },
+                agronegocio: { AAA: 1.0, AA: 1.0, A: 1.5, BBB: 2.2, BB: 3.0 },
+                financeiro: { AAA: 0.5, AA: 0.5, A: 1.0, BBB: 1.8, BB: 2.5 },
+                petroleo: { AAA: 1.8, AA: 1.8, A: 2.2, BBB: 3.0, BB: 4.0 },
+                mineracao: { AAA: 1.5, AA: 1.5, A: 2.0, BBB: 2.8, BB: 3.8 },
+                telecom: { AAA: 1.0, AA: 1.0, A: 1.5, BBB: 2.2, BB: 3.0 },
+                proteina: { AAA: 1.2, AA: 1.2, A: 1.8, BBB: 2.5, BB: 3.5 }
+            };
+
+            const sectorNames = {
+                energia: 'Energia - Transmissão',
+                saneamento: 'Saneamento',
+                logistica: 'Logística e Transportes',
+                agronegocio: 'Agronegócio',
+                financeiro: 'Setor Financeiro',
+                petroleo: 'Petróleo e Gás',
+                mineracao: 'Mineração',
+                telecom: 'Telecomunicações',
+                proteina: 'Proteína Animal'
+            };
+
+            let baseSpread = spreadMatrix[sector][rating];
+            
+            // Ajuste por prazo
+            if (prazo > 10) {
+                baseSpread += 0.2;
+            } else if (prazo > 5) {
+                baseSpread += 0.1;
+            }
+
+            // Justificativas por setor
+            const justifications = {
+                energia: 'A Receita Anual Permitida (RAP) garante alta previsibilidade de fluxo de caixa, reduzindo significativamente o risco de crédito.',
+                saneamento: 'O Marco Legal do Saneamento e a natureza essencial do serviço proporcionam estabilidade e crescimento previsível.',
+                logistica: 'A diversificação operacional e a essencialidade do setor para a economia brasileira sustentam o spread, mas a sensibilidade ao ciclo econômico adiciona risco.',
+                agronegocio: 'A posição de liderança global do Brasil no agronegócio e os benefícios fiscais dos CRAs/FIAGROs justificam o spread competitivo.',
+                financeiro: 'A solidez do sistema financeiro brasileiro e a regulação robusta permitem spreads mais baixos para instituições bem avaliadas.',
+                petroleo: 'A volatilidade dos preços de commodities e os riscos ESG elevam o spread, mas a demanda global robusta oferece suporte.',
+                mineracao: 'Os altos investimentos previstos no setor e a demanda por minerais para transição energética equilibram os riscos de volatilidade.',
+                telecom: 'A natureza essencial dos serviços e os investimentos em 5G sustentam o setor, mas a competição pressiona as margens.',
+                proteina: 'A liderança global do Brasil em proteína animal oferece oportunidades, mas riscos sanitários e climáticos elevam o spread.'
+            };
+
+            // Exibir resultado
+            document.getElementById('spread-result').textContent = `CDI + ${baseSpread.toFixed(1)}%`;
+            document.getElementById('result-sector').textContent = sectorNames[sector];
+            document.getElementById('result-rating').textContent = rating;
+            document.getElementById('result-prazo').textContent = prazo;
+            document.getElementById('justification-text').textContent = justifications[sector];
+            
+            document.getElementById('result').classList.add('show');
+        }
+    </script>
+</body>
+</html>
+

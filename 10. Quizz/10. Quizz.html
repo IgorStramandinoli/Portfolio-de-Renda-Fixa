@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz - Marcação a Mercado vs. Curva</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+:root {
+--laranja: #EC7000;
+--laranja-claro: #ff8c2c;
+--laranja-escuro: #d25500;
+--verde: #A6CF2E;
+--verde-claro: #bfe84c;
+--verde-escuro: #8aac21;
+--fundo-escuro: #091B1E;
+--fundo-secundario: #133134;
+--texto: #FFFFFF;
+--texto-secundario: rgba(255, 255, 255, 0.8);
+--sucesso: #4ecdc4;
+--erro: #ff6b6b;
+}
+
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+transition: all 0.3s ease;
+}
+
+body {
+font-family: 'Montserrat', 'Arial', sans-serif;
+background-color: var(--fundo-escuro);
+color: var(--texto);
+padding: 0;
+margin: 0;
+line-height: 1.6;
+}
+
+.container {
+max-width: 1000px;
+margin: 0 auto;
+padding: 40px 20px;
+}
+
+.header {
+text-align: center;
+margin-bottom: 40px;
+}
+
+.header h1 {
+color: var(--verde);
+font-size: 32px;
+margin-bottom: 15px;
+position: relative;
+display: inline-block;
+padding-bottom: 15px;
+}
+
+.header h1::after {
+content: '';
+position: absolute;
+bottom: 0;
+left: 50%;
+transform: translateX(-50%);
+width: 100px;
+height: 3px;
+background: linear-gradient(90deg, var(--verde), var(--laranja));
+border-radius: 3px;
+}
+
+.header p {
+color: var(--texto-secundario);
+font-size: 18px;
+max-width: 600px;
+margin: 0 auto;
+}
+
+.quiz-container {
+background-color: var(--fundo-secundario);
+border-radius: 10px;
+overflow: hidden;
+box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.quiz-header {
+background: linear-gradient(90deg, var(--fundo-secundario), rgba(19, 49, 52, 0.8));
+padding: 20px;
+border-bottom: 3px solid var(--laranja);
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.quiz-title {
+display: flex;
+align-items: center;
+}
+
+.quiz-icon {
+width: 45px;
+height: 45px;
+background-color: var(--laranja);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 22px;
+margin-right: 15px;
+box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.quiz-title h2 {
+color: var(--verde);
+margin: 0;
+font-size: 22px;
+font-weight: 600;
+}
+
+.quiz-progress {
+display: flex;
+align-items: center;
+}
+
+.progress-text {
+margin-right: 15px;
+font-size: 16px;
+color: var(--texto-secundario);
+}
+
+.progress-bar-container {
+width: 150px;
+height: 8px;
+background-color: rgba(255,255,255,0.1);
+border-radius: 4px;
+overflow: hidden;
+}
+
+.progress-bar {
+height: 100%;
+width: 0%;
+background: linear-gradient(90deg, var(--verde), var(--laranja));
+border-radius: 4px;
+transition: width 0.5s ease;
+}
+
+.quiz-body {
+padding: 30px;
+}
+
+.question-container {
+margin-bottom: 30px;
+}
+
+.question-number {
+font-size: 16px;
+color: var(--laranja);
+margin-bottom: 10px;
+font-weight: 600;
+}
+
+.question-text {
+font-size: 18px;
+margin-bottom: 25px;
+font-weight: 500;
+color: var(--texto);
+}
+
+.options-container {
+display: grid;
+grid-template-columns: 1fr;
+gap: 15px;
+}
+
+.option {
+background-color: rgba(255,255,255,0.05);
+border: 2px solid rgba(255,255,255,0.1);
+border-radius: 8px;
+padding: 15px;
+cursor: pointer;
+display: flex;
+align-items: center;
+transition: all 0.2s ease;
+}
+
+.option:hover {
+background-color: rgba(255,255,255,0.1);
+transform: translateY(-3px);
+}
+
+.option-letter {
+width: 30px;
+height: 30px;
+background-color: rgba(255,255,255,0.1);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: 600;
+margin-right: 15px;
+flex-shrink: 0;
+}
+
+.option-text {
+flex-grow: 1;
+}
+
+.option.selected {
+border-color: var(--laranja);
+background-color: rgba(236, 112, 0, 0.1);
+}
+
+.option.correct {
+border-color: var(--verde);
+background-color: rgba(166, 207, 46, 0.1);
+}
+
+.option.correct .option-letter {
+background-color: var(--verde);
+color: var(--fundo-escuro);
+}
+
+.option.incorrect {
+border-color: var(--erro);
+background-color: rgba(255, 107, 107, 0.1);
+}
+
+.option.incorrect .option-letter {
+background-color: var(--erro);
+color: var(--fundo-escuro);
+}
+
+.feedback {
+margin-top: 20px;
+padding: 15px;
+border-radius: 8px;
+display: none;
+}
+
+.feedback.correct {
+background-color: rgba(78, 205, 196, 0.1);
+border-left: 4px solid var(--sucesso);
+display: block;
+}
+
+.feedback.incorrect {
+background-color: rgba(255, 107, 107, 0.1);
+border-left: 4px solid var(--erro);
+display: block;
+}
+
+.feedback-text {
+display: flex;
+align-items: flex-start;
+}
+
+.feedback-text i {
+margin-right: 10px;
+font-size: 18px;
+margin-top: 3px;
+}
+
+.feedback-explanation {
+margin-top: 10px;
+font-size: 14px;
+color: var(--texto-secundario);
+}
+
+.navigation {
+display: flex;
+justify-content: space-between;
+margin-top: 30px;
+}
+
+.nav-button {
+background-color: var(--fundo-secundario);
+color: var(--texto);
+border: 2px solid var(--laranja);
+border-radius: 6px;
+padding: 12px 20px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+display: flex;
+align-items: center;
+font-family: 'Montserrat', 'Arial', sans-serif;
+}
+
+.nav-button:hover {
+background-color: rgba(236, 112, 0, 0.1);
+transform: translateY(-3px);
+}
+
+.nav-button i {
+margin-right: 8px;
+}
+
+.nav-button.next i {
+margin-right: 0;
+margin-left: 8px;
+}
+
+.nav-button.submit {
+background-color: var(--verde);
+color: var(--fundo-escuro);
+border-color: var(--verde);
+}
+
+.result-container {
+text-align: center;
+padding: 40px 20px;
+display: none;
+}
+
+.result-icon {
+width: 80px;
+height: 80px;
+border-radius: 50%;
+background-color: var(--verde);
+color: var(--fundo-escuro);
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 40px;
+margin: 0 auto 20px;
+box-shadow: 0 8px 20px rgba(166, 207, 46, 0.3);
+}
+
+.result-title {
+font-size: 28px;
+font-weight: 700;
+color: var(--verde);
+margin-bottom: 15px;
+}
+
+.result-score {
+font-size: 24px;
+margin-bottom: 20px;
+}
+
+.result-text {
+font-size: 18px;
+color: var(--texto-secundario);
+max-width: 600px;
+margin: 0 auto 30px;
+}
+
+.result-actions {
+margin-top: 30px;
+}
+
+.share-button {
+background-color: var(--laranja);
+color: white;
+border: none;
+border-radius: 6px;
+padding: 12px 25px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+margin-right: 15px;
+display: inline-flex;
+align-items: center;
+font-family: 'Montserrat', 'Arial', sans-serif;
+}
+
+.share-button i {
+margin-right: 8px;
+}
+
+.restart-button {
+background-color: transparent;
+color: var(--texto);
+border: 2px solid var(--laranja);
+border-radius: 6px;
+padding: 12px 25px;
+font-size: 16px;
+font-weight: 600;
+cursor: pointer;
+display: inline-flex;
+align-items: center;
+font-family: 'Montserrat', 'Arial', sans-serif;
+}
+
+.restart-button i {
+margin-right: 8px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+.container {
+padding: 20px;
+}
+
+.quiz-header {
+flex-direction: column;
+align-items: flex-start;
+}
+
+.quiz-progress {
+margin-top: 15px;
+width: 100%;
+}
+
+.progress-bar-container {
+flex-grow: 1;
+}
+
+.navigation {
+flex-direction: column;
+gap: 15px;
+}
+
+.nav-button {
+width: 100%;
+justify-content: center;
+}
+
+.result-actions {
+display: flex;
+flex-direction: column;
+gap: 15px;
+}
+
+.share-button, .restart-button {
+width: 100%;
+justify-content: center;
+margin: 0;
+}
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>Quiz: Marcação a Mercado vs. Curva</h1>
+<p>Teste seus conhecimentos sobre precificação de crédito privado e a relação entre marcação a mercado e marcação na curva.</p>
+</div>
+
+
+<!-- Assinatura com efeito de marca d'água no canto superior DIREITO-->
+<div class="watermark">
+    <p><strong>Autor:</strong> Igor Stramandinoli Moita Pontes</p>
+    <p><strong>E-mail:</strong> igor.pontes@itau-unibanco.com.br</p>
+</div>
+
+<style>
+.watermark {
+    position: fixed;
+    top: 20px; /* trocado de bottom para top */
+    right: 20px; /* trocado de right para left */
+    background-color: rgba(19, 49, 52, 0.3); /* fundo com transparência */
+    border: 1px solid rgba(166, 207, 46, 0.4); /* borda verde translúcida */
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: rgba(255, 255, 255, 0.6); /* texto branco translúcido */
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 13px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    pointer-events: none;
+    user-select: none;
+    max-width: 300px;
+    opacity: 0.7; /* transparência geral do bloco */
+}
+
+.watermark p {
+    margin: 4px 0;
+}
+
+.watermark strong {
+    color: rgba(166, 207, 46, 0.7); /* destaque verde translúcido */
+}
+</style>
+
+
+
+<div class="quiz-container">
+<div class="quiz-header">
+<div class="quiz-title">
+<div class="quiz-icon">
+<i class="fas fa-brain"></i>
+</div>
+<h2>Teste de Conhecimentos </h2>
+</div>
+<div class="quiz-progress">
+<div class="progress-text">Pergunta <span id="current-question">1</span> de <span id="total-questions">8</span></div>
+<div class="progress-bar-container">
+<div class="progress-bar" id="progress-bar"></div>
+</div>
+</div>
+</div>
+
+<div class="quiz-body" id="quiz-body">
+<!-- As perguntas serão inseridas aqui via JavaScript -->
+</div>
+
+<div class="result-container" id="result-container">
+<div class="result-icon">
+<i class="fas fa-trophy"></i>
+</div>
+<h2 class="result-title">Quiz Completo!</h2>
+<p class="result-score">Você acertou <span id="correct-count">0</span> de <span id="total-count">8</span> questões</p>
+<p class="result-text" id="result-text">Parabéns! Você demonstrou um excelente entendimento sobre marcação a mercado e marcação na curva em crédito privado.</p>
+
+<div class="result-actions">
+<button class="share-button" id="share-button">
+<i class="fas fa-share-alt"></i> Compartilhar Resultado
+</button>
+<button class="restart-button" id="restart-button">
+<i class="fas fa-redo"></i> Reiniciar Quiz
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+// Dados do quiz
+const quizData = [
+{
+question: "Qual é a diferença fundamental entre marcação a mercado e marcação na curva?",
+options: [
+"A marcação a mercado considera apenas o valor de emissão, enquanto a marcação na curva reflete o valor atual de mercado.",
+"A marcação a mercado reflete o valor atual caso o título fosse vendido hoje, enquanto a marcação na curva considera apenas a rentabilidade contratada.",
+"A marcação a mercado é calculada pelo emissor, enquanto a marcação na curva é calculada pela B3.",
+"Não há diferença significativa entre os dois conceitos."
+],
+correctAnswer: 1,
+explanation: "A marcação a mercado representa o valor atual do título no mercado secundário, refletindo as condições atuais de mercado, enquanto a marcação na curva considera apenas o fluxo de pagamentos contratado na emissão, ignorando oscilações de mercado."
+},
+{
+question: "Se o spread de crédito de um título aumentar, o que acontece com sua marcação a mercado?",
+options: [
+"Aumenta proporcionalmente",
+"Diminui",
+"Permanece inalterada",
+"Pode tanto aumentar quanto diminuir dependendo do título"
+],
+correctAnswer: 1,
+explanation: "Existe uma relação inversamente proporcional entre o spread de crédito e a marcação a mercado. Quando o spread aumenta, a marcação a mercado diminui."
+},
+{
+question: "Conforme um título se aproxima do vencimento, o que ocorre com a marcação a mercado em relação à curva?",
+options: [
+"Tende a divergir cada vez mais",
+"Tende a convergir para o mesmo valor",
+"Não há relação previsível",
+"Sempre permanece acima da curva"
+],
+correctAnswer: 1,
+explanation: "Conforme o título se aproxima do vencimento, a marcação a mercado tende a convergir para a marcação na curva, pois o risco de crédito e o impacto das variações de mercado diminuem com a proximidade do pagamento."
+},
+{
+question: "Um cliente com horizonte de investimento até o vencimento deve se preocupar com oscilações na marcação a mercado?",
+options: [
+"Sim, sempre",
+"Não, desde que a qualidade de crédito do emissor se mantenha",
+"Apenas se as oscilações forem superiores a 10%",
+"Somente no primeiro ano do investimento"
+],
+correctAnswer: 1,
+explanation: "Para clientes que planejam carregar o título até o vencimento, as oscilações na marcação a mercado são apenas 'contábeis', não afetando o retorno final, desde que o emissor honre seus compromissos."
+},
+{
+question: "Quando ocorre uma piora na percepção de risco do emissor, o que acontece com o spread de crédito e com a marcação a mercado?",
+options: [
+"Spread diminui e marcação a mercado aumenta",
+"Spread aumenta e marcação a mercado aumenta",
+"Spread aumenta e marcação a mercado diminui",
+"Spread diminui e marcação a mercado diminui"
+],
+correctAnswer: 2,
+explanation: "Quando a percepção de risco do emissor piora, o mercado exige spreads mais altos, o que leva a uma diminuição na marcação a mercado do título."
+},
+{
+question: "Para qual perfil de cliente a marcação a mercado é mais relevante?",
+options: [
+"Clientes que pretendem carregar o papel até o vencimento",
+"Clientes que podem precisar de liquidez antes do vencimento",
+"Clientes que investem apenas em títulos públicos",
+"Clientes que buscam apenas renda fixa isenta de IR"
+],
+correctAnswer: 1,
+explanation: "A marcação a mercado é mais relevante para clientes que podem precisar vender o título antes do vencimento, pois representa o valor que receberiam em caso de venda no mercado secundário."
+},
+{
+question: "O que representa uma oportunidade comercial quando um bom emissor passa por turbulências temporárias?",
+options: [
+"Recomendar que todos os clientes vendam imediatamente seus títulos desse emissor",
+"O aumento do spread e a consequente diminuição da marcação a mercado, tornando os títulos 'mais baratos'",
+"Sugerir que os clientes esperem até que o emissor resolva seus problemas",
+"Recomendar apenas títulos públicos nesse período"
+],
+correctAnswer: 1,
+explanation: "Quando um bom emissor passa por turbulências temporárias, os spreads aumentam e seus títulos ficam 'mais baratos' no mercado secundário, o que pode representar uma excelente oportunidade de compra para investidores que conseguem avaliar corretamente o risco."
+},
+{
+question: "Qual analogia é mais adequada para explicar a marcação a mercado para um cliente?",
+options: [
+"É como uma conta poupança que rende diariamente",
+"É como o preço de uma ação que sobe e desce conforme o lucro da empresa",
+"É como o valor de revenda de um imóvel, que flutua conforme o mercado, mas não afeta quem vai morar nele até o fim",
+"É como um título do Tesouro Direto com liquidez diária"
+],
+correctAnswer: 2,
+explanation: "A analogia do imóvel é a mais adequada: assim como o valor de mercado de um imóvel pode oscilar, mas isso é irrelevante para quem pretende morar nele até o final, as oscilações na marcação a mercado não afetam o resultado final para o investidor que carrega o título até o vencimento."
+}
+];
+
+// Elementos do DOM
+const quizBody = document.getElementById('quiz-body');
+const resultContainer = document.getElementById('result-container');
+const currentQuestionSpan = document.getElementById('current-question');
+const totalQuestionsSpan = document.getElementById('total-questions');
+const progressBar = document.getElementById('progress-bar');
+const correctCountSpan = document.getElementById('correct-count');
+const totalCountSpan = document.getElementById('total-count');
+const resultTextSpan = document.getElementById('result-text');
+const shareButton = document.getElementById('share-button');
+const restartButton = document.getElementById('restart-button');
+
+// Variáveis de estado
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+// Inicialização
+totalQuestionsSpan.textContent = quizData.length;
+totalCountSpan.textContent = quizData.length;
+
+// Função para mostrar a pergunta atual
+function showQuestion() {
+const questionData = quizData[currentQuestion];
+answered = false;
+
+// Atualizar o progresso
+currentQuestionSpan.textContent = currentQuestion + 1;
+progressBar.style.width = `${((currentQuestion + 1) / quizData.length) * 100}%`;
+
+// Criar o conteúdo da pergunta
+let questionHTML = `
+<div class="question-container">
+<div class="question-number">Pergunta ${currentQuestion + 1} de ${quizData.length}</div>
+<div class="question-text">${questionData.question}</div>
+<div class="options-container">
+`;
+
+// Adicionar as opções
+questionData.options.forEach((option, index) => {
+const letter = String.fromCharCode(65 + index); // A, B, C, D
+questionHTML += `
+<div class="option" data-index="${index}">
+<div class="option-letter">${letter}</div>
+<div class="option-text">${option}</div>
+</div>
+`;
+});
+
+questionHTML += `
+</div>
+<div class="feedback" id="feedback"></div>
+</div>
+<div class="navigation">
+${currentQuestion > 0 ? `<button class="nav-button prev" id="prev-button"><i class="fas fa-arrow-left"></i> Anterior</button>` : '<div></div>'}
+<button class="nav-button next" id="next-button" style="display: none;">Próxima <i class="fas fa-arrow-right"></i></button>
+${currentQuestion === quizData.length - 1 ? `<button class="nav-button submit" id="submit-button" style="display: none;"><i class="fas fa-check"></i> Finalizar Quiz</button>` : ''}
+</div>
+`;
+
+quizBody.innerHTML = questionHTML;
+
+// Adicionar event listeners
+const options = document.querySelectorAll('.option');
+options.forEach(option => {
+option.addEventListener('click', selectOption);
+});
+
+const prevButton = document.getElementById('prev-button');
+if (prevButton) {
+prevButton.addEventListener('click', goToPrevQuestion);
+}
+
+const nextButton = document.getElementById('next-button');
+if (nextButton) {
+nextButton.addEventListener('click', goToNextQuestion);
+}
+
+const submitButton = document.getElementById('submit-button');
+if (submitButton) {
+submitButton.addEventListener('click', showResults);
+}
+}
+
+// Selecionar uma opção
+function selectOption() {
+if (answered) return;
+
+const selectedIndex = parseInt(this.dataset.index);
+const correctIndex = quizData[currentQuestion].correctAnswer;
+const feedbackElement = document.getElementById('feedback');
+const options = document.querySelectorAll('.option');
+const nextButton = document.getElementById('next-button');
+const submitButton = document.getElementById('submit-button');
+
+// Marcar a opção selecionada
+options.forEach(option => option.classList.remove('selected'));
+this.classList.add('selected');
+
+// Verificar se está correta
+if (selectedIndex === correctIndex) {
+this.classList.add('correct');
+feedbackElement.innerHTML = `
+<div class="feedback-text">
+<i class="fas fa-check-circle" style="color: var(--sucesso);"></i>
+<div>
+<strong>Correto!</strong>
+<div class="feedback-explanation">${quizData[currentQuestion].explanation}</div>
+</div>
+</div>
+`;
+feedbackElement.className = 'feedback correct';
+score++;
+} else {
+this.classList.add('incorrect');
+options[correctIndex].classList.add('correct');
+feedbackElement.innerHTML = `
+<div class="feedback-text">
+<i class="fas fa-times-circle" style="color: var(--erro);"></i>
+<div>
+<strong>Incorreto!</strong>
+<div class="feedback-explanation">${quizData[currentQuestion].explanation}</div>
+</div>
+</div>
+`;
+feedbackElement.className = 'feedback incorrect';
+}
+
+// Mostrar botão de próxima pergunta
+if (nextButton) nextButton.style.display = 'flex';
+if (submitButton) submitButton.style.display = 'flex';
+
+answered = true;
+}
+
+// Ir para próxima pergunta
+function goToNextQuestion() {
+if (currentQuestion < quizData.length - 1) {
+currentQuestion++;
+showQuestion();
+window.scrollTo(0, 0);
+}
+}
+
+// Ir para pergunta anterior
+function goToPrevQuestion() {
+if (currentQuestion > 0) {
+currentQuestion--;
+showQuestion();
+window.scrollTo(0, 0);
+}
+}
+
+// Mostrar os resultados
+function showResults() {
+quizBody.style.display = 'none';
+resultContainer.style.display = 'block';
+
+correctCountSpan.textContent = score;
+
+// Personalizar a mensagem de resultado
+if (score === quizData.length) {
+resultTextSpan.textContent = "Parabéns! Você acertou todas as questões e demonstrou um domínio completo sobre os conceitos de marcação a mercado e marcação na curva.";
+} else if (score >= quizData.length * 0.75) {
+resultTextSpan.textContent = "Muito bom! Você tem um excelente entendimento dos conceitos de marcação a mercado e marcação na curva em crédito privado.";
+} else if (score >= quizData.length * 0.5) {
+resultTextSpan.textContent = "Bom trabalho! Você demonstrou um conhecimento sólido, mas ainda pode aprimorar alguns conceitos sobre marcação a mercado e marcação na curva.";
+} else {
+resultTextSpan.textContent = "É importante revisar os conceitos básicos sobre marcação a mercado e marcação na curva. Sugerimos voltar ao material de treinamento.";
+}
+}
+
+// Reiniciar o quiz
+function restartQuiz() {
+currentQuestion = 0;
+score = 0;
+answered = false;
+
+resultContainer.style.display = 'none';
+quizBody.style.display = 'block';
+
+showQuestion();
+window.scrollTo(0, 0);
+}
+
+// Event listener para botão de reiniciar
+restartButton.addEventListener('click', restartQuiz);
+
+// Event listener para botão de compartilhar
+shareButton.addEventListener('click', function() {
+alert('Funcionalidade de compartilhamento seria implementada aqui!');
+});
+
+// Iniciar o quiz
+showQuestion();
+</script>
+</body>
+</html>

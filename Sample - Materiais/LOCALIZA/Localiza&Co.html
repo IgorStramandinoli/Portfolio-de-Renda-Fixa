@@ -1,0 +1,2994 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Localiza&Co | Credit Research Report - 3T25</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-orange: #EC7000;
+            --accent-green: #A6CF2E;
+
+            --dark-bg: #091B1E;
+            --dark-secondary: #133134;
+            --white: #FFFFFF;
+            --gray-light: #B8C5C7;
+            --gray-mid: #6B8285;
+            --orange: #EC7000;
+            --orange-light: #FF8C33;
+            --green: #A6CF2E;
+            --green-dark: #8AB526;
+            --dark: #091B1E;
+            --dark-card: #133134;
+            --dark-border: #1E4347;
+            --white: #FFFFFF;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --red: #EF4444;
+            --yellow: #F59E0B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--white);
+            line-height: 1.7;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+        }
+
+        .mono {
+            font-family: 'Montserrat', monospace;
+        }
+
+        /* Header - Full Screen Cover */
+        .header {
+            background: linear-gradient(135deg, #0f2f35 0%, #091b1e 50%, #051113 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            padding: 0;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(236, 112, 0, 0.03),
+                    rgba(236, 112, 0, 0.03) 1px,
+                    transparent 1px,
+                    transparent 40px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(236, 112, 0, 0.03),
+                    rgba(236, 112, 0, 0.03) 1px,
+                    transparent 1px,
+                    transparent 40px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        
+        .header .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 100%;
+            padding: 0 60px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 0;
+            gap: 24px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .company-info {
+            flex: none;
+        }
+
+        .company-info h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 96px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--primary-orange);
+            letter-spacing: -2px;
+        }
+
+        .company-info .subtitle {
+            font-size: 20px;
+            color: var(--white);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .report-meta {
+            text-align: center;
+            position: absolute;
+            top: 48px;
+            right: 60px;
+            background: rgba(12, 47, 53, 0.6);
+            padding: 16px 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(236, 112, 0, 0.2);
+        }
+
+        .report-type {
+            display: none;
+        }
+
+        .report-date {
+            font-size: 14px;
+            color: var(--gray-300);
+            margin-bottom: 4px;
+        }
+
+        /* Rating Badges */
+        .ratings-row {
+            display: none;
+        }
+
+        .rating-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 10px 16px;
+            border-radius: 8px;
+        }
+
+        .rating-agency {
+            font-size: 13px;
+            color: var(--gray-400);
+            font-weight: 500;
+        }
+
+        .rating-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: none;
+        }
+
+        .metric-card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .metric-card .label {
+            font-size: 13px;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .metric-card .value {
+            font-family: 'Montserrat', monospace;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 6px;
+        }
+
+        .metric-card .delta {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .delta.positive { color: var(--accent-green); }
+        .delta.negative { color: var(--red); }
+        .delta.neutral { color: var(--gray-400); }
+
+        /* Main Content */
+        .main {
+            padding: 48px 0;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 64px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .section-number {
+            font-family: 'Montserrat', monospace;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary-orange);
+            background: rgba(236, 112, 0, 0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-orange);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-content {
+            color: var(--gray-200);
+            font-size: 16px;
+        }
+
+        .card-content p {
+            margin-bottom: 12px;
+        }
+
+        .card-content strong {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* Lists */
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        .list-icon.green { background: var(--accent-green); }
+        .list-icon.red { background: var(--red); }
+        .list-icon.orange { background: var(--primary-orange); }
+
+        .summary-box {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            border-left: 4px solid var(--primary-orange);
+            padding: 24px 32px;
+            margin-bottom: 32px;
+            margin-top: 40px;
+        }
+
+        .summary-box h3 {
+            font-size: 16px;
+            color: var(--white);
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        .summary-box p {
+            color: var(--gray-200);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 14px 16px;
+            background: rgba(236, 112, 0, 0.1);
+            color: var(--primary-orange);
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .data-table th:first-child { border-radius: 8px 0 0 0; }
+        .data-table th:last-child { border-radius: 0 8px 0 0; }
+
+        .data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--gray-200);
+        }
+
+        .data-table td.mono {
+            font-family: 'Montserrat', monospace;
+            color: var(--white);
+        }
+
+        .data-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--white);
+        }
+
+        .chart-wrapper {
+            height: 300px;
+            position: relative;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+
+        .highlight-box.warning {
+            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .highlight-box.danger {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .highlight-box h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .highlight-box.warning h4 { color: var(--primary-orange); }
+        .highlight-box h4 { color: var(--accent-green); }
+
+        .highlight-box p {
+            font-size: 15px;
+            color: var(--gray-200);
+        }
+
+        /* Business Segment Cards */
+        .segment-card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .segment-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .segment-header.rac { 
+            background: linear-gradient(135deg, rgba(236, 112, 0, 0.15) 0%, rgba(236, 112, 0, 0.05) 100%);
+            border-top: 3px solid var(--primary-orange);
+        }
+        .segment-header.gtf { 
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.05) 100%);
+            border-top: 3px solid var(--accent-green);
+        }
+        .segment-header.seminovos { 
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border-top: 3px solid #3B82F6;
+        }
+
+        .segment-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .segment-body {
+            padding: 24px;
+        }
+
+        .segment-metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .segment-metric:last-child {
+            border-bottom: none;
+        }
+
+        .segment-metric .label {
+            color: var(--gray-400);
+            font-size: 15px;
+        }
+
+        .segment-metric .value {
+            font-family: 'Montserrat', monospace;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        /* Insights Section */
+        .insight-card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-left: 4px solid var(--primary-orange);
+            border-radius: 0 12px 12px 0;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .insight-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .insight-card p {
+            font-size: 15px;
+            color: var(--gray-300);
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-secondary);
+            border-top: 1px solid var(--dark-border);
+            padding: 40px 0;
+            margin-top: 64px;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer p {
+            color: var(--gray-500);
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .disclaimer {
+            max-width: 800px;
+            margin: 20px auto 0;
+            font-size: 12px;
+            color: var(--gray-500);
+            line-height: 1.6;
+        }
+
+        /* Tabs */
+        .tabs-container {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--dark-border);
+            padding: 8px;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 12px 20px;
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--gray-400);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            background: rgba(255,255,255,0.05);
+            color: var(--white);
+        }
+
+        .tab-btn.active {
+            background: var(--primary-orange);
+            color: var(--white);
+        }
+
+        .tab-content {
+            display: none;
+            padding: 28px;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Analysis Insights Box */
+        .analysis-insights {
+            background: linear-gradient(135deg, rgba(236, 112, 0, 0.05) 0%, var(--dark-secondary) 100%);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 32px;
+        }
+
+        .analysis-insights h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-orange);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .analysis-insight-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--primary-orange);
+        }
+
+        .analysis-insight-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .analysis-insight-item h4 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-orange);
+            margin-bottom: 10px;
+        }
+
+        .analysis-insight-item p {
+            font-size: 15px;
+            color: var(--gray-200);
+            line-height: 1.7;
+        }
+
+        /* Trend indicators */
+        .trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Montserrat', monospace;
+        }
+
+        .trend.up {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--accent-green);
+        }
+
+        .trend.down {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--red);
+        }
+
+        .trend.stable {
+            background: rgba(156, 163, 175, 0.15);
+            color: var(--gray-400);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .metrics-grid { grid-template-columns: repeat(3, 1fr); }
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .header-top { flex-direction: column; gap: 24px; }
+            .report-meta { text-align: left; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .ratings-row { flex-wrap: wrap; }
+            .company-info h1 { font-size: 32px; }
+            .container { padding: 0 20px; }
+        }
+
+        /* Comparison row */
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .compare-card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .compare-card.highlight {
+            border-color: var(--accent-green);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, var(--dark-secondary) 100%);
+        }
+
+        .compare-card.warning {
+            border-color: var(--red);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, var(--dark-secondary) 100%);
+        }
+
+        .compare-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .compare-header .icon {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .compare-header .icon.green { background: var(--accent-green); }
+        .compare-header .icon.red { background: var(--red); }
+
+        .compare-header h4 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .compare-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .compare-metric {
+            background: rgba(255,255,255,0.03);
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .compare-metric .label {
+            font-size: 12px;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .compare-metric .value {
+            font-family: 'Montserrat', monospace;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Q&A Section */
+        .qa-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .qa-item {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .qa-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 24px;
+            background: rgba(236, 112, 0, 0.08);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .qa-analyst {
+            font-weight: 600;
+            color: var(--white);
+            font-size: 16px;
+        }
+
+        .qa-institution {
+            font-size: 14px;
+            color: var(--primary-orange);
+            background: rgba(236, 112, 0, 0.15);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .qa-question, .qa-answer {
+            padding: 20px 24px;
+        }
+
+        .qa-question {
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .qa-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-400);
+            margin-bottom: 10px;
+            padding: 4px 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+        }
+
+        .qa-label.answer {
+            color: var(--accent-green);
+            background: rgba(166, 207, 46, 0.1);
+        }
+
+        .qa-question p, .qa-answer p {
+            font-size: 15px;
+            color: var(--gray-200);
+            line-height: 1.7;
+        }
+
+        .qa-answer {
+            background: rgba(166, 207, 46, 0.03);
+        }
+
+        .qa-answer p strong {
+            color: var(--accent-green);
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <div class="ion-header">
+        <div class="ion-title">
+            <div class="ion-title-checkbox"></div>
+            <div class="ion-title-text"> </div>
+        </div>
+
+  <!-- Assinatura com efeito de marca d'água -->
+<div class="watermark">
+    <p><strong>Autor:</strong> Igor Stramandinoli Moita Pontes</p>
+    
+</div>
+
+<style>
+.watermark {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(19, 49, 52, 0.3); /* fundo com transparência */
+    border: 1px solid rgba(166, 207, 46, 0.4); /* borda verde translúcida */
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: rgba(255, 255, 255, 0.6); /* texto branco translúcido */
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    pointer-events: none;
+    user-select: none;
+    max-width: 400px;
+    opacity: 0.7; /* transparência geral do bloco */
+}
+
+.watermark p {
+    margin: 4px 0;
+}
+
+.watermark strong {
+    color: rgba(166, 207, 46, 0.7); /* destaque verde translúcido */
+}
+</style>
+</style>
+
+  </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="company-info">
+                    <h1>Localiza&Co</h1>
+                    <p class="subtitle">Maior locadora de veículos da América Latina | Credit Research Report </p>
+                </div>
+                    <div class="report-type">Credit Research</div>
+                    
+                </div>
+            </div>
+
+            <div class="ratings-row">
+                <div class="rating-badge">
+                    <span class="rating-agency">Fitch</span>
+                    <span class="rating-value">AAA(bra)</span>
+                </div>
+                <div class="rating-badge">
+                    <span class="rating-agency">Moody's</span>
+                    <span class="rating-value">AAA.br</span>
+                </div>
+                <div class="rating-badge">
+                    <span class="rating-agency">S&P</span>
+                    <span class="rating-value">brAAA</span>
+                </div>
+                <div class="rating-badge" style="background: rgba(236, 112, 0, 0.1); border-color: rgba(236, 112, 0, 0.3);">
+                    <span class="rating-agency">Perspectiva</span>
+                    <span class="rating-value" style="color: var(--primary-orange);">Estável</span>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="label">Dívida Líquida</div>
+                    <div class="value">R$ 31,1 bi</div>
+                    <div class="delta neutral">+3% vs Dez/24</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">EBITDA 3T25</div>
+                    <div class="value">R$ 3,5 bi</div>
+                    <div class="delta positive">+6,8% A/A ajustado</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">DL / EBITDA</div>
+                    <div class="value">2,33x</div>
+                    <div class="delta positive">â†“ vs 2,57x 3T24</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">ROIC Spread</div>
+                    <div class="value">5,3 p.p.</div>
+                    <div class="delta positive">Sobre custo Dívida</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">Caixa</div>
+                    <div class="value">R$ 12,3 bi</div>
+                    <div class="delta positive">Cobre CP + Fornec.</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <div class="container">
+            <!-- Executive Summary -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">01</span>
+                    <h2 class="section-title">Visão Geral da Companhia</h2>
+                </div>
+
+                <div class="summary-box">
+                    <h3>ðŸ“‹ Visão Geral de Crédito - 3T25</h3>
+                    <p>
+                        A <strong>Localiza</strong> é a maior rede de mobilidade da<strong> América do Sul</strong> e está presente em 7 países.
+                        A atuação da empresa está segmentada, basicamente, em três categorias: aluguel de carros, gestão de frotas e venda de seminovos. A área de <strong> aluguel de carros </strong> é responsável por franquear o aluguel de carros no Brasil e na América do Sul. A divisão de <Strong> gestão de frotas </strong> terceiriza carros para empresas com base em contratos de longo prazo, geralmente 24 ou 36 meses. A rede de lojas de <strong> seminovos </strong> vende os carros usados em sua maioria para consumidores finais.
+                    
+                    </p>
+                    <br>
+                    <p style="font-size: 14px; color: var(--gray-400);">
+                        <strong>Em Rent-A-CAR:</strong> a Localiza opera uma frota no Brasil de 328,8 mil veículos e rede de 599 agências no Brasil (524 próprias + 75 franqueadas). Em <strong> Gestão de Frotas:</strong> a frota total é de ~303,5 mil veículos. Em <strong> Seminovos:</strong> a empresa conta com 247 lojas no próprias em 132 cidades.
+                  </p>
+                    <br>
+                    <p style="font-size: 14px; color: var(--gray-400);">
+                    <Strong>Aluguel de Carros:</Strong> atividade principal da empresa, consiste no aluguel de veículos para pessoas físicas e jurídicas. O segmento teve participação de ~30% na receita líquida da Localiza em 2020.
+                    <Strong>Gestão de Frotas (GTF / Fleet Rental):</Strong> locação para pessoas jurídicas (contratos tipicamente mais longos). No 3T25 (Brasil), a receita líquida foi de R$2,273 bi (~21% da receita líquida consolidada).
+                    <Strong>Seminovos:</Strong> venda de veículos desativados das divisões de Aluguel de Carros (RAC) e Gestão de Frotas (GTF). No 3T25, a receita líquida de Seminovos foi de R$5,838 bi (incluindo México), o que equivale a ~54% da receita líquida consolidada do trimestre (R$10,732 bi)
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3 class="card-title" style="color: var(--accent-green);">✓ Pontos Fortes</h3>
+                        <div class="card-content">
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Líder absoluta com 632 mil veículos (3x maior que a 2ª colocada)</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>ROIC spread de 5,3 p.p. sobre custo da Dívida no 3T25</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Caixa de R$12,3 bi cobre Dívida CP + fornecedores</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Proteção via swaps: R$21 bi a taxa média de 11,7%</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Margem EBITDA RAC de 67,7% (+3,5 p.p. A/A)</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Início da amortização do ágio com benefício fiscal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title" style="color: var(--red);">⚠  Pontos de Atenção</h3>
+                        <div class="card-content">
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Impacto one-off do IPI: R$929 mi antes de impostos no 3T25</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Margem de Seminovos comprimida: 2,6% (0,5% c/ efeito IPI)</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Exposição a contratos de uso severo ainda em ~20 mil veículos</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Cenário macro desafiador com CDI elevado pressionando despesas financeiras</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>preços de seminovos em acomodação pós-redução IPI</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Gap persistente entre preços de novos e usados</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Business Model / Atuação -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">02</span>
+                    <h2 class="section-title">Atuação</h2>
+                </div>
+
+                <p style="color: var(--gray-400); margin-bottom: 28px; font-size: 15px;">
+                    A Localiza&Co opera em dois pilares: <strong style="color: var(--white);">Locação</strong> (RAC + GTF) e 
+                    <strong style="color: var(--white);">Venda de Ativos e Serviços</strong> (Seminovos + Serviços), formando um ciclo integrado de gestão de frota.
+                </p>
+
+                <div class="grid-2" style="gap: 20px;">
+                    <!-- Pilar 1: Locação -->
+                    <div style="background: var(--dark-secondary); border-radius: 12px; border: 1px solid var(--dark-border); overflow: hidden;">
+                        <div style="background: var(--primary-orange); padding: 14px 20px; display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin: 0; font-size: 16px; font-weight: 600; color: white;">Locação</h3>
+                            <span style="font-size: 13px; color: rgba(255,255,255,0.85);">~52% Receitas</span>
+                        </div>
+                        
+                        <div style="padding: 20px;">
+                            <!-- RAC -->
+                            <div style="margin-bottom: 20px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                    <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--primary-orange);">Rent-a-Car (RAC)</h4>
+                                    <span style="font-size: 12px; color: var(--gray-400);">~29% Receita</span>
+                                </div>
+                                <p style="font-size: 13px; color: var(--gray-400); margin-bottom: 14px; line-height: 1.5;">
+                                    Locação a pessoas fí­sicas para lazer, transporte e trabalho. Presença em aeroportos e regiões turísticas.
+                                </p>
+                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Frota</div>
+                                        <div class="mono" style="font-size: 15px; font-weight: 600; color: var(--white);">~350 mil</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Diária</div>
+                                        <div class="mono" style="font-size: 15px; font-weight: 600; color: var(--accent-green);">R$ 150</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Ocupação</div>
+                                        <div class="mono" style="font-size: 15px; font-weight: 600; color: var(--white);">80,8%</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">agências</div>
+                                        <div class="mono" style="font-size: 15px; font-weight: 600; color: var(--white);">599</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="height: 1px; background: var(--dark-border); margin: 16px 0;"></div>
+
+                            <!-- GTF -->
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                    <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--primary-orange);">gestão de Frotas (GTF)</h4>
+                                    <span style="font-size: 12px; color: var(--gray-400);">~23% Receita</span>
+                                </div>
+                                <p style="font-size: 13px; color: var(--gray-400); margin-bottom: 14px; line-height: 1.5;">
+                                    Locação a empresas dos setores comercial, serviços, industrial e agrícola. Contratos de 12 a 72 meses.
+                                </p>
+                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Frota</div>
+                                        <div class="mono" style="font-size: 15px; font-weight: 600; color: var(--white);">~280 mil</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Diária</div>
+                                        <div class="mono" style="font-size: 15px; font-weight: 600; color: var(--accent-green);">R$ 104</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Ocupação</div>
+                                        <div class="mono" style="font-size: 15px; font-weight: 600; color: var(--white);">94,9%</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Uso Severo</div>
+                                        <div class="mono" style="font-size: 15px; font-weight: 600; color: var(--primary-orange);">~20 mil</div>
+                                    </div>
+                                </div>
+                                <p style="font-size: 12px; color: var(--gray-500); margin-top: 10px;">
+                                    redução estratégica de contratos de uso severo (de 31k para 20k)
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pilar 2: Venda de Ativos e Serviços -->
+                    <div style="background: var(--dark-secondary); border-radius: 12px; border: 1px solid var(--dark-border); overflow: hidden;">
+                        <div style="background: #2563EB; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center;">
+                            <h3 style="margin: 0; font-size: 16px; font-weight: 600; color: white;">Venda de Ativos e Serviços</h3>
+                            <span style="font-size: 13px; color: rgba(255,255,255,0.85);">~48% Receitas</span>
+                        </div>
+                        
+                        <div style="padding: 20px;">
+                            <!-- Seminovos -->
+                            <div style="margin-bottom: 20px;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                    <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #60A5FA;">Seminovos</h4>
+                                    <span style="font-size: 12px; color: var(--gray-400);">~47% Receita</span>
+                                </div>
+                                <p style="font-size: 13px; color: var(--gray-400); margin-bottom: 14px; line-height: 1.5;">
+                                    Revenda dos carros usados ao término dos contratos (GTF) ou na renovação da frota (RAC). Canal essencial para financiar o ciclo de investimentos.
+                                </p>
+                                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;">
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Vendas 3T25</div>
+                                        <div class="mono" style="font-size: 15px; font-weight: 600; color: var(--accent-green);">75.473</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Ticket RAC</div>
+                                        <div class="mono" style="font-size: 15px; font-weight: 600; color: var(--white);">R$ 73,6 mil</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Ticket GTF</div>
+                                        <div class="mono" style="font-size: 15px; font-weight: 600; color: var(--white);">R$ 83,1 mil</div>
+                                    </div>
+                                    <div style="text-align: center;">
+                                        <div style="font-size: 10px; color: var(--gray-500); text-transform: uppercase; margin-bottom: 4px;">Lojas</div>
+                                        <div class="mono" style="font-size: 15px; font-weight: 600; color: var(--white);">247</div>
+                                    </div>
+                                </div>
+                                <p style="font-size: 12px; color: var(--gray-500); margin-top: 10px;">
+                                    KM médio de venda -13% A/A — veículos menos rodados
+                                </p>
+                            </div>
+
+                            <div style="height: 1px; background: var(--dark-border); margin: 16px 0;"></div>
+
+                            <!-- Serviços -->
+                            <div>
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                    <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #60A5FA;">Serviços</h4>
+                                    <span style="font-size: 12px; color: var(--gray-400);">~1% Receita</span>
+                                </div>
+                                <p style="font-size: 13px; color: var(--gray-400); margin-bottom: 14px; line-height: 1.5;">
+                                    Serviços de apoio a frotas para clientes da Localiza, agregando valor e aumentando a fidelização.
+                                </p>
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 13px; color: var(--gray-300);">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <span style="color: var(--gray-500);">•</span> Oficinas para reVisão de automóveis
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <span style="color: var(--gray-500);">•</span> Telemetria e gestão de desempenho
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <span style="color: var(--gray-500);">•</span> Voll: plataforma de viagens corporativas
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <span style="color: var(--gray-500);">•</span> Liza: assistente virtual com IA (NPS 85+)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ciclo Integrado de gestão de Frota -->
+                <div style="margin-top: 20px; padding: 24px 32px; background: linear-gradient(135deg, #1a2e35 0%, #162329 100%); border-radius: 12px; border: 1px solid rgba(255,255,255,0.08);">
+                    <h4 style="text-align: center; font-size: 13px; font-weight: 600; color: var(--gray-300); letter-spacing: 1px; margin-bottom: 24px; text-transform: uppercase;">
+                        Ciclo Integrado de gestão de Frota
+                    </h4>
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap;">
+                        <div style="background: var(--primary-orange); padding: 14px 24px; border-radius: 8px; text-align: center; min-width: 110px;">
+                            <div style="font-size: 14px; font-weight: 600; color: white;">1. Compra</div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 2px;">Montadoras</div>
+                        </div>
+                        <span style="color: var(--gray-500); font-size: 16px;">→</span>
+                        <div style="background: var(--primary-orange); padding: 14px 24px; border-radius: 8px; text-align: center; min-width: 110px;">
+                            <div style="font-size: 14px; font-weight: 600; color: white;">2. Locação</div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 2px;">RAC / GTF</div>
+                        </div>
+                        <span style="color: var(--gray-500); font-size: 16px;">→</span>
+                        <div style="background: #2563EB; padding: 14px 24px; border-radius: 8px; text-align: center; min-width: 110px;">
+                            <div style="font-size: 14px; font-weight: 600; color: white;">3. Desativação</div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 2px;">15 Centros</div>
+                        </div>
+                        <span style="color: var(--gray-500); font-size: 16px;">→</span>
+                        <div style="background: #2563EB; padding: 14px 24px; border-radius: 8px; text-align: center; min-width: 110px;">
+                            <div style="font-size: 14px; font-weight: 600; color: white;">4. Venda</div>
+                            <div style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 2px;">Seminovos</div>
+                        </div>
+                        <span style="color: var(--gray-500); font-size: 16px;">→</span>
+                        <div style="background: #9AB308; padding: 14px 24px; border-radius: 8px; text-align: center; min-width: 110px;">
+                            <div style="font-size: 14px; font-weight: 600; color: #1a1a1a;">5. Reinvestimento</div>
+                            <div style="font-size: 12px; color: rgba(0,0,0,0.6); margin-top: 2px;">Nova Frota</div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; font-size: 13px; color: var(--gray-500); margin-top: 20px; margin-bottom: 0;">
+                        A venda de seminovos financia parte da renovação da frota, reduzindo a necessidade de endividamento adicional.
+                    </p>
+                </div>
+
+                <!-- Frota Total - Linha simples -->
+                <div style="margin-top: 20px; padding: 16px 24px; background: var(--dark-secondary); border-radius: 12px; border: 1px solid var(--dark-border); display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 14px; color: var(--gray-400);">Frota Total Consolidada (Set/2025)</span>
+                        <span style="font-size: 12px; color: var(--gray-500);">Maior frota operacional da América Latina</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div class="mono" style="font-size: 22px; font-weight: 700; color: var(--accent-green);">632.267 <span style="font-size: 13px; font-weight: 400; color: var(--gray-400);">veículos</span></div>
+                        <div style="height: 24px; width: 1px; background: var(--dark-border);"></div>
+                        <div class="mono" style="font-size: 15px; color: var(--gray-400);">+152% vs 2019</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Debt Profile -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">03</span>
+                    <h2 class="section-title">Perfil de Endividamento</h2>
+                </div>
+
+                <div class="grid-2">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Cronograma de amortização (R$ milhões)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="debtScheduleChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h4 class="chart-title">Composição da Dívida</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="debtCompositionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 24px;"
+                    <h4>🔵 posição de Liquidez confortável</h4>
+                    <p>
+                        A Companhia encerrou o 3T25 com <strong>R$12,3 bilhões em caixa</strong>, suficientes para cobrir a Dívida de curto prazo 
+                        e o contas a pagar a montadoras. A gestão ativa da Dívida segue com foco na captura de oportunidades de redução de custo 
+                        e alongamento do duration. O caixa atual cobre aproximadamente <strong>3x a Dívida vencendo em 2026</strong>.
+                    </p>
+                </div>
+
+                <div class="grid-2" style="margin-top: 20px;">
+                    <div class="insight-card">
+                        <h4>📊 Estratégia de Hedge</h4>
+                        <p>
+                            A Localiza possui <strong>R$21 bilhões em contratos de swap</strong> a uma taxa média de 11,7% para proteger 
+                            os fluxos de caixa dos contratos de gestão de Frotas contra variações de juros. Aproximadamente 1/3 dos 
+                            contratos é renovado anualmente, conforme vencimentos dos contratos de GTF.
+                        </p>
+                    </div>
+
+                    <div class="insight-card">
+                        <h4>📈 Melhora nos Indicadores</h4>
+                        <p>
+                            O ratio <strong>Dívida Líquida/EBITDA segue melhorando</strong> (2,33x vs 2,57x no 3T24), refletindo a agenda 
+                            de recomposição de preço e eficiência em custos. O ratio Dívida Líquida/valor de frota permanece em 
+                            <strong>patamar confortável (~48%)</strong>, mesmo com efeito da redução no valor da frota pelo IPI.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Análise do Perfil de Dívida -->
+                <div class="analysis-insights">
+                    <h3>💡 Análise do Perfil de Dívida</h3>
+                    
+                    <div class="analysis-insight-item">
+                        <h4>🔵 Alongamento do Duration</h4>
+                        <p>
+                            A Localiza mantém gestão ativa da Dívida com foco no alongamento de prazos. O caixa de R$12,3 bi cobre 80% da Dívida até 2028, 
+                            demonstrando conforto de liquidez. As novas emissões em 2025 (42ª a 45ª) vieram com spreads de CDI + 0,91% a 1,40%, 
+                            indicando percepção de risco favorável pelo mercado.
+                        </p>
+                    </div>
+                    
+                    <div class="analysis-insight-item">
+                        <h4>🔵 Custo da Dívida Protegido</h4>
+                        <p>
+                            A companhia possui R$21 bilhões em contratos de swap a uma taxa média de 11,7% para proteger os fluxos de caixa contra variações de juros. 
+                            Aproximadamente 1/3 dos contratos é renovado anualmente, conforme vencimentos dos contratos de gestão de Frotas.
+                        </p>
+                    </div>
+                    
+                    <div class="analysis-insight-item">
+                        <h4>🔵 Melhora nos Indicadores de Cobertura</h4>
+                        <p>
+                            O ratio EBITDA LTM / Despesas Financeiras Líquidas LTM melhorou de 2,91x (3T24) para 3,05x (3T25), 
+                            demonstrando maior capacidade de cobertura de juros apesar do Cenário de CDI elevado.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Métricas Detalhadas de Crédito -->
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">📊 Métricas de Crédito - Balanço Consolidado (Set/2025)</h3>
+                    <div class="grid-4" style="margin-top: 16px;">
+                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 13px; color: var(--gray-400); text-transform: uppercase; margin-bottom: 8px;">Ativo Total</div>
+                            <div style="font-family: 'Montserrat'; font-size: 20px; font-weight: 600; color: var(--white);">R$ 83,1 bi</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 13px; color: var(--gray-400); text-transform: uppercase; margin-bottom: 8px;">Valor da Frota</div>
+                            <div style="font-family: 'Montserrat'; font-size: 20px; font-weight: 600; color: var(--white);">R$ 52,2 bi</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 13px; color: var(--gray-400); text-transform: uppercase; margin-bottom: 8px;">Patrimônio Lí­quido</div>
+                            <div style="font-family: 'Montserrat'; font-size: 20px; font-weight: 600; color: var(--white);">R$ 25,1 bi</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 13px; color: var(--gray-400); text-transform: uppercase; margin-bottom: 8px;">Dívida Bruta</div>
+                            <div style="font-family: 'Montserrat'; font-size: 20px; font-weight: 600; color: var(--white);">R$ 43,9 bi</div>
+                        </div>
+                    </div>
+                    <table class="data-table" style="margin-top: 20px;">
+                        <thead>
+                            <tr>
+                                <th>Indicador</th>
+                                <th>3T24</th>
+                                <th>3T25</th>
+                                <th>Variação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dívida Líquida / EBITDA LTM</td>
+                                <td class="mono">2,57x</td>
+                                <td class="mono">2,33x</td>
+                                <td><span class="trend up">Melhora</span></td>
+                            </tr>
+                            <tr>
+                                <td>EBITDA / Despesas Financeiras</td>
+                                <td class="mono">2,91x</td>
+                                <td class="mono">3,05x</td>
+                                <td><span class="trend up">Melhora</span></td>
+                            </tr>
+                            <tr>
+                                <td>DL / Valor da Frota</td>
+                                <td class="mono">55%</td>
+                                <td class="mono">60%</td>
+                                <td><span class="trend down">Pressão</span></td>
+                            </tr>
+                            <tr>
+                                <td>Dívida Líquida / PL</td>
+                                <td class="mono">1,14x</td>
+                                <td class="mono">1,24x</td>
+                                <td><span class="trend stable">Estável</span></td>
+                            </tr>
+                            <tr>
+                                <td>Caixa / Dívida CP</td>
+                                <td class="mono">2,3x</td>
+                                <td class="mono">3,0x</td>
+                                <td><span class="trend up">Melhora</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- Contexto dos Resultados 3T25 -->
+                    <div style="margin-top: 24px; padding: 24px; background: linear-gradient(135deg, rgba(236, 112, 0, 0.06) 0%, transparent 100%); border-radius: 12px; border-left: 4px solid var(--primary-orange);">
+                        <h4 style="color: var(--primary-orange); font-size: 15px; font-weight: 600; margin-bottom: 16px;">Resultados 3T25</h4>
+                        <div style="font-size: 14px; color: var(--gray-300); line-height: 1.8;">
+                            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                                <span style="color: var(--primary-orange); font-weight: 600;">•</span>
+                                <span>O <strong>EBITDA ajustado</strong> cresceu +7% vs. 3T24 devido à: (i) maior receita em Aluguel de Carros (+11% A/A), beneficiada por tarifas mais altas (+6% A/A) mesmo com volumes estáveis; (ii) maior receita em gestão de Frotas (+1% T/T), com surpresa positiva na margem (+2,4 p.p.) pelo reconhecimento de Créditos PIS/COFINS da Locamerica; e (iii) receita recorde de Seminovos (+15% A/A), com 75 mil veículos vendidos (+10% T/T).</span>
+                            </div>
+                            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                                <span style="color: var(--primary-orange); font-weight: 600;">•</span>
+                                <span>A <strong>Margem EBITDA de Seminovos</strong> expandiu de 1,6% (2T24) para 2,6% (3T25), pela (i) menor relação SG&A/receita (-0,8 p.p.) com diluição de custos fixos; (ii) mix de modelo/ano mais favorável e menor participação de veículos de entrada; e (iii) menor KM médio de venda (-13% A/A), resultando em carros menos depreciados.</span>
+                            </div>
+                            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                                <span style="color: var(--primary-orange); font-weight: 600;">•</span>
+                                <span>A <strong>Margem EBITDA de RAC e GTF</strong> continuou sólida (65,9% e ~70%, respectivamente), com o melhor desempenho da economia brasileira sustentando a demanda e menores custos de manutenção decorrentes dos esforços contínuos de renovação da frota.</span>
+                            </div>
+                            <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+                                <span style="color: var(--primary-orange); font-weight: 600;">•</span>
+                                <span>A <strong>Dívida Líquida/EBITDA</strong> foi de 2,33x (3T25), melhora vs 2,57x (3T24), pois o maior EBITDA LTM (+8%) mais que compensou a elevação de 5% na Dívida Líquida. O covenant de 4,0x segue confortavelmente atendido.</span>
+                            </div>
+                            <div style="display: flex; gap: 8px;">
+                                <span style="color: var(--primary-orange); font-weight: 600;">•</span>
+                                <span>A <strong>Dívida Líquida</strong> cresceu de R$29,5 bi para R$31,1 bi (+5% A/A), devido a gastos com aquisição de frota e despesas financeiras, parcialmente compensados pelo caixa robusto de R$12,3 bi e pelas emissões de ~R$5,7 bi em debêntures e CRIs no trimestre.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabela Comparativa Expandida -->
+                    <div style="margin-top: 20px;">
+                        <h4 style="font-size: 14px; color: var(--gray-300); margin-bottom: 12px;">Evolução dos Indicadores Financeiros</h4>
+                        <table class="data-table" style="font-size: 13px;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: left;">R$ milhões</th>
+                                    <th>9M24</th>
+                                    <th>9M25</th>
+                                    <th>Δ% A/A</th>
+                                    <th>3T24</th>
+                                    <th>3T25</th>
+                                    <th>Δ% A/A</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight: 500;">Receita Líquida</td>
+                                    <td class="mono">27.419</td>
+                                    <td class="mono">30.771</td>
+                                    <td class="mono" style="color: var(--accent-green);">+12%</td>
+                                    <td class="mono">9.683</td>
+                                    <td class="mono">10.732</td>
+                                    <td class="mono" style="color: var(--accent-green);">+11%</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">EBITDA Ajustado</td>
+                                    <td class="mono">9.934</td>
+                                    <td class="mono">10.049</td>
+                                    <td class="mono" style="color: var(--accent-green);">+1%</td>
+                                    <td class="mono">3.320</td>
+                                    <td class="mono">3.544</td>
+                                    <td class="mono" style="color: var(--accent-green);">+7%</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">Margem EBITDA Aj.</td>
+                                    <td class="mono">36,2%</td>
+                                    <td class="mono">32,7%</td>
+                                    <td class="mono" style="color: var(--red);">-3,6p.p.</td>
+                                    <td class="mono">34,3%</td>
+                                    <td class="mono">33,0%</td>
+                                    <td class="mono" style="color: var(--red);">-1,3p.p.</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">Margem EBITDA (Locação)</td>
+                                    <td class="mono">74,7%</td>
+                                    <td class="mono">69,5%</td>
+                                    <td class="mono" style="color: var(--red);">-5,3p.p.</td>
+                                    <td class="mono">72,0%</td>
+                                    <td class="mono">72,4%</td>
+                                    <td class="mono" style="color: var(--accent-green);">+0,4p.p.</td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">Lucro Líquido</td>
+                                    <td class="mono">976</td>
+                                    <td class="mono">932</td>
+                                    <td class="mono" style="color: var(--red);">-5%</td>
+                                    <td class="mono">812</td>
+                                    <td class="mono">258</td>
+                                    <td class="mono" style="color: var(--red);">-68%</td>
+                                </tr>
+                                <tr style="background: rgba(255,255,255,0.02);">
+                                    <td style="font-weight: 500;">Caixa</td>
+                                    <td class="mono">12.739</td>
+                                    <td class="mono">12.314</td>
+                                    <td class="mono" style="color: var(--primary-orange);">-3%</td>
+                                    <td class="mono">12.739</td>
+                                    <td class="mono">12.314</td>
+                                    <td class="mono" style="color: var(--primary-orange);">-3%</td>
+                                </tr>
+                                <tr style="background: rgba(255,255,255,0.02);">
+                                    <td style="font-weight: 500;">Dívida Bruta</td>
+                                    <td class="mono">42.236</td>
+                                    <td class="mono">43.409</td>
+                                    <td class="mono" style="color: var(--primary-orange);">+3%</td>
+                                    <td class="mono">42.236</td>
+                                    <td class="mono">43.409</td>
+                                    <td class="mono" style="color: var(--primary-orange);">+3%</td>
+                                </tr>
+                                <tr style="background: rgba(255,255,255,0.02);">
+                                    <td style="font-weight: 500;">Dívida Líquida</td>
+                                    <td class="mono">29.497</td>
+                                    <td class="mono">31.095</td>
+                                    <td class="mono" style="color: var(--primary-orange);">+5%</td>
+                                    <td class="mono">29.497</td>
+                                    <td class="mono">31.095</td>
+                                    <td class="mono" style="color: var(--primary-orange);">+5%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Indicadores de Crédito -->
+                    <div style="margin-top: 16px;">
+                        <table class="data-table" style="font-size: 13px;">
+                            <thead>
+                                <tr>
+                                    <th style="text-align: left;">Indicadores de Crédito</th>
+                                    <th>3T24</th>
+                                    <th>3T25</th>
+                                    <th>Δ</th>
+                                    <th>Covenant</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-weight: 500;">Liquidez Corrente</td>
+                                    <td class="mono">1,1x</td>
+                                    <td class="mono">1,4x</td>
+                                    <td class="mono" style="color: var(--accent-green);">+0,35x</td>
+                                    <td class="mono">—</td>
+                                    <td><span class="trend up">—</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">Caixa / Dívida CP</td>
+                                    <td class="mono">1,7x</td>
+                                    <td class="mono">3,0x</td>
+                                    <td class="mono" style="color: var(--accent-green);">+1,32x</td>
+                                    <td class="mono">—</td>
+                                    <td><span class="trend up">—</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">% Dívida Curto Prazo</td>
+                                    <td class="mono">18%</td>
+                                    <td class="mono">9%</td>
+                                    <td class="mono" style="color: var(--accent-green);">-9 p.p.</td>
+                                    <td class="mono">—</td>
+                                    <td><span class="trend up">Alongamento</span></td>
+                                </tr>
+                                <tr style="background: rgba(166, 207, 46, 0.05);">
+                                    <td style="font-weight: 500;">Div. Líq. / EBITDA</td>
+                                    <td class="mono">2,6x</td>
+                                    <td class="mono">2,3x</td>
+                                    <td class="mono" style="color: var(--accent-green);">-0,2x</td>
+                                    <td class="mono">4,00x</td>
+                                    <td><span style="background: var(--accent-green); color: var(--dark-bg); padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 600;">OK</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">EBITDA / Desp. Fin. Líq.</td>
+                                    <td class="mono">2,9x</td>
+                                    <td class="mono">3,0x</td>
+                                    <td class="mono" style="color: var(--accent-green);">+0,14x</td>
+                                    <td class="mono">—</td>
+                                    <td><span class="trend up">—</span></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-weight: 500;">LTV (DL / veículos)</td>
+                                    <td class="mono">0,57x</td>
+                                    <td class="mono">0,60x</td>
+                                    <td class="mono" style="color: var(--primary-orange);">+0,03x</td>
+                                    <td class="mono">—</td>
+                                    <td><span class="trend stable">Estável</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Emissões Recentes -->
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">📝 Emissões de Debêntures em 2025 — Percepção do Mercado</h3>
+                    <p style="font-size: 15px; color: var(--gray-200); margin-bottom: 16px;">
+                        As emissões de 2025 demonstram forte acesso ao mercado de capitais com <strong style="color: var(--accent-green);">spreads comprimidos</strong>, 
+                        indicando percepção de risco favorável pelos investidores.
+                    </p>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Emissão</th>
+                                <th>Data</th>
+                                <th>Taxa</th>
+                                <th>Volume</th>
+                                <th>Vencimento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>42ª Emissão (2ª e 3ª séries)</td>
+                                <td class="mono">Mai/2025</td>
+                                <td class="mono" style="color: var(--accent-green);">CDI+1,20% / 1,40%</td>
+                                <td class="mono">R$ 1.515 mi</td>
+                                <td class="mono">2030-2034</td>
+                            </tr>
+                            <tr>
+                                <td>43ª Emissão</td>
+                                <td class="mono">Jul/2025</td>
+                                <td class="mono" style="color: var(--accent-green);">CDI+1,20%</td>
+                                <td class="mono">R$ 800 mi</td>
+                                <td class="mono">2029-2034</td>
+                            </tr>
+                            <tr>
+                                <td>44ª Emissão</td>
+                                <td class="mono">Ago/2025</td>
+                                <td class="mono" style="color: var(--accent-green);">CDI+1,30%</td>
+                                <td class="mono">R$ 1.800 mi</td>
+                                <td class="mono">2030-2034</td>
+                            </tr>
+                            <tr>
+                                <td>45ª Emissão (1ª e 2ª séries)</td>
+                                <td class="mono">Ago/2025</td>
+                                <td class="mono" style="color: var(--accent-green);">CDI+1,18% / 1,28%</td>
+                                <td class="mono">R$ 600 mi</td>
+                                <td class="mono">2030-2034</td>
+                            </tr>
+                            <tr>
+                                <td>Fleet 20ª Emissão</td>
+                                <td class="mono">Set/2025</td>
+                                <td class="mono" style="color: var(--accent-green);">CDI+0,91% / 1,15%</td>
+                                <td class="mono">R$ 1.000 mi</td>
+                                <td class="mono">2029-2034</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size: 13px; color: var(--gray-400); margin-top: 12px; font-style: italic;">
+                        * Spread mais baixo (CDI+0,91%) foi obtido pela Localiza Fleet na 20ª Emissão — demonstra apetite do mercado pelo Crédito.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Business Segments -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">04</span>
+                    <h2 class="section-title">Desempenho por Segmento - 3T25</h2>
+                </div>
+
+                <div class="grid-3">
+                    <div class="segment-card">
+                        <div class="segment-header rac">
+                            <div class="segment-name">🚗— Aluguel de Carros (RAC)</div>
+                        </div>
+                        <div class="segment-body">
+                            <div class="segment-metric">
+                                <span class="label">Receita Líquida</span>
+                                <span class="value">R$ 2,6 bi</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Var. A/A</span>
+                                <span class="value" style="color: var(--accent-green);">+6,2%</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">EBITDA</span>
+                                <span class="value">R$ 1,8 bi</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Margem EBITDA</span>
+                                <span class="value" style="color: var(--accent-green);">67,7%</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Δ Margem A/A</span>
+                                <span class="value" style="color: var(--accent-green);">+3,5 p.p.</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Diária média</span>
+                                <span class="value">R$ 150,14</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Taxa Utilização</span>
+                                <span class="value">80,8%</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Frota</span>
+                                <span class="value">328,7 mil</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="segment-card">
+                        <div class="segment-header gtf">
+                            <div class="segment-name">🏢 gestão de Frotas (GTF)</div>
+                        </div>
+                        <div class="segment-body">
+                            <div class="segment-metric">
+                                <span class="label">Receita Líquida</span>
+                                <span class="value">R$ 2,3 bi</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Var. A/A</span>
+                                <span class="value" style="color: var(--accent-green);">+6,0%</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">EBITDA</span>
+                                <span class="value">R$ 1,7 bi</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Margem EBITDA</span>
+                                <span class="value" style="color: var(--accent-green);">73,4%</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Δ Margem A/A</span>
+                                <span class="value" style="color: var(--accent-green);">+3,5 p.p.</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Diária média</span>
+                                <span class="value">R$ 104,03</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Taxa Utilização</span>
+                                <span class="value">94,9%</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Frota</span>
+                                <span class="value">303,5 mil</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="segment-card">
+                        <div class="segment-header seminovos">
+                            <div class="segment-name">🏷️ Seminovos</div>
+                        </div>
+                        <div class="segment-body">
+                            <div class="segment-metric">
+                                <span class="label">Receita Líquida</span>
+                                <span class="value">R$ 5,8 bi</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Var. A/A</span>
+                                <span class="value" style="color: var(--accent-green);">+14,6%</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">EBITDA</span>
+                                <span class="value">R$ 150 mi</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Margem EBITDA</span>
+                                <span class="value" style="color: var(--primary-orange);">2,6%</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">c/ Efeito IPI</span>
+                                <span class="value" style="color: var(--red);">0,5%</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Carros Vendidos</span>
+                                <span class="value" style="color: var(--accent-green);">75.473 â¬†</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Lojas</span>
+                                <span class="value">247</span>
+                            </div>
+                            <div class="segment-metric">
+                                <span class="label">Cidades</span>
+                                <span class="value">132</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Análise Qualitativa por Segmento -->
+                <div style="margin-top: 24px; padding: 24px; background: var(--dark-secondary); border-radius: 12px; border: 1px solid var(--dark-border);">
+                    <h4 style="font-size: 14px; color: var(--gray-300); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px;">Análise Qualitativa — Destaques do 3T25</h4>
+
+                    <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--dark-border);">
+                        <h5 style="font-size: 14px; color: var(--primary-orange); margin-bottom: 10px; font-weight: 600;">Rent-a-Car (RAC)</h5>
+                        <p style="font-size: 14px; color: var(--gray-300); line-height: 1.8;">
+                            O crescimento da receita continuou <strong>desacelerando</strong> (+6% A/A vs. +10%/+9% A/A no 1T25/2T25), já que o foco 
+                            sustentado em preços (+6% A/A) foi parcialmente compensado por diárias estáveis, provavelmente refletindo 
+                            <strong>menor acessibilidade</strong>. Em rentabilidade, o EBITDA atingiu R$1,7 bilhão (+11% A/A), enquanto a margem 
+                            expandiu para 65,9% (+2,9 p.p. A/A), beneficiada por uma combinação positiva de tarifas mais altas e 
+                            <strong>menores custos de manutenção</strong> em meio aos esforços contínuos de renovação de frota.
+                        </p>
+                    </div>
+
+                    <div style="margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--dark-border);">
+                        <h5 style="font-size: 14px; color: var(--primary-orange); margin-bottom: 10px; font-weight: 600;">gestão de Frotas (GTF)</h5>
+                        <p style="font-size: 14px; color: var(--gray-300); line-height: 1.8;">
+                            A receita Líquida permaneceu praticamente <strong>Estável T/T (+1%)</strong>, sustentada por (i) tarifas positivas (+2% T/T) 
+                            à medida que a Localiza foca em reajuste de novos contratos, e (ii) redução de volumes (-1% T/T), principalmente 
+                            devido à estratégia da Companhia de <strong>reduzir exposição a ativos de uso intensivo</strong>. O EBITDA ficou em R$1,7 bilhão 
+                            (+5% T/T), com a <strong style="color: var(--accent-green);">surpresa positiva</strong> do trimestre sendo a expansão significativa da margem 
+                            (+2,4 p.p. T/T), impulsionada por Créditos de PIS/COFINS decorrentes da avaliação da vida útil de veículos leves da Locamerica.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h5 style="font-size: 14px; color: #3B82F6; margin-bottom: 10px; font-weight: 600;">Seminovos</h5>
+                        <p style="font-size: 14px; color: var(--gray-300); line-height: 1.8;">
+                            <strong style="color: var(--accent-green);">Forte desempenho</strong> na receita (+15% A/A e +13% T/T), impulsionado por: (i) vendas recorde de 
+                            <strong>75 mil veículos</strong> (+2% A/A e +10% T/T); e (ii) preços mais altos (+13% A/A e +3% T/T), sustentados por 
+                            perfil melhor dos ativos vendidos, com <strong>menor quilometragem média (-13% A/A)</strong>, e mix mais favorável de modelo/ano 
+                            com menor participação de veículos de entrada. A margem EBITDA expandiu para 2,6% (vs. 1,6% no 2T24), refletindo: 
+                            (i) leve melhora na margem bruta (+0,2 p.p. T/T); (ii) menor relação SG&A/receita (-0,8 p.p. T/T) devido a menores 
+                            despesas e maiores volumes; e (iii) aumento moderado da depreciação unitária em RAC/GTF (+2%/+1% T/T).
+                        </p>
+                    </div>
+                </div>
+
+                <div class="highlight-box warning" style="margin-top: 24px;">
+                    <h4>⚠️ Impacto da redução do IPI nos Resultados 3T25</h4>
+                    <p>
+                        Em julho de 2025, foi regulamentada a redução do IPI para carros novos de entrada (Decreto nº 12.549). 
+                        A Localiza reconheceu impacto one-off de <strong>R$929 milhões antes de impostos</strong> (R$613 milhões após impostos), 
+                        principalmente através de maior depreciação no segmento de Seminovos. Distribuição: RAC R$12mi, GTF R$7mi, 
+                        Seminovos RAC R$614mi, Seminovos GTF R$297mi.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Financial Analysis -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">05</span>
+                    <h2 class="section-title">Análise Financeira</h2>
+                </div>
+
+                <div class="tabs-container">
+                    <div class="tabs">
+                        <button class="tab-btn active" data-tab="rac">Rent-a-Car (RAC)</button>
+                        <button class="tab-btn" data-tab="gtf">gestão de Frotas (GTF)</button>
+                        <button class="tab-btn" data-tab="seminovos">Seminovos</button>
+                        <button class="tab-btn" data-tab="consolidated">Consolidado</button>
+                    </div>
+
+                    <!-- RAC Tab -->
+                    <div class="tab-content active" id="tab-rac">
+                        <div class="grid-2">
+                            <div class="chart-container" style="border: none; padding: 0;">
+                                <h4 class="chart-title">Receita Líquida RAC (R$ bilhões)</h4>
+                                <div class="chart-wrapper">
+                                    <canvas id="racRevenueChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="chart-container" style="border: none; padding: 0;">
+                                <h4 class="chart-title">Frota vs Taxa de Utilização</h4>
+                                <div class="chart-wrapper">
+                                    <canvas id="racFleetChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="data-table" style="margin-top: 24px;">
+                            <thead>
+                                <tr>
+                                    <th>Indicador</th>
+                                    <th>3T24</th>
+                                    <th>3T25</th>
+                                    <th>Variação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Receita Líquida</td>
+                                    <td class="mono">R$ 2.445 mi</td>
+                                    <td class="mono">R$ 2.596 mi</td>
+                                    <td><span class="trend up">+6,2%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Diária média</td>
+                                    <td class="mono">R$ 142,10</td>
+                                    <td class="mono">R$ 150,14</td>
+                                    <td><span class="trend up">+5,7%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Taxa de Utilização</td>
+                                    <td class="mono">79,9%</td>
+                                    <td class="mono">80,8%</td>
+                                    <td><span class="trend up">+0,9 p.p.</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Margem EBITDA Ajustada</td>
+                                    <td class="mono">64,2%</td>
+                                    <td class="mono">67,7%</td>
+                                    <td><span class="trend up">+3,5 p.p.</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Frota Final (mil)</td>
+                                    <td class="mono">324,7</td>
+                                    <td class="mono">328,8</td>
+                                    <td><span class="trend up">+1,2%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- GTF Tab -->
+                    <div class="tab-content" id="tab-gtf">
+                        <div class="grid-2">
+                            <div class="chart-container" style="border: none; padding: 0;">
+                                <h4 class="chart-title">Receita Líquida GTF (R$ bilhões)</h4>
+                                <div class="chart-wrapper">
+                                    <canvas id="gtfRevenueChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="chart-container" style="border: none; padding: 0;">
+                                <h4 class="chart-title">Frota vs Taxa de Utilização</h4>
+                                <div class="chart-wrapper">
+                                    <canvas id="gtfFleetChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="data-table" style="margin-top: 24px;">
+                            <thead>
+                                <tr>
+                                    <th>Indicador</th>
+                                    <th>3T24</th>
+                                    <th>3T25</th>
+                                    <th>Variação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Receita Líquida</td>
+                                    <td class="mono">R$ 2.145 mi</td>
+                                    <td class="mono">R$ 2.273 mi</td>
+                                    <td><span class="trend up">+6,0%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Diária média</td>
+                                    <td class="mono">R$ 95,90</td>
+                                    <td class="mono">R$ 104,03</td>
+                                    <td><span class="trend up">+8,5%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Taxa de Utilização</td>
+                                    <td class="mono">95,9%</td>
+                                    <td class="mono">94,9%</td>
+                                    <td><span class="trend down">-1,0 p.p.</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Margem EBITDA Ajustada</td>
+                                    <td class="mono">69,9%</td>
+                                    <td class="mono">73,4%</td>
+                                    <td><span class="trend up">+3,5 p.p.</span></td>
+                                </tr>
+                                <tr>
+                                    <td>veículos Uso Severo</td>
+                                    <td class="mono">~31 mil</td>
+                                    <td class="mono">~20 mil</td>
+                                    <td><span class="trend up">-35,5%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Seminovos Tab -->
+                    <div class="tab-content" id="tab-seminovos">
+                        <div class="grid-2">
+                            <div class="chart-container" style="border: none; padding: 0;">
+                                <h4 class="chart-title">Receita Líquida Seminovos (R$ bilhões)</h4>
+                                <div class="chart-wrapper">
+                                    <canvas id="seminovosRevenueChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="chart-container" style="border: none; padding: 0;">
+                                <h4 class="chart-title">Volume de Vendas (mil carros)</h4>
+                                <div class="chart-wrapper">
+                                    <canvas id="seminovosVolumeChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="data-table" style="margin-top: 24px;">
+                            <thead>
+                                <tr>
+                                    <th>Indicador</th>
+                                    <th>3T24</th>
+                                    <th>3T25</th>
+                                    <th>Variação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Receita Líquida</td>
+                                    <td class="mono">R$ 5.061 mi</td>
+                                    <td class="mono">R$ 5.798 mi</td>
+                                    <td><span class="trend up">+14,6%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Carros Vendidos</td>
+                                    <td class="mono">73.816</td>
+                                    <td class="mono">75.473</td>
+                                    <td><span class="trend up">+2,2%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Ticket Médio RAC</td>
+                                    <td class="mono">R$ 66,2 mil</td>
+                                    <td class="mono">R$ 73,6 mil</td>
+                                    <td><span class="trend up">+11,2%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Margem EBITDA Ajustada</td>
+                                    <td class="mono">5,3%</td>
+                                    <td class="mono">2,6%</td>
+                                    <td><span class="trend down">-2,7 p.p.</span></td>
+                                </tr>
+                                <tr>
+                                    <td>SG&A / Receita</td>
+                                    <td class="mono">5,6%</td>
+                                    <td class="mono">4,8%</td>
+                                    <td><span class="trend up">-0,8 p.p.</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Consolidated Tab -->
+                    <div class="tab-content" id="tab-consolidated">
+                        <div class="grid-2">
+                            <div class="chart-container" style="border: none; padding: 0;">
+                                <h4 class="chart-title">Receita Consolidada (R$ bilhões)</h4>
+                                <div class="chart-wrapper">
+                                    <canvas id="consolidatedRevenueChart"></canvas>
+                                </div>
+                            </div>
+                            <div class="chart-container" style="border: none; padding: 0;">
+                                <h4 class="chart-title">EBITDA Consolidado (R$ bilhões)</h4>
+                                <div class="chart-wrapper">
+                                    <canvas id="consolidatedEbitdaChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="data-table" style="margin-top: 24px;">
+                            <thead>
+                                <tr>
+                                    <th>Indicador</th>
+                                    <th>3T24</th>
+                                    <th>3T25</th>
+                                    <th>Variação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Receita Líquida Total</td>
+                                    <td class="mono">R$ 9.651 mi</td>
+                                    <td class="mono">R$ 10.667 mi</td>
+                                    <td><span class="trend up">+10,5%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>EBITDA Ajustado</td>
+                                    <td class="mono">R$ 3.319 mi</td>
+                                    <td class="mono">R$ 3.544 mi</td>
+                                    <td><span class="trend up">+6,8%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Margem EBITDA s/ Aluguéis</td>
+                                    <td class="mono">67,0%</td>
+                                    <td class="mono">70,4%</td>
+                                    <td><span class="trend up">+3,4 p.p.</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Lucro Líquido Ajustado</td>
+                                    <td class="mono">R$ 811 mi</td>
+                                    <td class="mono">R$ 871 mi</td>
+                                    <td><span class="trend up">+7,4%</span></td>
+                                </tr>
+                                <tr>
+                                    <td>ROIC Anualizado</td>
+                                    <td class="mono">13,7%</td>
+                                    <td class="mono">15,4%</td>
+                                    <td><span class="trend up">+1,7 p.p.</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- XP Updates Section -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">06</span>
+                    <h2 class="section-title">Atualizações 3T25 | Visão de Mercado</h2>
+                </div>
+
+                <p style="color: var(--gray-400); margin-bottom: 24px; font-size: 15px;">
+                    Análise consolidada das principais métricas e tendências observadas pelos analistas de mercado no trimestre.
+                </p>
+
+                <!-- Performance Overview -->
+                <div class="card" style="background: linear-gradient(135deg, rgba(166, 207, 46, 0.08) 0%, var(--dark-secondary) 100%); border-color: rgba(166, 207, 46, 0.2);">
+                    <h3 class="card-title" style="color: var(--accent-green);"> ✅ Destaques Positivos do 3T25</h3>
+                    <div class="grid-3" style="margin-top: 16px; gap: 20px;">
+                        <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px;">
+                            <h4 style="color: var(--primary-orange); font-size: 14px; text-transform: uppercase; margin-bottom: 12px;">RAC —  Pricing Power</h4>
+                            <p style="font-size: 15px; color: var(--gray-200); line-height: 1.7;">
+                                Foco sustentado em <strong>tarifas (+6% A/A)</strong> compensa volumes estáveis. 
+                                EBITDA de <span class="mono" style="color: var(--accent-green);">R$1,7 bi (+11% A/A)</span> com margem 
+                                de <strong>65,9%</strong> (+2,9 p.p.), beneficiada por menores custos de manutenção 
+                                em meio aos esforços de renovação da frota.
+                            </p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px;">
+                            <h4 style="color: var(--primary-orange); font-size: 14px; text-transform: uppercase; margin-bottom: 12px;">GTF —  Surpresa Positiva</h4>
+                            <p style="font-size: 15px; color: var(--gray-200); line-height: 1.7;">
+                                Margem EBITDA surpreendeu com expansão de <strong>+2,4 p.p. T/T</strong>, sustentada pelo 
+                                Início do reconhecimento de <strong>Créditos de PIS/COFINS</strong> provenientes da 
+                                avaliação de vida útil de veículos leves da Locamerica. EBITDA de 
+                                <span class="mono" style="color: var(--accent-green);">R$1,7 bi (+5% T/T)</span>.
+                            </p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px;">
+                            <h4 style="color: var(--primary-orange); font-size: 14px; text-transform: uppercase; margin-bottom: 12px;">Seminovos — Recorde</h4>
+                            <p style="font-size: 15px; color: var(--gray-200); line-height: 1.7;">
+                                <strong>Vendas recorde de 75 mil veículos</strong> (+10% T/T) com preços +13% A/A. 
+                                Margem EBITDA expandiu para <strong>2,6%</strong> (vs 1,6% no 2T24), impulsionada por 
+                                menor SG&A/receita (-0,8 p.p.) e mix mais favorável de modelo/ano.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Debt Activity in Quarter -->
+                <div class="card" style="margin-top: 24px; background: linear-gradient(135deg, var(--dark-secondary) 0%, rgba(236, 112, 0, 0.05) 100%);">
+                    <h3 class="card-title">💰 Atividade de Captação no 3T25</h3>
+                    <div class="grid-2" style="margin-top: 16px; gap: 24px;">
+                        <div>
+                            <p style="font-size: 15px; color: var(--gray-200); line-height: 1.8; margin-bottom: 16px;">
+                                No trimestre, a Localiza emitiu aproximadamente <strong style="color: var(--primary-orange);">R$5,7 bilhões</strong> 
+                                em debêntures (43ª a 45ª emissões) e CRIs, reforçando a estratégia de:
+                            </p>
+                            <div style="display: grid; gap: 12px;">
+                                <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 8px;">
+                                    <span style="color: var(--accent-green); font-size: 18px;">✓</span>
+                                    <span style="font-size: 15px;">Alongamento do perfil de vencimentos</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 8px;">
+                                    <span style="color: var(--accent-green); font-size: 18px;">✓</span>
+                                    <span style="font-size: 15px;">redução do custo financeiro médio</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(255,255,255,0.02); border-radius: 8px;">
+                                    <span style="color: var(--accent-green); font-size: 18px;">✓</span>
+                                    <span style="font-size: 15px;">gestão ativa com Proteção via swaps</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.02); padding: 20px; border-radius: 12px;">
+                            <h4 style="color: var(--gray-200); font-size: 15px; margin-bottom: 16px;">posição de Liquidez pós-Captações</h4>
+                            <div style="display: grid; gap: 16px;">
+                                <div style="display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid var(--dark-border);">
+                                    <span style="color: var(--gray-400);">Dívida Líquida</span>
+                                    <span class="mono" style="font-weight: 600;">R$ 31,1 bi <span style="color: var(--primary-orange); font-size: 12px;">(+5% T/T)</span></span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding-bottom: 12px; border-bottom: 1px solid var(--dark-border);">
+                                    <span style="color: var(--gray-400);">Caixa & Equivalentes</span>
+                                    <span class="mono" style="color: var(--accent-green); font-weight: 600;">R$ 12,3 bi</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between;">
+                                    <span style="color: var(--gray-400);">DL / EBITDA LTM</span>
+                                    <span class="mono" style="color: var(--accent-green); font-weight: 600;">2,33x <span style="font-size: 12px;">(confortável)</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sector Comparison from XP -->
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">⚖️ Posicionamento Setorial  — Visão Comparativa</h3>
+                    <p style="font-size: 15px; color: var(--gray-400); margin-bottom: 20px;">
+                        O setor de transportes apresentou resultados mistos no 3T25. Empresas de locação e logística sustentaram crescimento 
+                        de receita com maturação de contratos e demanda resiliente, enquanto margens foram pressionadas por custos elevados.
+                    </p>
+                    
+                    <div class="grid-2" style="gap: 20px;">
+                        <div style="background: linear-gradient(135deg, rgba(166, 207, 46, 0.1) 0%, rgba(166, 207, 46, 0.02) 100%); padding: 24px; border-radius: 12px; border: 1px solid rgba(166, 207, 46, 0.2);">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                <div style="width: 40px; height: 40px; background: var(--accent-green); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--dark-bg);">L</div>
+                                <div>
+                                    <h4 style="margin: 0; font-size: 16px;">Localiza</h4>
+                                    <span style="font-size: 13px; color: var(--accent-green);">Líder de Mercado</span>
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                                <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <div style="font-size: 12px; color: var(--gray-400); margin-bottom: 4px;">Alavancagem</div>
+                                    <div class="mono" style="font-size: 18px; color: var(--accent-green); font-weight: 700;">2,33x</div>
+                                </div>
+                                <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <div style="font-size: 12px; color: var(--gray-400); margin-bottom: 4px;">Rating</div>
+                                    <div class="mono" style="font-size: 18px; color: var(--accent-green); font-weight: 700;">AAA</div>
+                                </div>
+                                <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <div style="font-size: 12px; color: var(--gray-400); margin-bottom: 4px;">LTV</div>
+                                    <div class="mono" style="font-size: 18px; font-weight: 600;">60%</div>
+                                </div>
+                                <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <div style="font-size: 12px; color: var(--gray-400); margin-bottom: 4px;">Resultado</div>
+                                    <div class="mono" style="font-size: 18px; color: var(--accent-green); font-weight: 700;">Lucro</div>
+                                </div>
+                            </div>
+                            <p style="font-size: 13px; color: var(--gray-400); margin-top: 16px; line-height: 1.6;">
+                                <strong style="color: var(--accent-green);">Drivers positivos:</strong> expansão de frota controlada, reajustes contratuais, 
+                                diversificação de serviços, gestão ativa da Dívida.
+                            </p>
+                        </div>
+
+                        <div style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.02) 100%); padding: 24px; border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.2);">
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                <div style="width: 40px; height: 40px; background: var(--red); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white;">S</div>
+                                <div>
+                                    <h4 style="margin: 0; font-size: 16px;">Simpar</h4>
+                                    <span style="font-size: 13px; color: var(--primary-orange);">Atenção Redobrada</span>
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                                <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <div style="font-size: 12px; color: var(--gray-400); margin-bottom: 4px;">Alavancagem</div>
+                                    <div class="mono" style="font-size: 18px; color: var(--red); font-weight: 700;">~3,5x</div>
+                                </div>
+                                <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <div style="font-size: 12px; color: var(--gray-400); margin-bottom: 4px;">Rating</div>
+                                    <div class="mono" style="font-size: 18px; color: var(--primary-orange); font-weight: 600;">AA+</div>
+                                </div>
+                                <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <div style="font-size: 12px; color: var(--gray-400); margin-bottom: 4px;">Ciclo</div>
+                                    <div class="mono" style="font-size: 16px; font-weight: 600;">CAPEX</div>
+                                </div>
+                                <div style="text-align: center; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                    <div style="font-size: 12px; color: var(--gray-400); margin-bottom: 4px;">Resultado</div>
+                                    <div class="mono" style="font-size: 18px; color: var(--red); font-weight: 700;">Prejuízo</div>
+                                </div>
+                            </div>
+                            <p style="font-size: 13px; color: var(--gray-400); margin-top: 16px; line-height: 1.6;">
+                                <strong style="color: var(--red);">Pontos de Atenção:</strong> compressão de margens, volatilidade de preços 
+                                de ativos, necessidade de gestão de liquidez, disciplina financeira.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px; padding: 16px; background: rgba(245, 158, 11, 0.08); border-radius: 12px; border-left: 4px solid var(--primary-orange);">
+                        <p style="font-size: 14px; color: var(--gray-200); line-height: 1.7; margin: 0;">
+                            <strong style="color: var(--primary-orange);">⚠️ Nota de Mercado:</strong> Simpar merece Atenção pelo prejuízo consolidado 
+                            e alavancagem próxima a 3,5x, exigindo disciplina financeira frente ao ciclo de investimentos. 
+                            A Localiza se destaca pela combinação de <strong>liquidez robusta, rentabilidade consistente e gestão ativa de passivos</strong>.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sector Dynamics -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">07</span>
+                    <h2 class="section-title">Dinâmica Setorial e Riscos</h2>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">📉 Contexto do Setor de Locação</h3>
+                    <div class="card-content">
+                        <p>
+                            A dinamica do setor de locação tem sido <strong>pressionada desde 2023</strong> pelo aumento do gap de preços 
+                            de veículos novos e seminovos. Como a venda de seminovos é uma das formas que as locadoras financiam a 
+                            renovação e expansão de suas frotas, os menores preços de veículos usados têm levado a uma maior necessidade 
+                            de utilizar Dívidas para realizar a alocação de capital.
+                        </p>
+                        <br>
+                        <p>
+                            O Cenário para preços de carros usados segue com <strong>pouca clareza no curto prazo</strong>: por um lado, 
+                            a desvalorização cambial, maiores custos de frete e tarifas de importação poderiam levar a uma retomada nos 
+                            preços de veículos novos. Por outro lado, a baixa acessibilidade dos carros novos e as margens ainda sustentadas 
+                            das montadoras parecem limitar aumentos de preços significativos.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Visão Setorial 3T25 -->
+                <div style="margin-top: 20px; padding: 20px 24px; background: var(--dark-secondary); border-radius: 12px; border: 1px solid var(--dark-border);">
+                    <h4 style="font-size: 14px; color: var(--gray-300); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Setor de Transportes — Visão 3T25</h4>
+                    <p style="font-size: 14px; color: var(--gray-300); line-height: 1.8; margin-bottom: 16px;">
+                        O setor de transportes apresentou <strong style="color: var(--primary-orange);">resultados mistos</strong> no 3T25. Empresas de locação e logística 
+                        sustentaram crescimento de receita com maturação de contratos e demanda resiliente, enquanto margens foram pressionadas 
+                        por custos elevados e renegociações. A geração de caixa foi impactada por CAPEX robusto e despesas financeiras, 
+                        mantendo alavancagem alta em algumas companhias.
+                    </p>
+                    <div class="grid-2" style="gap: 16px;">
+                        <div style="padding: 16px; background: rgba(166, 207, 46, 0.05); border-radius: 8px; border: 1px solid rgba(166, 207, 46, 0.15);">
+                            <h5 style="font-size: 13px; color: var(--accent-green); margin-bottom: 10px; font-weight: 600;">Drivers Positivos</h5>
+                            <ul style="font-size: 13px; color: var(--gray-400); line-height: 1.7; margin: 0; padding-left: 16px;">
+                                <li>Expansão de frota controlada</li>
+                                <li>Reajustes contratuais</li>
+                                <li>Diversificação de serviços</li>
+                            </ul>
+                        </div>
+                        <div style="padding: 16px; background: rgba(239, 68, 68, 0.05); border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.15);">
+                            <h5 style="font-size: 13px; color: var(--red); margin-bottom: 10px; font-weight: 600;">Riscos Setoriais</h5>
+                            <ul style="font-size: 13px; color: var(--gray-400); line-height: 1.7; margin: 0; padding-left: 16px;">
+                                <li>Compressão de margens</li>
+                                <li>Volatilidade de preços de ativos</li>
+                                <li>Necessidade de gestão de liquidez</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top: 20px;">
+                    <div class="insight-card">
+                        <h4>🎯 Estratégia da Companhia</h4>
+                        <p>
+                            Para recompor margens, a Localiza tem implementado <strong>aumentos nas diárias de locação</strong> (+5,7% A/A em RAC, 
+                            +8,5% A/A em GTF). Outra iniciativa é a <strong>gradual redução da idade média da frota</strong>, que permite vender 
+                            veículos menos depreciados, melhorando a margem de Seminovos. A redução da exposição a contratos de uso severo 
+                            (de 31 mil para 20 mil veículos) também contribui para a rentabilidade.
+                        </p>
+                    </div>
+
+                    <div class="insight-card">
+                        <h4>💸 Pressão de Juros</h4>
+                        <p>
+                            A Localiza possui a maior parte da Dívida atrelada ao CDI. Considerando o custo médio de aproximadamente 
+                            <strong>CDI + 1,7%</strong>, a cada 1% de elevação da taxa Selic, estimamos incremento de <strong>R$300 a R$400 milhões</strong> 
+                            na despesa financeira anual. O hedge via swaps (R$21 bi a 11,7%) mitiga parcialmente este risco.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Credit Conclusion -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">08</span>
+                    <h2 class="section-title">Conclusão - Visão de Crédito</h2>
+                </div>
+
+                <div class="summary-box" style="border-color: rgba(34, 197, 94, 0.3); background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.02) 100%);">
+                    <h3 style="color: var(--accent-green);">ðŸ“Œ Recomendação de Crédito</h3>
+                    <p>
+                        Apesar dos desafios de curto prazo enfrentados pelo setor (gap de preços novos/usados, impacto do IPI, Cenário de juros elevados), 
+                        a <strong>Localiza mantém perfil de Crédito sólido</strong> com:
+                    </p>
+                    <br>
+                    <p>
+                        <strong>1. Alavancagem moderada (2,33x)</strong> — especialmente considerando a natureza intensiva em capital da indústria;
+                    </p>
+                    <p>
+                        <strong>2. Liquidez adequada</strong> — caixa de R$12,3 bi cobre vencimentos até 2026 com folga;
+                    </p>
+                    <p>
+                        <strong>3. Acesso privilegiado ao mercado de capitais</strong> — spreads competitivos (CDI + 0,9% a 1,7%);
+                    </p>
+                    <p>
+                        <strong>4. Capacidade de repasse de custos</strong> — diárias aumentando acima da inflação;
+                    </p>
+                    <p>
+                        <strong>5. Proteção de hedge</strong> — R$21 bi em swaps mitigam risco de juros.
+                    </p>
+                    <br>
+                    <p>
+                        A fusão com a Locamerica em 2022 fortaleceu a posição competitiva sem incorrer em Dívidas significativas, 
+                        diferentemente de outros players do setor. O <strong>rating AAA em escala nacional com perspectiva Estável</strong> 
+                        reflete a Visão positiva das agências sobre a capacidade de pagamento da companhia. A companhia demonstrou resiliência operacional mesmo diante do impacto one-off de R$929 milhões (antes de impostos) decorrente da redução do IPI. A alavancagem permanece em patamar confortável de 2,33x DL/EBITDA, uma melhora significativa vs 2,57x no 3T24, refletindo a disciplina na gestão de preços e custos
+                    </p>
+                </div>
+
+                <!-- Evento Relevante: Início da amortização do Ágio -->
+                <div class="card" style="margin-top: 24px; background: linear-gradient(135deg, rgba(236, 112, 0, 0.1) 0%, rgba(236, 112, 0, 0.02) 100%); border: 1px solid rgba(236, 112, 0, 0.3);">
+                    <h3 class="card-title" style="color: var(--primary-orange);">⚡ Evento Relevante: Início da amortização do ágio</h3>
+                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px; margin-top: 16px;">
+                        <div>
+                            <p style="font-size: 15px; color: var(--gray-200); line-height: 1.8;">
+                                Em <strong>setembro de 2025</strong>, a Localiza iniciou a amortização do ágio da combinação de negócios 
+                                decorrente da fusão com a Locamerica. Este evento resulta em <strong style="color: var(--accent-green);">redução do imposto de renda caixa</strong>, 
+                                representando um benefício fiscal recorrente nos próximos anos que contribuirá para o fortalecimento 
+                                da posição de liquidez da companhia.
+                            </p>
+                            <p style="font-size: 14px; color: var(--gray-400); margin-top: 12px; line-height: 1.7;">
+                                A amortização fiscal do ágio é um benefício tributário previsto na legislação brasileira que permite às empresas 
+                                deduzir o valor do ágio pago em aquisições da base de cálculo do IR e CSLL, gerando economia de caixa relevante.
+                            </p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                            <div style="font-size: 13px; color: var(--gray-400); margin-bottom: 8px; text-transform: uppercase;">Impacto Esperado</div>
+                            <div style="font-size: 15px; color: var(--accent-green); font-weight: 600; text-align: center;">Melhora na geração de caixa</div>
+                            <div style="font-size: 13px; color: var(--gray-400); margin-top: 8px; text-align: center;">+ Fortalecimento de liquidez</div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- Glossário -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">09</span>
+                    <h2 class="section-title">Glossário de Indicadores Financeiros</h2>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <!-- Coluna 1 -->
+                    <div style="display: grid; gap: 20px;">
+                        <div style="background: var(--dark-secondary); padding: 20px; border-radius: 12px; border: 1px solid var(--dark-border);">
+                            <h4 style="color: var(--primary-orange); font-size: 15px; margin-bottom: 10px; font-weight: 600;">EBITDA</h4>
+                            <p style="font-size: 13px; color: var(--gray-300); line-height: 1.7;">
+                                Sigla em inglês para <em>Earnings Before Interests, Taxes, Depreciation and Amortization</em>, ou em português 
+                                Lucro antes dos Juros, Impostos, Depreciação e amortização (LAJIDA). É um indicativo do potencial de geração 
+                                de caixa operacional da empresa, sem levar em consideração os efeitos de receitas e despesas financeiras, 
+                                impostos, depreciação e amortização. Amplamente utilizado para análise de empresas e comparabilidade.
+                            </p>
+                        </div>
+
+                        <div style="background: var(--dark-secondary); padding: 20px; border-radius: 12px; border: 1px solid var(--dark-border);">
+                            <h4 style="color: var(--primary-orange); font-size: 15px; margin-bottom: 10px; font-weight: 600;">Dívida Líquida</h4>
+                            <p style="font-size: 13px; color: var(--gray-300); line-height: 1.7;">
+                                Também chamada de endividamento líquido, consiste no saldo de empréstimos e financiamentos, após reduzido 
+                                o caixa da empresa. No geral, considera-se que quanto maior o volume de Dívida em relação às disponibilidades 
+                                financeiras, mais endividada é a empresa. Quando a quantidade de caixa é superior à quantidade da Dívida, 
+                                considera-se que a empresa é "aplicadora Líquida" ou que possui um "endividamento líquido negativo".
+                            </p>
+                        </div>
+
+                        <div style="background: var(--dark-secondary); padding: 20px; border-radius: 12px; border: 1px solid var(--dark-border);">
+                            <h4 style="color: var(--primary-orange); font-size: 15px; margin-bottom: 10px; font-weight: 600;">Dívida Líquida / EBITDA <span style="font-size: 12px; color: var(--accent-green); font-weight: 400;">(quanto menor, melhor)</span></h4>
+                            <p style="font-size: 13px; color: var(--gray-300); line-height: 1.7;">
+                                Relação entre a Dívida Líquida e o EBITDA, é uma das métricas mais comumente utilizadas na análise de Crédito 
+                                como medida da alavancagem. Em contratos de Dívida que possuem cláusulas contratuais (<em>covenants</em>), 
+                                costuma ser o principal indicador a ser monitorado, uma vez que demonstra o quanto do crescimento da Dívida 
+                                está sendo acompanhado pelo crescimento do resultado operacional.
+                            </p>
+                        </div>
+
+                        <div style="background: var(--dark-secondary); padding: 20px; border-radius: 12px; border: 1px solid var(--dark-border);">
+                            <h4 style="color: var(--primary-orange); font-size: 15px; margin-bottom: 10px; font-weight: 600;">EBITDA / Despesas Financeiras <span style="font-size: 12px; color: var(--accent-green); font-weight: 400;">(quanto maior, melhor)</span></h4>
+                            <p style="font-size: 13px; color: var(--gray-300); line-height: 1.7;">
+                                Também conhecido como Índice de Cobertura de Juros (ICJ), é um indicador da saúde financeira da empresa, 
+                                pois mede a capacidade da empresa em honrar com as despesas de juros de seus empréstimos a partir de seu 
+                                potencial de geração de caixa operacional (EBITDA), servindo também como um índice de solvência. 
+                                Considera-se que empresas com ICJ abaixo de 1x podem ter dificuldade em arcar com o pagamento das despesas financeiras.
+                            </p>
+                        </div>
+
+                        <div style="background: var(--dark-secondary); padding: 20px; border-radius: 12px; border: 1px solid var(--dark-border);">
+                            <h4 style="color: var(--primary-orange); font-size: 15px; margin-bottom: 10px; font-weight: 600;">Patrimônio Líquido / Ativo Total <span style="font-size: 12px; color: var(--accent-green); font-weight: 400;">(quanto maior, melhor)</span></h4>
+                            <p style="font-size: 13px; color: var(--gray-300); line-height: 1.7;">
+                                Indicador relativo à estrutura de capitais da empresa, demonstra o quanto dos seus ativos são cobertos 
+                                por capital próprio (Patrimônio Líquido), ou seja, a diferença relaciona o quanto a empresa precisa se 
+                                endividar com capital de terceiros para financiar seus ativos. Quanto mais próximo a 100% (ou 1x vez), 
+                                significa que a empresa possui maior autonomia de recursos em detrimento à assunção de Dívidas.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Coluna 2 -->
+                    <div style="display: grid; gap: 20px;">
+                        <div style="background: var(--dark-secondary); padding: 20px; border-radius: 12px; border: 1px solid var(--dark-border);">
+                            <h4 style="color: var(--primary-orange); font-size: 15px; margin-bottom: 10px; font-weight: 600;">Liquidez Corrente <span style="font-size: 12px; color: var(--accent-green); font-weight: 400;">(quanto maior, melhor)</span></h4>
+                            <p style="font-size: 13px; color: var(--gray-300); line-height: 1.7;">
+                                Calculada pela razão entre o Ativo Circulante e o Passivo Circulante classificados no Balanço Patrimonial, 
+                                é um indicador financeiro que mostra a capacidade da empresa de quitar todas as suas obrigações de curto prazo, 
+                                ou seja, considera os valores previstos de entrada de caixa e de saída de caixa no horizonte de até doze meses.
+                            </p>
+                        </div>
+
+                        <div style="background: var(--dark-secondary); padding: 20px; border-radius: 12px; border: 1px solid var(--dark-border);">
+                            <h4 style="color: var(--primary-orange); font-size: 15px; margin-bottom: 10px; font-weight: 600;">Fluxo de Caixa das Operações</h4>
+                            <p style="font-size: 13px; color: var(--gray-300); line-height: 1.7;">
+                                O Demonstrativo de Fluxo de Caixa (DFC) das empresas é geralmente dividido em três seções: a das operações, 
+                                a de investimento e a de financiamento. No caso "das operações", demonstra as entradas e saídas de caixa 
+                                da empresa oriundas essencialmente de sua atividade, ou seja, considera as receitas e as despesas operacionais 
+                                em determinado período, e não leva em consideração o resultado financeiro e os investimentos (capex).
+                            </p>
+                        </div>
+
+                        <div style="background: var(--dark-secondary); padding: 20px; border-radius: 12px; border: 1px solid var(--dark-border);">
+                            <h4 style="color: var(--primary-orange); font-size: 15px; margin-bottom: 10px; font-weight: 600;">Fluxo de Caixa de Investimento</h4>
+                            <p style="font-size: 13px; color: var(--gray-300); line-height: 1.7;">
+                                Seção do Demonstrativo de Fluxo de Caixa que destaca como a empresa alocou recursos nas despesas de capital, 
+                                ou seja, em capex, seja de manutenção, modernização ou expansão, incluindo aquisições de outras marcas ou empresas.
+                            </p>
+                        </div>
+
+                        <div style="background: var(--dark-secondary); padding: 20px; border-radius: 12px; border: 1px solid var(--dark-border);">
+                            <h4 style="color: var(--primary-orange); font-size: 15px; margin-bottom: 10px; font-weight: 600;">Fluxo de Caixa de Financiamento</h4>
+                            <p style="font-size: 13px; color: var(--gray-300); line-height: 1.7;">
+                                Seção do Demonstrativo de Fluxo de Caixa que destaca o valor dispendido pela empresa com captação e pagamento 
+                                de empréstimos e financiamentos, bem como em custo da Dívida. Inclui também os itens relacionados à estrutura 
+                                de capitais, como emissão e recompra de ações e de dividendos e juros sob capital próprio. A soma das três 
+                                seções do DFC (Operaçõe, Investimento e Financiamento) resulta na variação do caixa da empresa no período.
+                            </p>
+                        </div>
+
+                        <div style="background: var(--dark-secondary); padding: 20px; border-radius: 12px; border: 1px solid var(--dark-border);">
+                            <h4 style="color: var(--primary-orange); font-size: 15px; margin-bottom: 10px; font-weight: 600;">LTV (Loan-to-Value)</h4>
+                            <p style="font-size: 13px; color: var(--gray-300); line-height: 1.7;">
+                                Representa a relação entre a Dívida Líquida e o valor contábil dos veículos (frota). A ideia é medir o quanto 
+                                os ativos líquidos da Companhia cobririam da Dívida em caso de necessidade de venda. Quanto menor o LTV, 
+                                maior a margem de segurança para os credores, indicando que os ativos da empresa são suficientes para cobrir 
+                                suas obrigações mesmo em Cenários de estresse.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.dataset.tab;
+                
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                btn.classList.add('active');
+                document.getElementById(`tab-${tabId}`).classList.add('active');
+                
+                // Trigger chart resize
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                }, 100);
+            });
+        });
+
+        // Chart.js Configuration
+        Chart.defaults.color = '#9CA3AF';
+        Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+        Chart.defaults.font.family = "'Source Sans Pro', sans-serif";
+
+        // Debt Schedule Chart
+        new Chart(document.getElementById('debtScheduleChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Caixa', '2026', '2027', '2028', '2029', '2030', '2031-34'],
+                datasets: [{
+                    label: 'R$ milhões',
+                    data: [12314, 3092, 3408, 8076, 9905, 9207, 8115],
+                    backgroundColor: [
+                        '#A6CF2E',
+                        '#EC7000',
+                        '#EC7000',
+                        '#EC7000',
+                        '#EC7000',
+                        '#EC7000',
+                        '#EC7000'
+                    ],
+                    borderRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => `R$ ${context.raw.toLocaleString('pt-BR')} mi`
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: (value) => `R$ ${(value/1000).toFixed(0)}bi`
+                        }
+                    }
+                }
+            }
+        });
+
+        // Debt Composition Chart
+        new Chart(document.getElementById('debtCompositionChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Debêntures', 'Empréstimos FCY', 'CRI/CRA', 'Outros'],
+                datasets: [{
+                    data: [78, 13, 6, 3],
+                    backgroundColor: ['#EC7000', '#A6CF2E', '#3B82F6', '#8B5CF6'],
+                    borderWidth: 0,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '65%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { 
+                            padding: 16, 
+                            usePointStyle: true,
+                            font: { size: 12 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => `${context.label}: ${context.raw}%`
+                        }
+                    }
+                }
+            }
+        });
+
+        // RAC Revenue Chart
+        new Chart(document.getElementById('racRevenueChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'Receita Líquida',
+                    data: [4.40, 6.51, 8.26, 9.65, 10.12],
+                    backgroundColor: '#EC7000',
+                    borderRadius: 6,
+                    order: 2,
+                }, {
+                    label: 'Margem EBITDA (%)',
+                    data: [49.0, 57.1, 64.4, 62.0, 66.5],
+                    type: 'line',
+                    borderColor: '#A6CF2E',
+                    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                    yAxisID: 'y1',
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#A6CF2E',
+                    order: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        position: 'left',
+                        title: { display: true, text: 'R$ bilhões' }
+                    },
+                    y1: {
+                        beginAtZero: true,
+                        position: 'right',
+                        max: 100,
+                        title: { display: true, text: 'Margem (%)' },
+                        grid: { drawOnChartArea: false }
+                    }
+                }
+            }
+        });
+
+        // RAC Fleet Chart
+        new Chart(document.getElementById('racFleetChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'Frota (mil)',
+                    data: [194, 260, 349, 354, 355],
+                    backgroundColor: '#EC7000',
+                    borderRadius: 6,
+                    order: 2,
+                }, {
+                    label: 'Taxa de Utilização (%)',
+                    data: [80, 79, 79, 79, 80.5],
+                    type: 'line',
+                    borderColor: '#A6CF2E',
+                    yAxisID: 'y1',
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#A6CF2E',
+                    order: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Frota (mil)' }
+                    },
+                    y1: {
+                        min: 70,
+                        max: 100,
+                        position: 'right',
+                        title: { display: true, text: 'Utilização (%)' },
+                        grid: { drawOnChartArea: false }
+                    }
+                }
+            }
+        });
+
+        // GTF Revenue Chart
+        new Chart(document.getElementById('gtfRevenueChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'Receita Líquida',
+                    data: [1.20, 3.22, 6.68, 8.35, 9.10],
+                    backgroundColor: '#A6CF2E',
+                    borderRadius: 6,
+                    order: 2,
+                }, {
+                    label: 'Margem EBITDA (%)',
+                    data: [62, 66, 73, 67, 72.0],
+                    type: 'line',
+                    borderColor: '#EC7000',
+                    yAxisID: 'y1',
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#EC7000',
+                    order: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'R$ bilhões' }
+                    },
+                    y1: {
+                        beginAtZero: true,
+                        max: 100,
+                        position: 'right',
+                        title: { display: true, text: 'Margem (%)' },
+                        grid: { drawOnChartArea: false }
+                    }
+                }
+            }
+        });
+
+        // GTF Fleet Chart
+        new Chart(document.getElementById('gtfFleetChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'Frota (mil)',
+                    data: [74, 260, 309, 313, 320],
+                    backgroundColor: '#A6CF2E',
+                    borderRadius: 6,
+                    order: 2,
+                }, {
+                    label: 'Taxa de Utilização (%)',
+                    data: [96, 97, 96, 95, 95.0],
+                    type: 'line',
+                    borderColor: '#EC7000',
+                    yAxisID: 'y1',
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#EC7000',
+                    order: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Frota (mil)' }
+                    },
+                    y1: {
+                        min: 90,
+                        max: 100,
+                        position: 'right',
+                        title: { display: true, text: 'Utilização (%)' },
+                        grid: { drawOnChartArea: false }
+                    }
+                }
+            }
+        });
+
+        // Seminovos Revenue Chart
+        new Chart(document.getElementById('seminovosRevenueChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'Receita Líquida',
+                    data: [8.53, 9.73, 13.96, 19.16, 22.50],
+                    backgroundColor: '#3B82F6',
+                    borderRadius: 6,
+                    order: 2,
+                }, {
+                    label: 'Margem EBITDA (%)',
+                    data: [15.1, 11.2, 4.0, 2.3, 3.5],
+                    type: 'line',
+                    borderColor: '#EC7000',
+                    yAxisID: 'y1',
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#EC7000',
+                    order: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'R$ bilhões' }
+                    },
+                    y1: {
+                        beginAtZero: true,
+                        max: 20,
+                        position: 'right',
+                        title: { display: true, text: 'Margem (%)' },
+                        grid: { drawOnChartArea: false }
+                    }
+                }
+            }
+        });
+
+        // Seminovos Volume Chart
+        new Chart(document.getElementById('seminovosVolumeChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'Carros Vendidos (mil)',
+                    data: [145, 141, 221, 280, 295],
+                    backgroundColor: '#3B82F6',
+                    borderRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Carros Vendidos (mil)' }
+                    }
+                }
+            }
+        });
+
+        // Consolidated Revenue Chart
+        new Chart(document.getElementById('consolidatedRevenueChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'Aluguéis',
+                    data: [5.59, 9.73, 14.94, 18.08, 19.20],
+                    backgroundColor: '#EC7000',
+                    borderRadius: 6,
+                    stack: 'total'
+                }, {
+                    label: 'Seminovos',
+                    data: [5.31, 8.05, 13.96, 19.19, 22.50],
+                    backgroundColor: '#A6CF2E',
+                    borderRadius: 6,
+                    stack: 'total'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => `${context.dataset.label}: R$ ${context.raw.toFixed(2)} bi`
+                        }
+                    }
+                },
+                scales: {
+                    x: { stacked: true },
+                    y: {
+                        stacked: true,
+                        beginAtZero: true,
+                        title: { display: true, text: 'R$ bilhões' }
+                    }
+                }
+            }
+        });
+
+        // Consolidated EBITDA Chart
+        new Chart(document.getElementById('consolidatedEbitdaChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2021', '2022', '2023', '2024', '2025'],
+                datasets: [{
+                    label: 'EBITDA (R$ bi)',
+                    data: [3.70, 6.59, 10.52, 11.91, 13.50],
+                    backgroundColor: '#EC7000',
+                    borderRadius: 6,
+                    order: 2,
+                }, {
+                    label: 'Margem EBITDA s/ Aluguéis (%)',
+                    data: [69.8, 70.6, 70.4, 69.8, 71.5],
+                    type: 'line',
+                    borderColor: '#A6CF2E',
+                    yAxisID: 'y1',
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#A6CF2E',
+                    order: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'R$ bilhões' }
+                    },
+                    y1: {
+                        min: 60,
+                        max: 80,
+                        position: 'right',
+                        title: { display: true, text: 'Margem (%)' },
+                        grid: { drawOnChartArea: false }
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer style="background: var(--dark-secondary); border-top: 1px solid var(--dark-border); padding: 32px 0; margin-top: 48px;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+                <div>
+                    <h4 style="color: var(--primary-orange); font-size: 15px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Fontes de Dados</h4>
+                    <ul style="list-style: none; font-size: 14px; color: var(--gray-400); line-height: 1.8;">
+                        <li>📄 ITR/DFP - Informações Trimestrais 3T25 (CVM)</li>
+                        <li>📞 Conference Call de Resultados 3T25 (14/Nov/2025)</li>
+                        <li>📊 Divulgação de Resultados - Relação com Investidores </li>
+                        <li>📈 Formulário de Referência - Relação com Investidores</li>
+                        <li>📑 Apresentação Institucional da Companhia</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--primary-orange); font-size: 15px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Disclaimer</h4>
+                    <p style="font-size: 13px; color: var(--gray-500); line-height: 1.7;">
+                        Este documento foi elaborado exclusivamente para fins informativos e de análise de Crédito. 
+                        É um relatório de caráter informativo e educacional, elaborado com base em informações públicas disponíveis. As análises e opiniões aqui expressas não constituem recomendação de investimento.
+                    </p>
+                </div>
+            </div>
+            <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--dark-border); text-align: center;">
+                <p style="font-size: 13px; color: var(--gray-500);">
+                    <strong style="color: var(--gray-400);">Localiza&Co Credit Research Report</strong> | 
+                    Dados: Set/2025 (ITR 3T25) | Atualizado: Janeiro 2026
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
