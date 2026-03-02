@@ -1,0 +1,2197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacaembu Construtora | Credit Research Report - 3T25</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --orange: #EC7000;
+            --orange-light: #FF8C33;
+            --green: #A6CF2E;
+            --green-dark: #8AB526;
+            --dark: #091B1E;
+            --dark-card: #133134;
+            --dark-border: #1E4347;
+            --white: #FFFFFF;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --red: #EF4444;
+            --yellow: #F59E0B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            line-height: 1.7;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(180deg, var(--dark-card) 0%, var(--dark) 100%);
+            border-bottom: 1px solid var(--dark-border);
+            padding: 48px 0;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+        }
+
+        .company-info h1 {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .company-info .subtitle {
+            font-size: 18px;
+            color: var(--gray-400);
+            font-weight: 400;
+        }
+
+        .report-meta {
+            text-align: right;
+        }
+
+        .report-type {
+            display: inline-block;
+            background: var(--orange);
+            color: var(--white);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .report-date {
+            font-size: 14px;
+            color: var(--gray-400);
+        }
+
+        /* Rating Badges */
+        .ratings-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .rating-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 10px 16px;
+            border-radius: 8px;
+        }
+
+        .rating-agency {
+            font-size: 12px;
+            color: var(--gray-400);
+            font-weight: 500;
+        }
+
+        .rating-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--green);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+        }
+
+        .metric-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .metric-card .label {
+            font-size: 12px;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .metric-card .value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 6px;
+        }
+
+        .metric-card .delta {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .delta.positive { color: var(--green); }
+        .delta.negative { color: var(--red); }
+        .delta.neutral { color: var(--gray-400); }
+
+        /* Main Content */
+        .main {
+            padding: 48px 0;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 64px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .section-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--orange);
+            background: rgba(236, 112, 0, 0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--orange);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-content {
+            color: var(--gray-200);
+            font-size: 15px;
+        }
+
+        .card-content p {
+            margin-bottom: 12px;
+        }
+
+        .card-content strong {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* Lists */
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        .list-icon.green { background: var(--green); }
+        .list-icon.red { background: var(--red); }
+        .list-icon.orange { background: var(--orange); }
+
+        /* Executive Summary Box */
+        .summary-box {
+            background: linear-gradient(135deg, rgba(236, 112, 0, 0.08) 0%, rgba(34, 197, 94, 0.05) 100%);
+            border: 1px solid rgba(236, 112, 0, 0.3);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .summary-box h3 {
+            font-size: 18px;
+            color: var(--orange);
+            margin-bottom: 20px;
+        }
+
+        .summary-box p {
+            color: var(--gray-200);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 14px 16px;
+            background: rgba(236, 112, 0, 0.1);
+            color: var(--orange);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .data-table th:first-child { border-radius: 8px 0 0 0; }
+        .data-table th:last-child { border-radius: 0 8px 0 0; }
+
+        .data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--gray-200);
+        }
+
+        .data-table td.mono {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--white);
+        }
+
+        .data-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .data-table .highlight-row td {
+            background: rgba(166, 207, 46, 0.08);
+        }
+
+        .data-table .section-row td {
+            background: rgba(236, 112, 0, 0.05);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--white);
+        }
+
+        .chart-wrapper {
+            height: 300px;
+            position: relative;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: rgba(34, 197, 94, 0.08);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+
+        .highlight-box.warning {
+            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .highlight-box.danger {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .highlight-box h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--green);
+        }
+
+        .highlight-box.warning h4 { color: var(--yellow); }
+        .highlight-box.danger h4 { color: var(--red); }
+
+        .highlight-box p {
+            font-size: 14px;
+            color: var(--gray-200);
+        }
+
+        /* Insight Card */
+        .insight-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-left: 4px solid var(--orange);
+            border-radius: 0 12px 12px 0;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .insight-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .insight-card p {
+            font-size: 14px;
+            color: var(--gray-300);
+            line-height: 1.7;
+        }
+
+        /* Analysis Insights */
+        .analysis-insights {
+            background: linear-gradient(135deg, rgba(236, 112, 0, 0.05) 0%, var(--dark-card) 100%);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 32px;
+        }
+
+        .analysis-insights h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--orange);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .analysis-insight-item {
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--orange);
+        }
+
+        .analysis-insight-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .analysis-insight-item h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--orange);
+            margin-bottom: 10px;
+        }
+
+        .analysis-insight-item p {
+            font-size: 14px;
+            color: var(--gray-200);
+            line-height: 1.7;
+        }
+
+        /* Trend indicators */
+        .trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .trend.up {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--green);
+        }
+
+        .trend.down {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--red);
+        }
+
+        .trend.stable {
+            background: rgba(156, 163, 175, 0.15);
+            color: var(--gray-400);
+        }
+
+        /* Segment Card */
+        .segment-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .segment-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .segment-header.strengths {
+            background: linear-gradient(135deg, rgba(166, 207, 46, 0.15) 0%, rgba(166, 207, 46, 0.05) 100%);
+            border-top: 3px solid var(--green);
+        }
+
+        .segment-header.risks {
+            background: linear-gradient(135deg, rgba(236, 112, 0, 0.15) 0%, rgba(236, 112, 0, 0.05) 100%);
+            border-top: 3px solid var(--orange);
+        }
+
+        .segment-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .segment-body {
+            padding: 24px;
+        }
+
+        .segment-metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .segment-metric:last-child {
+            border-bottom: none;
+        }
+
+        .segment-metric .label {
+            color: var(--gray-400);
+            font-size: 14px;
+        }
+
+        .segment-metric .value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        /* Risk Item */
+        .risk-item {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .risk-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: rgba(236, 112, 0, 0.08);
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .risk-title {
+            font-weight: 600;
+            color: var(--orange);
+            font-size: 15px;
+        }
+
+        .risk-badge {
+            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .risk-badge.low {
+            background: rgba(166, 207, 46, 0.15);
+            color: var(--green);
+        }
+
+        .risk-badge.medium {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--yellow);
+        }
+
+        .risk-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            padding: 24px;
+        }
+
+        .risk-content h5 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 10px;
+        }
+
+        .risk-content p {
+            font-size: 14px;
+            color: var(--gray-200);
+            line-height: 1.7;
+        }
+
+        /* Sensitivity Table */
+        .sensitivity-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 16px;
+        }
+
+        .sensitivity-table th,
+        .sensitivity-table td {
+            padding: 12px 16px;
+            text-align: center;
+            border: 1px solid var(--dark-border);
+        }
+
+        .sensitivity-table th {
+            background: rgba(236, 112, 0, 0.1);
+            color: var(--orange);
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        .sensitivity-table thead tr:first-child th {
+            background: var(--orange);
+            color: var(--white);
+        }
+
+        .sensitivity-table td {
+            color: var(--gray-200);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .sensitivity-table .base-case {
+            background: rgba(166, 207, 46, 0.15);
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        /* Comparison Row */
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 24px;
+        }
+
+        .compare-card {
+            background: var(--dark-card);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .compare-card.highlight {
+            border-color: var(--green);
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, var(--dark-card) 100%);
+        }
+
+        .compare-card.warning {
+            border-color: var(--red);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, var(--dark-card) 100%);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .metrics-grid { grid-template-columns: repeat(3, 1fr); }
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .header-top { flex-direction: column; gap: 24px; }
+            .report-meta { text-align: left; }
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .ratings-row { flex-wrap: wrap; }
+            .company-info h1 { font-size: 32px; }
+            .container { padding: 0 20px; }
+            .risk-content { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cover Page -->
+    <section style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; background: linear-gradient(135deg, #091B1E 0%, #133134 50%, #0f2a2d 100%); overflow: hidden;">
+        <!-- Grid pattern overlay -->
+        <div style="position: absolute; top: 0; right: 0; width: 60%; height: 100%; background: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><defs><pattern id=%22grid%22 width=%2210%22 height=%2210%22 patternUnits=%22userSpaceOnUse%22><path d=%22M 10 0 L 0 0 0 10%22 fill=%22none%22 stroke=%22%231E4347%22 stroke-width=%220.5%22/></pattern></defs><rect width=%22100%22 height=%22100%22 fill=%22url(%23grid)%22/></svg>'); opacity: 0.3;"></div>
+        
+        <!-- Author badge -->
+        <div style="position: absolute; top: 32px; right: 40px; background: rgba(19, 49, 52, 0.8); border: 1px solid rgba(166, 207, 46, 0.4); border-radius: 8px; padding: 12px 20px; z-index: 2;">
+            <span style="font-size: 13px; color: var(--green); font-weight: 600;">Autor:</span>
+            <span style="font-size: 13px; color: var(--gray-200); margin-left: 4px;">Igor Stramandinoli Moita Pontes</span>
+        </div>
+
+        <!-- Cover content -->
+        <div style="position: relative; z-index: 1; text-align: center; padding: 0 40px;">
+            <h1 style="font-family: 'Inter', sans-serif; font-size: 5.5rem; font-weight: 800; color: var(--orange); letter-spacing: -3px; margin-bottom: 16px; line-height: 1.1;">Pacaembu</h1>
+            <p style="font-size: 1.15rem; color: var(--gray-400); font-weight: 400; letter-spacing: 0.5px;">Líder em incorporação horizontal MCMV | Credit Research Report</p>
+        </div>
+    </section>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="company-info">
+                    <h1>Pacaembu Construtora</h1>
+                    <p class="subtitle">Líder em incorporação horizontal MCMV | 34 anos de atuação</p>
+                </div>
+                <div class="report-meta">
+                    <div class="report-type">Credit Research</div>
+                    <p class="report-date">Dados: ITR 3T25 (Set/2025)</p>
+                    <p class="report-date">Atualizado: Janeiro 2026</p>
+                </div>
+            </div>
+
+            <div class="ratings-row">
+                <div class="rating-badge">
+                    <span class="rating-agency">Rating Nacional</span>
+                    <span class="rating-value">AAA</span>
+                </div>
+                <div class="rating-badge" style="background: rgba(236, 112, 0, 0.1); border-color: rgba(236, 112, 0, 0.3);">
+                    <span class="rating-agency">Perspectiva</span>
+                    <span class="rating-value" style="color: var(--orange);">Estável</span>
+                </div>
+                <div class="rating-badge">
+                    <span class="rating-agency">Segmento</span>
+                    <span class="rating-value">MCMV Faixas 1-2</span>
+                </div>
+                <div class="rating-badge">
+                    <span class="rating-agency">Capital</span>
+                    <span class="rating-value" style="color: var(--gray-400); font-size: 14px;">Fechado — Fam. Almeida (99%)</span>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="label">Receita Líquida 9M25</div>
+                    <div class="value">R$ 1,7 bi</div>
+                    <div class="delta positive">+38,5% vs 9M24</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">EBITDA Aj. 9M25</div>
+                    <div class="value">R$ 268 MM</div>
+                    <div class="delta positive">+44,2% vs 9M24</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">Dív. Líq. / PL</div>
+                    <div class="value">2,2%</div>
+                    <div class="delta positive">Conservador</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">Cobertura Juros</div>
+                    <div class="value">6,9x</div>
+                    <div class="delta positive">EBITDA / Desp. Fin.</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">Caixa</div>
+                    <div class="value">R$ 457 MM</div>
+                    <div class="delta positive">Cobre venc. até 2029</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+
+            <!-- 01 - Sumário Executivo -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">01</span>
+                    <h2 class="section-title">Sumário Executivo</h2>
+                </div>
+
+                <div class="summary-box">
+                    <h3>📋 Visão Geral de Crédito — 3T25</h3>
+                    <p>
+                        A <strong>Pacaembu Construtora</strong> é uma das principais incorporadoras de habitação econômica do Brasil, com 34 anos de atuação focada no segmento MCMV. O modelo horizontal de casas térreas diferencia a companhia, permitindo ciclos de caixa <strong>40% mais curtos</strong> que concorrentes verticais. O perfil de crédito é <strong>premium</strong>: alavancagem de apenas 2,2% do PL, cobertura de juros de 6,9x e caixa líquido ajustado de R$ 196 milhões.
+                    </p>
+                    <p style="margin-top: 12px;">
+                        O 3T25 marcou <strong>recordes históricos</strong> em lançamentos (+100% a/a), vendas (+104% a/a) e lucro líquido (+43% a/a). A receita líquida cresceu 50% com margens expandindo, demonstrando capacidade de <strong>escalar com rentabilidade</strong>.
+                    </p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3 class="card-title" style="color: var(--green);">✅ Pontos Fortes</h3>
+                        <div class="card-content">
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Ciclo de caixa 40% mais curto que verticais — break-even no 8º mês</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Alavancagem próxima de zero vs. 50-100% dos pares</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Cobertura de juros >6x — folga substancial para serviço da dívida</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>VSO histórica >60% — demanda consistente e previsível</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>ROE de 43% e ROIC de 50% — eficiência superior ao setor</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Landbank de R$ 19,9 bi garante ~8 anos de crescimento</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Rating AAA — único do grupo com nota máxima</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title" style="color: var(--red);">⚠ Pontos de Atenção</h3>
+                        <div class="card-content">
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Concentração integral no programa MCMV</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Exposição ao INCC sem hedge natural de preços</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Escala inferior aos grandes players verticais</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Licenciamento demanda ~24 meses pré-obra</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Dependência de funding via FGTS</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>69% do landbank concentrado em São Paulo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 02 - Visão Geral / Atuação -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">02</span>
+                    <h2 class="section-title">Visão Geral da Companhia</h2>
+                </div>
+
+                <p style="color: var(--gray-400); margin-bottom: 28px; font-size: 14px;">
+                    A Pacaembu é líder nacional em incorporação horizontal voltada ao segmento econômico, desenvolvendo <strong style="color: var(--white);">bairros planejados com casas térreas</strong> nas faixas 1 e 2 do MCMV. O setor de habitação popular possui <strong style="color: var(--white);">déficit estrutural de 6 milhões de moradias</strong>, garantindo demanda sustentável de longo prazo.
+                </p>
+
+                <div class="grid-3">
+                    <div style="background: var(--dark-card); border-radius: 12px; border: 1px solid var(--dark-border); overflow: hidden;">
+                        <div style="background: var(--orange); padding: 14px 20px;">
+                            <h3 style="margin: 0; font-size: 15px; font-weight: 600; color: white;">Perfil Institucional</h3>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="display: grid; gap: 12px;">
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <span style="font-size: 13px; color: var(--gray-400);">Fundação</span>
+                                    <span class="mono" style="font-size: 13px; font-weight: 600;">1991 (34 anos)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <span style="font-size: 13px; color: var(--gray-400);">Sede</span>
+                                    <span class="mono" style="font-size: 13px; font-weight: 600;">São Paulo, SP</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <span style="font-size: 13px; color: var(--gray-400);">Controle</span>
+                                    <span class="mono" style="font-size: 13px; font-weight: 600;">Família Almeida (99%)</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                                    <span style="font-size: 13px; color: var(--gray-400);">Funcionários</span>
+                                    <span class="mono" style="font-size: 13px; font-weight: 600;">~2.500</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--dark-card); border-radius: 12px; border: 1px solid var(--dark-border); overflow: hidden;">
+                        <div style="background: var(--green); padding: 14px 20px;">
+                            <h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #091B1E;">Operação</h3>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="display: grid; gap: 12px;">
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <span style="font-size: 13px; color: var(--gray-400);">Segmento</span>
+                                    <span class="mono" style="font-size: 13px; font-weight: 600;">MCMV Faixas 1-2</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <span style="font-size: 13px; color: var(--gray-400);">Produto</span>
+                                    <span class="mono" style="font-size: 13px; font-weight: 600;">Casas térreas 45m²</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <span style="font-size: 13px; color: var(--gray-400);">Ticket Médio</span>
+                                    <span class="mono" style="font-size: 13px; font-weight: 600; color: var(--green);">R$ 196 mil</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                                    <span style="font-size: 13px; color: var(--gray-400);">Ciclo Construção</span>
+                                    <span class="mono" style="font-size: 13px; font-weight: 600;">18 meses</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--dark-card); border-radius: 12px; border: 1px solid var(--dark-border); overflow: hidden;">
+                        <div style="background: #3B82F6; padding: 14px 20px;">
+                            <h3 style="margin: 0; font-size: 15px; font-weight: 600; color: white;">Escala (Set/25)</h3>
+                        </div>
+                        <div style="padding: 20px;">
+                            <div style="display: grid; gap: 12px;">
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <span style="font-size: 13px; color: var(--gray-400);">Receita LTM</span>
+                                    <span class="mono" style="font-size: 13px; font-weight: 600; color: var(--green);">R$ 2,2 bi</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <span style="font-size: 13px; color: var(--gray-400);">Landbank</span>
+                                    <span class="mono" style="font-size: 13px; font-weight: 600;">R$ 19,9 bi VGV</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                                    <span style="font-size: 13px; color: var(--gray-400);">PL</span>
+                                    <span class="mono" style="font-size: 13px; font-weight: 600;">R$ 870 MM</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                                    <span style="font-size: 13px; color: var(--gray-400);">Ativos</span>
+                                    <span class="mono" style="font-size: 13px; font-weight: 600;">R$ 2,1 bi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumo Operacional -->
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">📊 Resumo Operacional</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Indicador</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Estados de Atuação</td>
+                                <td class="mono">4 (SP, PR, MG, MT)</td>
+                            </tr>
+                            <tr>
+                                <td>Market Share nos Mercados</td>
+                                <td class="mono">25% a 98%</td>
+                            </tr>
+                            <tr>
+                                <td>VSO Acumulada 9M25</td>
+                                <td class="mono" style="color: var(--green);">63,6%</td>
+                            </tr>
+                            <tr>
+                                <td>Landbank (VGV)</td>
+                                <td class="mono">R$ 19,9 bi (~8 anos de crescimento)</td>
+                            </tr>
+                            <tr>
+                                <td>Margem Bruta Backlog</td>
+                                <td class="mono" style="color: var(--green);">34,0% (vs. 30,4% corrente)</td>
+                            </tr>
+                            <tr>
+                                <td>Rating</td>
+                                <td class="mono" style="color: var(--green);">AAA (Perspectiva Estável)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Landbank -->
+                <div class="chart-container" style="margin-top: 24px;">
+                    <h4 class="chart-title">Distribuição Geográfica — Landbank (VGV Total: R$ 19,9 bilhões)</h4>
+                    <div class="chart-wrapper" style="height: 260px;">
+                        <canvas id="landbankChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 03 - Desempenho Operacional -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">03</span>
+                    <h2 class="section-title">Desempenho Operacional — 3T25</h2>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px;">
+                    <div class="metric-card">
+                        <div class="label">Lançamentos 3T25</div>
+                        <div class="value" style="font-size: 20px;">R$ 1.106 MM</div>
+                        <div class="delta positive">+100,3% a/a</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">Vendas Líquidas</div>
+                        <div class="value" style="font-size: 20px;">R$ 1.013 MM</div>
+                        <div class="delta positive">+103,8% a/a</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">VSO Trimestral</div>
+                        <div class="value" style="font-size: 20px;">44,1%</div>
+                        <div class="delta positive">+10,8pp a/a</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">Entregas 9M25</div>
+                        <div class="value" style="font-size: 20px;">5.644</div>
+                        <div class="delta positive">+144% a/a</div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Evolução de Lançamentos (R$ MM)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="launchesChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h4 class="chart-title">VSO Trimestral (%)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="vsoChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tabela Operacional -->
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">📊 Dados Operacionais Consolidados</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Métrica</th>
+                                <th>3T25</th>
+                                <th>3T24</th>
+                                <th>Δ%</th>
+                                <th>9M25</th>
+                                <th>9M24</th>
+                                <th>Δ%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Lançamentos (R$ MM)</td>
+                                <td class="mono">1.106,2</td>
+                                <td class="mono">552,2</td>
+                                <td class="mono" style="color: var(--green);">+100,3%</td>
+                                <td class="mono">2.536,4</td>
+                                <td class="mono">1.655,8</td>
+                                <td class="mono" style="color: var(--green);">+53,2%</td>
+                            </tr>
+                            <tr>
+                                <td>Vendas Líquidas (R$ MM)</td>
+                                <td class="mono">1.012,9</td>
+                                <td class="mono">497,1</td>
+                                <td class="mono" style="color: var(--green);">+103,8%</td>
+                                <td class="mono">2.242,3</td>
+                                <td class="mono">1.481,7</td>
+                                <td class="mono" style="color: var(--green);">+51,3%</td>
+                            </tr>
+                            <tr>
+                                <td>VSO (%)</td>
+                                <td class="mono">44,1%</td>
+                                <td class="mono">33,3%</td>
+                                <td class="mono" style="color: var(--green);">+10,8pp</td>
+                                <td class="mono">63,6%</td>
+                                <td class="mono">59,9%</td>
+                                <td class="mono" style="color: var(--green);">+3,7pp</td>
+                            </tr>
+                            <tr>
+                                <td>Entregas (unidades)</td>
+                                <td class="mono">1.091</td>
+                                <td class="mono">1.022</td>
+                                <td class="mono" style="color: var(--green);">+6,8%</td>
+                                <td class="mono">5.644</td>
+                                <td class="mono">2.315</td>
+                                <td class="mono" style="color: var(--green);">+143,8%</td>
+                            </tr>
+                            <tr>
+                                <td>Ticket Médio (R$ mil)</td>
+                                <td class="mono">201,8</td>
+                                <td class="mono">185,2</td>
+                                <td class="mono" style="color: var(--green);">+9,0%</td>
+                                <td class="mono">196,4</td>
+                                <td class="mono">189,5</td>
+                                <td class="mono" style="color: var(--green);">+3,6%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- 04 - Resultado Financeiro -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">04</span>
+                    <h2 class="section-title">Desempenho Econômico-Financeiro</h2>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 32px;">
+                    <div class="metric-card">
+                        <div class="label">Receita Líq. 3T25</div>
+                        <div class="value" style="font-size: 20px;">R$ 750,6 MM</div>
+                        <div class="delta positive">+50,4% vs 3T24</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">EBITDA 3T25</div>
+                        <div class="value" style="font-size: 20px;">R$ 122,8 MM</div>
+                        <div class="delta positive">+51,2% vs 3T24</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">Margem Bruta Aj.</div>
+                        <div class="value" style="font-size: 20px;">30,9%</div>
+                        <div class="delta positive">+0,5pp vs 3T24</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">Lucro Líquido 3T25</div>
+                        <div class="value" style="font-size: 20px;">R$ 113,9 MM</div>
+                        <div class="delta positive">+43,3% vs 3T24</div>
+                    </div>
+                </div>
+
+                <!-- DRE -->
+                <div class="card">
+                    <h3 class="card-title">📊 Demonstração de Resultados</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Linha (R$ MM)</th>
+                                <th>3T25</th>
+                                <th>3T24</th>
+                                <th>Var.%</th>
+                                <th>9M25</th>
+                                <th>9M24</th>
+                                <th>Var.%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="section-row">
+                                <td><strong>Receita Líquida</strong></td>
+                                <td class="mono">750,6</td>
+                                <td class="mono">499,0</td>
+                                <td class="mono" style="color: var(--green);">+50,4%</td>
+                                <td class="mono">1.740,8</td>
+                                <td class="mono">1.257,2</td>
+                                <td class="mono" style="color: var(--green);">+38,5%</td>
+                            </tr>
+                            <tr>
+                                <td>Custo dos Imóveis</td>
+                                <td class="mono">(521,3)</td>
+                                <td class="mono">(347,1)</td>
+                                <td class="mono">+50,2%</td>
+                                <td class="mono">(1.216,0)</td>
+                                <td class="mono">(886,4)</td>
+                                <td class="mono">+37,2%</td>
+                            </tr>
+                            <tr class="section-row">
+                                <td><strong>Lucro Bruto Ajustado</strong></td>
+                                <td class="mono">232,2</td>
+                                <td class="mono">151,9</td>
+                                <td class="mono" style="color: var(--green);">+52,9%</td>
+                                <td class="mono">530,0</td>
+                                <td class="mono">377,2</td>
+                                <td class="mono" style="color: var(--green);">+40,5%</td>
+                            </tr>
+                            <tr>
+                                <td>Despesas Comerciais</td>
+                                <td class="mono">(47,3)</td>
+                                <td class="mono">(33,7)</td>
+                                <td class="mono">+40,4%</td>
+                                <td class="mono">(121,9)</td>
+                                <td class="mono">(89,7)</td>
+                                <td class="mono">+35,9%</td>
+                            </tr>
+                            <tr>
+                                <td>Despesas Administrativas</td>
+                                <td class="mono">(62,1)</td>
+                                <td class="mono">(36,9)</td>
+                                <td class="mono">+68,3%</td>
+                                <td class="mono">(139,9)</td>
+                                <td class="mono">(101,5)</td>
+                                <td class="mono">+37,8%</td>
+                            </tr>
+                            <tr class="section-row">
+                                <td><strong>EBITDA Ajustado</strong></td>
+                                <td class="mono">122,8</td>
+                                <td class="mono">81,2</td>
+                                <td class="mono" style="color: var(--green);">+51,2%</td>
+                                <td class="mono">268,2</td>
+                                <td class="mono">186,0</td>
+                                <td class="mono" style="color: var(--green);">+44,2%</td>
+                            </tr>
+                            <tr>
+                                <td>Resultado Financeiro</td>
+                                <td class="mono">5,6</td>
+                                <td class="mono">8,9</td>
+                                <td class="mono">-37,1%</td>
+                                <td class="mono">20,0</td>
+                                <td class="mono">22,4</td>
+                                <td class="mono">-10,5%</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td><strong>Lucro Líquido</strong></td>
+                                <td class="mono" style="color: var(--green);">113,9</td>
+                                <td class="mono">79,5</td>
+                                <td class="mono" style="color: var(--green);">+43,3%</td>
+                                <td class="mono" style="color: var(--green);">255,0</td>
+                                <td class="mono">188,1</td>
+                                <td class="mono" style="color: var(--green);">+35,6%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Margens + Rentabilidade -->
+                <div class="grid-2" style="margin-top: 24px;">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Margens Operacionais Trimestrais (%)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="marginsChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 0;">
+                        <h3 class="card-title">🏆 Indicadores de Rentabilidade (LTM)</h3>
+                        <div class="grid-2" style="margin-top: 16px;">
+                            <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; text-align: center;">
+                                <div style="font-size: 12px; color: var(--gray-400); text-transform: uppercase; margin-bottom: 8px;">ROE</div>
+                                <div class="mono" style="font-size: 32px; font-weight: 700; color: var(--green);">43,4%</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; text-align: center;">
+                                <div style="font-size: 12px; color: var(--gray-400); text-transform: uppercase; margin-bottom: 8px;">ROIC</div>
+                                <div class="mono" style="font-size: 32px; font-weight: 700; color: var(--green);">49,9%</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px;">
+                            <h4 style="font-size: 14px; color: var(--orange); margin-bottom: 12px;">Backlog de Resultados (REF)</h4>
+                            <table class="data-table" style="font-size: 13px;">
+                                <tbody>
+                                    <tr>
+                                        <td>Receitas a Apropriar</td>
+                                        <td class="mono">R$ 1.043,4 MM</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Custos a Apropriar</td>
+                                        <td class="mono">R$ (688,1) MM</td>
+                                    </tr>
+                                    <tr class="highlight-row">
+                                        <td><strong>Resultado a Apropriar</strong></td>
+                                        <td class="mono" style="color: var(--green);"><strong>R$ 355,3 MM</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Margem Implícita</td>
+                                        <td class="mono" style="color: var(--green);">34,0%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <p style="font-size: 12px; color: var(--gray-400); margin-top: 12px;">
+                                Margem do backlog (34%) superior à corrente (30,4%) → tendência de <strong style="color: var(--green);">expansão de rentabilidade</strong>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 05 - Endividamento -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">05</span>
+                    <h2 class="section-title">Estrutura de Capital e Endividamento</h2>
+                </div>
+
+                <div class="grid-2">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Cronograma de Amortização (R$ MM)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="debtScheduleChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h4 class="chart-title">Composição da Dívida Bruta (R$ 475,5 MM)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="debtCompositionChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="margin-top: 24px;">
+                    <h4>🟢 Posição de Liquidez Excepcional</h4>
+                    <p>
+                        O caixa de <strong>R$ 457 MM cobre todos os vencimentos até 2029</strong>, sem considerar geração operacional futura. A dívida líquida ajustada é negativa em R$ 196 MM (caixa líquido). A cobertura de juros de <strong>6,9x</strong> é a maior entre pares MCMV.
+                    </p>
+                </div>
+
+                <!-- Tabela de Estrutura de Capital -->
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">📊 Métricas de Crédito — Balanço Consolidado</h3>
+                    <div class="grid-4" style="margin-top: 16px;">
+                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 12px; color: var(--gray-400); text-transform: uppercase; margin-bottom: 8px;">Dívida Bruta</div>
+                            <div class="mono" style="font-size: 20px; font-weight: 600; color: var(--white);">R$ 475,5 MM</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 12px; color: var(--gray-400); text-transform: uppercase; margin-bottom: 8px;">Dívida Líquida</div>
+                            <div class="mono" style="font-size: 20px; font-weight: 600; color: var(--white);">R$ 18,8 MM</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 12px; color: var(--gray-400); text-transform: uppercase; margin-bottom: 8px;">Dív. Líq. Ajustada</div>
+                            <div class="mono" style="font-size: 20px; font-weight: 600; color: var(--green);">R$ (196) MM</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.03); padding: 16px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 12px; color: var(--gray-400); text-transform: uppercase; margin-bottom: 8px;">Patrimônio Líquido</div>
+                            <div class="mono" style="font-size: 20px; font-weight: 600; color: var(--white);">R$ 870 MM</div>
+                        </div>
+                    </div>
+
+                    <table class="data-table" style="margin-top: 20px;">
+                        <thead>
+                            <tr>
+                                <th>Composição (R$ MM)</th>
+                                <th>Set/25</th>
+                                <th>Jun/25</th>
+                                <th>Set/24</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Caixa e Equivalentes</td>
+                                <td class="mono">456,7</td>
+                                <td class="mono">408,5</td>
+                                <td class="mono">531,9</td>
+                            </tr>
+                            <tr class="section-row">
+                                <td><strong>Dívida Bruta</strong></td>
+                                <td class="mono">475,5</td>
+                                <td class="mono">361,5</td>
+                                <td class="mono">317,2</td>
+                            </tr>
+                            <tr>
+                                <td>— Empréstimos Corporativos</td>
+                                <td class="mono">285,7</td>
+                                <td class="mono">239,9</td>
+                                <td class="mono">259,8</td>
+                            </tr>
+                            <tr>
+                                <td>— Financiamento Produção (SFH)</td>
+                                <td class="mono">189,8</td>
+                                <td class="mono">121,6</td>
+                                <td class="mono">57,4</td>
+                            </tr>
+                            <tr class="section-row">
+                                <td><strong>Dívida Líquida</strong></td>
+                                <td class="mono">18,8</td>
+                                <td class="mono">(47,0)</td>
+                                <td class="mono">(214,7)</td>
+                            </tr>
+                            <tr>
+                                <td>Efeito Temporário Repasses</td>
+                                <td class="mono">(215,1)</td>
+                                <td class="mono">(146,4)</td>
+                                <td class="mono">(33,6)</td>
+                            </tr>
+                            <tr class="highlight-row">
+                                <td><strong>Dívida Líq. Ajustada</strong></td>
+                                <td class="mono" style="color: var(--green);"><strong>(196,3)</strong></td>
+                                <td class="mono">(193,4)</td>
+                                <td class="mono">(248,3)</td>
+                            </tr>
+                            <tr>
+                                <td>Dív. Líquida / PL</td>
+                                <td class="mono">2,2%</td>
+                                <td class="mono">-6,0%</td>
+                                <td class="mono">-33,5%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="highlight-box warning" style="margin-top: 20px;">
+                    <h4>⚠ Efeito Temporário — Mudança de Critério de Repasses</h4>
+                    <p>Em 2024, houve alteração no procedimento de liberação de recursos pela CAIXA: depósitos passaram a ocorrer após registro imobiliário (antes era na assinatura). Isso represou <strong>R$ 215 milhões</strong> temporariamente. Ajustando por esse efeito, a companhia opera com <strong>caixa líquido de R$ 196 milhões</strong>.</p>
+                </div>
+
+                <!-- Cobertura de Juros -->
+                <div class="chart-container" style="margin-top: 24px;">
+                    <h4 class="chart-title">Cobertura de Juros — EBITDA / Despesa Financeira (x)</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="coverageChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="analysis-insights" style="margin-top: 24px;">
+                    <h3>💡 Análise do Perfil de Crédito</h3>
+                    <div class="analysis-insight-item">
+                        <h4>🟢 Alavancagem Mínima</h4>
+                        <p>A Pacaembu opera com dívida líquida de apenas <strong>2,2% do PL</strong>, contra 50-100% dos pares. Ajustando pelo efeito temporário de repasses da CAIXA, a companhia possui <strong>caixa líquido de R$ 196 milhões</strong>.</p>
+                    </div>
+                    <div class="analysis-insight-item">
+                        <h4>🟢 Cobertura Excepcional</h4>
+                        <p>A cobertura de juros de <strong>6,9x</strong> significa que o EBITDA cobre quase 7 vezes a despesa financeira. Mesmo em cenário de estresse com queda de 50% no EBITDA, a cobertura permaneceria acima de 3x — patamar ainda confortável.</p>
+                    </div>
+                    <div class="analysis-insight-item">
+                        <h4>🟢 Sem Necessidade de Refinanciamento</h4>
+                        <p>O caixa atual de R$ 457 milhões cobre todos os vencimentos até 2029 sem considerar geração de caixa operacional futura. A companhia possui folga total de liquidez.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 06 - Projeções -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">06</span>
+                    <h2 class="section-title">Projeções e Cenários</h2>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>📐 Premissas do Cenário Base</h4>
+                    <p><strong>Lançamentos:</strong> +50% em 2025, +15% em 2026, +10% a.a. posteriormente</p>
+                    <p><strong>Preço Médio:</strong> Correção de INCC + 0,5% a.a.</p>
+                    <p><strong>VSO:</strong> 75% em 2025-26, 70% a partir de 2027</p>
+                    <p><strong>Margem Bruta:</strong> Expansão gradual de 30% para 32% até 2030</p>
+                    <p><strong>Distribuição:</strong> Payout de 35% do lucro líquido</p>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">📊 Projeção de Resultados — Cenário Base</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>R$ Milhões</th>
+                                <th>2024</th>
+                                <th>2025E</th>
+                                <th>2026E</th>
+                                <th>2027E</th>
+                                <th>2028E</th>
+                                <th>2029E</th>
+                                <th>2030E</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Receita Líquida</td>
+                                <td class="mono">1.692</td>
+                                <td class="mono">2.464</td>
+                                <td class="mono">3.003</td>
+                                <td class="mono">3.263</td>
+                                <td class="mono">3.910</td>
+                                <td class="mono">4.527</td>
+                                <td class="mono">5.195</td>
+                            </tr>
+                            <tr>
+                                <td>Crescimento</td>
+                                <td class="mono">—</td>
+                                <td class="mono" style="color: var(--green);">+46%</td>
+                                <td class="mono" style="color: var(--green);">+22%</td>
+                                <td class="mono">+9%</td>
+                                <td class="mono" style="color: var(--green);">+20%</td>
+                                <td class="mono" style="color: var(--green);">+16%</td>
+                                <td class="mono" style="color: var(--green);">+15%</td>
+                            </tr>
+                            <tr class="section-row">
+                                <td><strong>EBITDA</strong></td>
+                                <td class="mono">254</td>
+                                <td class="mono">379</td>
+                                <td class="mono">475</td>
+                                <td class="mono">532</td>
+                                <td class="mono">686</td>
+                                <td class="mono">824</td>
+                                <td class="mono">983</td>
+                            </tr>
+                            <tr class="section-row">
+                                <td><strong>Lucro Líquido</strong></td>
+                                <td class="mono">261</td>
+                                <td class="mono">343</td>
+                                <td class="mono">431</td>
+                                <td class="mono">534</td>
+                                <td class="mono">679</td>
+                                <td class="mono">816</td>
+                                <td class="mono">993</td>
+                            </tr>
+                            <tr>
+                                <td>FCF (Fluxo Livre)</td>
+                                <td class="mono">124</td>
+                                <td class="mono">99</td>
+                                <td class="mono">176</td>
+                                <td class="mono">406</td>
+                                <td class="mono">405</td>
+                                <td class="mono">550</td>
+                                <td class="mono">700</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="grid-2" style="margin-top: 24px;">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Caixa Líquido Projetado (R$ MM)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="cashProjectionChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 0;">
+                        <h3 class="card-title">📊 Projeção de Métricas de Crédito</h3>
+                        <table class="data-table" style="font-size: 13px;">
+                            <thead>
+                                <tr>
+                                    <th>Indicador</th>
+                                    <th>2025E</th>
+                                    <th>2027E</th>
+                                    <th>2030E</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="highlight-row">
+                                    <td><strong>Caixa Líquido</strong></td>
+                                    <td class="mono" style="color: var(--green);">65</td>
+                                    <td class="mono" style="color: var(--green);">366</td>
+                                    <td class="mono" style="color: var(--green);">1.299</td>
+                                </tr>
+                                <tr>
+                                    <td>Caixa Líq. / PL</td>
+                                    <td class="mono">-7%</td>
+                                    <td class="mono">-24%</td>
+                                    <td class="mono">-41%</td>
+                                </tr>
+                                <tr>
+                                    <td>EBITDA / Desp. Fin.</td>
+                                    <td class="mono" style="color: var(--green);">5,8x</td>
+                                    <td class="mono" style="color: var(--green);">9,5x</td>
+                                    <td class="mono" style="color: var(--green);">27,0x</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style="font-size: 12px; color: var(--gray-400); margin-top: 16px;">
+                            Projeção de acúmulo de caixa líquido de <strong style="color: var(--green);">R$ 1,3 bi até 2030</strong> — equivalente a 41% do PL estimado.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Sensibilidade -->
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">📊 Análise de Sensibilidade — Cobertura de Juros 2027</h3>
+                    <table class="sensitivity-table">
+                        <thead>
+                            <tr>
+                                <th colspan="6">Taxa CDI (%)</th>
+                            </tr>
+                            <tr>
+                                <th>Margem EBITDA ↓ \ CDI →</th>
+                                <th>10,0%</th>
+                                <th>11,5%</th>
+                                <th>13,0%</th>
+                                <th>14,5%</th>
+                                <th>16,0%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>18,0%</strong></td>
+                                <td>12,5x</td>
+                                <td>10,9x</td>
+                                <td>9,6x</td>
+                                <td>8,6x</td>
+                                <td>7,8x</td>
+                            </tr>
+                            <tr>
+                                <td><strong>16,3% (Base)</strong></td>
+                                <td>11,3x</td>
+                                <td>9,8x</td>
+                                <td class="base-case">9,5x</td>
+                                <td>7,8x</td>
+                                <td>7,0x</td>
+                            </tr>
+                            <tr>
+                                <td><strong>14,0%</strong></td>
+                                <td>9,7x</td>
+                                <td>8,4x</td>
+                                <td>7,5x</td>
+                                <td>6,7x</td>
+                                <td>6,1x</td>
+                            </tr>
+                            <tr>
+                                <td><strong>12,0%</strong></td>
+                                <td>8,3x</td>
+                                <td>7,2x</td>
+                                <td>6,4x</td>
+                                <td>5,7x</td>
+                                <td>5,2x</td>
+                            </tr>
+                            <tr>
+                                <td><strong>10,0%</strong></td>
+                                <td>6,9x</td>
+                                <td>6,0x</td>
+                                <td>5,3x</td>
+                                <td>4,8x</td>
+                                <td>4,3x</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size: 13px; color: var(--gray-200); margin-top: 16px;"><strong>Conclusão:</strong> Mesmo no cenário mais estressado (margem 10% + CDI 16%), a cobertura permanece acima de 4x — patamar ainda confortável para o perfil de risco.</p>
+                </div>
+            </section>
+
+            <!-- 07 - Pares -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">07</span>
+                    <h2 class="section-title">Análise de Pares — Incorporadoras MCMV</h2>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">📊 Comparativo de Métricas — 9M25</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Companhia</th>
+                                <th>Receita 9M25</th>
+                                <th>Mg. Bruta</th>
+                                <th>Mg. EBITDA</th>
+                                <th>Dív. Líq./PL</th>
+                                <th>Cobertura</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="highlight-row">
+                                <td><strong>Pacaembu</strong></td>
+                                <td class="mono">R$ 1.741 MM</td>
+                                <td class="mono">30,4%</td>
+                                <td class="mono">15,4%</td>
+                                <td class="mono" style="color: var(--green);">2,2%</td>
+                                <td class="mono" style="color: var(--green);">6,9x</td>
+                            </tr>
+                            <tr>
+                                <td>Tenda</td>
+                                <td class="mono">R$ 2.207 MM</td>
+                                <td class="mono">30,2%</td>
+                                <td class="mono">12,8%</td>
+                                <td class="mono">4,1%</td>
+                                <td class="mono">4,2x</td>
+                            </tr>
+                            <tr>
+                                <td>Plano&Plano</td>
+                                <td class="mono">R$ 2.589 MM</td>
+                                <td class="mono">32,1%</td>
+                                <td class="mono">14,5%</td>
+                                <td class="mono">8,3%</td>
+                                <td class="mono">5,1x</td>
+                            </tr>
+                            <tr>
+                                <td>Direcional</td>
+                                <td class="mono">R$ 3.284 MM</td>
+                                <td class="mono">35,8%</td>
+                                <td class="mono">18,2%</td>
+                                <td class="mono" style="color: var(--red);">87,4%</td>
+                                <td class="mono">2,8x</td>
+                            </tr>
+                            <tr>
+                                <td>MRV&Co</td>
+                                <td class="mono">R$ 7.868 MM</td>
+                                <td class="mono">28,5%</td>
+                                <td class="mono">9,7%</td>
+                                <td class="mono" style="color: var(--red);">104,2%</td>
+                                <td class="mono">1,9x</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="comparison-row">
+                    <div class="compare-card highlight">
+                        <h4 style="color: var(--green); font-size: 16px; margin-bottom: 16px;">✅ Vantagens vs. Pares</h4>
+                        <div class="card-content">
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Única com alavancagem próxima de zero entre pares MCMV</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Maior cobertura de juros do grupo (6,9x vs. média 3,5x)</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Modelo horizontal = ciclo de caixa 40% mais curto</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>ROE de 43% vs. média de ~15% dos pares</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Rating AAA — único do grupo com nota máxima</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon green"></div>
+                                <span>Market-share de 25-98% nos mercados de atuação</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="compare-card warning">
+                        <h4 style="color: var(--red); font-size: 16px; margin-bottom: 16px;">⚠ Desvantagens vs. Pares</h4>
+                        <div class="card-content">
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Menor escala absoluta (5ª em receita entre pares)</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Margem bruta inferior a Direcional e Plano&Plano</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Presença em apenas 4 estados vs. nacional dos grandes</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Capital fechado — menor liquidez para investidores</span>
+                            </div>
+                            <div class="list-item">
+                                <div class="list-icon red"></div>
+                                <span>Concentração em horizontal limita mercado endereçável</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 08 - Riscos e Mitigantes -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">08</span>
+                    <h2 class="section-title">Matriz de Riscos e Mitigantes</h2>
+                </div>
+
+                <div class="risk-item">
+                    <div class="risk-header">
+                        <span class="risk-title">1) Exposição ao INCC</span>
+                        <span class="risk-badge medium">MÉDIO</span>
+                    </div>
+                    <div class="risk-content">
+                        <div>
+                            <h5 style="color: var(--orange);">Risco</h5>
+                            <p>O MCMV impõe tetos de preço por faixa. Em ciclos de inflação elevada nos insumos (INCC), a companhia pode não conseguir repassar integralmente os aumentos de custo, comprimindo margens operacionais.</p>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--green);">Mitigante</h5>
+                            <p>Ciclo de construção de apenas <strong>18 meses</strong> limita a exposição temporal ao risco. Margem bruta de 30% e backlog com margem de 34% criam colchão de proteção.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="risk-item">
+                    <div class="risk-header">
+                        <span class="risk-title">2) Concentração no MCMV</span>
+                        <span class="risk-badge low">BAIXO</span>
+                    </div>
+                    <div class="risk-content">
+                        <div>
+                            <h5 style="color: var(--orange);">Risco</h5>
+                            <p>Atuação 100% concentrada no programa federal. Mudanças nas políticas públicas, cortes orçamentários ou alteração nas regras de financiamento via FGTS impactariam diretamente o modelo.</p>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--green);">Mitigante</h5>
+                            <p>Déficit habitacional de <strong>6 milhões de moradias</strong> garante demanda estrutural. O MCMV é política de Estado com apoio transversal. Recursos do FGTS têm destinação constitucional.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="risk-item">
+                    <div class="risk-header">
+                        <span class="risk-title">3) Licenciamento e Execução</span>
+                        <span class="risk-badge low">BAIXO</span>
+                    </div>
+                    <div class="risk-content">
+                        <div>
+                            <h5 style="color: var(--orange);">Risco</h5>
+                            <p>Desenvolvimento de bairros planejados requer ~24 meses de aprovações prévias. Entraves ambientais ou mudanças em planos diretores podem atrasar o início de projetos.</p>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--green);">Mitigante</h5>
+                            <p>Custos pré-operacionais são baixos. Caixa robusto de <strong>R$ 457 MM</strong> absorve eventuais atrasos. Experiência de 34 anos. Landbank aprovado de R$ 19,9 bi.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="risk-item">
+                    <div class="risk-header">
+                        <span class="risk-title">4) Concentração Geográfica</span>
+                        <span class="risk-badge medium">MÉDIO</span>
+                    </div>
+                    <div class="risk-content">
+                        <div>
+                            <h5 style="color: var(--orange);">Risco</h5>
+                            <p>69% do landbank está concentrado em São Paulo. Desaceleração econômica regional ou mudanças regulatórias estaduais podem impactar desproporcionalmente os resultados.</p>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--green);">Mitigante</h5>
+                            <p>Diversificação dentro de SP (interior, múltiplas cidades). Expansão ativa para PR, MG e MT. Demanda de habitação popular é estrutural e menos cíclica.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 09 - Conclusão -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">09</span>
+                    <h2 class="section-title">Conclusão e Perspectiva</h2>
+                </div>
+
+                <div class="summary-box" style="border-color: rgba(166, 207, 46, 0.4); background: linear-gradient(135deg, rgba(166, 207, 46, 0.08) 0%, rgba(236, 112, 0, 0.05) 100%);">
+                    <h3 style="color: var(--green);">📋 Visão de Crédito</h3>
+                    <p>
+                        O perfil de crédito da Pacaembu combina um <strong>negócio de baixo risco estrutural</strong>, <strong>elevada previsibilidade de receitas</strong> e <strong>posição estratégica dominante</strong> no segmento de habitação horizontal, com métricas financeiras excepcionais para o setor imobiliário.
+                    </p>
+                    <p style="margin-top: 12px;">
+                        Os resultados do 3T25 demonstram a capacidade de escalar com rentabilidade: receita líquida cresceu 50%, EBITDA avançou 51% com margem de 16,4%, e o lucro líquido subiu 43%. A cobertura de juros de <strong>6,9x</strong> e alavancagem de apenas <strong>2,2% do PL</strong> posicionam a empresa em patamar de risco mínimo entre incorporadoras.
+                    </p>
+                    <p style="margin-top: 12px;">
+                        A expectativa é de <strong>fortalecimento contínuo das métricas de crédito</strong> com acúmulo de caixa líquido projetado de R$ 1,3 bilhão até 2030. A companhia não possui necessidade de refinanciamento no horizonte visível.
+                    </p>
+                    <p style="margin-top: 12px;">
+                        <strong>Monitoramos:</strong> (i) normalização dos repasses da CAIXA no 4T25; (ii) evolução das políticas do MCMV; (iii) comportamento do INCC; (iv) manutenção de margens na fase de expansão acelerada.
+                    </p>
+                    <div style="margin-top: 20px; display: flex; gap: 12px;">
+                        <span style="display: inline-block; background: rgba(166, 207, 46, 0.15); color: var(--green); padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 14px;">PERSPECTIVA ESTÁVEL</span>
+                        <span style="display: inline-block; background: rgba(236, 112, 0, 0.15); color: var(--orange); padding: 8px 16px; border-radius: 8px; font-weight: 700; font-size: 14px;">RATING AAA</span>
+                    </div>
+                </div>
+
+                <!-- Tabela Resumo Final -->
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">📊 Principais Indicadores Consolidados</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Indicador</th>
+                                <th>3T25</th>
+                                <th>3T24</th>
+                                <th>Var.%</th>
+                                <th>9M25</th>
+                                <th>9M24</th>
+                                <th>Var.%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Receita Líquida (R$ MM)</td>
+                                <td class="mono">750,6</td>
+                                <td class="mono">499,0</td>
+                                <td><span class="trend up">+50,4%</span></td>
+                                <td class="mono">1.740,8</td>
+                                <td class="mono">1.257,2</td>
+                                <td><span class="trend up">+38,5%</span></td>
+                            </tr>
+                            <tr>
+                                <td>EBITDA Ajustado (R$ MM)</td>
+                                <td class="mono">122,8</td>
+                                <td class="mono">81,2</td>
+                                <td><span class="trend up">+51,2%</span></td>
+                                <td class="mono">268,2</td>
+                                <td class="mono">186,0</td>
+                                <td><span class="trend up">+44,2%</span></td>
+                            </tr>
+                            <tr>
+                                <td>Margem Bruta Ajustada</td>
+                                <td class="mono">30,9%</td>
+                                <td class="mono">30,4%</td>
+                                <td><span class="trend up">+0,5pp</span></td>
+                                <td class="mono">30,4%</td>
+                                <td class="mono">30,0%</td>
+                                <td><span class="trend up">+0,4pp</span></td>
+                            </tr>
+                            <tr>
+                                <td>Lucro Líquido (R$ MM)</td>
+                                <td class="mono">113,9</td>
+                                <td class="mono">79,5</td>
+                                <td><span class="trend up">+43,3%</span></td>
+                                <td class="mono">255,0</td>
+                                <td class="mono">188,1</td>
+                                <td><span class="trend up">+35,6%</span></td>
+                            </tr>
+                            <tr class="section-row">
+                                <td colspan="7"><strong>Métricas de Crédito</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Dív. Líquida / PL</td>
+                                <td class="mono" style="color: var(--green);">2,2%</td>
+                                <td class="mono" colspan="2">Ajustada: -22,6%</td>
+                                <td class="mono" style="color: var(--green);">Caixa Líquido</td>
+                                <td class="mono" colspan="2">R$ (196) MM</td>
+                            </tr>
+                            <tr>
+                                <td>EBITDA / Desp. Financeira</td>
+                                <td class="mono" style="color: var(--green);">6,9x</td>
+                                <td class="mono" colspan="2">ROE: 43,4%</td>
+                                <td class="mono" style="color: var(--green);">ROIC: 49,9%</td>
+                                <td class="mono" colspan="2">Rating AAA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Charts Scripts -->
+    <script>
+        const chartDefaults = {
+            color: '#9CA3AF',
+            borderColor: '#1E4347',
+            font: { family: "'Inter', sans-serif" }
+        };
+        Chart.defaults.color = chartDefaults.color;
+        Chart.defaults.borderColor = chartDefaults.borderColor;
+
+        // Landbank Chart
+        new Chart(document.getElementById('landbankChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['São Paulo (69%)', 'Paraná (13%)', 'Minas Gerais (10%)', 'Mato Grosso (8%)'],
+                datasets: [{
+                    data: [69, 13, 10, 8],
+                    backgroundColor: ['#EC7000', '#A6CF2E', '#3B82F6', '#9CA3AF'],
+                    borderWidth: 0,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '55%',
+                plugins: {
+                    legend: { position: 'bottom', labels: { padding: 20 } }
+                }
+            }
+        });
+
+        // Launches Chart
+        new Chart(document.getElementById('launchesChart'), {
+            type: 'bar',
+            data: {
+                labels: ['1T24', '2T24', '3T24', '4T24', '1T25', '2T25', '3T25'],
+                datasets: [{
+                    label: 'Lançamentos (R$ MM)',
+                    data: [276, 388, 552, 439, 444, 986, 1106],
+                    backgroundColor: ['#6B7280','#6B7280','#6B7280','#6B7280','#EC7000','#EC7000','#A6CF2E'],
+                    borderRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: (c) => `R$ ${c.raw} MM` } }
+                },
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'R$ milhões' } }
+                }
+            }
+        });
+
+        // VSO Chart
+        new Chart(document.getElementById('vsoChart'), {
+            type: 'line',
+            data: {
+                labels: ['1T24', '2T24', '3T24', '4T24', '1T25', '2T25', '3T25'],
+                datasets: [{
+                    label: 'VSO (%)',
+                    data: [31.6, 37.1, 33.3, 41.8, 32.7, 37.6, 44.1],
+                    borderColor: '#EC7000',
+                    backgroundColor: 'rgba(236, 112, 0, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 6,
+                    pointBackgroundColor: ['#6B7280','#6B7280','#6B7280','#6B7280','#EC7000','#EC7000','#A6CF2E'],
+                    pointBorderColor: '#091B1E',
+                    pointBorderWidth: 2,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: (c) => `VSO: ${c.raw}%` } }
+                },
+                scales: {
+                    y: { min: 25, max: 50, title: { display: true, text: 'VSO (%)' } }
+                }
+            }
+        });
+
+        // Margins Chart
+        new Chart(document.getElementById('marginsChart'), {
+            type: 'line',
+            data: {
+                labels: ['1T24', '2T24', '3T24', '4T24', '1T25', '2T25', '3T25'],
+                datasets: [{
+                    label: 'Margem Bruta Aj.',
+                    data: [29.5, 29.8, 30.4, 29.7, 29.9, 30.1, 30.9],
+                    borderColor: '#A6CF2E',
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#A6CF2E',
+                }, {
+                    label: 'Margem EBITDA',
+                    data: [13.8, 14.5, 16.3, 15.2, 14.1, 15.4, 16.4],
+                    borderColor: '#EC7000',
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#EC7000',
+                }, {
+                    label: 'Margem Líquida',
+                    data: [15.1, 14.1, 15.9, 17.7, 14.1, 14.6, 15.2],
+                    borderColor: '#3B82F6',
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointBackgroundColor: '#3B82F6',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${c.raw}%` } }
+                },
+                scales: {
+                    y: { min: 10, max: 35, title: { display: true, text: '%' } }
+                }
+            }
+        });
+
+        // Debt Schedule Chart
+        new Chart(document.getElementById('debtScheduleChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Caixa', '2025', '2026', '2027', '2028', '2029', '2030+'],
+                datasets: [{
+                    label: 'R$ milhões',
+                    data: [457, 22, 67, 90, 50, 122, 124],
+                    backgroundColor: ['#A6CF2E','#EC7000','#EC7000','#EC7000','#EC7000','#EC7000','#EC7000'],
+                    borderRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: (c) => `R$ ${c.raw} MM` } }
+                },
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'R$ milhões' } }
+                }
+            }
+        });
+
+        // Debt Composition Chart
+        new Chart(document.getElementById('debtCompositionChart'), {
+            type: 'doughnut',
+            data: {
+                labels: ['Corporativa (R$ 285,7 MM)', 'SFH/Produção (R$ 189,8 MM)'],
+                datasets: [{
+                    data: [60, 40],
+                    backgroundColor: ['#EC7000', '#A6CF2E'],
+                    borderWidth: 0,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '55%',
+                plugins: {
+                    legend: { position: 'bottom', labels: { padding: 20 } }
+                }
+            }
+        });
+
+        // Coverage Chart
+        new Chart(document.getElementById('coverageChart'), {
+            type: 'bar',
+            data: {
+                labels: ['4T23', '1T24', '2T24', '3T24', '4T24', '1T25', '2T25', '3T25'],
+                datasets: [{
+                    label: 'Cobertura (x)',
+                    data: [5.4, 5.8, 6.0, 6.4, 6.2, 6.5, 6.7, 6.9],
+                    backgroundColor: ['#6B7280','#6B7280','#6B7280','#6B7280','#6B7280','#EC7000','#EC7000','#A6CF2E'],
+                    borderRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: (c) => `${c.raw}x` } }
+                },
+                scales: {
+                    y: { min: 4, max: 8, title: { display: true, text: 'EBITDA / Desp. Fin. (x)' } }
+                }
+            }
+        });
+
+        // Cash Projection Chart
+        new Chart(document.getElementById('cashProjectionChart'), {
+            type: 'bar',
+            data: {
+                labels: ['2024', '2025E', '2026E', '2027E', '2028E', '2029E', '2030E'],
+                datasets: [{
+                    label: 'Caixa Líquido (R$ MM)',
+                    data: [66, 65, 116, 366, 576, 887, 1299],
+                    backgroundColor: '#A6CF2E',
+                    borderRadius: 6,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { callbacks: { label: (c) => `R$ ${c.raw} MM` } }
+                },
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'R$ milhões' } }
+                }
+            }
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer style="background: var(--dark-card); border-top: 1px solid var(--dark-border); padding: 32px 0; margin-top: 48px;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+                <div>
+                    <h4 style="color: var(--orange); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Fontes de Dados</h4>
+                    <ul style="list-style: none; font-size: 13px; color: var(--gray-400); line-height: 1.8;">
+                        <li>📄 Resultados 3T25 — Pacaembu Construtora</li>
+                        <li>📊 ITR — Informações Trimestrais 3T25 (CVM)</li>
+                        <li>📑 Apresentação de Resultados 3T25</li>
+                        <li>🔑 Relatórios de Credit Research — Bancos de Investimento</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--orange); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Disclaimer</h4>
+                    <p style="font-size: 12px; color: var(--gray-500); line-height: 1.7;">
+                        Este documento foi elaborado exclusivamente para fins informativos e de análise de crédito. 
+                        Não constitui oferta ou solicitação de compra/venda de valores mobiliários. 
+                        Os dados apresentados foram extraídos de fontes públicas consideradas confiáveis, 
+                        porém não garantimos sua precisão ou completude. Rentabilidade passada não é garantia de resultados futuros.
+                    </p>
+                </div>
+            </div>
+            <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--dark-border); text-align: center;">
+                <p style="font-size: 12px; color: var(--gray-500);">
+                    <strong style="color: var(--gray-400);">Pacaembu Construtora Credit Research Report</strong> | 
+                    Dados: Set/2025 (ITR 3T25) | Atualizado: Janeiro 2026
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
