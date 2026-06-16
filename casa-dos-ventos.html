@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TotalEnergies SE | Credit Research Report — 1T26</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+:root{
+  --orange:#EC7000; --orange-light:#FF8C33; --orange-soft:rgba(236,112,0,.12);
+  --green:#A6CF2E; --green-dark:#8AB526; --green-soft:rgba(166,207,46,.12);
+  --dark:#091B1E; --dark-2:#133134; --dark-3:#0d262a; --border:#1E4347; --border-soft:rgba(255,255,255,.06);
+  --white:#FFFFFF; --g100:#E7ECED; --g200:#CBD6D8; --g300:#A9B8BA; --g400:#7E9296; --g500:#5E7276;
+  --red:#EF6A6A; --amber:#F0A93B; --blue:#5B9BD5;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:62px}
+body{
+  font-family:'Source Sans Pro',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--dark); color:var(--white); line-height:1.7; font-size:15px;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
+h1,h2,h3,h4,h5{font-weight:600;line-height:1.28;letter-spacing:-.02em}
+.mono{font-family:'Montserrat',monospace}
+a{color:var(--green);text-decoration:none}
+::selection{background:rgba(236,112,0,.35)}
+
+/* ---------- COVER ---------- */
+.cover{
+  position:relative; min-height:100vh; display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(1200px 600px at 80% -10%,rgba(236,112,0,.10),transparent 60%),
+             radial-gradient(900px 500px at 0% 110%,rgba(166,207,46,.08),transparent 55%),
+             linear-gradient(160deg,#0f2f35 0%,#091b1e 55%,#050f11 100%);
+  overflow:hidden; padding:0 0 40px; text-align:center;
+}
+.cover-author{
+  position:absolute; top:24px; right:24px; z-index:5;
+  background:rgba(13,38,42,.55); border:1px solid rgba(166,207,46,.45);
+  border-radius:10px; padding:11px 18px; font-size:13px; color:var(--g100);
+  font-weight:500; letter-spacing:.2px;
+}
+.cover-author b{color:var(--green); font-weight:700;}
+.cover::before{
+  content:''; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background-image:
+    repeating-linear-gradient(90deg,rgba(236,112,0,.035),rgba(236,112,0,.035) 1px,transparent 1px,transparent 46px),
+    repeating-linear-gradient(0deg,rgba(166,207,46,.03),rgba(166,207,46,.03) 1px,transparent 1px,transparent 46px);
+}
+.container{max-width:1240px;margin:0 auto;padding:0 32px}
+.cover .container{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.cover-brand{display:flex;align-items:center;gap:14px;margin-bottom:42px}
+.cover-brand .mark{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--orange),#c75d00);display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Montserrat';font-size:18px;color:#fff}
+.cover-brand .bname{font-family:'Montserrat';font-weight:700;font-size:18px;letter-spacing:.5px}
+.cover-brand .bsub{font-size:12px;color:var(--g400);letter-spacing:2px;text-transform:uppercase}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'Montserrat';font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:22px}
+.eyebrow .bar{width:34px;height:2px;background:var(--green)}
+.cover h1{font-family:'Montserrat';font-size:92px;font-weight:800;letter-spacing:-2px;color:var(--orange);line-height:.98;margin-bottom:20px;text-align:center}
+.cover .lead{font-size:19px;color:var(--g200);font-weight:400;max-width:820px;margin:0 auto;text-align:center}
+.cover .lead b{font-weight:600;color:#fff}
+.cover-meta{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+.cover-pill{background:rgba(12,47,53,.55);border:1px solid rgba(236,112,0,.22);border-radius:10px;padding:12px 18px}
+.cover-pill .k{font-size:11px;color:var(--g400);text-transform:uppercase;letter-spacing:1px}
+.cover-pill .v{font-family:'Montserrat';font-weight:600;font-size:15px;color:#fff;margin-top:2px}
+.ratings-cover{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.rcov{display:flex;flex-direction:column;gap:2px;background:rgba(166,207,46,.08);border:1px solid rgba(166,207,46,.28);border-radius:10px;padding:12px 18px;min-width:120px}
+.rcov .ag{font-size:11px;color:var(--g400);letter-spacing:.5px}
+.rcov .rv{font-family:'Montserrat';font-weight:700;font-size:22px;color:var(--green)}
+.rcov .ro{font-size:10px;color:var(--g500)}
+.cover-thesis{margin-top:40px;border-left:3px solid var(--orange);padding:14px 22px;max-width:820px;background:linear-gradient(90deg,rgba(236,112,0,.06),transparent)}
+.cover-thesis .lbl{font-family:'Montserrat';font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+.cover-thesis p{font-size:15.5px;color:var(--g100);line-height:1.65}
+
+/* ---------- WATERMARK ---------- */
+.watermark{position:fixed;top:14px;right:14px;background:rgba(13,38,42,.45);border:1px solid rgba(166,207,46,.35);border-radius:9px;padding:9px 13px;color:rgba(255,255,255,.55);font-size:11px;z-index:9999;pointer-events:none;user-select:none;max-width:330px}
+.watermark strong{color:rgba(166,207,46,.75)}
+@media(max-width:900px){.watermark{display:none}}
+
+/* ---------- TOP NAV ---------- */
+.topnav{position:sticky;top:0;z-index:900;background:rgba(9,27,30,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.topnav-inner{max-width:1240px;margin:0 auto;display:flex;align-items:center;padding:0 18px;gap:2px}
+.nav-brand{display:flex;align-items:center;gap:9px;padding:11px 16px 11px 2px;margin-right:8px;border-right:1px solid var(--border);flex-shrink:0}
+.nav-brand .mk{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--orange),#c75d00);display:flex;align-items:center;justify-content:center;font-family:'Montserrat';font-weight:800;font-size:11px;color:#fff}
+.nav-brand span{font-family:'Montserrat';font-weight:700;font-size:13px;letter-spacing:.4px;color:#fff;white-space:nowrap}
+.nav-rail{position:relative;display:flex;align-items:center;gap:3px;flex:1;min-width:0;overflow-x:auto;scroll-behavior:smooth;padding:9px 2px;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch}
+.nav-rail::-webkit-scrollbar{display:none}
+.topnav a{flex-shrink:0;font-size:12px;color:var(--g300);padding:7px 12px;border-radius:8px;white-space:nowrap;transition:background .18s,color .18s;font-weight:500;letter-spacing:.2px}
+.topnav a:hover{color:#fff;background:rgba(255,255,255,.06)}
+.topnav a.active{color:var(--orange);background:rgba(236,112,0,.15);font-weight:600}
+
+/* ---------- MAIN ---------- */
+.main{padding:46px 0 20px}
+.section{margin-bottom:60px;scroll-margin-top:64px}
+.section-header{display:flex;align-items:center;gap:16px;margin-bottom:26px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.section-number{font-family:'Montserrat';font-size:13px;font-weight:700;color:var(--orange);background:var(--orange-soft);padding:7px 11px;border-radius:6px;flex-shrink:0}
+.section-number.alt{color:var(--green);background:var(--green-soft)}
+.section-title{font-size:23px;font-weight:600}
+.section-kicker{font-size:12.5px;color:var(--g400);margin-left:auto;text-align:right;font-style:italic;max-width:280px}
+
+/* ---------- DASHBOARD METRICS ---------- */
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:0 0 16px}
+.metric-card{background:var(--dark-2);border:1px solid var(--border);border-radius:13px;padding:19px}
+.metric-card.highlight{background:linear-gradient(135deg,rgba(236,112,0,.16),var(--dark-2));border-color:var(--orange)}
+.metric-card.green{background:linear-gradient(135deg,rgba(166,207,46,.14),var(--dark-2));border-color:var(--green)}
+.metric-card .label{font-size:11.5px;color:var(--g400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;font-weight:600}
+.metric-card .value{font-family:'Montserrat';font-size:25px;font-weight:600;color:#fff;margin-bottom:5px}
+.metric-card .delta{font-size:12.5px;font-weight:600}
+.metric-card .sub{font-size:11px;color:var(--g400);margin-top:4px}
+.delta.pos{color:var(--green)} .delta.neg{color:var(--red)} .delta.neu{color:var(--g400)}
+
+/* ---------- CARDS ---------- */
+.card{background:var(--dark-2);border:1px solid var(--border);border-radius:15px;padding:26px;margin-bottom:18px}
+.card-title{font-size:15.5px;font-weight:700;color:var(--orange);margin-bottom:16px;display:flex;align-items:center;gap:9px}
+.card-title.green{color:var(--green)}
+.card-content{color:var(--g200);font-size:14.5px}
+.card-content p{margin-bottom:11px}
+.card-content p:last-child{margin-bottom:0}
+.card-content strong{color:#fff;font-weight:600}
+.card-content em{color:var(--orange);font-style:normal;font-weight:600}
+
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+
+/* ---------- LISTS ---------- */
+.list-item{display:flex;align-items:flex-start;gap:11px;padding:11px 0;border-bottom:1px solid var(--border-soft)}
+.list-item:last-child{border-bottom:none}
+.dot{width:8px;height:8px;border-radius:50%;margin-top:8px;flex-shrink:0}
+.dot.green{background:var(--green)} .dot.red{background:var(--red)} .dot.orange{background:var(--orange)} .dot.amber{background:var(--amber)}
+.list-item span{font-size:14px;color:var(--g200)}
+.list-item span strong{color:#fff}
+
+/* ---------- SUMMARY / INSIGHT / HIGHLIGHT ---------- */
+.summary-box{border-left:4px solid var(--orange);padding:20px 28px;margin:8px 0 26px;background:linear-gradient(90deg,rgba(236,112,0,.05),transparent)}
+.summary-box p{color:var(--g100);font-size:15px;line-height:1.8}
+.summary-box p+p{margin-top:12px}
+.summary-box strong{color:#fff}
+.insight-card{background:var(--dark-2);border:1px solid var(--border);border-left:4px solid var(--orange);border-radius:0 12px 12px 0;padding:22px 24px;margin-bottom:14px}
+.insight-card.green{border-left-color:var(--green)}
+.insight-card h4{font-size:14.5px;font-weight:700;color:var(--orange);margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.insight-card.green h4{color:var(--green)}
+.insight-card p{font-size:13.8px;color:var(--g300);line-height:1.72}
+.insight-card p strong{color:var(--g100)}
+.insight-tag{font-family:'Montserrat';font-size:9.5px;letter-spacing:1.5px;text-transform:uppercase;background:var(--orange-soft);color:var(--orange);padding:3px 8px;border-radius:5px;margin-left:auto}
+.insight-card.green .insight-tag{background:var(--green-soft);color:var(--green)}
+
+.callout{border-radius:12px;padding:18px 22px;margin:18px 0;border:1px solid}
+.callout h4{font-size:13.5px;font-weight:700;margin-bottom:7px;display:flex;align-items:center;gap:8px}
+.callout p{font-size:13.6px;color:var(--g200)}
+.callout.pos{background:var(--green-soft);border-color:rgba(166,207,46,.32)} .callout.pos h4{color:var(--green)}
+.callout.warn{background:rgba(240,169,59,.08);border-color:rgba(240,169,59,.3)} .callout.warn h4{color:var(--amber)}
+.callout.risk{background:rgba(239,106,106,.08);border-color:rgba(239,106,106,.3)} .callout.risk h4{color:var(--red)}
+.callout.info{background:rgba(91,155,213,.08);border-color:rgba(91,155,213,.3)} .callout.info h4{color:var(--blue)}
+
+/* ---------- TABLES ---------- */
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);margin:6px 0 4px}
+.data-table{width:100%;border-collapse:collapse;font-size:13.6px;min-width:560px}
+.data-table th{text-align:center;padding:13px 14px;background:rgba(236,112,0,.10);color:var(--orange);font-weight:700;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border)}
+.data-table th:first-child{text-align:left}
+.data-table td{padding:12px 14px;border-bottom:1px solid var(--border-soft);color:var(--g200);text-align:center}
+.data-table td:first-child{text-align:left;color:var(--g100);font-weight:500}
+.data-table td.num{font-family:'Montserrat';color:#fff}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tr:hover td{background:rgba(255,255,255,.025)}
+.data-table tr.total td{background:rgba(236,112,0,.07);font-weight:700;color:#fff}
+.data-table tr.total td:first-child{color:#fff}
+.pos-c{color:var(--green)!important} .neg-c{color:var(--red)!important} .neu-c{color:var(--g400)!important}
+
+/* ---------- CHARTS ---------- */
+.chart-card{background:var(--dark-2);border:1px solid var(--border);border-radius:15px;padding:24px}
+.chart-title{font-size:15px;font-weight:600;margin-bottom:4px;color:#fff}
+.chart-sub{font-size:12px;color:var(--g400);margin-bottom:18px}
+.chart-wrap{height:300px;position:relative}
+.chart-wrap.tall{height:380px}
+.chart-wrap.sm{height:240px}
+.chart-note{font-size:11.5px;color:var(--g500);margin-top:12px;font-style:italic}
+.toggle-row{display:flex;gap:7px;margin-bottom:14px}
+.toggle-btn{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--g400);padding:6px 13px;border-radius:6px;font-size:11.5px;font-weight:600;cursor:pointer;transition:.2s;font-family:'Source Sans Pro'}
+.toggle-btn:hover{color:#fff;border-color:rgba(236,112,0,.4)}
+.toggle-btn.active{background:var(--orange);border-color:var(--orange);color:#fff}
+
+/* ---------- KPI STRIP ---------- */
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:6px 0 18px}
+.kpi{background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:12px;padding:18px;text-align:center}
+.kpi .v{font-family:'Montserrat';font-size:26px;font-weight:700;color:var(--orange)}
+.kpi .v.g{color:var(--green)}
+.kpi .l{font-size:12px;color:var(--g400);margin-top:6px;line-height:1.4}
+
+/* ---------- SEGMENT CARDS ---------- */
+.seg-card{background:var(--dark-2);border:1px solid var(--border);border-radius:15px;overflow:hidden}
+.seg-head{padding:18px 22px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.seg-head.up{background:linear-gradient(135deg,rgba(236,112,0,.16),rgba(236,112,0,.04));border-top:3px solid var(--orange)}
+.seg-head.lng{background:linear-gradient(135deg,rgba(91,155,213,.16),rgba(91,155,213,.04));border-top:3px solid var(--blue)}
+.seg-head.pwr{background:linear-gradient(135deg,rgba(166,207,46,.16),rgba(166,207,46,.04));border-top:3px solid var(--green)}
+.seg-head.ref{background:linear-gradient(135deg,rgba(240,169,59,.16),rgba(240,169,59,.04));border-top:3px solid var(--amber)}
+.seg-head .nm{font-size:16.5px;font-weight:700}
+.seg-head .roace{font-family:'Montserrat';font-size:13px;font-weight:700;color:#fff;background:rgba(0,0,0,.25);padding:5px 10px;border-radius:7px}
+.seg-body{padding:20px 22px}
+.seg-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border-soft);font-size:13.5px}
+.seg-row:last-of-type{border-bottom:none}
+.seg-row .l{color:var(--g400)} .seg-row .v{font-family:'Montserrat';font-weight:600;color:#fff}
+.seg-take{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:13px;color:var(--g300);line-height:1.6}
+.seg-take b{color:var(--orange)}
+
+/* ---------- ORG CHART ---------- */
+.org{display:flex;flex-direction:column;align-items:center;gap:0;padding:10px 0}
+.org-node{background:var(--dark-3);border:1px solid var(--border);border-radius:10px;padding:11px 18px;text-align:center;min-width:180px;position:relative;z-index:2}
+.org-node.te{border-color:var(--orange);background:linear-gradient(135deg,rgba(236,112,0,.12),var(--dark-3))}
+.org-node.cdv{border-color:var(--green);background:linear-gradient(135deg,rgba(166,207,46,.12),var(--dark-3))}
+.org-node.tgr{border-color:var(--orange);background:linear-gradient(135deg,rgba(236,112,0,.22),var(--dark-3));box-shadow:0 0 0 3px rgba(236,112,0,.12)}
+.org-node .t{font-weight:700;font-size:13.5px;color:#fff}
+.org-node .s{font-size:11px;color:var(--g400);margin-top:2px}
+.org-line{width:2px;height:24px;background:var(--border)}
+.org-row{display:flex;gap:28px;justify-content:center;flex-wrap:wrap}
+.org-pct{font-family:'Montserrat';font-size:11px;color:var(--green);font-weight:700}
+.guar{border:1px dashed var(--orange);border-radius:8px;padding:7px 12px;font-size:11.5px;color:var(--orange);font-weight:600;background:rgba(236,112,0,.05)}
+
+/* ---------- PEER / FLOW ---------- */
+.peer-logo{font-family:'Montserrat';font-weight:800;font-size:13px}
+.flow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:10px 0}
+.flow-col{background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:12px;padding:18px}
+.flow-col h5{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--orange);margin-bottom:12px;text-align:center}
+.flow-chip{background:var(--dark-3);border:1px solid var(--border);border-radius:8px;padding:9px 12px;margin-bottom:8px;font-size:12.5px;color:var(--g200);display:flex;align-items:center;gap:8px}
+.flow-chip:last-child{margin-bottom:0}
+.flow-chip .ic{width:7px;height:7px;border-radius:2px;flex-shrink:0}
+
+/* ---------- CONCLUSION ---------- */
+.conclusion{background:linear-gradient(135deg,rgba(236,112,0,.12),var(--dark-2));border:1px solid var(--orange);border-radius:16px;padding:30px}
+.conclusion h3{color:var(--orange);font-size:19px;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.conclusion p{line-height:1.78;color:var(--g100);margin-bottom:14px;font-size:14.7px}
+.conclusion p:last-child{margin-bottom:0}
+.conclusion strong{color:#fff}
+.verdict-row{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}
+.verdict{flex:1;min-width:150px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:11px;padding:16px;text-align:center}
+.verdict .l{font-size:11px;color:var(--g400);text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.verdict .v{font-family:'Montserrat';font-size:17px;font-weight:700;color:var(--green)}
+.verdict .v.amber{color:var(--amber)}
+
+/* ---------- TRIGGERS ---------- */
+.trig-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.trig{border:1px solid var(--border);border-radius:13px;padding:20px;background:var(--dark-2)}
+.trig.up{border-top:3px solid var(--green)} .trig.down{border-top:3px solid var(--red)}
+.trig h4{font-size:14px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.trig.up h4{color:var(--green)} .trig.down h4{color:var(--red)}
+
+/* ---------- PROVENANCE ---------- */
+.prov{display:flex;gap:18px;flex-wrap:wrap;font-size:11.5px;color:var(--g400);margin:14px 0 0;align-items:center}
+.prov .item{display:flex;align-items:center;gap:6px}
+.prov .sq{width:11px;height:11px;border-radius:3px;border:1px solid}
+.prov .rep{background:rgba(166,207,46,.25);border-color:var(--green)}
+.prov .calc{background:rgba(91,155,213,.25);border-color:var(--blue)}
+.prov .est{background:rgba(240,169,59,.25);border-color:var(--amber)}
+.tag-rep{color:var(--green);font-weight:700;font-size:10px} .tag-calc{color:var(--blue);font-weight:700;font-size:10px} .tag-est{color:var(--amber);font-weight:700;font-size:10px}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--dark-2);border-top:1px solid var(--border);padding:34px 0;margin-top:40px}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:30px}
+.footer-disc{font-size:11.5px;color:var(--g500);line-height:1.65}
+.footer-disc strong{color:var(--g300)}
+.foot-team{font-size:13px;color:var(--g300)}
+.foot-team h5{color:var(--orange);font-size:13px;margin-bottom:10px;font-family:'Montserrat';letter-spacing:.5px}
+.foot-team .nm{color:#fff;font-weight:600}
+
+@media(max-width:1100px){
+  .metrics-grid,.grid-4,.kpi-strip{grid-template-columns:repeat(2,1fr)}
+  .cover h1{font-size:60px}
+}
+@media(max-width:760px){
+  .container{padding:0 18px}
+  .cover h1{font-size:46px;letter-spacing:-1.5px}
+  .cover .lead{font-size:15px;line-height:1.5}
+  .cover-author{top:14px;right:14px;left:14px;font-size:11px;padding:8px 12px;text-align:center}
+  .metrics-grid,.grid-2,.grid-3,.grid-4,.kpi-strip,.flow,.trig-grid{grid-template-columns:1fr}
+  .section-kicker{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<header class="cover">
+  <div class="cover-author"><b>Autor:</b> Igor Stramandinoli Moita Pontes</div>
+  <div class="container">
+    <h1>TotalEnergies</h1>
+    <p class="lead">Uma das maiores companhias integradas de energia do mundo | Credit Research Report</p>
+  </div>
+</header>
+
+<!-- ============ TOP NAV ============ -->
+<nav class="topnav" id="topnav">
+  <div class="topnav-inner">
+    <div class="nav-brand"><div class="mk">TE</div><span>TotalEnergies · 1T26</span></div>
+    <div class="nav-rail" id="navRail">
+      <a href="#dash">Dashboard</a>
+      <a href="#cdv">Casa dos Ventos</a>
+      <a href="#resumo">01 · Resumo</a>
+      <a href="#tese">02 · Tese</a>
+      <a href="#fortes">03 · Fortes</a>
+      <a href="#riscos">04 · Riscos</a>
+      <a href="#visao">05 · Visão Geral</a>
+      <a href="#modelo">06 · Modelo</a>
+      <a href="#segmentos">07 · Segmentos</a>
+      <a href="#peers">08 · Peers</a>
+      <a href="#financeira">09 · Financeiro</a>
+      <a href="#liquidez">10 · Liquidez</a>
+      <a href="#capital">11 · Capital</a>
+      <a href="#divida">12 · Dívida</a>
+      <a href="#alavancagem">13 · Alavancagem</a>
+      <a href="#cobertura">14 · Cobertura</a>
+      <a href="#fcf">15 · Fluxo de Caixa</a>
+      <a href="#dividendos">16 · Dividendos</a>
+      <a href="#ratings">17 · Ratings</a>
+      <a href="#esg">18 · ESG</a>
+      <a href="#stress">19 · Stress</a>
+      <a href="#opiniao">20 · Opinião</a>
+    </div>
+  </div>
+</nav>
+
+<main class="main">
+<div class="container">
+
+<!-- ============ DASHBOARD ============ -->
+<section class="section" id="dash" style="margin-bottom:44px">
+  <div class="metrics-grid">
+    <div class="metric-card highlight">
+      <div class="label">Alavancagem — Gearing</div>
+      <div class="value">15,5%</div>
+      <div class="delta neg">▲ 0,8 p.p. vs. 4T25</div>
+      <div class="sub">Net Debt/EBITDA ≈ 0,55x (ex-leases)</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">EBITDA Ajustado · 1T26</div>
+      <div class="value">US$ 12,6 bi</div>
+      <div class="delta pos">▲ 19% a/a · ▲ 25% t/t</div>
+      <div class="sub">UDM ≈ US$ 42 bi</div>
+    </div>
+    <div class="metric-card green">
+      <div class="label">Geração de Caixa (CFFO)</div>
+      <div class="value">US$ 8,6 bi</div>
+      <div class="delta pos">▲ 23% a/a · ▲ 20% t/t</div>
+      <div class="sub">Run-rate anual ≈ US$ 34 bi</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Lucro Líq. Ajustado · 1T26</div>
+      <div class="value">US$ 5,4 bi</div>
+      <div class="delta pos">▲ 29% a/a · ▲ 41% t/t</div>
+      <div class="sub">Lucro IFRS US$ 5,8 bi (▲ 51% a/a)</div>
+    </div>
+  </div>
+  <div class="kpi-strip">
+    <div class="kpi"><div class="v g">US$ 25,7 bi</div><div class="l">Caixa &amp; equivalentes<br>(cobre dívida CP em ~2,0x)</div></div>
+    <div class="kpi"><div class="v">2.553</div><div class="l">Produção kboe/d<br>(+4% ex-conflito Oriente Médio)</div></div>
+    <div class="kpi"><div class="v g">~US$ 5/boe</div><div class="l">Custo de produção<br>(breakeven de caixa ~US$ 30/bbl)</div></div>
+    <div class="kpi"><div class="v">+5,9%</div><div class="l">Dividendo interino → €0,90<br>(maior alta entre as majors)</div></div>
+  </div>
+  <div class="prov">
+    <span style="color:var(--g300);font-weight:600">Legenda de proveniência dos dados:</span>
+    <span class="item"><span class="sq rep"></span> Reportado pela companhia (1T26)</span>
+    <span class="item"><span class="sq calc"></span> Calculado a partir de dados reportados</span>
+    <span class="item"><span class="sq est"></span> Estimativa própria</span>
+  </div>
+</section>
+
+<!-- ============ 01 · RESUMO EXECUTIVO ============ -->
+<section class="section" id="resumo">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">Resumo Executivo</h2>
+    <span class="section-kicker">A operação, a garantidora e a recomendação</span>
+  </div>
+
+  <div class="summary-box">
+    <p>A <strong>1ª emissão de debêntures da TGR Subholding 7</strong> (R$ 390 milhões, 3 séries, rating local <strong>AAA(bra)</strong>) financia a finalização do projeto eólico <strong>Ventos de Santa Áurea</strong> (63 MW, RN), parte do complexo Serra do Tigre da Casa dos Ventos. O ponto de crédito central é que a emissão conta com <strong>Parent Company Guarantee (PCG)</strong> prestada pela TotalEnergies Holdings, cobrindo de forma integral, fiel e pontual todas as obrigações da emissora — limitada a R$ 441 milhões. <em>Na prática, o risco de crédito do papel migra do projeto eólico (greenfield, em rampa) para a garantidora global.</em></p>
+    <p>Por essa razão, este relatório dedica-se à análise de crédito da <strong>TotalEnergies SE</strong>: uma das maiores empresas integradas de energia do mundo, com produção de ~2,55 milhões boe/d, atuação em toda a cadeia de óleo, gás e eletricidade, e ratings <strong>Aa3 / A+ / AA-</strong> — de 4 a 5 níveis acima das melhores empresas brasileiras em escala global.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title green">▣ Por que o crédito é forte</h3>
+      <div class="card-content">
+        <p>O 1T26 sintetiza a tese: mesmo com a perda de ~4% da produção pelo conflito no Oriente Médio, a TotalEnergies entregou <strong>lucro ajustado de US$ 5,4 bi (+29% a/a)</strong> e <strong>CFFO de US$ 8,6 bi (+23% a/a)</strong>. O modelo integrado funcionou como amortecedor — o que o Upstream perdeu, o Refino (×5,3 a/a) e o trading capturaram.</p>
+        <p>A companhia opera com um dos <strong>menores custos de produção do setor (~US$ 5/boe)</strong> e investe apenas em projetos com breakeven de caixa de <strong>~US$ 30/bbl</strong>, o que sustenta a geração de caixa mesmo em cenários adversos de preço. A estrutura de capital permanece robusta, com <strong>gearing de 15,5%</strong> e caixa de US$ 25,7 bi.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">▣ O que exige monitoramento</h3>
+      <div class="card-content">
+        <p>O conflito no Oriente Médio paralisou ~15% da produção (Catar, Iraque, UAE offshore — ~360 kb/d em abril) e danificou a refinaria SATORP. É um <strong>risco geopolítico vivo</strong> que, paradoxalmente, sustenta preços (~US$ 100/bbl no guidance) mas concentra exposição na região (~30% da produção em MENA).</p>
+        <p>A <strong>alocação de capital é assertiva</strong>: net investments de US$ 15 bi, payout &gt; 40% do CFFO, recompra de US$ 1,5 bi só no 2T26 e dividendo +5,9%. Soma-se a isso ~US$ 22 bi em <strong>garantias a subsidiárias não consolidadas</strong> (fora do balanço), que elevam a alavancagem ajustada para ~1,2x.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout pos">
+    <h4>◆ Recomendação de crédito</h4>
+    <p>Visão <strong>CONSTRUTIVA</strong> sobre o risco TotalEnergies e, por extensão, sobre a debênture garantida da TGR 7. A combinação de escala, diversificação integrada, baixo breakeven e balanço sólido confere ampla margem para honrar a garantia, mesmo sob cenários de stress de preço do petróleo até a faixa de US$ 40–50/bbl — patamar bem acima do breakeven de caixa da companhia. Os fatores de atenção (capex pró-cíclico, garantias fora do balanço e exposição ao Oriente Médio) são relevantes para o rating, mas não comprometem a capacidade de pagamento.</p>
+  </div>
+</section>
+
+<!-- ============ CASA DOS VENTOS (PRE-ANÁLISE) ============ -->
+<section class="section" id="cdv">
+  <div class="section-header">
+    <span class="section-number alt">CTX</span>
+    <h2 class="section-title">Casa dos Ventos &amp; Projeto Serra do Tigre</h2>
+    <span class="section-kicker">A emissora, o ativo e o vínculo com a garantidora</span>
+  </div>
+
+  <div class="summary-box" style="border-left-color:var(--green);background:linear-gradient(90deg,rgba(166,207,46,.05),transparent)">
+    <p>A <strong>Casa dos Ventos</strong> é uma das pioneiras e maiores desenvolvedoras de energia eólica do Brasil. Fundada em 2007 por <strong>Mário Araripe</strong> — engenheiro aeronáutico (ITA) e ex-líder da montadora Troller — a companhia construiu seu diferencial mapeando o vento no Nordeste quando a fonte ainda era incipiente no país. A entrada da <strong>TotalEnergies (34%)</strong> em 2023 transformou-a no principal veículo de renováveis da major francesa na América do Sul.</p>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="v g">4,3 GW</div><div class="l">Projetos em operação<br>e construção</div></div>
+    <div class="kpi"><div class="v">100%</div><div class="l">Projetos entregues no<br>prazo ou antes</div></div>
+    <div class="kpi"><div class="v g">~60 GW</div><div class="l">Pipeline (desenvolvidos<br>+ em desenvolvimento)</div></div>
+    <div class="kpi"><div class="v">R$ 21,9 bi</div><div class="l">Investimentos realizados<br>nos projetos</div></div>
+  </div>
+
+  <h3 style="font-size:16px;color:var(--green);margin:30px 0 14px">Trajetória e modelo de negócio</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title green">▣ Histórico &amp; evolução do modelo</h3>
+      <div class="card-content">
+        <p><strong>2007</strong> — fundação como desenvolvedora pura: mapeamento de vento, parcerias fundiárias e licenciamento. <strong>2009–2014</strong> — vendia projetos prontos (“develop-and-sell”) e, depois, ativos construídos. <strong>2014</strong> — após vencer leilão de 1,1 GW (5 parques), passa a desenvolver, construir e operar.</p>
+        <p><strong>2020</strong> — cria comercializadora de energia. <strong>2023</strong> — entrada da TotalEnergies (34%). <strong>2025</strong> — expansão para solar (+2 parques em construção). Hoje opera modelo <strong>integrado</strong>: desenvolvimento → construção → O&amp;M → comercialização.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="card-title green">▣ Portfólio &amp; qualidade dos ativos</h3>
+      <div class="card-content">
+        <p>Carteira concentrada no <strong>Nordeste</strong> (PB, RN, BA, CE, PI), região de melhores fatores de capacidade eólica do país, com diversificação inicial para solar. Contratos de O&amp;M de longo prazo com a <strong>Vestas</strong> e histórico de <strong>100% de entregas no prazo</strong> — um diferencial operacional relevante em greenfield de infraestrutura.</p>
+        <p><em>Nossa leitura:</em> a qualidade do desenvolvimento é alta, mas o perfil de risco standalone é típico de geração contratada em rampa — alavancado, sensível a curtailment e a generation shortfall. É justamente esse risco que a PCG da TotalEnergies neutraliza para o debenturista.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:16px;color:var(--green);margin:30px 0 14px">Indicadores operacionais &amp; financeiros</h3>
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Evolução da Receita Líquida</div>
+      <div class="chart-sub">R$ milhões · histórico anual e trimestral</div>
+      <div class="chart-wrap"><canvas id="cdvRevChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">EBITDA &amp; Margem EBITDA</div>
+      <div class="chart-sub">R$ milhões (barras) · margem % (linha)</div>
+      <div class="chart-wrap"><canvas id="cdvEbitdaChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="insight-card green" style="margin-top:18px">
+    <h4>Insight — a queda de margem não é deterioração, é mudança de mix <span class="insight-tag">nossa leitura</span></h4>
+    <p>A margem EBITDA recuou de <strong>75% (2022) para 34% (2024)</strong> e 26% no 1T25. Em uma leitura superficial isso pareceria erosão de qualidade. Na realidade, reflete a <strong>transição do modelo</strong>: a receita migrou de venda pontual de projetos prontos (margem altíssima, baixo volume) para um mix que incorpora receita de construção, EPC e operação de mais ativos consolidados (volume muito maior, margem estruturalmente menor). A receita saltou de R$ 31 mi (2021) para R$ 3,5 bi (2024) — um CAGR superior a 380% que dilui margem percentual mas multiplica o EBITDA absoluto (R$ 382 mi → R$ 1,19 bi). É crescimento saudável de escala, não deterioração.</p>
+  </div>
+
+  <h3 style="font-size:16px;color:var(--green);margin:30px 0 14px">Estrutura societária &amp; da emissão</h3>
+  <div class="grid-2">
+    <div class="card">
+      <div class="org">
+        <div class="org-row">
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div class="org-node"><div class="t">FIP Salus</div><div class="s">Mário Araripe · 66%</div></div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center">
+            <div class="org-node te"><div class="t">TotalEnergies EP Brasil</div><div class="s">via TotalEnergies SE · 34%</div></div>
+          </div>
+        </div>
+        <div class="org-line"></div>
+        <div class="org-node cdv"><div class="t">Casa dos Ventos</div><div class="s">holding operacional</div></div>
+        <div class="org-line"></div>
+        <div class="org-node"><div class="t">Holding Serra do Tigre</div><div class="s">Ventos de São Rafael</div></div>
+        <div class="org-line"></div>
+        <div class="org-node tgr"><div class="t">TGR Subholding 7</div><div class="s">emissora · 1ª emissão debêntures</div></div>
+        <div class="org-line"></div>
+        <div class="org-node"><div class="t">Ventos de Santa Áurea</div><div class="s">63 MW · São Tomé (RN)</div></div>
+        <div style="margin-top:16px"><span class="guar">↑ Parent Company Guarantee — TotalEnergies Holdings (limite R$ 441 mi)</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">▣ Características da 1ª emissão</h3>
+      <div class="card-content">
+        <div class="seg-row"><span class="l">Volume</span><span class="v">R$ 390 mi</span></div>
+        <div class="seg-row"><span class="l">1ª série · 10 anos</span><span class="v">IPCA + 6,94%</span></div>
+        <div class="seg-row"><span class="l">2ª série · 15 anos</span><span class="v">IPCA + 6,39%</span></div>
+        <div class="seg-row"><span class="l">3ª série · 22 anos</span><span class="v">IPCA + 6,54%</span></div>
+        <div class="seg-row"><span class="l">Rating local</span><span class="v" style="color:var(--orange)">AAA(bra)</span></div>
+        <div class="seg-row"><span class="l">Covenants financeiros</span><span class="v">Inexistentes</span></div>
+        <p style="margin-top:14px;font-size:13px;color:var(--g300)">Uso de recursos: (i) repagamento de parte do bridge loan da construção do complexo via Ventos de São Rafael; (ii) finalização do capex de Ventos de Santa Áurea. As séries têm <strong>perfil de amortização customizado</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <h4>◆ Ponto estrutural — o rating AAA(bra) é da garantia, não da emissora</h4>
+    <p>Não há covenants financeiros nem limitação a novo endividamento na escritura. O conforto de crédito do papel <strong>não decorre da geração standalone da TGR 7</strong> (uma SPE de 63 MW em rampa), mas da cobertura integral da PCG. O papel deve, portanto, ser precificado como <strong>risco TotalEnergies em reais</strong>, ajustado pelo prazo longo (até 22 anos) e pela natureza limitada da garantia (teto de R$ 441 mi, equivalente a ~113% do principal).</p>
+  </div>
+
+  <div class="insight-card green">
+    <h4>Importância estratégica para a TotalEnergies <span class="insight-tag">nossa leitura</span></h4>
+    <p>A Casa dos Ventos é a <strong>peça-chave da estratégia de descarbonização da TotalEnergies na América do Sul</strong>. A major incorpora <strong>49% da capacidade bruta da Casa dos Ventos</strong> ao seu portfólio de renováveis (junto a participações na Adani Green e Clearway), contribuindo diretamente para a meta de <strong>100 GW de capacidade renovável até 2030</strong>. O racional vai além de capacidade: a parceria reduz o custo de capital dos projetos da Casa dos Ventos, gera economias de escala na compra de turbinas e abre acesso a clientes corporativos para PPAs. Para o debenturista, a relevância estratégica reforça o incentivo reputacional e econômico da TotalEnergies em honrar integralmente a garantia — uma camada qualitativa de proteção além da obrigação contratual.</p>
+  </div>
+</section>
+
+<!-- ============ 02 · TESE DE CRÉDITO ============ -->
+<section class="section" id="tese">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Tese de Crédito</h2>
+    <span class="section-kicker">Por que a TotalEnergies merece rating Aa-band</span>
+  </div>
+
+  <div class="summary-box">
+    <p>A tese de crédito da TotalEnergies repousa sobre quatro pilares — <strong>escala e diversificação integrada, disciplina de custo e breakeven, fortaleza do balanço e opcionalidade da transição</strong> — que, combinados, produzem uma geração de caixa resiliente ao longo do ciclo de commodities. O 1T26 é a prova de conceito: com Brent a US$ 81/bbl (+27% t/t) e o conflito no Oriente Médio retirando ~4% da produção, a companhia <strong>elevou EBITDA ajustado em 19% a/a e CFFO em 23% a/a</strong>, capturando integralmente o upside de preços via um portfólio que se autoprotege.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="insight-card green">
+      <h4>Pilar 1 — O modelo integrado é um amortecedor real, não retórico <span class="insight-tag">nossa leitura</span></h4>
+      <p>No 1T26, o adjusted net operating income por segmento mostrou a engenharia do hedge natural: <strong>Refino &amp; Químicos saltou ×5,3 a/a</strong> (US$ 1.599 mi vs. US$ 301 mi) e o trading de crude/produtos teve performance excepcional em março, compensando a pressão sobre o Upstream da paralisação no Oriente Médio. Quando o preço sobe, Upstream e LNG capturam; quando margens de refino se abrem, o Downstream entrega. Essa <strong>baixa correlação entre os motores de caixa</strong> é o que justifica o múltiplo de rating superior ao de pares puramente upstream.</p>
+    </div>
+    <div class="insight-card green">
+      <h4>Pilar 2 — Breakeven de ~US$ 30/bbl é a âncora de resiliência <span class="insight-tag">nossa leitura</span></h4>
+      <p>Com custo de produção de <strong>~US$ 5/boe</strong> e política de só aprovar projetos com breakeven de fluxo de caixa de <strong>~US$ 30/bbl</strong>, a TotalEnergies gera caixa positivo mesmo em cenários de preço severamente deprimidos. Aplicando a sensibilidade da própria companhia (US$ 2,8 bi de CFFO por US$ 10/bbl de Brent), estimamos que o CFFO permaneceria <strong>amplamente positivo e suficiente para cobrir capex + dividendos até ~US$ 40–50/bbl</strong> — uma margem de segurança de US$ 10–20/bbl sobre o breakeven.</p>
+    </div>
+    <div class="insight-card">
+      <h4>Pilar 3 — Balanço robusto com folga para o ciclo <span class="insight-tag">nossa leitura</span></h4>
+      <p>Gearing de <strong>15,5%</strong> e Net Debt/EBITDA estimado em ~0,55x (ex-leases) deixam a companhia em posição confortável mesmo após anos de capex elevado e remuneração agressiva. A liquidez de <strong>US$ 25,7 bi</strong> cobre a dívida de curto prazo (~US$ 12,8 bi) em ~2,0x. O balanço comporta uma deterioração relevante de preços sem que a alavancagem se aproxime dos limites de rating.</p>
+    </div>
+    <div class="insight-card">
+      <h4>Pilar 4 — Transição como opcionalidade, não como fardo <span class="insight-tag">nossa leitura</span></h4>
+      <p>O segmento Integrated Power (35,6 GW renováveis brutos, meta de 100 GW em 2030) adiciona fluxo de caixa contratado e de baixa correlação com commodities — uma <strong>diversificação que reduz a volatilidade prospectiva</strong> do caixa. O segmento ainda é consumidor líquido de caixa hoje — esse é o custo de construir uma fonte de fluxo de caixa contratado e de baixa volatilidade. O fechamento do negócio com a EPH (gas-to-power) e a meta de FCF positivo em Power já em 2027 sinalizam que a fase de maior consumo de caixa do segmento está perto do ponto de inflexão.</p>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <h4>◆ A contra-tese honesta</h4>
+    <p>A política de remuneração ao acionista (payout &gt; 40% do CFFO, recompras, dividendo +5,9%) é calibrada para um ambiente de preços elevado. Em uma queda prolongada e severa, a disciplina de capital será testada: a sequência esperada de ajuste é <strong>cortar recompras primeiro, flexibilizar capex de curto ciclo depois e proteger o dividendo por último</strong>. Há ainda ~US$ 22 bi em garantias fora do balanço que elevam a alavancagem ajustada para ~1,2x. Nenhum desses fatores ameaça a capacidade de pagamento, mas são as variáveis que determinam se o rating permanece estável ou migra de viés.</p>
+  </div>
+</section>
+
+<!-- ============ 03 · PONTOS FORTES ============ -->
+<section class="section" id="fortes">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Principais Pontos Fortes</h2>
+    <span class="section-kicker">Os fundamentos que sustentam o crédito</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title green">✓ Fortalezas estruturais</h3>
+      <div class="card-content">
+        <div class="list-item"><span class="dot green"></span><span><strong>Escala e diversificação geográfica:</strong> produção de ~2,55 milhões boe/d distribuída por Europa, África, Oriente Médio, Américas e Ásia-Pacífico, sem dependência de um único país ou ativo</span></div>
+        <div class="list-item"><span class="dot green"></span><span><strong>Modelo integrado completo:</strong> atuação em todos os elos — E&amp;P, GNL, energia, refino, químicos e marketing — com trading sofisticado que captura volatilidade</span></div>
+        <div class="list-item"><span class="dot green"></span><span><strong>Custo de produção entre os menores do setor:</strong> ~US$ 5/boe, com política de breakeven de caixa de ~US$ 30/bbl em novos projetos</span></div>
+        <div class="list-item"><span class="dot green"></span><span><strong>Reservas 1P de 11,7 Gboe:</strong> a maior do conjunto de pares europeus (Shell 9,6 / BP 6,2), sustentando longevidade da produção</span></div>
+        <div class="list-item"><span class="dot green"></span><span><strong>Pipeline de projetos de alta qualidade:</strong> ramp-ups de Mero-3/4 e Lapa SW (Brasil), Anchor e Ballymore (EUA), Tyra (Dinamarca), Begonia e Clov 3 (Angola)</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="card-title green">✓ Fortalezas financeiras</h3>
+      <div class="card-content">
+        <div class="list-item"><span class="dot green"></span><span><strong>Geração de caixa resiliente:</strong> CFFO de US$ 8,6 bi no 1T26 (+23% a/a); free cash flow após investimentos orgânicos de US$ 3,9 bi (+58% a/a)</span></div>
+        <div class="list-item"><span class="dot green"></span><span><strong>Estrutura de capital sólida:</strong> gearing de 15,5%; dívida líquida de US$ 23,0 bi; Net Debt/EBITDA estimado em ~0,55x (ex-leases)</span></div>
+        <div class="list-item"><span class="dot green"></span><span><strong>Liquidez ampla:</strong> US$ 25,7 bi de caixa, cobrindo a dívida de curto prazo em ~2,0x; acesso pleno a mercados de capitais globais</span></div>
+        <div class="list-item"><span class="dot green"></span><span><strong>Cobertura de juros muito confortável:</strong> EBITDA/juros &gt; 13x; cobertura sobre custo líquido de dívida ~19x</span></div>
+        <div class="list-item"><span class="dot green"></span><span><strong>Geração de caixa auto-financiável:</strong> fluxo de caixa livre superior a US$ 12 bi em 2024 após juros e capex — a companhia financia seu elevado plano de investimentos com recursos próprios, sem depender de novo endividamento</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-card green">
+    <h4>O ponto forte mais subestimado: a flexibilidade pró-cíclica reversa do capex <span class="insight-tag">nossa leitura</span></h4>
+    <p>A força mais relevante do crédito não é um número de balanço, e sim a <strong>capacidade de modular o investimento conforme o ciclo</strong>. Os investimentos orgânicos de US$ 4,65 bi/trimestre incluem uma parcela significativa de <strong>curto ciclo</strong> (short-cycle), que pode ser acelerada para capturar preços altos — como a companhia explicita no guidance — ou postergada em cenários de queda, sem comprometer a base produtiva. Essa elasticidade, combinada com o baixo breakeven, é o que permite à TotalEnergies <strong>defender o dividendo e a alavancagem simultaneamente</strong> mesmo em downturns, algo que peers menos disciplinados não conseguem replicar.</p>
+  </div>
+</section>
+
+<!-- ============ 04 · PRINCIPAIS RISCOS ============ -->
+<section class="section" id="riscos">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Principais Riscos e Mitigantes</h2>
+    <span class="section-kicker">Exposições, contrapontos e pontos de atenção</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">⚠ Riscos explícitos</h3>
+      <div class="card-content">
+        <div class="list-item"><span class="dot orange"></span><span><strong>Volatilidade de preços de commodities:</strong> resultados expostos a Brent, gás (TTF/Henry Hub) e margens de refino; sensibilidade de ±US$ 2,8 bi de CFFO por ±US$ 10/bbl</span></div>
+        <div class="list-item"><span class="dot orange"></span><span><strong>Conflito no Oriente Médio:</strong> ~15% da produção paralisada (Catar, Iraque, UAE offshore); SATORP danificada e operando a capacidade reduzida (230 kb/d)</span></div>
+        <div class="list-item"><span class="dot orange"></span><span><strong>Plano de investimentos elevado:</strong> net investments de US$ 15 bi/ano, incluindo renováveis e GNL — pressão estrutural sobre o free cash flow</span></div>
+        <div class="list-item"><span class="dot orange"></span><span><strong>Remuneração ao acionista arrojada:</strong> payout &gt; 40% do CFFO, recompra de US$ 1,5 bi/trimestre e dividendo +5,9%</span></div>
+        <div class="list-item"><span class="dot orange"></span><span><strong>Risco de transição energética:</strong> demanda de óleo de longo prazo e potencial stranding de ativos upstream em horizonte de 10–20 anos</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="card-title" style="color:var(--red)">⚠ Riscos latentes que monitoramos</h3>
+      <div class="card-content">
+        <div class="list-item"><span class="dot red"></span><span><strong>Garantias fora do balanço (~US$ 22 bi):</strong> a subsidiárias não consolidadas — praticamente dobram a alavancagem reportada, elevando a métrica ajustada para ~1,2x</span></div>
+        <div class="list-item"><span class="dot red"></span><span><strong>Gap entre CFFO e caixa operacional IFRS:</strong> no 1T26, o caixa operacional após capital de giro foi de apenas US$ 3,4 bi vs. CFFO de US$ 8,6 bi — um consumo de US$ 5,1 bi de working capital saiu de fato do caixa</span></div>
+        <div class="list-item"><span class="dot red"></span><span><strong>Risco de execução/segurança em Moçambique:</strong> o reinício do LNG em Cabo Delgado reabre exposição a um projeto historicamente sujeito a força maior e instabilidade</span></div>
+        <div class="list-item"><span class="dot red"></span><span><strong>Capex pró-cíclico (chasing the peak):</strong> aceleração de curto ciclo para capturar preços altos pode investir no topo do ciclo se os preços normalizarem rápido</span></div>
+        <div class="list-item"><span class="dot red"></span><span><strong>Impairments e revisão estratégica de renováveis:</strong> a saída de concessões eólicas offshore nos EUA e a revisão de portfólio fora de mercados-foco sinalizam projetos abaixo do custo de capital</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size:16px;color:var(--orange);margin:26px 0 14px">Como cada risco estrutural é mitigado</h3>
+  <div class="grid-2" style="margin-bottom:11px">
+    <div style="background:rgba(239,106,106,.08);border:1px solid rgba(239,106,106,.25);border-radius:10px;padding:14px 16px;font-size:13.4px;color:var(--g100);line-height:1.6"><strong style="color:var(--red)">Risco · </strong>Exposição à volatilidade de preços de óleo, gás e margens de refino — resultados dependem da dinâmica global de oferta e demanda.</div>
+    <div style="background:rgba(166,207,46,.08);border:1px solid rgba(166,207,46,.28);border-radius:10px;padding:14px 16px;font-size:13.4px;color:var(--g200);line-height:1.6"><strong style="color:var(--green)">Mitigante · </strong>Modelo integrado (refino e trading amortecem o upstream) somado a custo de produção de <strong>~US$ 5/boe</strong> e política de breakeven de caixa de <strong>~US$ 30/bbl</strong> — a companhia gera caixa mesmo em cenários de preços baixos.</div>
+  </div>
+  <div class="grid-2" style="margin-bottom:11px">
+    <div style="background:rgba(239,106,106,.08);border:1px solid rgba(239,106,106,.25);border-radius:10px;padding:14px 16px;font-size:13.4px;color:var(--g100);line-height:1.6"><strong style="color:var(--red)">Risco · </strong>Plano de investimentos elevado (~US$ 15 bi/ano líquidos), incluindo renováveis e GNL, ao longo de todo o ciclo de capex.</div>
+    <div style="background:rgba(166,207,46,.08);border:1px solid rgba(166,207,46,.28);border-radius:10px;padding:14px 16px;font-size:13.4px;color:var(--g200);line-height:1.6"><strong style="color:var(--green)">Mitigante · </strong>Capacidade de <strong>autofinanciar os investimentos</strong> com a própria geração de caixa: FCF de mais de <strong>US$ 12 bi em 2024</strong> após juros e capex. Os aportes em baixo carbono ainda reduzem o risco de transição energética.</div>
+  </div>
+  <div class="grid-2" style="margin-bottom:4px">
+    <div style="background:rgba(239,106,106,.08);border:1px solid rgba(239,106,106,.25);border-radius:10px;padding:14px 16px;font-size:13.4px;color:var(--g100);line-height:1.6"><strong style="color:var(--red)">Risco · </strong>Garantias prestadas a subsidiárias não consolidadas e afiliadas de <strong>~US$ 22 bi</strong> (final de 2024).</div>
+    <div style="background:rgba(166,207,46,.08);border:1px solid rgba(166,207,46,.28);border-radius:10px;padding:14px 16px;font-size:13.4px;color:var(--g200);line-height:1.6"><strong style="color:var(--green)">Mitigante · </strong>Mesmo incluindo essas garantias no endividamento, a alavancagem ajustada fica em <strong>~1,2x</strong> — patamar confortável, que preserva ampla flexibilidade financeira.</div>
+  </div>
+
+  <div class="callout risk">
+    <h4>◆ O risco que mais importa para o rating: concentração da exposição justamente no foco da crise</h4>
+    <p>A região <strong>Oriente Médio e Norte da África responde por ~30% da produção combinada</strong> (777 kboe/d de 2.553 no 1T26) — e é exatamente onde está a exposição ao conflito atual. Embora a diversificação por região seja genuína (Europa 570, Américas 487, África 431, Ásia-Pacífico 288 kboe/d), a maior concentração individual coincide com o epicentro do risco geopolítico vigente. Uma escalada que prolongue a paralisação por trimestres — e não meses — seria o gatilho mais provável de pressão sobre estimativas de produção e, em cenário extremo, sobre o viés de rating. É um risco de cauda monitorável, não um risco-base.</p>
+  </div>
+</section>
+
+<!-- ============ 05 · VISÃO GERAL ============ -->
+<section class="section" id="visao">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2 class="section-title">Visão Geral da Companhia</h2>
+    <span class="section-kicker">Estrutura, escala e diversificação</span>
+  </div>
+
+  <div class="summary-box">
+    <p>A <strong>TotalEnergies SE</strong> é uma empresa global integrada de energia, com atuação em toda a cadeia de óleo e gás e presença crescente em eletricidade de baixo carbono. Atua em <strong>cinco segmentos</strong> — Exploração &amp; Produção, GNL Integrado, Energia Integrada, Refino &amp; Químicos e Marketing &amp; Serviços — em aproximadamente 50 países. A base acionária é pulverizada, sem controlador definido, com <strong>free float superior a 86%</strong>.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 class="card-title">▣ Estrutura acionária</h3>
+      <div class="card-content">
+        <div class="chart-wrap sm" style="height:230px"><canvas id="shareholderChart"></canvas></div>
+        <p style="margin-top:14px;font-size:13px;color:var(--g300)">Capital pulverizado reduz risco de governança ligado a acionista controlador. <strong>Funcionários detêm 7,7%</strong>, alinhando incentivos. A ausência de um Estado controlador (diferentemente da Petrobras) confere maior previsibilidade à alocação de capital.</p>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">▣ Diversificação geográfica — capacidade renovável bruta</h3>
+      <div class="card-content">
+        <div class="chart-wrap sm" style="height:230px"><canvas id="geoChart"></canvas></div>
+        <p style="margin-top:14px;font-size:13px;color:var(--g300)">Presença equilibrada entre EUA (31,9 GW), Europa (30,1 GW), Índia (13 GW) e Ásia-Pacífico (11 GW). A diversificação reduz a exposição a um único regime regulatório ou risco-país e suporta a meta de 100 GW renováveis até 2030.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top:18px">
+    <div class="kpi"><div class="v">~50</div><div class="l">Países com atividade de E&amp;P</div></div>
+    <div class="kpi"><div class="v g">11,7 Gboe</div><div class="l">Reservas provadas (1P)</div></div>
+    <div class="kpi"><div class="v">1,8 Mb/d</div><div class="l">Capacidade de refino</div></div>
+  </div>
+
+  <div class="callout info">
+    <h4>◆ Leitura de governança</h4>
+    <p>A estrutura pulverizada e a sede em jurisdição de forte arcabouço regulatório (França/UE, com 20-F na SEC) sustentam padrões elevados de transparência e disclosure. Para o crédito, isso se traduz em <strong>menor risco de interferência política na política de dividendos e investimentos</strong> — um diferencial frente a majors estatais ou semi-estatais.</p>
+  </div>
+</section>
+
+<!-- ============ 06 · MODELO DE NEGÓCIO ============ -->
+<section class="section" id="modelo">
+  <div class="section-header">
+    <span class="section-number">06</span>
+    <h2 class="section-title">Modelo de Negócio</h2>
+    <span class="section-kicker">A cadeia integrada como vantagem competitiva</span>
+  </div>
+
+  <div class="summary-box">
+    <p>O diferencial competitivo da TotalEnergies é a <strong>integração vertical e horizontal</strong> da cadeia de energia: da molécula (óleo, gás, moléculas verdes, renováveis) até o consumidor final (combustíveis, eletricidade, plásticos), passando por transformação, transporte, armazenagem e trading. Essa integração permite capturar margem em cada elo e <strong>arbitrar entre segmentos conforme a janela de mercado</strong>.</p>
+  </div>
+
+  <div class="card" style="padding:24px">
+    <h3 class="card-title">▣ Diagrama da cadeia integrada</h3>
+    <div class="flow">
+      <div class="flow-col">
+        <h5>Produção</h5>
+        <div class="flow-chip"><span class="ic" style="background:var(--green)"></span>Renováveis (solar, eólica)</div>
+        <div class="flow-chip"><span class="ic" style="background:var(--orange)"></span>Gás natural</div>
+        <div class="flow-chip"><span class="ic" style="background:var(--blue)"></span>Óleo</div>
+        <div class="flow-chip"><span class="ic" style="background:var(--green-dark)"></span>Moléculas verdes (H₂, biomassa)</div>
+      </div>
+      <div class="flow-col">
+        <h5>Transformação &amp; Transporte</h5>
+        <div class="flow-chip"><span class="ic" style="background:var(--orange)"></span>GNL (liquefação/regas)</div>
+        <div class="flow-chip"><span class="ic" style="background:var(--green)"></span>Armazenagem / baterias</div>
+        <div class="flow-chip"><span class="ic" style="background:var(--blue)"></span>Refinarias &amp; petroquímicas</div>
+        <div class="flow-chip"><span class="ic" style="background:var(--amber)"></span>Usinas a gás &amp; biorefinarias</div>
+      </div>
+      <div class="flow-col">
+        <h5>Distribuição</h5>
+        <div class="flow-chip"><span class="ic" style="background:var(--green)"></span>Energia elétrica (B2B/B2C)</div>
+        <div class="flow-chip"><span class="ic" style="background:var(--orange)"></span>Gás natural / biometano</div>
+        <div class="flow-chip"><span class="ic" style="background:var(--blue)"></span>Combustíveis</div>
+        <div class="flow-chip"><span class="ic" style="background:var(--amber)"></span>Plásticos &amp; lubrificantes</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:18px">
+    <div class="insight-card">
+      <h4>A economia da integração no 1T26 <span class="insight-tag">nossa leitura</span></h4>
+      <p>O trimestre exemplifica a arbitragem entre elos: enquanto o Upstream sofria com a paralisação no Oriente Médio, o <strong>Downstream capturou margens excepcionais de refino em março</strong> (ERM a US$ 11,4/bbl, ×2,9 vs. 1T25) e o trading de crude e produtos teve performance muito forte. A integração permite que a companhia <strong>monetize a volatilidade em vez de apenas sofrê-la</strong> — o trading de LNG, gás e energia, centralizado, transforma deslocamentos de mercado em receita.</p>
+    </div>
+    <div class="insight-card">
+      <h4>O pivô de portfólio é contínuo e disciplinado <span class="insight-tag">nossa leitura</span></h4>
+      <p>A gestão ativa do portfólio é parte do modelo: no 1T26, a companhia concluiu a fusão dos ativos de Upstream do Reino Unido com a NEO NEXT (criando a NEO NEXT+, com 47,5% de participação), vendeu ativos West of Shetland e adquiriu campos de gás no Anadarko (EUA). Esse <strong>reciclo permanente de capital</strong> — vender ativos maduros, redirecionar para barris vantajosos e renováveis — é o que mantém o custo médio de produção baixo e o portfólio de alta qualidade ao longo do tempo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 · SEGMENTOS ============ -->
+<section class="section" id="segmentos">
+  <div class="section-header">
+    <span class="section-number">07</span>
+    <h2 class="section-title">Análise dos Segmentos</h2>
+    <span class="section-kicker">Upstream · GNL · Power · Renováveis · Refino · Marketing</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Composição do Resultado Operacional Ajustado · 1T26</div>
+      <div class="chart-sub">Adjusted net operating income por segmento · US$ milhões</div>
+      <div class="chart-wrap"><canvas id="segMixChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Geração de Caixa Operacional por Segmento · FY2024</div>
+      <div class="chart-sub">Fluxo de caixa operacional · US$ bilhões · onde a companhia efetivamente gera caixa</div>
+      <div class="chart-wrap"><canvas id="segCashChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="chart-card" style="margin-top:18px">
+    <div class="chart-title">Produção Combinada por Região · 1T26</div>
+    <div class="chart-sub">Líquidos + gás · kboe/d · ilustra a concentração relativa em MENA</div>
+    <div class="chart-wrap sm"><canvas id="regionChart"></canvas></div>
+  </div>
+
+  <h3 style="font-size:16px;color:var(--orange);margin:30px 0 14px">Detalhamento por segmento</h3>
+  <div class="grid-2">
+    <div class="seg-card">
+      <div class="seg-head up"><span class="nm">Exploração &amp; Produção</span><span class="roace">Caixa op. US$ 4,6 bi</span></div>
+      <div class="seg-body">
+        <div class="seg-row"><span class="l">Resultado op. ajustado</span><span class="v">US$ 2.576 mi <span class="pos-c">▲43% t/t</span></span></div>
+        <div class="seg-row"><span class="l">CFFO</span><span class="v">US$ 4.564 mi</span></div>
+        <div class="seg-row"><span class="l">Produção</span><span class="v">1.948 kboe/d</span></div>
+        <div class="seg-row"><span class="l">Investimento orgânico</span><span class="v">US$ 2.724 mi</span></div>
+        <div class="seg-take"><b>Nossa leitura:</b> o motor de caixa principal capturou integralmente a alta dos líquidos (+US$ 12,4/bbl no trimestre) e a contribuição acretiva de novos projetos. O maior peso e a melhor escala compensam a tributação elevada (~49,5%).</div>
+      </div>
+    </div>
+    <div class="seg-card">
+      <div class="seg-head lng"><span class="nm">GNL Integrado</span><span class="roace">Caixa op. US$ 1,8 bi</span></div>
+      <div class="seg-body">
+        <div class="seg-row"><span class="l">Resultado op. ajustado</span><span class="v">US$ 1.318 mi <span class="pos-c">▲43% t/t</span></span></div>
+        <div class="seg-row"><span class="l">CFFO</span><span class="v">US$ 1.785 mi</span></div>
+        <div class="seg-row"><span class="l">Produção GNL</span><span class="v">605 kboe/d <span class="pos-c">▲12% t/t</span></span></div>
+        <div class="seg-row"><span class="l">Vendas de GNL</span><span class="v">12,4 Mt</span></div>
+        <div class="seg-take"><b>Nossa leitura:</b> crescimento de 12% na produção (Austrália, EUA, Malásia) e trading capturando volatilidade. O reinício de Moçambique e o offtake do Alaska LNG diversificam o portfólio, mas adicionam risco de execução.</div>
+      </div>
+    </div>
+    <div class="seg-card">
+      <div class="seg-head pwr"><span class="nm">Energia Integrada</span><span class="roace">Caixa op. US$ 0,6 bi</span></div>
+      <div class="seg-body">
+        <div class="seg-row"><span class="l">Resultado op. ajustado</span><span class="v">US$ 545 mi <span class="neu-c">▼3% t/t</span></span></div>
+        <div class="seg-row"><span class="l">CFFO</span><span class="v">US$ 574 mi</span></div>
+        <div class="seg-row"><span class="l">Geração líquida</span><span class="v">11,7 TWh</span></div>
+        <div class="seg-row"><span class="l">Capacidade instalada</span><span class="v">26,8 GW</span></div>
+        <div class="seg-take"><b>Nossa leitura:</b> resultado estável a/a (sem farm-down no trimestre). O fechamento do negócio com a EPH (gas-to-power) acelera a integração e mira <b>FCF positivo já em 2027</b> — ponto de inflexão decisivo para a tese de transição.</div>
+      </div>
+    </div>
+    <div class="seg-card">
+      <div class="seg-head pwr"><span class="nm">Renováveis (dentro de Power)</span><span class="roace">35,6 GW brutos</span></div>
+      <div class="seg-body">
+        <div class="seg-row"><span class="l">Capacidade renovável bruta</span><span class="v">35,6 GW <span class="pos-c">▲28% a/a</span></span></div>
+        <div class="seg-row"><span class="l">Adição no ano</span><span class="v">~8 GW</span></div>
+        <div class="seg-row"><span class="l">Geração renovável</span><span class="v">8,2 TWh <span class="pos-c">▲20% a/a</span></span></div>
+        <div class="seg-row"><span class="l">Meta 2030</span><span class="v">100 GW</span></div>
+        <div class="seg-take"><b>Nossa leitura:</b> crescimento robusto, mas a <b>saída de eólica offshore nos EUA</b> e a revisão de portfólio fora de mercados-foco mostram disciplina de retorno — corte do que não atinge o custo de capital. Aqui se inscreve a participação na Casa dos Ventos.</div>
+      </div>
+    </div>
+    <div class="seg-card">
+      <div class="seg-head ref"><span class="nm">Refino &amp; Químicos</span><span class="roace">Caixa op. US$ 1,7 bi</span></div>
+      <div class="seg-body">
+        <div class="seg-row"><span class="l">Resultado op. ajustado</span><span class="v">US$ 1.599 mi <span class="pos-c">×5,3 a/a</span></span></div>
+        <div class="seg-row"><span class="l">CFFO</span><span class="v">US$ 1.716 mi</span></div>
+        <div class="seg-row"><span class="l">Throughput</span><span class="v">1.624 kb/d</span></div>
+        <div class="seg-row"><span class="l">Utilização das refinarias</span><span class="v">92%</span></div>
+        <div class="seg-take"><b>Nossa leitura:</b> o grande surpreendente do trimestre — resultado ×5,3 a/a e <b>US$ 1,7 bi de caixa operacional</b>, com margens de refino excepcionais em março e trading favorável. Foi o <b>contrapeso exato</b> da perda de produção no Upstream — a essência do hedge integrado, que transforma um choque setorial em resultado consolidado estável.</div>
+      </div>
+    </div>
+    <div class="seg-card">
+      <div class="seg-head ref"><span class="nm">Marketing &amp; Serviços</span><span class="roace">Caixa op. US$ 0,4 bi</span></div>
+      <div class="seg-body">
+        <div class="seg-row"><span class="l">Resultado op. ajustado</span><span class="v">US$ 262 mi <span class="pos-c">▲9% a/a</span></span></div>
+        <div class="seg-row"><span class="l">CFFO</span><span class="v">US$ 420 mi</span></div>
+        <div class="seg-row"><span class="l">Vendas de produtos</span><span class="v">1.206 kb/d</span></div>
+        <div class="seg-take"><b>Nossa leitura:</b> o segmento mais estável e capital-light, com retorno elevado e baixa volatilidade. Vendas caíram 5% a/a (desinvestimento de redes no Brasil e Sahel), mas margens unitárias maiores sustentaram o resultado. Âncora de previsibilidade do caixa.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-card" style="margin-top:18px">
+    <h4>A realocação de capital, sob a ótica de crédito <span class="insight-tag">nossa leitura</span></h4>
+    <p>Do ponto de vista de crédito, o que importa nos segmentos não é o retorno contábil de cada um, e sim <strong>de onde vem o caixa e quão estável ele é</strong>. A leitura central é que a companhia está deliberadamente migrando capital de negócios de <strong>caixa alto porém volátil</strong> (Upstream, Refino) para negócios de <strong>caixa contratado e de baixa correlação com commodities</strong> (renováveis, gas-to-power). Para o credor, essa migração é <strong>estruturalmente positiva</strong>: reduz a volatilidade prospectiva da geração de caixa e a exposição ao risco de transição energética. A contrapartida é que esses negócios são <strong>intensivos em capital e de retorno de caixa mais lento</strong> — Integrated Power ainda consome caixa líquido. Por isso, o monitorável de crédito decisivo não é a rentabilidade do segmento, mas se ele se torna <strong>autossustentável em caixa</strong>: a meta de FCF positivo em Power já em 2027 é o ponto de inflexão a acompanhar. Enquanto o segmento consumir caixa, ele compete por recursos com a remuneração ao acionista e o desalavancamento.</p>
+  </div>
+</section>
+
+<!-- ============ 08 · POSICIONAMENTO COMPETITIVO ============ -->
+<section class="section" id="peers">
+  <div class="section-header">
+    <span class="section-number">08</span>
+    <h2 class="section-title">Posicionamento Competitivo Global</h2>
+    <span class="section-kicker">TotalEnergies vs. Shell, BP e Petrobras</span>
+  </div>
+
+  <div class="summary-box">
+    <p>Entre as <em>supermajors</em>, a TotalEnergies posiciona-se no <strong>topo da qualidade de crédito (Aa3/A+/AA-)</strong>, ao lado da Shell, e à frente de BP (Baa2/BBB-) e Petrobras (Ba1/BB). Combina a <strong>menor alavancagem do grupo (~0,6x)</strong> com a <strong>maior base de reservas 1P (11,7 Gboe)</strong> — uma rara combinação de balanço conservador e longevidade de ativos.</p>
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="data-table">
+      <thead>
+        <tr><th>Métrica (2T25)</th><th>TotalEnergies</th><th>Shell</th><th>BP</th><th>Petrobras</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Rating (S&amp;P / Fitch / Moody's)</td><td class="num pos-c">A+ / AA- / Aa3</td><td class="num">A+ / AA- / A2</td><td class="num">BBB- / BBB / Baa2</td><td class="num">BB / BB / Ba1</td></tr>
+        <tr><td>Valor de mercado (US$ bi)</td><td class="num">139,1</td><td class="num">207,0</td><td class="num">79,7</td><td class="num">78,1</td></tr>
+        <tr><td>EBITDA UDM (US$ bi)</td><td class="num">40,8</td><td class="num">58,8</td><td class="num">36,7</td><td class="num">38,7</td></tr>
+        <tr><td>Margem EBITDA</td><td class="num">20%</td><td class="num">21%</td><td class="num">20%</td><td class="num">47%</td></tr>
+        <tr class="total"><td>Dívida Líquida / EBITDA (1S25)</td><td class="num pos-c">0,6x</td><td class="num">0,7x</td><td class="num">0,9x</td><td class="num">1,4x</td></tr>
+        <tr><td>Reservas 1P (Gboe)</td><td class="num pos-c">11,7</td><td class="num">9,6</td><td class="num">6,2</td><td class="num">11,6</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2" style="margin-top:18px">
+    <div class="chart-card">
+      <div class="chart-title">Alavancagem comparada · Dívida Líquida / EBITDA</div>
+      <div class="chart-sub">1S25 · menor é melhor</div>
+      <div class="chart-wrap sm"><canvas id="peerLevChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Reservas 1P comparadas</div>
+      <div class="chart-sub">Gboe · longevidade de produção</div>
+      <div class="chart-wrap sm"><canvas id="peerReservesChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="insight-card green" style="margin-top:18px">
+    <h4>O spread dos bonds confirma a leitura de crédito <span class="insight-tag">nossa leitura</span></h4>
+    <p>Os papéis da TotalEnergies (TTEFP) negociam, em média, <strong>~110 bps mais fechados que os da Petrobras (PETBRA)</strong> em USD — um prêmio de qualidade que o mercado já reconhece e que é consistente com a diferença de 4–5 níveis de rating. A margem EBITDA aparentemente baixa da TotalEnergies (20%) vs. Petrobras (47%) <strong>não indica inferioridade</strong>: reflete o mix integrado, com grande peso de Downstream e trading (negócios de alto giro e baixa margem percentual, mas de baixo risco e forte conversão em caixa). Comparar margem bruta entre uma integrada global e uma upstream-pesada é um erro analítico comum. O que importa para o credor — <strong>alavancagem, diversificação e cobertura</strong> — favorece consistentemente a TotalEnergies.</p>
+  </div>
+</section>
+
+<!-- ============ 09 · ANÁLISE FINANCEIRA ============ -->
+<section class="section" id="financeira">
+  <div class="section-header">
+    <span class="section-number">09</span>
+    <h2 class="section-title">Análise Financeira Completa</h2>
+    <span class="section-kicker">Resultados, geração de caixa e resiliência de margem</span>
+  </div>
+
+  <div class="summary-box">
+    <p>O 1T26 marcou uma <strong>forte recuperação sequencial</strong>, com todas as métricas de resultado em alta de dois dígitos. O lucro líquido IFRS dobrou t/t (+100%) para US$ 5,8 bi, e o EBITDA ajustado atingiu US$ 12,6 bi. A melhora foi impulsionada pela alta do Brent (+27% t/t), pela recuperação plena das margens de refino e pela performance excepcional do trading.</p>
+  </div>
+
+  <div class="callout pos" style="margin:18px 0">
+    <h4>◆ O ponto de partida da análise de crédito: resiliência de caixa pela estrutura de custos</h4>
+    <p>Antes de qualquer métrica de resultado, o fundamento de crédito da TotalEnergies está na <strong>capacidade de gerar caixa ao longo de todo o ciclo de preços</strong>. O custo de produção de <strong>~US$ 5/boe</strong> permanece estável mesmo com o Brent oscilando entre US$ 42 e US$ 101/bbl nos últimos anos — e a política de só aprovar projetos com <strong>breakeven de caixa de ~US$ 30/bbl</strong> garante geração de caixa positiva mesmo em cenários de preços deprimidos. É essa assimetria estrutural, e não o nível de preços de um trimestre, que sustenta a qualidade de crédito.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Custo de Produção vs. Brent</div>
+      <div class="chart-sub">US$/bbl (Brent) e US$/boe (custo) · o custo fica estável enquanto o preço oscila</div>
+      <div class="chart-wrap"><canvas id="prodCostChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Spread no Custo de Extração</div>
+      <div class="chart-sub">Brent − custo de produção · US$/barril · a margem unitária bruta</div>
+      <div class="chart-wrap"><canvas id="spreadChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="tbl-wrap" style="margin-top:18px">
+    <table class="data-table">
+      <thead>
+        <tr><th>US$ milhões</th><th>1T26</th><th>4T25</th><th>1T25</th><th>1T26 vs 1T25</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Receita de vendas</td><td class="num">49.516</td><td class="num">45.925</td><td class="num">47.899</td><td class="num pos-c">▲3%</td></tr>
+        <tr><td>EBITDA ajustado</td><td class="num">12.552</td><td class="num">10.066</td><td class="num">10.504</td><td class="num pos-c">▲19%</td></tr>
+        <tr><td>Result. op. ajustado (segmentos)</td><td class="num">6.300</td><td class="num">4.633</td><td class="num">4.792</td><td class="num pos-c">▲31%</td></tr>
+        <tr><td>Lucro líquido ajustado</td><td class="num">5.394</td><td class="num">3.837</td><td class="num">4.192</td><td class="num pos-c">▲29%</td></tr>
+        <tr><td>Lucro líquido IFRS</td><td class="num">5.810</td><td class="num">2.906</td><td class="num">3.851</td><td class="num pos-c">▲51%</td></tr>
+        <tr><td>LPA ajustado diluído (US$)</td><td class="num">2,45</td><td class="num">1,73</td><td class="num">1,83</td><td class="num pos-c">▲34%</td></tr>
+        <tr class="total"><td>CFFO (ex-capital de giro)</td><td class="num">8.576</td><td class="num">7.168</td><td class="num">6.992</td><td class="num pos-c">▲23%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid-2" style="margin-top:18px">
+    <div class="chart-card">
+      <div class="chart-title">Receita Líquida &amp; Margem EBITDA</div>
+      <div class="chart-sub">US$ bi (barras) · margem % (linha) · série histórica anual</div>
+      <div class="toggle-row"><button class="toggle-btn active" data-fin="annual">Anual</button><button class="toggle-btn" data-fin="semi">Semestral</button></div>
+      <div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Resultado por Segmento · 1T26 vs 1T25</div>
+      <div class="chart-sub">Adjusted net operating income · US$ milhões</div>
+      <div class="chart-wrap"><canvas id="segCompareChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h4>Os ajustes contábeis foram amigos do resultado IFRS no 1T26 <span class="insight-tag">nossa leitura</span></h4>
+    <p>O lucro IFRS (US$ 5,8 bi) superou o lucro ajustado (US$ 5,4 bi) — uma inversão relevante. O motivo: <strong>US$ 1,5 bi de efeito positivo de estoque (FIFO vs. custo de reposição)</strong> com a alta de preços no fim do trimestre, parcialmente compensado por US$ 0,9 bi de itens não recorrentes (impairments de eólica offshore nos EUA e revisão de renováveis, contra ganho na criação da NEO NEXT+). Do ponto de vista de crédito, o <strong>lucro ajustado é a métrica relevante</strong>, pois exclui esses efeitos de valuation de estoque que se revertem com o ciclo de preços. A qualidade do resultado é sólida, mas parte do lucro IFRS é "de papel".</p>
+  </div>
+</section>
+
+<!-- ============ 10 · LIQUIDEZ ============ -->
+<section class="section" id="liquidez">
+  <div class="section-header">
+    <span class="section-number">10</span>
+    <h2 class="section-title">Liquidez</h2>
+    <span class="section-kicker">Caixa, cronograma de amortização e folga</span>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="v g">US$ 25,7 bi</div><div class="l">Caixa &amp; equivalentes</div></div>
+    <div class="kpi"><div class="v">~2,0x</div><div class="l">Caixa / dívida de curto prazo</div></div>
+    <div class="kpi"><div class="v g">US$ 9,0 bi</div><div class="l">DACF · 1T26 (▲23% a/a)</div></div>
+    <div class="kpi"><div class="v">US$ 4,2 bi</div><div class="l">Ativos financeiros correntes</div></div>
+  </div>
+
+  <div class="grid-2" style="margin-top:6px">
+    <div class="chart-card">
+      <div class="chart-title">Cronograma de Amortização da Dívida</div>
+      <div class="chart-sub">US$ milhões · posição 4T24 · caixa cobre vencimentos próximos com folga</div>
+      <div class="chart-wrap"><canvas id="amortChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 class="card-title green">▣ Avaliação de liquidez</h3>
+      <div class="card-content">
+        <p>A posição de caixa de <strong>US$ 25,7 bi</strong> cobre integralmente os vencimentos de 2025–2029 somados (~US$ 20,4 bi) e excede a dívida de curto prazo em ~2,0x. O perfil de amortização é <strong>bem distribuído e alongado</strong>, com a maior concentração (~US$ 23,2 bi) somente em 2030+.</p>
+        <p>A companhia mantém <strong>acesso pleno e barato a mercados de capitais globais</strong> — no 1T26 emitiu US$ 3,6 bi de dívida não circulante e US$ 1,75 bi de notas subordinadas perpétuas. O risco de refinanciamento é <em>baixo</em>: nenhum vencimento isolado representa ameaça à liquidez, e o DACF anualizado (~US$ 36 bi) supera amplamente o serviço de dívida.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout pos">
+    <h4>◆ Conclusão de liquidez</h4>
+    <p>Liquidez <strong>muito confortável</strong>. A combinação de caixa elevado, perfil de dívida alongado, geração de caixa robusta e acesso irrestrito a funding torna o risco de refinanciamento praticamente imaterial no horizonte da debênture. Mesmo em um cenário de fechamento temporário de mercados, a companhia teria múltiplos anos de cobertura sem necessidade de captação.</p>
+  </div>
+</section>
+
+<!-- ============ 11 · ESTRUTURA DE CAPITAL ============ -->
+<section class="section" id="capital">
+  <div class="section-header">
+    <span class="section-number">11</span>
+    <h2 class="section-title">Estrutura de Capital</h2>
+    <span class="section-kicker">Composição entre dívida e patrimônio</span>
+  </div>
+
+  <div class="summary-box">
+    <p>A TotalEnergies opera com uma estrutura de capital <strong>fortemente capitalizada</strong>: o patrimônio líquido total de <strong>US$ 125,2 bi</strong> domina amplamente a dívida líquida de US$ 23,0 bi. O gearing (net-debt-to-capital) de <strong>15,5%</strong> situa-se em patamar conservador para uma integrada global de capital intensivo, deixando ampla capacidade de absorção de choques.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Composição da Estrutura de Capital</div>
+      <div class="chart-sub">Patrimônio líquido vs. dívida líquida (gearing)</div>
+      <div class="chart-wrap sm" style="height:260px"><canvas id="capStructChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">▣ Componentes (31/03/2026)</h3>
+      <div class="card-content">
+        <div class="seg-row"><span class="l">Patrimônio líquido (TE share)</span><span class="v">US$ 122,5 bi</span></div>
+        <div class="seg-row"><span class="l">Participações não controladoras</span><span class="v">US$ 2,7 bi</span></div>
+        <div class="seg-row"><span class="l">Dívida líquida (ex-leases)</span><span class="v">US$ 23,0 bi</span></div>
+        <div class="seg-row"><span class="l">Arrendamentos (leases)</span><span class="v">US$ 8,5 bi</span></div>
+        <div class="seg-row"><span class="l">Gearing</span><span class="v">15,5%</span></div>
+        <div class="seg-row"><span class="l">Gearing c/ leases</span><span class="v">20,1%</span></div>
+        <p style="margin-top:14px;font-size:13px;color:var(--g300)">O gearing subiu de 14,3% (mar/25) e 14,7% (dez/25) para 15,5%, refletindo o build de capital de giro e a remuneração ao acionista — movimento dentro da normalidade sazonal.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h4>A perpétua subordinada é um detalhe de estrutura que merece atenção <span class="insight-tag">nossa leitura</span></h4>
+    <p>No 1T26 a companhia emitiu líquidos <strong>US$ 1,75 bi de notas perpétuas subordinadas (hybrids)</strong>. Esses instrumentos recebem <strong>tratamento parcial de equity pelas agências</strong>, o que ajuda a otimizar o gearing reportado sem diluir acionistas. É um uso sofisticado e comum entre majors, mas vale notar que parte da "capitalização" inclui híbridos que carregam cupom e, em stress severo, comportam-se mais como dívida do que como capital permanente. Não altera a tese, mas é um ajuste fino na leitura da estrutura.</p>
+  </div>
+</section>
+
+<!-- ============ 12 · ENDIVIDAMENTO ============ -->
+<section class="section" id="divida">
+  <div class="section-header">
+    <span class="section-number">12</span>
+    <h2 class="section-title">Endividamento</h2>
+    <span class="section-kicker">Composição, ponte bruto-líquido e perfil</span>
+  </div>
+
+  <div class="summary-box">
+    <p>A dívida financeira bruta da TotalEnergies (ex-arrendamentos) somava <strong>US$ 54,1 bi</strong> em 31/03/2026, dos quais ~80% de longo prazo. Descontados US$ 25,7 bi de caixa e US$ 5,9 bi de ativos financeiros, a <strong>dívida líquida resulta em apenas US$ 23,0 bi</strong> — patamar modesto frente à geração de caixa de ~US$ 36 bi (DACF anualizado) e ao patrimônio de US$ 125 bi.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Ponte da Dívida Bruta para Dívida Líquida</div>
+      <div class="chart-sub">US$ bilhões · 31/03/2026 · ex-arrendamentos</div>
+      <div class="chart-wrap"><canvas id="debtBridgeChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">▣ Composição da dívida (31/03/2026)</h3>
+      <div class="card-content">
+        <div class="seg-row"><span class="l">Empréstimos circulantes (ex-leases)</span><span class="v">US$ 10,6 bi</span></div>
+        <div class="seg-row"><span class="l">Dívida financeira não circulante</span><span class="v">US$ 43,5 bi</span></div>
+        <div class="seg-row"><span class="l">Outros passivos financeiros circ.</span><span class="v">US$ 0,2 bi</span></div>
+        <div class="seg-row"><span class="l">= Dívida bruta (ex-leases)</span><span class="v">US$ 54,3 bi</span></div>
+        <div class="seg-row"><span class="l">(–) Caixa e equivalentes</span><span class="v">US$ 25,7 bi</span></div>
+        <div class="seg-row"><span class="l">(–) Ativos financeiros (circ.+ñ-circ.)</span><span class="v">US$ 5,6 bi</span></div>
+        <div class="seg-row"><span class="l">= Dívida líquida</span><span class="v">US$ 23,0 bi</span></div>
+        <div class="seg-row"><span class="l">(+) Arrendamentos (IFRS 16)</span><span class="v">US$ 8,5 bi</span></div>
+        <div class="seg-row"><span class="l">= Dívida líquida c/ leases</span><span class="v">US$ 31,5 bi</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h4>A estrutura de funding é uma vantagem competitiva silenciosa <span class="insight-tag">nossa leitura</span></h4>
+    <p>O custo da dívida líquida no 1T26 foi de apenas <strong>US$ 569 mi</strong> sobre uma dívida líquida média superior a US$ 20 bi — um custo efetivo baixíssimo que reflete o acesso da companhia a funding de grau de investimento elevado (Aa3/A+). No trimestre, a Total captou <strong>US$ 3,6 bi de dívida não circulante</strong> e <strong>US$ 1,75 bi de notas perpétuas subordinadas</strong>, demonstrando profundidade de acesso a mercados em formatos diversos (sênior e híbrido). Para o investidor de crédito, isto significa que a companhia <strong>nunca depende de uma única janela de mercado</strong> para rolar passivos — um diferencial que reduz materialmente o risco de refinanciamento frente a emissores de menor porte ou rating.</p>
+  </div>
+
+  <div class="callout info">
+    <h4>◆ Nota sobre financiamento de fornecedores</h4>
+    <p>A companhia reconhece ~US$ 218 mi (1T26) de financiamento específico de fornecedor ligado ao arranjo de <em>carry</em> da Apache no projeto GranMorgu (Bloco 58, Suriname), classificado como dívida financeira. É um item imaterial no contexto da estrutura, mas ilustra o uso de estruturas de financiamento de projeto que mantêm a alavancagem corporativa controlada.</p>
+  </div>
+</section>
+
+<!-- ============ 13 · ALAVANCAGEM ============ -->
+<section class="section" id="alavancagem">
+  <div class="section-header">
+    <span class="section-number">13</span>
+    <h2 class="section-title">Alavancagem</h2>
+    <span class="section-kicker">Histórico de gearing e leverage ajustada</span>
+  </div>
+
+  <div class="summary-box">
+    <p>A alavancagem permanece <strong>estruturalmente baixa e bem dentro da zona de conforto</strong> para o rating. O gearing de <strong>15,5%</strong> (20,1% c/ leases) e o Net Debt/EBITDA de <strong>~0,55x</strong> ex-leases (~0,75x c/ leases, estimado sobre EBITDA UDM ~US$ 42 bi) situam a companhia entre as menos alavancadas do peer group de majors. Mesmo a leverage <em>ajustada</em>, incluindo ~US$ 22 bi de garantias fora do balanço, fica em confortáveis ~1,2x.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Evolução da Alavancagem Líquida</div>
+      <div class="chart-sub">Net Debt/EBITDA · série histórica 2019–1T26 · ex e c/ IFRS 16</div>
+      <div class="chart-wrap"><canvas id="levHistChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Gearing (Net-Debt-to-Capital)</div>
+      <div class="chart-sub">% · trajetória recente</div>
+      <div class="chart-wrap"><canvas id="gearingChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top:6px">
+    <div class="metric-card">
+      <div class="label">Net Debt/EBITDA (ex-leases)</div>
+      <div class="value">~0,55x <span class="tag-est">EST</span></div>
+      <div class="sub">sobre EBITDA UDM ~US$ 42 bi</div>
+    </div>
+    <div class="metric-card">
+      <div class="label">Net Debt/EBITDA (c/ leases)</div>
+      <div class="value">~0,75x <span class="tag-est">EST</span></div>
+      <div class="sub">dívida líq. c/ leases US$ 31,5 bi</div>
+    </div>
+    <div class="metric-card green">
+      <div class="label">Leverage ajustada (c/ garantias)</div>
+      <div class="value">~1,2x <span class="tag-est">EST</span></div>
+      <div class="sub">incl. ~US$ 22 bi off-balance</div>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h4>O verdadeiro teste de alavancagem está fora do balanço <span class="insight-tag">risco latente</span></h4>
+    <p>O número que de fato importa para o crédito não é o gearing reportado de 15,5%, e sim as <strong>~US$ 22 bilhões de garantias prestadas a subsidiárias não consolidadas e afiliadas</strong> (posição reportada ao final de 2024). Incluindo esse passivo contingente no endividamento, a leverage ajustada salta para <strong>~1,2x</strong> — ainda confortável, mas materialmente acima da leitura de balanço. Essas garantias decorrem majoritariamente de project finance de ativos de GNL e renováveis (incluindo a própria PCG da TGR 7). O ponto crítico: em um cenário de stress severo de algum projeto garantido, parte desse contingente pode <strong>migrar para o balanço da Total</strong>. É um risco de cauda gerenciável dado o porte da companhia, mas é precisamente o tipo de exposição que as agências monitoram ao calibrar o rating, e não deve ser ignorado por se tratar de item "fora do balanço".</p>
+  </div>
+
+  <div class="callout warn">
+    <h4>◆ Atenção: o gearing sobe quando os preços sobem</h4>
+    <p>Contraintuitivamente, o gearing subiu de 14,3% (mar/25) para 15,5% (mar/26) <em>apesar</em> da forte geração de caixa — porque o salto dos preços de hidrocarbonetos no fim do trimestre inflou o capital de giro (estoques) em US$ 5,1 bi. É um efeito sazonal e de preços, não de deterioração estrutural; a métrica "gearing normalizado" da companhia exclui justamente essas variações sazonais. É preciso normalizar esse efeito antes de tirar conclusões de tendência.</p>
+  </div>
+</section>
+
+<!-- ============ 14 · COBERTURA DE JUROS ============ -->
+<section class="section" id="cobertura">
+  <div class="section-header">
+    <span class="section-number">14</span>
+    <h2 class="section-title">Cobertura de Juros</h2>
+    <span class="section-kicker">Capacidade de serviço da dívida</span>
+  </div>
+
+  <div class="summary-box">
+    <p>A cobertura de juros é <strong>extraordinariamente robusta</strong>. No 1T26, o EBITDA ajustado de US$ 12,6 bi cobriu o juro bruto sobre dívida (US$ 791 mi) em <strong>~15,9x</strong> e o custo da dívida líquida (US$ 569 mi) em <strong>~22x</strong>. Em base anualizada (UDM), a cobertura EBITDA/juro bruto situa-se em ~13x — folga que praticamente elimina o risco de serviço da dívida mesmo em cenários adversos.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="chart-title">EBITDA vs. Custo de Juros</div>
+      <div class="chart-sub">US$ milhões · 1T26 · escala da folga de cobertura</div>
+      <div class="chart-wrap"><canvas id="coverageChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 class="card-title green">▣ Métricas de cobertura (1T26)</h3>
+      <div class="card-content">
+        <div class="seg-row"><span class="l">EBITDA ajustado</span><span class="v">US$ 12.552 mi</span></div>
+        <div class="seg-row"><span class="l">Juro financeiro sobre dívida</span><span class="v">US$ 791 mi</span></div>
+        <div class="seg-row"><span class="l">Receita financeira do caixa</span><span class="v">US$ 222 mi</span></div>
+        <div class="seg-row"><span class="l">Custo da dívida líquida</span><span class="v">US$ 569 mi</span></div>
+        <div class="seg-row"><span class="l">EBITDA / juro bruto</span><span class="v">~15,9x</span></div>
+        <div class="seg-row"><span class="l">EBITDA / custo dív. líquida</span><span class="v">~22,0x</span></div>
+        <div class="seg-row"><span class="l">EBITDA / juro bruto (UDM)</span><span class="v">~13x <span class="tag-est">EST</span></span></div>
+        <p style="margin-top:14px;font-size:13px;color:var(--g300)">O caixa de US$ 25,7 bi gera receita financeira (US$ 222 mi no trimestre) que reduz substancialmente o custo líquido de carregar dívida.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-card green">
+    <h4>A cobertura é tão alta que deixa de ser a variável relevante de crédito <span class="insight-tag">nossa leitura</span></h4>
+    <p>Quando o EBITDA cobre os juros em ~13–16x, o risco de <em>default por incapacidade de servir a dívida</em> torna-se efetivamente nulo no horizonte previsível. O que realmente importa para o perfil de crédito da Total não é a cobertura de juros — é a <strong>disciplina de alocação de capital</strong> (capex + remuneração ao acionista vs. geração de caixa) e a gestão do passivo contingente. Em outras palavras, a companhia não corre risco de não <em>pagar</em> a dívida; o risco relevante é a velocidade com que ela poderia <em>aumentar</em> a alavancagem caso decidisse priorizar retorno ao acionista ou M&A em detrimento da preservação do balanço. A cobertura robusta é, na prática, uma <strong>margem de segurança que dá à companhia liberdade para errar</strong> sem ameaçar credores.</p>
+  </div>
+</section>
+
+<!-- ============ 15 · FLUXO DE CAIXA ============ -->
+<section class="section" id="fcf">
+  <div class="section-header">
+    <span class="section-number">15</span>
+    <h2 class="section-title">Fluxo de Caixa</h2>
+    <span class="section-kicker">Geração, conversão e alocação</span>
+  </div>
+
+  <div class="summary-box">
+    <p>A geração de caixa operacional é o pilar da tese de crédito. No 1T26 o <strong>CFFO atingiu US$ 8,6 bi (+23% a/a)</strong> e o DACF US$ 9,0 bi. Após capex orgânico de US$ 4,65 bi, o <strong>FCF após investimentos orgânicos foi de US$ 3,9 bi (+58% a/a)</strong>, e o fluxo de caixa líquido (pós-investimentos totais) somou US$ 4,1 bi — folga ampla para cobrir a remuneração ao acionista sem recorrer a dívida.</p>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">Ponte do Fluxo de Caixa — 1T26</div>
+    <div class="chart-sub">US$ milhões · do CFFO ao fluxo de caixa líquido</div>
+    <div class="chart-wrap tall"><canvas id="cfBridgeChart"></canvas></div>
+  </div>
+
+  <div class="grid-2" style="margin-top:6px">
+    <div class="chart-card">
+      <div class="chart-title">CFFO por Segmento</div>
+      <div class="chart-sub">US$ milhões · 1T26 · diversificação das fontes de caixa</div>
+      <div class="chart-wrap sm" style="height:280px"><canvas id="cfSegChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">▣ A divergência CFFO vs. caixa IFRS</h3>
+      <div class="card-content">
+        <p>O fluxo de caixa operacional IFRS foi de apenas <strong>US$ 3,4 bi</strong>, contra US$ 8,6 bi de CFFO — um <em>gap</em> de US$ 5,1 bi inteiramente explicado pelo <strong>build de capital de giro</strong>: US$ 2,5 bi de sazonalidade e US$ 2,6 bi do efeito de preços mais altos sobre estoques no fim do trimestre.</p>
+        <p style="margin-top:10px">Trata-se de um descasamento <strong>temporal e reversível</strong>, não de uma deterioração de qualidade do lucro. O capital de giro tende a se normalizar nos trimestres seguintes, liberando caixa. Ainda assim, acompanhamos de perto a reversão: um WC persistentemente alto sinalizaria pressão sobre a conversão de caixa.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h4>O breakeven de caixa é a métrica que define a resiliência <span class="insight-tag">nossa leitura</span></h4>
+    <p>O ponto mais relevante para sustentar a nota de crédito é o <strong>breakeven de fluxo de caixa de ~US$ 30/bbl</strong> da carteira de upstream, combinado a um custo de produção de ~US$ 5/boe. Isso significa que, mesmo com Brent muito abaixo dos níveis atuais (~US$ 81/bbl), a companhia continua gerando caixa operacional positivo. A sustentabilidade da geração de caixa não depende de preços elevados — depende da <strong>estrutura de custos de baixo quartil</strong> e do modelo integrado, em que refino e trading capturam margem quando o upstream sofre. É essa assimetria que permite à Total manter capex + dividendo cobertos por caixa próprio em uma faixa ampla de cenários de preço.</p>
+  </div>
+</section>
+
+<!-- ============ 16 · DIVIDENDOS E BUYBACKS ============ -->
+<section class="section" id="dividendos">
+  <div class="section-header">
+    <span class="section-number">16</span>
+    <h2 class="section-title">Política de Dividendos e Buybacks</h2>
+    <span class="section-kicker">Remuneração ao acionista e implicações de crédito</span>
+  </div>
+
+  <div class="summary-box">
+    <p>A política de remuneração é <strong>generosa porém ancorada na geração de caixa</strong>: a Total tem como meta um <em>payout</em> acima de <strong>40% do CFFO</strong>. No 1T26 elevou o dividendo interino em <strong>5,9% para €0,90/ação</strong> (o maior crescimento entre as majors), recomprou 9,4 mi de ações por US$ 0,75 bi e autorizou buybacks de até US$ 1,5 bi no 2T26.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Composição da Remuneração ao Acionista</div>
+      <div class="chart-sub">US$ milhões · 1T26 · dividendos vs. recompras</div>
+      <div class="chart-wrap sm" style="height:280px"><canvas id="shareholderRetChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">▣ Parâmetros da política</h3>
+      <div class="card-content">
+        <div class="seg-row"><span class="l">Dividendo interino (1º)</span><span class="v">€0,90/ação</span></div>
+        <div class="seg-row"><span class="l">Crescimento a/a</span><span class="v">+5,9%</span></div>
+        <div class="seg-row"><span class="l">Dividendos pagos (1T26)</span><span class="v">US$ 2,12 bi</span></div>
+        <div class="seg-row"><span class="l">Recompras (1T26)</span><span class="v">US$ 0,75 bi</span></div>
+        <div class="seg-row"><span class="l">Buyback autorizado 2T26</span><span class="v">até US$ 1,5 bi</span></div>
+        <div class="seg-row"><span class="l">Meta de payout</span><span class="v">&gt; 40% do CFFO</span></div>
+        <div class="seg-row"><span class="l">Ações em circulação (dil.)</span><span class="v">2.164 mi</span></div>
+        <p style="margin-top:12px;font-size:13px;color:var(--g300)">As recompras reduziram a base acionária de ~2.246 mi (1T25) para ~2.164 mi (1T26), efeito acretivo ao LPA.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h4>A flexibilidade do buyback é a principal linha de defesa do balanço <span class="insight-tag">alocação de capital</span></h4>
+    <p>A estrutura da remuneração é favorável ao credor por uma razão estrutural: o <strong>dividendo (~US$ 8,5 bi/ano) é o compromisso "rígido", mas os buybacks (até ~US$ 6 bi/ano) são discricionários e podem ser cortados imediatamente</strong> em um cenário de stress. Essa é exatamente a sequência de defesa que esperaríamos em uma queda de preços: primeiro corta-se a recompra, depois flexibiliza-se o capex de ciclo curto, e o dividendo é protegido por último. Para o investidor de crédito, isso significa que há <strong>um colchão de ~US$ 6 bi/ano de saídas de caixa "canceláveis"</strong> antes que a companhia precise tocar no dividendo ou recorrer a dívida — uma proteção relevante que o payout nominal de 40% não captura à primeira vista.</p>
+  </div>
+
+  <div class="callout warn">
+    <h4>◆ Ponto de atenção: a política pode ser considerada arrojada</h4>
+    <p>Distribuir &gt;40% do CFFO em um setor de capital intensivo e cíclico é uma política que limita o desalavancamento em momentos de preços altos — o caixa que poderia reduzir dívida vai para o acionista. O risco para o crédito materializa-se apenas se a companhia <strong>mantiver a recompra agressiva mesmo em queda prolongada de preços</strong>, quebrando a disciplina de breakeven. Até aqui, o histórico mostra disciplina; mas é o gatilho de downgrade mais plausível a monitorar.</p>
+  </div>
+</section>
+
+<!-- ============ 17 · RATINGS ============ -->
+<section class="section" id="ratings">
+  <div class="section-header">
+    <span class="section-number">17</span>
+    <h2 class="section-title">Ratings</h2>
+    <span class="section-kicker">Moody's · S&P · Fitch</span>
+  </div>
+
+  <div class="summary-box">
+    <p>A TotalEnergies detém <strong>grau de investimento elevado</strong> nas três principais agências, com perspectiva estável. Os ratings situam-se <strong>4 a 5 degraus acima</strong> das melhores empresas brasileiras em escala global (Vale e Gerdau, em Baa2/BBB), refletindo escala, diversificação e robustez de balanço. A debênture da TGR 7, por força da PCG da TotalEnergies, carrega <strong>AAA(bra)</strong> em escala nacional.</p>
+  </div>
+
+  <div class="ratings-cover">
+    <div class="rcov"><span class="ag">Moody's</span><span class="rv">Aa3</span><span class="ro">Outlook estável</span></div>
+    <div class="rcov"><span class="ag">S&amp;P</span><span class="rv">A+</span><span class="ro">Outlook estável</span></div>
+    <div class="rcov"><span class="ag">Fitch</span><span class="rv">AA-</span><span class="ro">Outlook estável</span></div>
+    <div class="rcov" style="background:rgba(236,112,0,.08);border-color:rgba(236,112,0,.3)"><span class="ag">TGR 7 · escala nacional</span><span class="rv" style="color:var(--orange)">AAA(bra)</span><span class="ro">via PCG TotalEnergies</span></div>
+  </div>
+
+  <div class="grid-2" style="margin-top:22px">
+    <div class="card">
+      <h3 class="card-title green">▲ Fatores de suporte ao rating</h3>
+      <div class="card-content">
+        <div class="list-item"><span class="dot green"></span><span>Escala global e diversificação geográfica (50+ países) e por segmento (5 negócios integrados)</span></div>
+        <div class="list-item"><span class="dot green"></span><span>Estrutura de custos de baixo quartil (~US$ 5/boe) e breakeven de caixa ~US$ 30/bbl</span></div>
+        <div class="list-item"><span class="dot green"></span><span>Balanço sólido: gearing 15,5%, Net Debt/EBITDA ~0,55x, cobertura de juros ~13–16x</span></div>
+        <div class="list-item"><span class="dot green"></span><span>Acesso pleno a mercados de capitais em formatos sênior e híbrido</span></div>
+        <div class="list-item"><span class="dot green"></span><span>Liquidez elevada: US$ 25,7 bi de caixa, perfil de dívida alongado</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3 class="card-title">▼ Fatores de pressão / monitoramento</h3>
+      <div class="card-content">
+        <div class="list-item"><span class="dot amber"></span><span>Exposição à volatilidade de preços de commodities (óleo, gás, margens de refino)</span></div>
+        <div class="list-item"><span class="dot amber"></span><span>Plano de investimentos elevado (~US$ 15 bi/ano líquidos em 2026)</span></div>
+        <div class="list-item"><span class="dot amber"></span><span>Garantias off-balance de ~US$ 22 bi (leverage ajustada ~1,2x)</span></div>
+        <div class="list-item"><span class="dot amber"></span><span>Política de remuneração arrojada (&gt;40% do CFFO)</span></div>
+        <div class="list-item"><span class="dot red"></span><span>Concentração de ~30% da produção na região MENA, epicentro do conflito</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h4>O rating tem assimetria de risco favorável no curto prazo <span class="insight-tag">nossa leitura</span></h4>
+    <p>No horizonte de 12–24 meses, a probabilidade de <strong>downgrade é baixa</strong>: seria necessário um choque severo e prolongado de preços combinado à manutenção de remuneração agressiva, ou um M&A transformacional financiado por dívida. Por outro lado, um <strong>upgrade também é improvável no curto prazo</strong> — a Total já está no topo da escala de majors integradas, e elevar para o território "AA flat" exigiria desalavancamento estrutural adicional num contexto de capex elevado e transição energética em curso. A leitura prática: o rating é <strong>estável e ancorado</strong>, com a debênture AAA(bra) protegida pela PCG independentemente da trajetória de rating global da matriz (que permaneceria muito acima do teto soberano brasileiro).</p>
+  </div>
+</section>
+
+<!-- ============ 18 · ESG E TRANSIÇÃO ENERGÉTICA ============ -->
+<section class="section" id="esg">
+  <div class="section-header">
+    <span class="section-number">18</span>
+    <h2 class="section-title">ESG e Transição Energética</h2>
+    <span class="section-kicker">Descarbonização, renováveis e tensões de retorno</span>
+  </div>
+
+  <div class="summary-box">
+    <p>A Total persegue a meta de <strong>100 GW de capacidade renovável instalada até 2030</strong>, com capacidade bruta renovável de <strong>109,7 GW</strong> (35,6 GW instalados, +8 GW a/a) no 1T26. As emissões Scope 1+2 caíram 6% a/a e as de metano 33% a/a. A transição, contudo, traz uma <strong>tensão real entre intensidade de capital e geração de caixa</strong> que merece acompanhamento.</p>
+  </div>
+
+  <div class="grid-2">
+    <div class="chart-card">
+      <div class="chart-title">Capacidade Renovável Bruta por Região</div>
+      <div class="chart-sub">GW · portfólio global (operação + pipeline)</div>
+      <div class="chart-wrap"><canvas id="esgRegionChart"></canvas></div>
+    </div>
+    <div class="card">
+      <h3 class="card-title green">▣ Indicadores de descarbonização</h3>
+      <div class="card-content">
+        <div class="seg-row"><span class="l">Meta renovável 2030</span><span class="v">100 GW</span></div>
+        <div class="seg-row"><span class="l">Capacidade bruta renovável (1T26)</span><span class="v">109,7 GW</span></div>
+        <div class="seg-row"><span class="l">Capacidade instalada</span><span class="v">35,6 GW</span></div>
+        <div class="seg-row"><span class="l">Adição a/a</span><span class="v">+8 GW</span></div>
+        <div class="seg-row"><span class="l">Scope 1+2 (perímetro operado)</span><span class="v">7,9 Mt · −6% a/a</span></div>
+        <div class="seg-row"><span class="l">Emissões de metano</span><span class="v">−33% a/a</span></div>
+        <div class="seg-row"><span class="l">Geração renovável (1T26)</span><span class="v">8,2 TWh · +20% a/a</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h4>A transição é positiva para o crédito no longo prazo, mas dilutiva no curto <span class="insight-tag">impacto da transição</span></h4>
+    <p>Sob a ótica de crédito, a tensão central da transição não é de rentabilidade contábil, e sim de <strong>intensidade de capital versus geração de caixa</strong>. O segmento de Integrated Power adiciona <strong>fluxo de caixa contratado de longo prazo (via PPAs) e de baixa correlação com o preço do petróleo</strong> — o que é estruturalmente positivo para o perfil de crédito, pois reduz a ciclicidade e ancora parte da geração de caixa fora do ciclo de commodities. A contrapartida é que esses ativos <strong>consomem capex de forma intensiva e demoram a converter em caixa livre</strong>: hoje o segmento ainda é consumidor líquido de caixa, competindo por recursos com o desalavancamento e a remuneração ao acionista. O ponto de inflexão a monitorar é a meta de <strong>FCF positivo em Integrated Power até 2027</strong>: se cumprida, o segmento deixa de ser dreno e passa a contribuir com caixa estável — marco materialmente positivo para o crédito. Enquanto isso não ocorre, o crescimento em baixo carbono é, em caixa, um investimento que ainda não se paga.</p>
+  </div>
+
+  <div class="callout warn">
+    <h4>◆ Sinal de alerta: impairments em renováveis</h4>
+    <p>No 1T26 a companhia registrou <strong>impairments e provisões não recorrentes</strong> ligados à devolução das concessões de eólica offshore nos EUA (recuperação de US$ 928 mi de taxas) e à <strong>revisão estratégica do portfólio de renováveis fora dos mercados-chave</strong>. Esses ajustes sinalizam que parte dos projetos renováveis estava <strong>abaixo do custo de capital</strong> — um lembrete de que crescimento em renováveis não é automaticamente acretivo. A disciplina recém-demonstrada (sair de projetos sub-retorno) é, na verdade, <em>positiva</em> para o crédito: mostra que a companhia prioriza retorno sobre volume na transição.</p>
+  </div>
+</section>
+
+<!-- ============ 19 · CENÁRIOS DE STRESS ============ -->
+<section class="section" id="stress">
+  <div class="section-header">
+    <span class="section-number">19</span>
+    <h2 class="section-title">Cenários de Stress — Preços do Petróleo</h2>
+    <span class="section-kicker">Sensibilidade e resiliência da geração de caixa</span>
+  </div>
+
+  <div class="summary-box">
+    <p>Aplicando a sensibilidade oficial da companhia (Brent ±US$ 10/bbl → ±US$ 2,8 bi de CFFO), modelamos a geração de caixa anualizada em diferentes cenários de Brent contra os compromissos de caixa (capex líquido ~US$ 15 bi + dividendos ~US$ 8,5 bi + buybacks até ~US$ 6 bi). A conclusão: a Total <strong>sustenta capex e dividendo com caixa próprio até a faixa de ~US$ 40–50/bbl</strong>, recorrendo à flexibilização de buybacks e capex de ciclo curto antes de pressionar o balanço.</p>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-title">CFFO Anualizado vs. Compromissos de Caixa</div>
+    <div class="chart-sub">US$ bilhões · cenários de Brent · sensibilidade ±US$ 2,8 bi por US$ 10/bbl</div>
+    <div class="chart-wrap tall"><canvas id="stressChart"></canvas></div>
+  </div>
+
+  <div style="overflow-x:auto;margin-top:18px">
+    <table class="data-table">
+      <thead>
+        <tr><th>Cenário Brent</th><th>CFFO anual. (est.)</th><th>Capex líq.</th><th>Dividendo</th><th>FCF pós-capex/div.</th><th>Cobertura buyback</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>~US$ 80/bbl (base)</td><td class="num">~33–34</td><td class="num">15,0</td><td class="num">8,5</td><td class="num">~10</td><td>Plena</td></tr>
+        <tr><td>US$ 70/bbl</td><td class="num">~31</td><td class="num">15,0</td><td class="num">8,5</td><td class="num">~7,5</td><td>Plena</td></tr>
+        <tr><td>US$ 60/bbl</td><td class="num">~28</td><td class="num">15,0</td><td class="num">8,5</td><td class="num">~4,5</td><td>Parcial</td></tr>
+        <tr><td>US$ 50/bbl</td><td class="num">~25</td><td class="num">~13*</td><td class="num">8,5</td><td class="num">~3,5</td><td>Reduzida</td></tr>
+        <tr class="total"><td>US$ 40/bbl</td><td class="num">~23</td><td class="num">~12*</td><td class="num">8,5</td><td class="num">~2,5</td><td>Suspensa</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:11px;color:var(--g500);margin-top:8px">* Capex flexibilizado via corte de investimentos de ciclo curto. Estimativas próprias a partir da sensibilidade oficial da companhia (calibrada para Brent US$ 60–70). Não constitui projeção da companhia.</p>
+
+  <div class="insight-card">
+    <h4>A sequência de defesa do caixa é o que protege o credor <span class="insight-tag">resiliência operacional</span></h4>
+    <p>O ponto analítico central não é "em que preço a Total para de gerar caixa" — ela gera caixa operacional positivo bem abaixo de US$ 40/bbl, dado o breakeven de ~US$ 30/bbl. O ponto é a <strong>ordem de ajuste das saídas de caixa</strong> em um downcycle: <strong>(1) suspende-se buyback</strong> (até ~US$ 6 bi/ano de folga imediata), <strong>(2) flexibiliza-se capex de ciclo curto</strong> (a própria companhia menciona avaliar acelerar/desacelerar short-cycle conforme o ambiente), e <strong>(3) o dividendo é a última linha a ser tocada</strong>. Essa hierarquia significa que o crédito está protegido por <strong>~US$ 11–12 bi/ano de saídas discricionárias</strong> que podem ser cortadas antes de qualquer pressão sobre alavancagem ou serviço de dívida. É essa flexibilidade — e não o nível absoluto de preços — que torna a geração de caixa resiliente do ponto de vista de crédito.</p>
+  </div>
+
+  <div class="callout pos">
+    <h4>◆ Conclusão dos cenários de stress</h4>
+    <p>A combinação de breakeven baixo, modelo integrado (refino/trading amortecendo o upstream) e ~US$ 11–12 bi/ano de saídas canceláveis confere à Total <strong>resiliência de crédito robusta até a faixa de US$ 40–50/bbl de Brent</strong> sem necessidade de alavancar. Apenas um cenário de colapso prolongado <em>combinado</em> à quebra da disciplina de remuneração comprometeria o perfil de crédito.</p>
+  </div>
+</section>
+
+<!-- ============ 20 · OPINIÃO FINAL DE CRÉDITO ============ -->
+<section class="section" id="opiniao">
+  <div class="section-header">
+    <span class="section-number">20</span>
+    <h2 class="section-title">Opinião Final de Crédito</h2>
+    <span class="section-kicker">Síntese, recomendação e gatilhos de rating</span>
+  </div>
+
+  <div class="conclusion">
+    <h3>◆ Recomendação: CONSTRUTIVA</h3>
+    <p>A TotalEnergies apresenta um dos <strong>perfis de crédito mais sólidos do universo de emissores corporativos globais</strong>. A combinação de escala, diversificação geográfica e setorial completa, estrutura de custos de baixo quartil (~US$ 5/boe), breakeven de caixa de ~US$ 30/bbl e balanço conservador (gearing 15,5%, Net Debt/EBITDA ~0,55x, cobertura de juros ~13–16x) confere à companhia resiliência de crédito que transcende os ciclos de preço de commodities.</p>
+    <p>O modelo integrado é o verdadeiro <strong>amortecedor de choques</strong>: no 1T26, a explosão das margens de refino (Refino & Químicos ×5,3 a/a) compensou integralmente a perda de produção no Oriente Médio, demonstrando na prática a tese de diversificação. A geração de caixa é robusta (CFFO US$ 8,6 bi, +23% a/a) e cobre capex e dividendo com folga ampla, sustentada por uma hierarquia de saídas de caixa (~US$ 11–12 bi/ano discricionários) que protege o credor em downcycles.</p>
+    <p>Para a <strong>debênture da TGR 7 (AAA(bra))</strong>, a conclusão é ainda mais direta: por força da Parent Company Guarantee da TotalEnergies Holdings (limitada a R$ 441 mi, cobrindo principal, juros e despesas), <strong>o investidor assume risco TotalEnergies — não risco do projeto Serra do Tigre</strong>. Dado o rating global Aa3/A+/AA- da garantidora — 4 a 5 degraus acima das melhores empresas brasileiras —, o risco de crédito da emissão é mínimo no horizonte da debênture.</p>
+    <p>Os riscos a monitorar — exposição a preços, ~US$ 22 bi de garantias off-balance (leverage ajustada ~1,2x), política de remuneração arrojada e concentração de ~30% da produção em MENA — são <strong>reais porém gerenciáveis</strong>, e não comprometem a tese no horizonte previsível. O risco de cauda mais relevante é uma quebra de disciplina de remuneração em um colapso prolongado de preços; até aqui, o histórico mostra disciplina consistente.</p>
+  </div>
+
+  <div class="verdict-row">
+    <div class="verdict"><div class="l">Recomendação</div><div class="v">CONSTRUTIVA</div></div>
+    <div class="verdict"><div class="l">Alavancagem</div><div class="v">BAIXA</div></div>
+    <div class="verdict"><div class="l">Liquidez</div><div class="v">FORTE</div></div>
+    <div class="verdict"><div class="l">Cobertura de juros</div><div class="v">ROBUSTA</div></div>
+    <div class="verdict"><div class="l">Risco da debênture</div><div class="v">MÍNIMO</div></div>
+  </div>
+
+  <h3 style="font-family:'Montserrat';font-size:16px;color:var(--g100);margin:26px 0 16px">Gatilhos de Rating</h3>
+  <div class="trig-grid">
+    <div class="trig up">
+      <h4>▲ Gatilhos de upgrade</h4>
+      <div class="card-content">
+        <div class="list-item"><span class="dot green"></span><span>Gearing sustentado abaixo de ~10–12% ao longo do ciclo</span></div>
+        <div class="list-item"><span class="dot green"></span><span>Integrated Power atingindo FCF positivo (meta 2027) com retornos escalando</span></div>
+        <div class="list-item"><span class="dot green"></span><span>Manutenção de reposição de reservas e longevidade de produção</span></div>
+        <div class="list-item"><span class="dot green"></span><span>Disciplina de capital comprovada ao atravessar um downcycle sem alavancar</span></div>
+      </div>
+    </div>
+    <div class="trig down">
+      <h4>▼ Gatilhos de downgrade</h4>
+      <div class="card-content">
+        <div class="list-item"><span class="dot red"></span><span>Gearing sustentado acima de ~25–30%</span></div>
+        <div class="list-item"><span class="dot red"></span><span>Aquisição transformacional financiada majoritariamente por dívida</span></div>
+        <div class="list-item"><span class="dot red"></span><span>Colapso prolongado de preços com manutenção de remuneração agressiva (quebra de breakeven)</span></div>
+        <div class="list-item"><span class="dot red"></span><span>Escalada do conflito no Oriente Médio prolongando a perda de produção</span></div>
+        <div class="list-item"><span class="dot red"></span><span>Capex agressivo em renováveis sem geração de caixa correspondente, pressionando o fluxo de caixa livre e a alavancagem</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout info" style="margin-top:24px">
+    <h4>◆ Nota final ao investidor institucional</h4>
+    <p>Esta análise sintetiza os dados do resultado do 1T26 da TotalEnergies e a documentação da 1ª emissão de debêntures da TGR Subholding 7. As métricas marcadas como <span class="tag-est">EST</span> são estimativas próprias a partir de dados reportados; as marcadas como <span class="tag-calc">CALC</span> derivam de cálculo direto sobre números auditados. Recomenda-se que a decisão de investimento considere a documentação completa da emissão e a análise independente de risco de cada investidor.</p>
+  </div>
+</section>
+
+</div><!-- /.container -->
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-disc">
+        <p><strong>Relatório para distribuição somente no Brasil.</strong></p>
+        <p style="margin-top:8px">Este material foi elaborado para fins exclusivamente informativos e não constitui oferta de compra ou venda de qualquer instrumento financeiro, nem recomendação de investimento personalizada. As informações foram obtidas de fontes consideradas confiáveis — notadamente o resultado do 1T26 da TotalEnergies e a documentação da 1ª emissão de debêntures da TGR Subholding 7 — porém sua integridade, confiabilidade e exatidão não são garantidas. As opiniões, estimativas e projeções refletem a visão do autor na data de elaboração e estão sujeitas a alteração sem aviso prévio. Rentabilidade passada não é indicativa de resultados futuros. Os instrumentos discutidos podem não ser adequados a todos os investidores; cada investidor deve obter orientação financeira, contábil, jurídica e de mercado independente antes de qualquer decisão. Este documento não pode ser reproduzido ou redistribuído, no todo ou em parte, sem consentimento prévio por escrito.</p>
+      </div>
+      <div class="foot-team">
+        <h5>FIXED INCOME RESEARCH</h5>
+        <p style="margin-bottom:6px">Energy · Oil &amp; Gas · Infrastructure</p>
+        <p class="nm">Igor Stramandinoli Moita Pontes</p>
+        <p style="font-size:11.5px;color:var(--g500);margin-top:2px">Credit Analyst</p>
+        <p style="font-size:11.5px;color:var(--g500);margin-top:18px">Documento de caráter analítico-educacional. Estimativas próprias sinalizadas no corpo do relatório.</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ===== NAV · scrollspy + edge fades ===== -->
+<script>
+(function(){
+  var rail=document.getElementById('navRail');
+  if(!rail) return;
+  var links=Array.prototype.slice.call(rail.querySelectorAll('a'));
+  var map={};
+  links.forEach(function(a){ map[a.getAttribute('href').slice(1)]=a; });
+
+  function updateFade(){
+    var atStart=rail.scrollLeft<=4;
+    var atEnd=rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-4;
+    var L=atStart?'#000':'transparent', R=atEnd?'#000':'transparent';
+    var m='linear-gradient(90deg,'+L+' 0,#000 22px,#000 calc(100% - 30px),'+R+' 100%)';
+    rail.style.webkitMaskImage=m; rail.style.maskImage=m;
+  }
+  updateFade();
+  rail.addEventListener('scroll',updateFade,{passive:true});
+  window.addEventListener('resize',updateFade);
+
+  function centerActive(a){
+    if(!a) return;
+    var rr=rail.getBoundingClientRect(), ar=a.getBoundingClientRect();
+    var delta=(ar.left-rr.left)-(rail.clientWidth-a.offsetWidth)/2;
+    rail.scrollBy({left:delta,behavior:'smooth'});
+  }
+
+  var sections=Object.keys(map).map(function(id){return document.getElementById(id);}).filter(Boolean);
+  var current=null;
+  function setActive(a){
+    if(!a||a===current) return;
+    links.forEach(function(x){x.classList.remove('active');});
+    a.classList.add('active'); current=a; centerActive(a);
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting) setActive(map[e.target.id]); });
+    },{rootMargin:'-45% 0px -50% 0px',threshold:0});
+    sections.forEach(function(s){ io.observe(s); });
+  }
+  links.forEach(function(a){ a.addEventListener('click',function(){ setActive(a); }); });
+})();
+</script>
+
+<script>
+(function(){
+  if(typeof Chart==='undefined'){console.warn('Chart.js não carregou');return;}
+  Chart.defaults.font.family="'Source Sans Pro',sans-serif";
+  Chart.defaults.font.size=12;
+  Chart.defaults.color='#9CA3AF';
+  Chart.defaults.plugins.legend.labels.usePointStyle=true;
+  Chart.defaults.plugins.legend.labels.boxWidth=8;
+  Chart.defaults.plugins.legend.labels.padding=14;
+
+  var C={orange:'#EC7000',orangeL:'rgba(236,112,0,.30)',green:'#A6CF2E',greenL:'rgba(166,207,46,.32)',
+         blue:'#5B9BD5',blueL:'rgba(91,155,213,.32)',amber:'#F0A93B',amberL:'rgba(240,169,59,.32)',
+         red:'#EF6A6A',redL:'rgba(239,106,106,.32)',teal:'#2A5A60',dark2:'#133134',
+         grid:'rgba(255,255,255,.07)',tick:'#9CA3AF',white:'#fff',g300:'#A9B8BA'};
+
+  function axes(xGrid,yGrid,pct){
+    return {
+      x:{grid:{display:!!xGrid,color:C.grid},ticks:{color:C.tick,font:{size:11}}},
+      y:{grid:{display:yGrid!==false,color:C.grid},ticks:{color:C.tick,font:{size:11},callback:function(v){return pct?v+'%':v;}}}
+    };
+  }
+  function legBottom(){return {position:'bottom',labels:{color:C.g300,font:{size:11.5}}};}
+  var noLeg={legend:{display:false}};
+
+  function el(id){return document.getElementById(id);}
+  function mk(id,cfg){var c=el(id);if(c){new Chart(c.getContext('2d'),cfg);}}
+
+  /* ---- 1 · Casa dos Ventos — Receita ---- */
+  mk('cdvRevChart',{type:'bar',
+    data:{labels:['2021','2022','2023','2024','1T24','1T25'],
+      datasets:[{label:'Receita Líquida (R$ mi)',data:[31,508,1806,3538,546,1096],
+        backgroundColor:['#EC7000','#EC7000','#EC7000','#EC7000','rgba(236,112,0,.45)','rgba(236,112,0,.45)'],
+        borderRadius:5,maxBarThickness:54}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:axes(false,true)}});
+
+  /* ---- 2 · Casa dos Ventos — EBITDA + Margem ---- */
+  mk('cdvEbitdaChart',{type:'bar',
+    data:{labels:['2022','2023','2024','1T24','1T25'],
+      datasets:[
+        {type:'bar',label:'EBITDA (R$ mi)',data:[382,844,1189,253,280],backgroundColor:C.orange,borderRadius:5,maxBarThickness:50,yAxisID:'y'},
+        {type:'line',label:'Margem EBITDA (%)',data:[75,47,34,46,26],borderColor:C.green,backgroundColor:C.green,tension:.35,borderWidth:2.5,pointRadius:4,pointBackgroundColor:C.green,yAxisID:'y1'}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:legBottom()},
+      scales:{x:{grid:{display:false},ticks:{color:C.tick}},
+        y:{position:'left',grid:{color:C.grid},ticks:{color:C.tick}},
+        y1:{position:'right',min:0,max:100,grid:{display:false},ticks:{color:C.green,callback:function(v){return v+'%';}}}}}});
+
+  /* ---- 3 · Estrutura acionária TE ---- */
+  mk('shareholderChart',{type:'doughnut',
+    data:{labels:['Outros Acionistas','Funcionários TE','BlackRock'],
+      datasets:[{data:[86.2,7.7,6.1],backgroundColor:[C.teal,C.green,C.orange],borderColor:C.dark2,borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'62%',plugins:{legend:legBottom(),
+      tooltip:{callbacks:{label:function(c){return c.label+': '+c.parsed+'%';}}}}}});
+
+  /* ---- 4 · Diversificação geográfica — renováveis (doughnut) ---- */
+  mk('geoChart',{type:'doughnut',
+    data:{labels:['EUA','Europa','Índia','Ásia-Pacífico','Am. do Sul','OM e África'],
+      datasets:[{data:[31.9,30.1,13,11,5.7,5.4],
+        backgroundColor:[C.orange,C.green,C.blue,C.amber,C.teal,'#7E9296'],borderColor:C.dark2,borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'58%',plugins:{legend:legBottom(),
+      tooltip:{callbacks:{label:function(c){return c.label+': '+c.parsed+' GW';}}}}}});
+
+  /* ---- 5 · Resultado operacional ajustado por segmento (1T26) ---- */
+  mk('segMixChart',{type:'bar',
+    data:{labels:['E&P','GNL Int.','Power','Refino&Quím.','Mktg&Serv.'],
+      datasets:[{label:'Adj. net operating income (US$ mi)',data:[2576,1318,545,1599,262],
+        backgroundColor:[C.orange,C.blue,C.amber,C.green,C.teal],borderRadius:5,maxBarThickness:46}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{grid:{color:C.grid},ticks:{color:C.tick}},y:{grid:{display:false},ticks:{color:C.tick}}}}});
+
+  /* ---- 6 · Geração de caixa operacional por segmento (FY2024) ---- */
+  mk('segCashChart',{type:'bar',
+    data:{labels:['E&P','GNL Int.','Refino&Quím.','Mktg&Serv.','Power'],
+      datasets:[{label:'Caixa operacional FY2024 (US$ bi)',data:[17.0,4.9,3.8,2.9,2.6],
+        backgroundColor:[C.orange,C.blue,C.green,C.teal,C.amber],borderRadius:5,maxBarThickness:46}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:function(c){return 'US$ '+c.parsed.x+' bi';}}}},
+      scales:{x:{grid:{color:C.grid},ticks:{color:C.tick,callback:function(v){return v+' bi';}}},y:{grid:{display:false},ticks:{color:C.tick}}}}});
+
+  /* ---- 7 · Produção combinada por região (horizontal, destaque MENA) ---- */
+  mk('regionChart',{type:'bar',
+    data:{labels:['MENA','Europa','Américas','África','Ásia-Pacífico'],
+      datasets:[{label:'Produção (kboe/d)',data:[777,570,487,431,288],
+        backgroundColor:[C.red,C.teal,C.teal,C.teal,C.teal],borderRadius:5,maxBarThickness:40}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:function(c){return c.parsed.x+' kboe/d';}}}},
+      scales:{x:{grid:{color:C.grid},ticks:{color:C.tick}},y:{grid:{display:false},ticks:{color:C.tick}}}}});
+
+  /* ---- 8 · Peers — Net Debt/EBITDA ---- */
+  mk('peerLevChart',{type:'bar',
+    data:{labels:['TotalEnergies','Shell','BP','Petrobras'],
+      datasets:[{label:'Net Debt/EBITDA (1S25)',data:[0.6,0.7,0.9,1.4],
+        backgroundColor:[C.orange,C.teal,C.teal,C.teal],borderRadius:5,maxBarThickness:54}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:function(c){return c.parsed.y+'x';}}}},
+      scales:{x:{grid:{display:false},ticks:{color:C.tick}},y:{grid:{color:C.grid},ticks:{color:C.tick,callback:function(v){return v+'x';}}}}}});
+
+  /* ---- 9 · Peers — Reservas 1P ---- */
+  mk('peerReservesChart',{type:'bar',
+    data:{labels:['TotalEnergies','Petrobras','Shell','BP'],
+      datasets:[{label:'Reservas 1P (Gboe)',data:[11.7,11.6,9.6,6.2],
+        backgroundColor:[C.green,C.teal,C.teal,C.teal],borderRadius:5,maxBarThickness:54}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{grid:{display:false},ticks:{color:C.tick}},y:{grid:{color:C.grid},ticks:{color:C.tick}}}}});
+
+  /* ---- 10 · Receita & Margem (TOGGLE anual/semestral) ---- */
+  var revChart=null;
+  var revData={
+    annual:{labels:['2019','2020','2021','2022','2023','2024'],rev:[176,120,206,281,237,215],mg:[20,18,21,25,21,20]},
+    semi:{labels:['1S24','1S25'],rev:[110,102],mg:[21,20]}
+  };
+  function buildRev(mode){
+    var d=revData[mode];if(revChart)revChart.destroy();
+    var c=el('revenueChart');if(!c)return;
+    revChart=new Chart(c.getContext('2d'),{type:'bar',
+      data:{labels:d.labels,datasets:[
+        {type:'bar',label:'Receita Líquida (US$ bi)',data:d.rev,backgroundColor:C.orange,borderRadius:5,maxBarThickness:54,yAxisID:'y'},
+        {type:'line',label:'Margem EBITDA (%)',data:d.mg,borderColor:C.green,backgroundColor:C.green,tension:.35,borderWidth:2.5,pointRadius:4,yAxisID:'y1'}
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:legBottom()},
+        scales:{x:{grid:{display:false},ticks:{color:C.tick}},
+          y:{position:'left',grid:{color:C.grid},ticks:{color:C.tick}},
+          y1:{position:'right',min:0,max:30,grid:{display:false},ticks:{color:C.green,callback:function(v){return v+'%';}}}}}});
+  }
+  buildRev('annual');
+  document.querySelectorAll('[data-fin]').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('[data-fin]').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');buildRev(b.getAttribute('data-fin'));
+    });
+  });
+
+  /* ---- 11 · Resultado por segmento 1T26 vs 1T25 ---- */
+  mk('segCompareChart',{type:'bar',
+    data:{labels:['E&P','GNL','Power','Refino&Q.','Mktg'],
+      datasets:[
+        {label:'1T26',data:[2576,1318,545,1599,262],backgroundColor:C.orange,borderRadius:4,maxBarThickness:30},
+        {label:'1T25',data:[2451,1294,506,301,240],backgroundColor:C.teal,borderRadius:4,maxBarThickness:30}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:legBottom()},scales:axes(false,true)}});
+
+  /* ---- 12 · Cronograma de amortização ---- */
+  mk('amortChart',{type:'bar',
+    data:{labels:['Caixa','2025','2026','2027','2028','2029','2030+'],
+      datasets:[{label:'US$ milhões',data:[25844,7311,2582,2492,3394,4669,23192],
+        backgroundColor:[C.green,C.orange,C.orange,C.orange,C.orange,C.orange,'rgba(236,112,0,.55)'],
+        borderRadius:5,maxBarThickness:48}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:axes(false,true)}});
+
+  /* ---- 13 · Estrutura de capital ---- */
+  mk('capStructChart',{type:'doughnut',
+    data:{labels:['Patrimônio líquido','Dívida líquida (ex-leases)','Arrendamentos'],
+      datasets:[{data:[125.2,23.0,8.5],backgroundColor:[C.green,C.orange,C.amber],borderColor:C.dark2,borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:legBottom(),
+      tooltip:{callbacks:{label:function(c){return c.label+': US$ '+c.parsed+' bi';}}}}}});
+
+  /* ---- 14 · Ponte dívida bruta → líquida (waterfall) ---- */
+  mk('debtBridgeChart',{type:'bar',
+    data:{labels:['Dívida bruta','(−) Caixa','(−) Ativos fin.','Dívida líquida'],
+      datasets:[{label:'US$ bi',
+        data:[[0,54.3],[28.6,54.3],[23.0,28.6],[0,23.0]],
+        backgroundColor:[C.orange,C.blueL,C.blueL,C.green],
+        borderColor:[C.orange,C.blue,C.blue,C.green],borderWidth:1.5,borderRadius:4,maxBarThickness:60}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:function(c){var v=c.raw;return 'US$ '+Math.abs(v[1]-v[0]).toFixed(1)+' bi';}}}},
+      scales:axes(false,true)}});
+
+  /* ---- 15 · Evolução da alavancagem ---- */
+  mk('levHistChart',{type:'line',
+    data:{labels:['2019','2020','2021','2022','2023','2024','1T26*'],
+      datasets:[
+        {label:'Net Debt/EBITDA (ex-IFRS16)',data:[0.89,1.39,0.49,0.12,0.13,0.25,0.55],
+          borderColor:C.orange,backgroundColor:'rgba(236,112,0,.10)',fill:true,tension:.3,borderWidth:2.5,pointRadius:3,pointBackgroundColor:C.orange},
+        {label:'Net Debt/EBITDA (IFRS16)',data:[1.10,1.76,0.68,0.23,0.30,0.44,0.75],
+          borderColor:C.green,backgroundColor:'transparent',tension:.3,borderWidth:2.5,borderDash:[5,4],pointRadius:3,pointBackgroundColor:C.green}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:legBottom(),
+      tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'x';}}}},
+      scales:{x:{grid:{display:false},ticks:{color:C.tick}},y:{grid:{color:C.grid},ticks:{color:C.tick,callback:function(v){return v+'x';}}}}}});
+
+  /* ---- 16 · Gearing ---- */
+  mk('gearingChart',{type:'bar',
+    data:{labels:['mar/25','dez/25','mar/26'],
+      datasets:[
+        {label:'Gearing (ex-leases)',data:[14.3,14.7,15.5],backgroundColor:C.orange,borderRadius:4,maxBarThickness:40},
+        {label:'Gearing (c/ leases)',data:[19.2,19.7,20.1],backgroundColor:C.teal,borderRadius:4,maxBarThickness:40}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:legBottom(),
+      tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y+'%';}}}},
+      scales:{x:{grid:{display:false},ticks:{color:C.tick}},y:{grid:{color:C.grid},min:0,max:25,ticks:{color:C.tick,callback:function(v){return v+'%';}}}}}});
+
+  /* ---- 17 · Cobertura de juros ---- */
+  mk('coverageChart',{type:'bar',
+    data:{labels:['EBITDA ajustado','Juro bruto s/ dívida','Custo dívida líquida'],
+      datasets:[{label:'US$ milhões (1T26)',data:[12552,791,569],
+        backgroundColor:[C.green,C.orange,C.amber],borderRadius:5,maxBarThickness:60}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:function(c){return 'US$ '+c.parsed.y.toLocaleString('pt-BR')+' mi';}}}},
+      scales:axes(false,true)}});
+
+  /* ---- 18 · Ponte do fluxo de caixa (waterfall) ---- */
+  mk('cfBridgeChart',{type:'bar',
+    data:{labels:['CFFO','(−) Capex orgânico','FCF pós-orgânico','(+) Desinvest. líq.','FC líquido'],
+      datasets:[{label:'US$ mi',
+        data:[[0,8576],[3926,8576],[0,3926],[3926,4098],[0,4098]],
+        backgroundColor:[C.orange,C.blueL,C.green,C.greenL,'rgba(166,207,46,.85)'],
+        borderColor:[C.orange,C.blue,C.green,C.green,C.green],borderWidth:1.5,borderRadius:4,maxBarThickness:58}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:function(c){var v=c.raw;return 'US$ '+Math.abs(v[1]-v[0]).toLocaleString('pt-BR')+' mi';}}}},
+      scales:axes(false,true)}});
+
+  /* ---- 19 · CFFO por segmento ---- */
+  mk('cfSegChart',{type:'bar',
+    data:{labels:['E&P','GNL','Power','Refino&Q.','Mktg'],
+      datasets:[{label:'CFFO (US$ mi)',data:[4564,1785,574,1716,420],
+        backgroundColor:[C.orange,C.blue,C.amber,C.green,C.teal],borderRadius:5,maxBarThickness:42}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
+      scales:{x:{grid:{color:C.grid},ticks:{color:C.tick}},y:{grid:{display:false},ticks:{color:C.tick}}}}});
+
+  /* ---- 20 · Remuneração ao acionista ---- */
+  mk('shareholderRetChart',{type:'doughnut',
+    data:{labels:['Dividendos','Recompras'],
+      datasets:[{data:[2123,750],backgroundColor:[C.green,C.orange],borderColor:C.dark2,borderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,cutout:'60%',plugins:{legend:legBottom(),
+      tooltip:{callbacks:{label:function(c){return c.label+': US$ '+c.parsed.toLocaleString('pt-BR')+' mi';}}}}}});
+
+  /* ---- 21 · Capacidade renovável por região (horizontal) ---- */
+  mk('esgRegionChart',{type:'bar',
+    data:{labels:['EUA','Europa','Índia','Ásia-Pacífico','Am. do Sul','OM e África'],
+      datasets:[{label:'Capacidade renovável bruta (GW)',data:[31.9,30.1,13,11,5.7,5.4],
+        backgroundColor:[C.green,'rgba(166,207,46,.8)','rgba(166,207,46,.6)','rgba(166,207,46,.5)','rgba(166,207,46,.4)','rgba(166,207,46,.3)'],
+        borderRadius:5,maxBarThickness:38}]},
+    options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:function(c){return c.parsed.x+' GW';}}}},
+      scales:{x:{grid:{color:C.grid},ticks:{color:C.tick}},y:{grid:{display:false},ticks:{color:C.tick}}}}});
+
+  /* ---- 22 · Stress de preços do petróleo ---- */
+  mk('stressChart',{type:'bar',
+    data:{labels:['US$ 40','US$ 50','US$ 60','US$ 70','US$ 80 (base)'],
+      datasets:[
+        {type:'bar',label:'CFFO anualizado (est.)',data:[23,25,28,31,33.5],
+          backgroundColor:[C.red,C.amber,'rgba(166,207,46,.7)',C.green,C.green],borderRadius:5,maxBarThickness:60,order:3},
+        {type:'line',label:'Capex líq. + Dividendo (~23,5)',data:[23.5,23.5,23.5,23.5,23.5],
+          borderColor:C.orange,borderWidth:2,borderDash:[6,4],pointRadius:0,fill:false,order:1},
+        {type:'line',label:'Capex + Div. + Buyback (~29,5)',data:[29.5,29.5,29.5,29.5,29.5],
+          borderColor:C.blue,borderWidth:2,borderDash:[3,3],pointRadius:0,fill:false,order:2}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:legBottom(),
+      tooltip:{callbacks:{label:function(c){return c.dataset.label+': US$ '+c.parsed.y+' bi';}}}},
+      scales:{x:{grid:{display:false},ticks:{color:C.tick}},y:{grid:{color:C.grid},min:0,ticks:{color:C.tick,callback:function(v){return v;}}}}}});
+
+  /* ---- 23 · Custo de produção vs. Brent (resiliência) ---- */
+  mk('prodCostChart',{type:'bar',
+    data:{labels:['2019','2020','2021','2022','2023','2024','1T26'],
+      datasets:[
+        {type:'bar',label:'Brent (US$/bbl)',data:[64,42,71,101,83,81,81],backgroundColor:'rgba(236,112,0,.55)',borderRadius:4,maxBarThickness:34,yAxisID:'y',order:2},
+        {type:'line',label:'Custo de produção (US$/boe)',data:[5.4,5.1,5.3,5.5,5.5,4.9,5.0],borderColor:C.green,backgroundColor:C.green,tension:.3,borderWidth:2.5,pointRadius:3,pointBackgroundColor:C.green,yAxisID:'y1',order:1}
+      ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:legBottom(),
+      tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y;}}}},
+      scales:{x:{grid:{display:false},ticks:{color:C.tick}},
+        y:{position:'left',grid:{color:C.grid},min:0,ticks:{color:C.tick,callback:function(v){return '$'+v;}}},
+        y1:{position:'right',min:0,max:12,grid:{display:false},ticks:{color:C.green,callback:function(v){return '$'+v;}}}}}});
+
+  /* ---- 24 · Spread no custo de extração ---- */
+  mk('spreadChart',{type:'bar',
+    data:{labels:['2019','2020','2021','2022','2023','2024','1T26'],
+      datasets:[{label:'Spread Brent − custo (US$/bbl)',data:[59,37,66,96,77,76,76],
+        backgroundColor:C.green,borderRadius:4,maxBarThickness:40}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
+      tooltip:{callbacks:{label:function(c){return 'US$ '+c.parsed.y+'/bbl';}}}},
+      scales:{x:{grid:{display:false},ticks:{color:C.tick}},y:{grid:{color:C.grid},min:0,ticks:{color:C.tick,callback:function(v){return '$'+v;}}}}}});
+
+})();
+</script>
+</body>
+</html>
