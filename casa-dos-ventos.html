@@ -734,7 +734,7 @@ footer{background:var(--dark-2);border-top:1px solid var(--border);padding:34px 
       <div class="chart-wrap"><canvas id="segMixChart"></canvas></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title">Geração de Caixa Operacional por Segmento · FY2024</div>
+      <div class="chart-title">Geração de Caixa Operacional por Segmento · FY2025</div>
       <div class="chart-sub">Fluxo de caixa operacional · US$ bilhões · onde a companhia efetivamente gera caixa</div>
       <div class="chart-wrap"><canvas id="segCashChart"></canvas></div>
     </div>
@@ -947,7 +947,7 @@ footer{background:var(--dark-2);border-top:1px solid var(--border);padding:34px 
   <div class="grid-2" style="margin-top:6px">
     <div class="chart-card">
       <div class="chart-title">Cronograma de Amortização da Dívida</div>
-      <div class="chart-sub">US$ milhões · posição 4T24 · caixa cobre vencimentos próximos com folga</div>
+      <div class="chart-sub">US$ milhões · composição por vencimento em 31/12/2024 (último detalhamento anual divulgado) · caixa cobre vencimentos próximos com folga</div>
       <div class="chart-wrap"><canvas id="amortChart"></canvas></div>
     </div>
     <div class="card">
@@ -1549,10 +1549,10 @@ footer{background:var(--dark-2);border-top:1px solid var(--border);padding:34px 
     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
       scales:{x:{grid:{color:C.grid},ticks:{color:C.tick}},y:{grid:{display:false},ticks:{color:C.tick}}}}});
 
-  /* ---- 6 · Geração de caixa operacional por segmento (FY2024) ---- */
+  /* ---- 6 · Geração de caixa operacional por segmento (FY2025) ---- */
   mk('segCashChart',{type:'bar',
     data:{labels:['E&P','GNL Int.','Refino&Quím.','Mktg&Serv.','Power'],
-      datasets:[{label:'Caixa operacional FY2024 (US$ bi)',data:[17.0,4.9,3.8,2.9,2.6],
+      datasets:[{label:'Caixa operacional FY2025 (US$ bi)',data:[15.6,4.7,3.8,2.4,2.6],
         backgroundColor:[C.orange,C.blue,C.green,C.teal,C.amber],borderRadius:5,maxBarThickness:46}]},
     options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
       tooltip:{callbacks:{label:function(c){return 'US$ '+c.parsed.x+' bi';}}}},
@@ -1587,7 +1587,7 @@ footer{background:var(--dark-2);border-top:1px solid var(--border);padding:34px 
   /* ---- 10 · Receita & Margem (TOGGLE anual/semestral) ---- */
   var revChart=null;
   var revData={
-    annual:{labels:['2019','2020','2021','2022','2023','2024'],rev:[176,120,206,281,237,215],mg:[20,18,21,25,21,20]},
+    annual:{labels:['2019','2020','2021','2022','2023','2024','2025'],rev:[176,120,206,281,237,215,201],mg:[20,18,21,25,21,20,20]},
     semi:{labels:['1S24','1S25'],rev:[110,102],mg:[21,20]}
   };
   function buildRev(mode){
@@ -1648,11 +1648,11 @@ footer{background:var(--dark-2);border-top:1px solid var(--border);padding:34px 
 
   /* ---- 15 · Evolução da alavancagem ---- */
   mk('levHistChart',{type:'line',
-    data:{labels:['2019','2020','2021','2022','2023','2024','1T26*'],
+    data:{labels:['2019','2020','2021','2022','2023','2024','2025','1T26*'],
       datasets:[
-        {label:'Net Debt/EBITDA (ex-IFRS16)',data:[0.89,1.39,0.49,0.12,0.13,0.25,0.55],
+        {label:'Net Debt/EBITDA (ex-IFRS16)',data:[0.89,1.39,0.49,0.12,0.13,0.25,0.50,0.55],
           borderColor:C.orange,backgroundColor:'rgba(236,112,0,.10)',fill:true,tension:.3,borderWidth:2.5,pointRadius:3,pointBackgroundColor:C.orange},
-        {label:'Net Debt/EBITDA (IFRS16)',data:[1.10,1.76,0.68,0.23,0.30,0.44,0.75],
+        {label:'Net Debt/EBITDA (IFRS16)',data:[1.10,1.76,0.68,0.23,0.30,0.44,0.71,0.75],
           borderColor:C.green,backgroundColor:'transparent',tension:.3,borderWidth:2.5,borderDash:[5,4],pointRadius:3,pointBackgroundColor:C.green}
       ]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:legBottom(),
@@ -1732,10 +1732,10 @@ footer{background:var(--dark-2);border-top:1px solid var(--border);padding:34px 
 
   /* ---- 23 · Custo de produção vs. Brent (resiliência) ---- */
   mk('prodCostChart',{type:'bar',
-    data:{labels:['2019','2020','2021','2022','2023','2024','1T26'],
+    data:{labels:['2019','2020','2021','2022','2023','2024','2025','1T26'],
       datasets:[
-        {type:'bar',label:'Brent (US$/bbl)',data:[64,42,71,101,83,81,81],backgroundColor:'rgba(236,112,0,.55)',borderRadius:4,maxBarThickness:34,yAxisID:'y',order:2},
-        {type:'line',label:'Custo de produção (US$/boe)',data:[5.4,5.1,5.3,5.5,5.5,4.9,5.0],borderColor:C.green,backgroundColor:C.green,tension:.3,borderWidth:2.5,pointRadius:3,pointBackgroundColor:C.green,yAxisID:'y1',order:1}
+        {type:'bar',label:'Brent (US$/bbl)',data:[64,42,71,101,83,81,69,81],backgroundColor:'rgba(236,112,0,.55)',borderRadius:4,maxBarThickness:34,yAxisID:'y',order:2},
+        {type:'line',label:'Custo de produção (US$/boe)',data:[5.4,5.1,5.3,5.5,5.5,4.9,5.0,5.0],borderColor:C.green,backgroundColor:C.green,tension:.3,borderWidth:2.5,pointRadius:3,pointBackgroundColor:C.green,yAxisID:'y1',order:1}
       ]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:legBottom(),
       tooltip:{callbacks:{label:function(c){return c.dataset.label+': '+c.parsed.y;}}}},
@@ -1745,8 +1745,8 @@ footer{background:var(--dark-2);border-top:1px solid var(--border);padding:34px 
 
   /* ---- 24 · Spread no custo de extração ---- */
   mk('spreadChart',{type:'bar',
-    data:{labels:['2019','2020','2021','2022','2023','2024','1T26'],
-      datasets:[{label:'Spread Brent − custo (US$/bbl)',data:[59,37,66,96,77,76,76],
+    data:{labels:['2019','2020','2021','2022','2023','2024','2025','1T26'],
+      datasets:[{label:'Spread Brent − custo (US$/bbl)',data:[59,37,66,96,77,76,64,76],
         backgroundColor:C.green,borderRadius:4,maxBarThickness:40}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},
       tooltip:{callbacks:{label:function(c){return 'US$ '+c.parsed.y+'/bbl';}}}},
