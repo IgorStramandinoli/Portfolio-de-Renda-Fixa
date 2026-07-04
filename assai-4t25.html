@@ -1,0 +1,2444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assaí Atacadista (Sendas Distribuidora S.A.) | Credit Research Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-orange: #EC7000;
+            --accent-green: #A6CF2E;
+            --dark-bg: #091B1E;
+            --dark-secondary: #133134;
+            --white: #FFFFFF;
+            --gray-light: #B8C5C7;
+            --gray-mid: #6B8285;
+            --orange: #EC7000;
+            --orange-light: #FF8C33;
+            --green: #A6CF2E;
+            --green-dark: #8AB526;
+            --dark: #091B1E;
+            --dark-card: #133134;
+            --dark-border: #1E4347;
+            --gray-100: #F3F4F6;
+            --gray-200: #E5E7EB;
+            --gray-300: #D1D5DB;
+            --gray-400: #9CA3AF;
+            --gray-500: #6B7280;
+            --red: #EF4444;
+            --yellow: #F59E0B;
+            --blue: #3B82F6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--white);
+            line-height: 1.7;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+        }
+
+        .mono {
+            font-family: 'Montserrat', monospace;
+        }
+
+        /* Header - Full Screen Cover */
+        .header {
+            background: linear-gradient(135deg, #0f2f35 0%, #091b1e 50%, #051113 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            padding: 0;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                repeating-linear-gradient(
+                    90deg,
+                    rgba(236, 112, 0, 0.03),
+                    rgba(236, 112, 0, 0.03) 1px,
+                    transparent 1px,
+                    transparent 40px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(236, 112, 0, 0.03),
+                    rgba(236, 112, 0, 0.03) 1px,
+                    transparent 1px,
+                    transparent 40px
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        
+        .header .container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 100%;
+            padding: 0 60px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 0;
+            gap: 24px;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .company-info h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 80px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--primary-orange);
+            letter-spacing: -2px;
+        }
+
+        .company-info .subtitle {
+            font-size: 20px;
+            color: var(--white);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .report-meta {
+            text-align: center;
+            position: absolute;
+            top: 48px;
+            right: 60px;
+            background: rgba(12, 47, 53, 0.6);
+            padding: 16px 24px;
+            border-radius: 12px;
+            border: 1px solid rgba(236, 112, 0, 0.2);
+        }
+
+        .report-date {
+            font-size: 13px;
+            color: var(--gray-300);
+            margin-bottom: 4px;
+        }
+
+        /* Watermark */
+        .watermark {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(19, 49, 52, 0.3);
+            border: 1px solid rgba(166, 207, 46, 0.4);
+            border-radius: 10px;
+            padding: 14px 18px;
+            color: rgba(255, 255, 255, 0.6);
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 13px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+            pointer-events: none;
+            user-select: none;
+            max-width: 400px;
+            opacity: 0.7;
+        }
+
+        .watermark p {
+            margin: 4px 0;
+        }
+
+        .watermark strong {
+            color: rgba(166, 207, 46, 0.7);
+        }
+
+        /* Rating Badges */
+        .ratings-row {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .rating-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(166, 207, 46, 0.1);
+            border: 1px solid rgba(166, 207, 46, 0.3);
+            padding: 10px 16px;
+            border-radius: 8px;
+        }
+
+        .rating-agency {
+            font-size: 12px;
+            color: var(--gray-400);
+            font-weight: 500;
+        }
+
+        .rating-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-green);
+        }
+
+        /* Key Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .metric-card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .metric-card.highlight {
+            background: linear-gradient(135deg, rgba(236, 112, 0, 0.15) 0%, var(--dark-secondary) 100%);
+            border-color: var(--primary-orange);
+        }
+
+        .metric-card.green {
+            background: linear-gradient(135deg, rgba(166, 207, 46, 0.15) 0%, var(--dark-secondary) 100%);
+            border-color: var(--accent-green);
+        }
+
+        .metric-card .label {
+            font-size: 12px;
+            color: var(--gray-400);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .metric-card .value {
+            font-family: 'Montserrat', monospace;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 6px;
+        }
+
+        .metric-card .delta {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .delta.positive { color: var(--accent-green); }
+        .delta.negative { color: var(--red); }
+        .delta.neutral { color: var(--gray-400); }
+
+        /* Main Content */
+        .main {
+            padding: 48px 0;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 64px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .section-number {
+            font-family: 'Montserrat', monospace;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-orange);
+            background: rgba(236, 112, 0, 0.1);
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary-orange);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-content {
+            color: var(--gray-200);
+            font-size: 15px;
+        }
+
+        .card-content p {
+            margin-bottom: 12px;
+        }
+
+        .card-content strong {
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* Lists */
+        .list-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .list-item:last-child {
+            border-bottom: none;
+        }
+
+        .list-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 8px;
+            flex-shrink: 0;
+        }
+
+        .list-icon.green { background: var(--accent-green); }
+        .list-icon.red { background: var(--red); }
+        .list-icon.orange { background: var(--primary-orange); }
+
+        .summary-box {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            border-left: 4px solid var(--primary-orange);
+            padding: 24px 32px;
+            margin-bottom: 32px;
+            margin-top: 40px;
+        }
+
+        .summary-box h3 {
+            font-size: 16px;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .summary-box p {
+            color: var(--gray-200);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            table-layout: fixed;
+        }
+
+        .data-table th {
+            text-align: center;
+            padding: 14px 16px;
+            background: rgba(236, 112, 0, 0.1);
+            color: var(--primary-orange);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .data-table th:first-child { 
+            border-radius: 8px 0 0 0; 
+            text-align: left;
+            width: 35%;
+        }
+        .data-table th:last-child { border-radius: 0 8px 0 0; }
+        .data-table th.number { text-align: center; }
+
+        .data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--gray-200);
+            text-align: center;
+        }
+
+        .data-table td:first-child {
+            text-align: left;
+        }
+
+        .data-table td.mono {
+            font-family: 'Montserrat', monospace;
+            color: var(--white);
+        }
+
+        .data-table td.number {
+            font-family: 'Montserrat', monospace;
+            text-align: center;
+        }
+
+        .data-table tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--white);
+        }
+
+        .chart-wrapper {
+            height: 300px;
+            position: relative;
+        }
+
+        .chart-wrapper.tall {
+            height: 400px;
+        }
+
+        /* Highlight Box */
+        .highlight-box {
+            background: rgba(166, 207, 46, 0.08);
+            border: 1px solid rgba(166, 207, 46, 0.3);
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 20px 0;
+        }
+
+        .highlight-box.warning {
+            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.3);
+        }
+
+        .highlight-box.danger {
+            background: rgba(239, 68, 68, 0.08);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .highlight-box h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .highlight-box h4 { color: var(--accent-green); }
+        .highlight-box.warning h4 { color: var(--primary-orange); }
+        .highlight-box.danger h4 { color: var(--red); }
+
+        .highlight-box p {
+            font-size: 14px;
+            color: var(--gray-200);
+        }
+
+        /* Insight Card */
+        .insight-card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-left: 4px solid var(--primary-orange);
+            border-radius: 0 12px 12px 0;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .insight-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary-orange);
+            margin-bottom: 12px;
+        }
+
+        .insight-card p {
+            font-size: 14px;
+            color: var(--gray-300);
+            line-height: 1.7;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 1rem 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--gray-300);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--dark-border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .progress-fill.orange {
+            background: linear-gradient(90deg, var(--primary-orange) 0%, #ff8c33 100%);
+        }
+
+        .progress-fill.green {
+            background: linear-gradient(90deg, var(--accent-green) 0%, #c2e54c 100%);
+        }
+
+        /* Segment Cards */
+        .segment-card {
+            background: var(--dark-secondary);
+            border: 1px solid var(--dark-border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .segment-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .segment-header.hospital { 
+            background: linear-gradient(135deg, rgba(236, 112, 0, 0.15) 0%, rgba(236, 112, 0, 0.05) 100%);
+            border-top: 3px solid var(--primary-orange);
+        }
+        .segment-header.seguros { 
+            background: linear-gradient(135deg, rgba(166, 207, 46, 0.15) 0%, rgba(166, 207, 46, 0.05) 100%);
+            border-top: 3px solid var(--accent-green);
+        }
+        .segment-header.onco { 
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%);
+            border-top: 3px solid #3B82F6;
+        }
+
+        .segment-name {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .segment-body {
+            padding: 24px;
+        }
+
+        .segment-metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .segment-metric:last-child {
+            border-bottom: none;
+        }
+
+        .segment-metric .label {
+            color: var(--gray-400);
+            font-size: 14px;
+        }
+
+        .segment-metric .value {
+            font-family: 'Montserrat', monospace;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        /* Composition Grid */
+        .composition-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 1rem 0;
+        }
+
+        .composition-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            border: 1px solid var(--dark-border);
+        }
+
+        .composition-value {
+            font-family: 'Montserrat', monospace;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-orange);
+        }
+
+        .composition-label {
+            font-size: 13px;
+            color: var(--gray-400);
+            margin-top: 8px;
+        }
+
+        /* Conclusion Box */
+        .conclusion-box {
+            background: linear-gradient(135deg, rgba(236, 112, 0, 0.1) 0%, var(--dark-secondary) 100%);
+            border: 1px solid var(--primary-orange);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 32px;
+        }
+
+        .conclusion-box h3 {
+            color: var(--primary-orange);
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .conclusion-box p {
+            line-height: 1.8;
+            color: var(--gray-200);
+            margin-bottom: 16px;
+        }
+
+        .conclusion-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Sector Stat */
+        .sector-stat {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--dark-border);
+        }
+
+        .sector-stat:last-child {
+            border-bottom: none;
+        }
+
+        .sector-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary-orange) 0%, #d46200 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .sector-info h4 {
+            font-size: 13px;
+            color: var(--gray-400);
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+
+        .sector-info p {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        /* Rating Container */
+        .rating-container {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Toggle Buttons */
+        .toggle-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--dark-border);
+            color: var(--gray-400);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .toggle-btn:hover {
+            background: rgba(236, 112, 0, 0.1);
+            border-color: rgba(236, 112, 0, 0.3);
+            color: var(--white);
+        }
+
+        .toggle-btn.active {
+            background: var(--primary-orange);
+            border-color: var(--primary-orange);
+            color: var(--white);
+        }
+
+        .rating-box {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--dark-border);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .rating-box .rating-agency {
+            font-size: 12px;
+            color: var(--gray-400);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .rating-box .rating-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent-green);
+            display: block;
+        }
+
+        .rating-outlook {
+            font-size: 11px;
+            color: var(--gray-500);
+            margin-top: 6px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-secondary);
+            border-top: 1px solid var(--dark-border);
+            padding: 32px 0;
+            margin-top: 48px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+            .grid-4 { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .header-top { flex-direction: column; gap: 24px; }
+            .company-info h1 { font-size: 48px; }
+            .container { padding: 0 20px; }
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .ratings-row { flex-wrap: wrap; }
+            .composition-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ===== Adições: navegação, progresso e divisor (camada de UX, não altera conteúdo) ===== */
+
+        html { scroll-behavior: smooth; }
+
+        /* Barra de progresso de leitura no topo absoluto */
+        .scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary-orange) 0%, var(--accent-green) 100%);
+            z-index: 10000;
+            transition: width 0.1s linear;
+        }
+
+        /* Navegação por seções (sticky abaixo do header full-screen) */
+        .topnav {
+            position: sticky;
+            top: 0;
+            z-index: 9000;
+            background: rgba(9, 27, 30, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--dark-border);
+        }
+        .topnav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            overflow-x: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--dark-border) transparent;
+        }
+        .topnav-inner::-webkit-scrollbar { height: 4px; }
+        .topnav-inner::-webkit-scrollbar-thumb { background: var(--dark-border); border-radius: 4px; }
+        .topnav-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 15px;
+            color: var(--primary-orange);
+            letter-spacing: -0.5px;
+            padding-right: 16px;
+            margin-right: 8px;
+            border-right: 1px solid var(--dark-border);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .topnav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 12.5px;
+            font-weight: 500;
+            padding: 14px 10px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            flex-shrink: 0;
+        }
+        .topnav a .nn {
+            font-family: 'Montserrat', monospace;
+            font-size: 10px;
+            color: var(--primary-orange);
+            opacity: 0.85;
+        }
+        .topnav a:hover { color: var(--white); }
+        .topnav a.active {
+            color: var(--white);
+            border-bottom-color: var(--primary-orange);
+        }
+
+        /* Ancoragem das seções respeitando a navegação */
+        section[id], .anchor { scroll-margin-top: 64px; }
+
+        /* Divisor de bloco (ex.: "Consolidação da Tese") */
+        .block-divider {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 24px 0 8px;
+        }
+        .block-divider::before, .block-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--dark-border), transparent);
+        }
+        .block-divider span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-green);
+        }
+
+        /* Pílula/etiqueta inline */
+        .pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.3px;
+        }
+        .pill.orange { background: rgba(236,112,0,0.15); color: var(--primary-orange); border: 1px solid rgba(236,112,0,0.3); }
+        .pill.green { background: rgba(166,207,46,0.15); color: var(--accent-green); border: 1px solid rgba(166,207,46,0.3); }
+        .pill.blue { background: rgba(59,130,246,0.15); color: #3B82F6; border: 1px solid rgba(59,130,246,0.3); }
+
+        /* Mini-stat para premissas / drivers */
+        .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+        .kpi {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--dark-border);
+            border-radius: 12px;
+            padding: 16px;
+        }
+        .kpi .k-val { font-family: 'Montserrat', monospace; font-size: 20px; font-weight: 700; color: var(--white); }
+        .kpi .k-lab { font-size: 12px; color: var(--gray-400); margin-top: 4px; }
+
+        /* Tabela densa (emissões) com rolagem horizontal no mobile */
+        .table-scroll { overflow-x: auto; border-radius: 12px; }
+        .table-scroll .data-table { min-width: 760px; }
+        .data-table.dense th, .data-table.dense td { padding: 9px 10px; font-size: 12px; }
+
+        /* Ranking de premissas */
+        .rank-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--dark-border); }
+        .rank-item:last-child { border-bottom: none; }
+        .rank-num {
+            flex-shrink: 0;
+            width: 34px; height: 34px;
+            border-radius: 9px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 15px;
+            background: rgba(236,112,0,0.12); color: var(--primary-orange);
+            border: 1px solid rgba(236,112,0,0.3);
+        }
+        .rank-item h4 { font-size: 15px; color: var(--white); margin-bottom: 6px; }
+        .rank-item p { font-size: 13.5px; color: var(--gray-300); }
+
+        @media (max-width: 768px) {
+            .topnav-inner { padding: 0 16px; }
+            .kpi-row { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra de progresso de leitura -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- Watermark -->
+    <div class="watermark">
+        <p><strong>Autor:</strong> Igor Stramandinoli Moita Pontes</p>
+    </div>
+
+    <!-- Header - Full Screen Cover -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="company-info">
+                    <h1>Assaí</h1>
+                    <p class="subtitle">Sendas Distribuidora S.A. | 2ª maior varejista de alimentos do Brasil | Credit Research Report</p>
+                    <div class="ratings-row">
+                        <div class="rating-badge">
+                            <span class="rating-agency">Fitch Ratings</span>
+                            <span class="rating-value">AAA(bra)</span>
+                        </div>
+                        <div class="rating-badge">
+                            <span class="rating-agency">Perspectiva</span>
+                            <span class="rating-value">Estável</span>
+                        </div>
+                        <div class="rating-badge">
+                            <span class="rating-agency">Setor</span>
+                            <span class="rating-value">Atacarejo / Defensivo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navegação por seções -->
+    <nav class="topnav" id="topnav">
+        <div class="topnav-inner">
+            <span class="topnav-brand">ASSAÍ · CREDIT RESEARCH</span>
+            <a href="#sec01"><span class="nn">01</span> Tese</a>
+            <a href="#sec02"><span class="nn">02</span> Negócio</a>
+            <a href="#sec03"><span class="nn">03</span> Desempenho</a>
+            <a href="#sec04"><span class="nn">04</span> Endividamento</a>
+            <a href="#sec05"><span class="nn">05</span> Perfil da Dívida</a>
+            <a href="#sec06"><span class="nn">06</span> Riscos</a>
+            <a href="#sec07"><span class="nn">07</span> Fluxo Futuro</a>
+            <a href="#sec08"><span class="nn">08</span> Rolagem</a>
+            <a href="#sec09"><span class="nn">09</span> Premissas</a>
+            <a href="#sec10"><span class="nn">10</span> Risco-Retorno</a>
+            <a href="#sec11"><span class="nn">11</span> Secundário</a>
+            <a href="#sec12"><span class="nn">12</span> Fontes</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+
+            <!-- Key Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card highlight">
+                    <div class="label">Dívida Líquida / EBITDA</div>
+                    <div class="value">2,56x</div>
+                    <div class="delta positive">↓ 0,48x vs. 4T24</div>
+                    <div style="font-size: 11px; color: var(--accent-green); margin-top: 4px;">1,48x projetado para 2029E (conservador)</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">EBITDA Ajustado 2025</div>
+                    <div class="value">R$ 4,4 bi</div>
+                    <div class="delta neutral">Margem 5,7% (Pré-IFRS 16)</div>
+                </div>
+                <div class="metric-card green">
+                    <div class="label">Geração de Caixa Livre</div>
+                    <div class="value">R$ 2,8 bi</div>
+                    <div class="delta positive">~84% de conversão do EBITDA</div>
+                </div>
+                <div class="metric-card">
+                    <div class="label">Receita Líquida 2025</div>
+                    <div class="value">R$ 77,3 bi</div>
+                    <div class="delta positive">CAGR 2020-25 de 14%</div>
+                </div>
+            </div>
+
+            <!-- Resumo Executivo -->
+            <div class="summary-box">
+                <h3>Resumo Executivo</h3>
+                <p>
+                    O Assaí é um crédito <strong>AAA(bra)</strong> de setor defensivo em trajetória consistente de desalavancagem — de <strong>2,56x (2025) para 1,48x (2029E)</strong> no cenário conservador —, sustentada por geração de caixa livre robusta (~R$ 3,5 bi/ano) e cobertura de juros confortável (FCL/Juros de 1,3x a 2,1x). A operação é uma máquina de geração de caixa: o modelo de atacarejo combina escala, capital de giro favorável e CAPEX de manutenção moderado, resultando em Caixa Livre consistentemente acima de R$ 3 bilhões por ano. O principal risco para a tese de crédito é a concentração de <strong>R$ 6,2 bilhões de vencimentos em 2028</strong> — ano em que a Companhia precisará refinanciar ~80% dos vencimentos no mercado de capitais. Adicionalmente, as contingências tributárias do GPA (~R$ 12 bi) configuram um risco de cauda que, embora de baixa probabilidade de materialização no curto prazo, pode impactar a percepção de risco e os spreads de emissão. A dívida oferece bom risco-retorno a <strong>CDI+1,40% ou acima no mercado secundário</strong>, condicionado ao acesso contínuo ao mercado de capitais e à manutenção da disciplina operacional.
+                </p>
+            </div>
+
+            <!-- Section 01: Tese de Crédito -->
+            <section class="section anchor" id="sec01">
+                <div class="section-header">
+                    <span class="section-number">01</span>
+                    <h2 class="section-title">Tese de Crédito — Visão Geral</h2>
+                </div>
+
+                <div class="card">
+                    <div class="card-content">
+                        <p>A formação da tese de investimento para a Companhia depende, sobretudo, da manutenção de sua trajetória recente de desalavancagem, sustentada por disciplina na alocação de capital e consistência operacional. Nos últimos anos, o Assaí demonstrou capacidade de reduzir alavancagem por meio da diminuição do CAPEX e foco na eficiência operacional, o que tem sido determinante para a percepção de uma relação risco-retorno atrativa.</p>
+                        <p>O principal risco para essa tese reside em uma eventual deterioração do desempenho operacional. Embora a dinâmica de vendas seja fortemente influenciada por fatores macroeconômicos e competitivos — e, portanto, menos controlável —, decisões internas, como aumento ineficiente de despesas ou execução inadequada da estratégia de expansão, podem pressionar margens e comprometer a geração de caixa. Nesse sentido, uma eventual retomada de um ciclo mais agressivo de abertura de lojas, especialmente em localizações com menor potencial de retorno ou maior intensidade competitiva, poderia impactar negativamente a rentabilidade e levar a uma reversão da trajetória de desalavancagem.</p>
+                        <p>Adicionalmente, observa-se uma dinâmica competitiva mais desafiadora no setor, com maior pressão de preços tanto por outros players de atacarejo quanto por supermercados tradicionais, que vêm adotando estratégias mais agressivas para retenção de clientes. Esse movimento ocorre em paralelo a um ambiente macroeconômico em gradual melhora, o que pode reduzir parcialmente a atratividade relativa do formato de atacarejo. Ainda assim, não se observa risco estrutural relevante para o setor, dado que o modelo permanece competitivo e resiliente, sustentado pelo perfil de consumo da população e pela busca recorrente por eficiência de preços.</p>
+                        <p>Por fim, destaca-se que a Companhia mantém importantes alavancas de controle, especialmente no que tange à gestão de CAPEX e estrutura de custos, o que contribui para mitigar riscos operacionais. Em síntese, a tese permanece suportada no cenário base, condicionada à manutenção da disciplina financeira e da execução operacional, em um ambiente competitivo que, embora mais pressionado, segue saudável.</p>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top: 20px;">
+                    <div class="highlight-box">
+                        <h4>💡 Pilar central da tese</h4>
+                        <p>Manutenção da trajetória de desalavancagem (2,56x → 1,48x) via disciplina de CAPEX, eficiência operacional e forte geração de caixa do modelo de atacarejo. As alavancas de controle (CAPEX e estrutura de custos) mitigam os riscos operacionais.</p>
+                    </div>
+                    <div class="highlight-box danger">
+                        <h4>⚠️ Principais riscos</h4>
+                        <p>(i) Deterioração operacional por execução inadequada da expansão ou aumento ineficiente de despesas; (ii) parede de R$ 6,2 bi de vencimentos em 2028 (refinanciar ~80% no mercado); (iii) risco de cauda das contingências tributárias do GPA (~R$ 12 bi).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 02: Visão do Negócio -->
+            <section class="section anchor" id="sec02">
+                <div class="section-header">
+                    <span class="section-number">02</span>
+                    <h2 class="section-title">Visão do Negócio</h2>
+                </div>
+
+                <div class="composition-grid">
+                    <div class="composition-item">
+                        <div class="composition-value">312</div>
+                        <div class="composition-label">Lojas em operação (4T25)</div>
+                    </div>
+                    <div class="composition-item">
+                        <div class="composition-value" style="color: var(--accent-green);">&gt;30%</div>
+                        <div class="composition-label">Market share no atacarejo</div>
+                    </div>
+                    <div class="composition-item">
+                        <div class="composition-value">24 + DF</div>
+                        <div class="composition-label">Estados com presença</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">🏢 A Companhia: Origem, Cisão e Posicionamento</h3>
+                    <div class="card-content">
+                        <p>Fundado em 1974, o Assaí é a 2ª maior empresa do varejo brasileiro em receitas, com foco no segmento de atacarejo. A Companhia apresenta elevada escala e diversificação geográfica, estando presente em 24 estados e no Distrito Federal, com mais de 300 lojas (c. 312 ao final de 2025).</p>
+                        <p>O Assaí é a segunda maior varejista de alimentos do Brasil e a maior empresa exclusivamente dedicada ao formato de atacarejo, com market share superior a 30% no segmento. Seus principais concorrentes diretos são o Atacadão (Carrefour) e o Grupo Mateus, além de redes regionais em expansão.</p>
+                        <p>Originalmente parte do GPA, o Assaí tornou-se uma companhia independente em 2021, após sua cisão e listagem no Novo Mercado. No mesmo ano, adquiriu pontos comerciais do Extra Hiper, acelerando sua expansão e ampliando sua presença em regiões estratégicas por meio da conversão de lojas para o formato cash &amp; carry. Em 2023, o grupo Casino concluiu a venda de sua participação, tornando a Companhia uma corporation com capital pulverizado.</p>
+                        <p>Após um ciclo acelerado de crescimento entre 2022 e 2024, impulsionado principalmente por essas conversões, o Assaí passou a adotar uma estratégia mais seletiva de expansão, com foco em rentabilidade, desalavancagem e otimização do portfólio.</p>
+                        <p>Apesar de ter herdado parte da estrutura de capital do GPA no processo de cisão — o que resultou em níveis de alavancagem inicialmente mais elevados — o modelo de atacarejo apresenta forte geração de caixa e capital de giro favorável, sustentando uma redução gradual da alavancagem ao longo do tempo.</p>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top: 20px;">
+                    <div class="card">
+                        <h3 class="card-title">📍 Presença Nacional e Governança</h3>
+                        <div class="card-content">
+                            <p>O Assaí apresenta elevada capilaridade e presença nacional, com 312 lojas em operação ao final do 4T25, distribuídas por 24 estados e o Distrito Federal, totalizando aproximadamente 1,5 milhão de m² de área de vendas.</p>
+                        </div>
+                        <div class="kpi-row" style="margin-top: 8px;">
+                            <div class="kpi"><div class="k-val">12</div><div class="k-lab">Centros de distribuição</div></div>
+                            <div class="kpi"><div class="k-val">11</div><div class="k-lab">Escritórios regionais</div></div>
+                            <div class="kpi"><div class="k-val">+90 mil</div><div class="k-lab">Colaboradores</div></div>
+                            <div class="kpi"><div class="k-val">~1,5 mi m²</div><div class="k-lab">Área de vendas</div></div>
+                        </div>
+                        <div class="card-content" style="margin-top: 12px;">
+                            <p>Sua estrutura confere escala operacional e flexibilidade para adaptação de sortimento e estratégias comerciais às particularidades locais, além de sustentar vantagens competitivas em distribuição.</p>
+                            <p>A Companhia é liderada por <strong>Belmiro Gomes</strong>, CEO desde 2011, com mais de 30 anos de experiência no varejo e passagem pelo Atacadão. Sob sua gestão, o Assaí saiu de uma operação deficitária para uma das maiores plataformas de atacarejo do país, com reconhecimento recorrente como "CEO do Ano" e "Executivo de Valor", sendo um executivo amplamente bem visto pelo mercado.</p>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <h4 class="chart-title">Composição Acionária</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="shareholdersChart"></canvas>
+                        </div>
+                        <p style="font-size: 12px; color: var(--gray-500); margin-top: 12px; text-align: center;">Capital pulverizado (corporation), após saída do Casino em 2023.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">🛒 O Modelo de Atacarejo</h3>
+                    <div class="card-content">
+                        <p>O Assaí atua no segmento de atacado de autosserviço (atacarejo ou cash &amp; carry), com foco tanto em pequenos e médios comerciantes quanto no consumidor final. Seu modelo de negócio combina características de atacado e varejo, permitindo ao cliente acessar preços mais competitivos por meio da compra em maiores volumes, sem restringir aquisições em pequenas quantidades.</p>
+                        <p>O modelo de negócios do atacarejo apresenta diferenças relevantes em relação ao supermercado tradicional. Do ponto de vista logístico, há maior eficiência operacional, uma vez que as lojas possuem grande capacidade de armazenamento e, em muitos casos, recebem mercadorias diretamente da indústria, reduzindo a dependência de centros de distribuição e encurtando a cadeia logística. Além disso, trata-se de um formato com menor intensidade de mão de obra em loja, o que contribui para uma estrutura de custos mais enxuta.</p>
+                        <p>Embora os produtos sejam comercializados com margens unitárias mais baixas, o modelo compensa por meio de maior escala, eficiência operacional e disciplina de despesas, resultando em margens EBITDA relativamente elevadas e forte geração de caixa. Adicionalmente, a dinâmica de capital de giro é favorável, sustentada por prazos mais longos de pagamento a fornecedores e recebimento majoritariamente à vista dos clientes — característica central do modelo. Tentativas recentes de introdução de vendas parceladas por alguns players do setor não foram bem recebidas pelo mercado, uma vez que reduzem a eficiência do capital de giro e destoam da lógica de consumo recorrente do varejo alimentar.</p>
+                        <p>O formato de atacarejo apresentou crescimento expressivo no Brasil ao longo dos últimos 10 a 12 anos, especialmente após a crise de 2014–2015, período em que consumidores passaram a priorizar preço e eficiência de compra. Nesse contexto, players como Assaí e Atacadão consolidaram-se como líderes do segmento, capturando ganhos relevantes de participação de mercado.</p>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top: 20px;">
+                    <div class="card">
+                        <h3 class="card-title">⚔️ Dinâmica Competitiva do Setor</h3>
+                        <div class="card-content">
+                            <p>A dinâmica competitiva do setor de atacarejo tornou-se mais desafiadora nos últimos anos. O forte crescimento e a elevada rentabilidade do modelo atraíram novos entrantes, especialmente redes regionais, que passaram a adotar o formato e expandir suas operações, aumentando a competição em diversas praças. Como consequência, o ambiente deixou de ser caracterizado por crescimento acelerado e relativamente pouco disputado, passando a exigir maior disciplina na expansão e execução operacional.</p>
+                            <p>Além da entrada de novos players, observa-se também uma intensificação competitiva entre os próprios incumbentes, com iniciativas voltadas à diferenciação e retenção de clientes. Entre essas, destacam-se a ampliação de serviços em loja — como açougue, padaria e seções de perecíveis mais completas — e, em alguns casos, a introdução de condições de pagamento mais flexíveis. Embora tais estratégias possam contribuir para aumento de fluxo e ticket médio, também implicam maior complexidade operacional e pressão sobre custos e capital de giro.</p>
+                            <p>Nesse contexto, ainda que o setor permaneça estruturalmente atrativo e resiliente, observa-se uma normalização da dinâmica competitiva, com menor crescimento orgânico e maior necessidade de execução eficiente para sustentação de margens e geração de caixa.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">🧭 Estratégia de Expansão e Diversificação</h3>
+                        <div class="card-content">
+                            <p>A Companhia vem ampliando sua presença geográfica não apenas por meio da entrada em novas regiões, mas também pela diversificação do público atendido. Tradicionalmente, o modelo de atacarejo opera em localizações mais periféricas, com terrenos amplos e menor custo, voltado principalmente a consumidores mais sensíveis a preço. No entanto, a conversão de lojas oriundas do Extra permitiu ao Assaí acessar pontos comerciais mais centrais e em regiões de maior renda, historicamente não típicas para o formato.</p>
+                            <p>Nesses locais, a Companhia tem adaptado sua proposta de valor, incorporando serviços adicionais — como açougue, padaria e empório de frios — com o objetivo de atender um público de maior poder aquisitivo, preservando a atratividade da localização e ampliando o ticket médio. Como resultado, observa-se uma expansão do posicionamento da marca ao longo da pirâmide de renda, passando a atender desde consumidores de maior renda até públicos mais sensíveis a preço, por meio de formatos e localizações distintas.</p>
+                            <p>Essa estratégia contribui para diversificação de receita e potencial de crescimento, ainda que traga maior complexidade operacional e exposição a um ambiente competitivo mais intenso em regiões urbanas consolidadas.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 03: Desempenho Operacional e Geração de Caixa -->
+            <section class="section anchor" id="sec03">
+                <div class="section-header">
+                    <span class="section-number">03</span>
+                    <h2 class="section-title">Desempenho Operacional e Geração de Caixa</h2>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card green">
+                        <div class="label">Geração de Caixa Livre</div>
+                        <div class="value">R$ 2,8 bi</div>
+                        <div class="delta positive">84% de conversão de EBITDA em caixa</div>
+                    </div>
+                    <div class="metric-card highlight">
+                        <div class="label">Alavancagem</div>
+                        <div class="value">2,56x</div>
+                        <div class="delta positive">Melhor que o guidance (2,60x)</div>
+                        <div style="font-size: 11px; color: var(--accent-green); margin-top: 4px;">Redução da Dívida Líquida: R$ 1,2 bi</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">Vendas</div>
+                        <div class="value">R$ 84,7 bi</div>
+                        <div class="delta positive">+5,2% | SSS excl. calendário: +2,6%</div>
+                        <div style="font-size: 11px; color: var(--gray-400); margin-top: 4px;">+10 novas lojas, 312 em operação</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">Rentabilidade — EBITDA Pré-IFRS16</div>
+                        <div class="value">R$ 4,5 bi</div>
+                        <div class="delta positive">Margem 5,8% (+0,2 p.p.)</div>
+                        <div style="font-size: 11px; color: var(--gray-400); margin-top: 4px;">Lucro Líq. Aj.: R$ 847 M Pré (-8,9%) | R$ 645 M Pós (-16,1%)</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">📈 Evolução de Receita e Margens</h3>
+                    <div class="card-content">
+                        <p>A receita do Assaí cresceu consistentemente nos últimos anos, com um CAGR (Taxa de Crescimento Anual Composta) de 14% entre 2020 e 2025. Dentre as razões para esse avanço estão principalmente a forte expansão do número de lojas, incluindo a conversão de hipermercado para formato Assaí, que rapidamente ganharam tração, além do crescimento das vendas nas lojas já existentes. A companhia também ganhou participação de mercado e aumentou fluxo de clientes, sustentando a evolução do indicador.</p>
+                        <p>Com isso, a companhia manteve a margem bruta próximo do patamar de 16 e 17%. Esse patamar é consequência do modelo de negócios que a companhia adota, baseado em vender grandes volumes a preços mais competitivos. Diferente dos supermercados tradicionais, o atacarejo possui menos itens de maior valor agregado, como produtos premium e serviços (padaria, rotisserie, etc), o que limita sua capacidade de ampliar a margem. Assim, a rentabilidade depende mais de giro e eficiência operacional do que de margem por produto.</p>
+                    </div>
+                    <div class="chart-container" style="margin-top: 16px;">
+                        <h4 class="chart-title">Receita Líquida (R$ milhões)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="receitaChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="card-content" style="margin-top: 16px;">
+                        <p>Do ponto de vista operacional, embora os indicadores permaneçam sólidos, observa-se uma desaceleração na dinâmica de vendas nas mesmas lojas (Same Store Sales – SSS), que registraram crescimento de +2,6% no período. Esse indicador é particularmente relevante, pois captura o desempenho das lojas maduras (com mais de 12 meses de operação), excluindo o efeito da abertura de novas unidades e permitindo uma avaliação mais precisa do crescimento orgânico da Companhia.</p>
+                        <p>Nesse sentido, o patamar atual indica uma dinâmica mais moderada quando comparada a períodos anteriores, nos quais a Companhia já apresentou crescimento de SSS em níveis próximos a 10%. Parte dessa desaceleração pode ser explicada por um ambiente de menor inflação de alimentos, que reduz o crescimento nominal das vendas. No entanto, o desempenho também sugere uma dinâmica mais desafiadora em termos de volume, refletindo um cenário competitivo mais pressionado e menor crescimento orgânico das unidades já estabelecidas.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">⚙️ Eficiência Operacional: Ciclo de Caixa e EBITDA</h3>
+                    <div class="card-content">
+                        <p>A Companhia apresenta um ciclo de caixa bastante eficiente. Em média, o prazo de pagamento a fornecedores é de aproximadamente 65 dias, enquanto o giro de estoques ocorre em cerca de 40 dias e o recebimento das vendas em torno de 25 dias. Dessa forma, a empresa consegue, em média, receber pelas vendas antes de efetuar o pagamento aos fornecedores, utilizando o próprio ciclo operacional como fonte de financiamento.</p>
+                        <p>Na prática, isso reduz significativamente a necessidade de capital de giro próprio, permitindo que a operação seja amplamente financiada por fornecedores e contribuindo para a forte geração de caixa da Companhia. Esse modelo ajuda a sustentar a expansão mesmo em períodos de investimentos elevado.</p>
+                    </div>
+                    <div class="kpi-row" style="margin-top: 8px;">
+                        <div class="kpi"><div class="k-val">~65 dias</div><div class="k-lab">Pagamento a fornecedores</div></div>
+                        <div class="kpi"><div class="k-val">~40 dias</div><div class="k-lab">Giro de estoques</div></div>
+                        <div class="kpi"><div class="k-val">~25 dias</div><div class="k-lab">Recebimento de vendas</div></div>
+                    </div>
+                    <div class="chart-container" style="margin-top: 16px;">
+                        <h4 class="chart-title">Ciclo de Caixa — Em dias de CMV (Custo das Mercadorias Vendidas)</h4>
+                        <div class="chart-wrapper tall">
+                            <canvas id="cicloCaixaChart"></canvas>
+                        </div>
+                        <p style="font-size: 12px; color: var(--gray-500); margin-top: 12px; text-align: center;">Ciclo de Caixa = Fornecedores (-) Estoques (-) Recebíveis (ajustado para recebíveis descontados).</p>
+                    </div>
+                </div>
+
+                <div class="chart-container" style="margin-top: 20px;">
+                    <h4 class="chart-title">EBITDA Ajustado (R$ milhões) e Margem EBITDA Ajustada (%)</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="ebitdaChart"></canvas>
+                    </div>
+                    <p style="font-size: 13px; color: var(--gray-300); margin-top: 12px;">O EBITDA ajustado avançou e alcançou R$ 4,4 bilhões em 2025, com incremento de 0,1 ponto percentual (p.p.) de margem.</p>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">💧 Geração de Caixa e Fluxo de Caixa Livre</h3>
+                    <div class="card-content">
+                        <p>Adicionalmente, a Companhia apresentou margem EBITDA de 5,8%, patamar considerado saudável para o segmento de atacarejo. Para fins analíticos, é relevante a avaliação sob a ótica pré-IFRS 16, uma vez que incorpora os efeitos de aluguel, proporcionando uma visão mais conservadora da rentabilidade operacional.</p>
+                        <p>A Companhia apresenta EBITDA anual na faixa de R$ 4,0–4,5 bilhões e, apesar de um consumo pontual de capital de giro — em parte associado ao ritmo de expansão e à necessidade de formação de estoques para novas unidades —, mantém forte geração operacional. O CAPEX permanece elevado, em torno de R$ 1 bilhão, refletindo a continuidade da estratégia de crescimento. Adicionalmente, há iniciativas pontuais de Sale &amp; Leaseback (SLB), ainda com impacto limitado.</p>
+                    </div>
+
+                    <div class="table-scroll" style="margin-top: 12px;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>R$ milhões — Acumulado 12 Meses</th>
+                                    <th class="number">4T25</th>
+                                    <th class="number">4T24</th>
+                                    <th class="number">Δ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>EBITDA ⁽¹⁾</strong></td><td class="number mono">4.432</td><td class="number mono">4.113</td><td class="number mono">319</td></tr>
+                                <tr><td>Variação Capital de Giro</td><td class="number mono">(718)</td><td class="number mono">(973)</td><td class="number mono">255</td></tr>
+                                <tr><td><strong>Geração de Caixa Operacional</strong></td><td class="number mono">3.714</td><td class="number mono">3.140</td><td class="number mono">574</td></tr>
+                                <tr><td>Capex</td><td class="number mono">(1.063)</td><td class="number mono">(1.596)</td><td class="number mono">533</td></tr>
+                                <tr><td>Sales &amp; Leaseback (SLB) ⁽²⁾</td><td class="number mono">191</td><td class="number mono">–</td><td class="number mono">191</td></tr>
+                                <tr><td>Aquisição Hipermercados</td><td class="number mono">2</td><td class="number mono">(878)</td><td class="number mono">880</td></tr>
+                                <tr><td><strong style="color:var(--accent-green);">Geração de Caixa Livre</strong></td><td class="number mono" style="color:var(--accent-green);">2.844</td><td class="number mono">666</td><td class="number mono">2.177</td></tr>
+                                <tr><td>Dividendos Líquidos</td><td class="number mono">(111)</td><td class="number mono">124</td><td class="number mono">(235)</td></tr>
+                                <tr><td>Pagamento de Juros</td><td class="number mono">(2.177)</td><td class="number mono">(1.886)</td><td class="number mono">(291)</td></tr>
+                                <tr><td><strong>Geração de Caixa Final</strong></td><td class="number mono"><strong>556</strong></td><td class="number mono">(1.095)</td><td class="number mono">1.652</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="font-size: 11px; color: var(--gray-500); margin-top: 8px;">⁽¹⁾ EBITDA Ajustado Pré-IFRS 16 (excluindo equivalência patrimonial). ⁽²⁾ Venda de ativos sob transação de sale and leaseback de duas lojas e um terreno.</p>
+
+                    <div class="card-content" style="margin-top: 16px;">
+                        <p>Destaca-se também a forte geração de caixa, com Caixa Livre de R$ 2,8 bilhões e conversão de aproximadamente 85% do EBITDA em caixa, evidenciando a robustez do modelo de negócios e sua capacidade de financiar crescimento e reduzir endividamento. Porém ainda pressionada pelo elevado custo financeiro em um cenário de juros altos, o que colabora com desembolsos relevantes com pagamento de juros e reduz significativamente o caixa retido após despesas financeiras. Após um período de CAPEX mais intensivo em 2024, observa-se maior disciplina em 2025, com redução dos investimentos.</p>
+                        <p>Nesse contexto, a desalavancagem deve continuar, ainda que em ritmo gradual, diante da persistência de elevados encargos financeiros. No acumulado dos últimos 12 meses, a geração de caixa líquida foi de aproximadamente R$ 556 milhões, refletindo principalmente o impacto do serviço da dívida. Ainda que a Companhia tenha avançado em sua trajetória de desalavancagem, o nível de endividamento permanece relevante, mantendo pressão sobre o resultado financeiro.</p>
+                    </div>
+                </div>
+
+                <div class="chart-container" style="margin-top: 20px;">
+                    <h4 class="chart-title">Geração de Caixa (R$ milhões) — Operacional, Investimento e Financiamento</h4>
+                    <div class="chart-wrapper tall">
+                        <canvas id="geracaoCaixaChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card-content" style="margin-top: 16px; color: var(--gray-200);">
+                    <p>O caixa líquido operacional evidencia uma geração de caixa robusta e crescente ao longo dos últimos anos, saindo de R$ 3,3 bilhões em 2021 para R$ 5,6 bilhões em 2025, refletindo a forte capacidade da operação de converter resultado em caixa. Por sua vez, o caixa líquido de investimentos foi historicamente elevado, especialmente entre 2021 e 2023, período marcado por maior intensidade de expansão, mas apresenta redução mais recente, em linha com a estratégia de desalavancagem. Já o caixa líquido de financiamento, que foi positivo nos anos de maior crescimento (2022–2023), passa a ser significativamente negativo a partir de 2024, evidenciando maiores desembolsos com juros e amortizações de dívida.</p>
+                    <p>O Assaí mantém uma geração de caixa operacional robusta, sustentada pelo alto volume de vendas e pela eficiência do modelo de atacarejo. Uma forma adicional de avaliar a capacidade de geração de caixa da Companhia é por meio da evolução da dívida líquida. Diferentemente da dívida bruta — que pode aumentar em função de captações acompanhadas de elevação do caixa —, a redução da dívida líquida indica, de forma mais direta, geração efetiva de caixa e desalavancagem ao longo do tempo.</p>
+                </div>
+            </section>
+
+            <!-- Section 04: Estrutura de Endividamento e Alavancagem -->
+            <section class="section anchor" id="sec04">
+                <div class="section-header">
+                    <span class="section-number">04</span>
+                    <h2 class="section-title">Estrutura de Endividamento e Alavancagem</h2>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="label">Dívida Bruta (4T25)</div>
+                        <div class="value">R$ 15,8 bi</div>
+                        <div class="delta neutral">~80% debêntures e notas promissórias</div>
+                    </div>
+                    <div class="metric-card green">
+                        <div class="label">Caixa e Equivalentes</div>
+                        <div class="value">R$ 5,9 bi</div>
+                        <div class="delta positive">Liquidez potencial até R$ 8,7 bi</div>
+                    </div>
+                    <div class="metric-card highlight">
+                        <div class="label">Dívida Líquida + Recebíveis</div>
+                        <div class="value">R$ 11,3 bi</div>
+                        <div class="delta positive">↓ R$ 1,2 bi vs. 4T24</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">Covenant DL/EBITDA</div>
+                        <div class="value">1,19x</div>
+                        <div class="delta neutral">Limite contratual &lt; 3,0x</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">📊 Composição e Evolução da Dívida</h3>
+                    <div class="card-content">
+                        <p>Quanto a estrutura de capital, após dois anos de crescimento controlado, o endividamento do Assaí aumentou substancialmente em 2023. O avanço é resultado, principalmente, do plano de conversão de hipermercados adquiridos junto ao GPA, que exigiu investimentos relevantes em reformas e adequações das lojas, além da manutenção de um ritmo acelerado de expansão. Nesse sentido, a alavancagem também representou um salto importante ao sair de 2,19x EBITDA para 3,80x.</p>
+                        <p>Desde sua separação do GPA, o Assaí atinge atualmente o menor nível de alavancagem de sua história recente, refletindo a forte geração de caixa e a disciplina na gestão da estrutura de capital. Na divulgação de resultados mais recente, observa-se que a Companhia mantém uma consistente trajetória de desalavancagem, encerrando o período com alavancagem de 2,56x — nível esse inferior ao guidance previamente estabelecido de 2,60x, refletindo disciplina financeira e foco na otimização da estrutura de capital.</p>
+                    </div>
+                    <div class="chart-container" style="margin-top: 16px;">
+                        <h4 class="chart-title">Dívida Líquida + Recebíveis descontados (R$ mm) e Dívida Líquida / EBITDA Ajustado</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="dividaEvolChart"></canvas>
+                        </div>
+                        <p style="font-size: 11px; color: var(--gray-500); margin-top: 12px;">⁽¹⁾ Dívida Líquida + Recebíveis descontados / EBITDA Ajustado Pré-IFRS16. Em 2023, inclui saldo a pagar da aquisição de hipermercados. Pagamento final em jan/24.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">🔒 Covenants e Métricas Contratuais</h3>
+                    <div class="card-content">
+                        <p>Os covenants financeiros da Companhia estabelecem um limite de alavancagem de Dívida Líquida/EBITDA inferior a 3,0x, sendo calculados com base em critérios contábeis que não incorporam ajustes relevantes para análise econômica. Em particular, essa métrica não considera a inclusão de recebíveis descontados na dívida, tampouco utiliza o EBITDA na base pré-IFRS 16, resultando em uma visão menos conservadora da alavancagem.</p>
+                        <p>Nesse contexto, o EBITDA pré-IFRS 16 — que incorpora os efeitos de arrendamento (aluguéis) como despesa operacional — oferece uma aproximação mais fiel da geração de caixa recorrente, uma vez que os pagamentos de aluguel constituem obrigações contínuas do negócio. Da mesma forma, a inclusão dos recebíveis descontados na dívida líquida permite capturar de forma mais adequada o nível efetivo de endividamento.</p>
+                        <p>Como evidenciado em períodos recentes, mesmo com a alavancagem ajustada superando o patamar de 3,0x, não houve acionamento de covenants, o que reforça o caráter mais permissivo das métricas contratuais. Assim, para fins analíticos, a utilização de indicadores ajustados — contemplando recebíveis descontados e EBITDA pré-IFRS 16 — proporciona uma leitura mais conservadora e aderente à real estrutura de capital da Companhia.</p>
+                    </div>
+                    <div class="kpi-row" style="margin-top: 8px;">
+                        <div class="kpi"><div class="k-val">3,0x</div><div class="k-lab">Covenant contratual (limite)</div></div>
+                        <div class="kpi"><div class="k-val">1,19x</div><div class="k-lab">Ratio do covenant no 4T25</div></div>
+                        <div class="kpi"><div class="k-val">-1,29x</div><div class="k-lab">Desalavancagem 4T21 → 4T25 (3,85x → 2,56x)</div></div>
+                        <div class="kpi"><div class="k-val">+58%</div><div class="k-lab">Crescimento do EBITDA (R$ 2,8 bi → R$ 4,4 bi)</div></div>
+                    </div>
+                </div>
+
+                <div class="chart-container" style="margin-top: 20px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:16px;">
+                        <h4 class="chart-title" style="margin:0;">Alavancagem Ajustada — DL + Recebíveis / EBITDA Pré-IFRS16</h4>
+                        <div style="display:flex; gap:8px;">
+                            <button class="toggle-btn active" id="btnLevIntra" onclick="toggleLeverage('intra')">Intra-anual (2024–25)</button>
+                            <button class="toggle-btn" id="btnLevAnual" onclick="toggleLeverage('anual')">Anual (4T21–4T25)</button>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="leverageChart"></canvas>
+                    </div>
+                    <p style="font-size: 11px; color: var(--gray-500); margin-top: 12px;" id="leverageNote">Fonte: releases de resultados do Assaí (ri.assai.com.br). Métrica: (Dívida Líquida + Recebíveis Descontados) / EBITDA Ajustado Pré-IFRS16 (LTM). Linha tracejada = Guidance 2025 (2,60x).</p>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">🧾 Posição de Dívida (4T25 vs. 4T24)</h3>
+                    <div class="table-scroll">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>R$ milhões</th>
+                                    <th class="number">4T25</th>
+                                    <th class="number">4T24</th>
+                                    <th class="number">Δ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Dívida Circulante</td><td class="number mono">(1.712)</td><td class="number mono">(1.991)</td><td class="number mono">279</td></tr>
+                                <tr><td>Dívida Não Circulante</td><td class="number mono">(14.132)</td><td class="number mono">(14.184)</td><td class="number mono">52</td></tr>
+                                <tr><td><strong>Total da Dívida Bruta ⁽¹⁾</strong></td><td class="number mono">(15.844)</td><td class="number mono">(16.175)</td><td class="number mono">331</td></tr>
+                                <tr><td>Caixa e Equivalentes de caixa</td><td class="number mono">5.854</td><td class="number mono">5.628</td><td class="number mono">226</td></tr>
+                                <tr><td><strong>Dívida Líquida</strong></td><td class="number mono">(9.990)</td><td class="number mono">(10.547)</td><td class="number mono">557</td></tr>
+                                <tr><td>Saldo de Recebíveis Descontados ⁽²⁾</td><td class="number mono">(1.349)</td><td class="number mono">(1.967)</td><td class="number mono">619</td></tr>
+                                <tr><td><strong>Dívida Líquida + Recebíveis descontados</strong></td><td class="number mono">(11.339)</td><td class="number mono">(12.514)</td><td class="number mono">1.176</td></tr>
+                                <tr><td>EBITDA ⁽³⁾</td><td class="number mono">4.432</td><td class="number mono">4.113</td><td class="number mono">319</td></tr>
+                                <tr><td><strong>DL + Recebíveis ⁽²⁾ / EBITDA ⁽³⁾</strong></td><td class="number mono"><strong>-2,56x</strong></td><td class="number mono">-3,04x</td><td class="number mono">-0,48x</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="font-size: 11px; color: var(--gray-500); margin-top: 8px;">⁽¹⁾ Dívida bruta reduzida pelo valor dos instrumentos financeiros derivativos. ⁽²⁾ Saldo de recebíveis descontado com vencimento no trimestre subsequente (excluindo custo de antecipação recebíveis). ⁽³⁾ EBITDA Ajustado Pré-IFRS16 acumulado dos últimos 12 meses (excluindo equivalência patrimonial).</p>
+
+                    <div class="card-content" style="margin-top: 16px;">
+                        <p>A Companhia encerrou o período com dívida bruta de aproximadamente R$ 15,8 bilhões e posição de caixa de R$ 5,9 bilhões, resultando em dívida líquida ao redor de R$ 10,0 bilhões. Adicionalmente, ao incorporar o saldo de recebíveis descontados — prática comum no setor de varejo — a dívida líquida ajustada atinge aproximadamente R$ 11,3 bilhões, refletindo de forma mais fiel a real alavancagem financeira da Companhia. Cabe destacar que a estrutura da dívida é predominantemente de longo prazo, com apenas cerca de R$ 1,7 bilhão classificado como passivo circulante, indicando baixo risco de refinanciamento no curto prazo.</p>
+                    </div>
+
+                    <h4 style="color: var(--gray-300); margin: 16px 0 12px; font-size: 14px;">Composição da Dívida</h4>
+                    <div class="composition-grid">
+                        <div class="composition-item" style="border-color: var(--primary-orange);">
+                            <div class="composition-value" style="color: var(--primary-orange);">~80%</div>
+                            <div class="composition-label">Debêntures e notas promissórias (R$ 12,6 bi)</div>
+                        </div>
+                        <div class="composition-item" style="border-color: var(--accent-green);">
+                            <div class="composition-value" style="color: var(--accent-green);">~9%</div>
+                            <div class="composition-label">Empréstimos em moeda nacional (R$ 1,4 bi)</div>
+                        </div>
+                        <div class="composition-item" style="border-color: #3B82F6;">
+                            <div class="composition-value" style="color: #3B82F6;">~12%</div>
+                            <div class="composition-label">Moeda estrangeira (R$ 2,0 bi)</div>
+                        </div>
+                    </div>
+                    <div class="highlight-box warning" style="margin-top: 16px;">
+                        <h4>⚠️ Dependência do mercado de capitais</h4>
+                        <p>Essa concentração evidencia elevada dependência do mercado de capitais para refinanciamento, reforçando a importância do acesso contínuo ao mercado primário para sustentação da estratégia financeira da Companhia. No varejo, a antecipação de recebíveis de cartões constitui economicamente uma forma de endividamento, motivo pelo qual o mercado a incorpora à dívida líquida para evitar distorções na análise de alavancagem.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📅 Alavancagem Ajustada e Efeito Sazonal</h3>
+                    <div class="card-content">
+                        <p>Outro ponto relevante refere-se à dinâmica intra-anual da alavancagem. Observa-se que, ao longo do ano, a Companhia opera com níveis mais elevados de alavancagem — atingindo patamares acima de 3,0x ao longo de 2025 —, com redução mais acentuada no último trimestre, quando encerra o ano em 2,56x. Essa dinâmica sugere efeitos sazonais relevantes, especialmente no capital de giro.</p>
+                        <p>No varejo, o quarto trimestre tende a concentrar maior volume de vendas, impulsionado por fatores sazonais, como datas comemorativas e maior renda disponível das famílias. Nesse contexto, a Companhia amplia suas compras junto a fornecedores, resultando em um aumento relevante da conta de fornecedores no passivo (R$ 12,4 bilhões ao final de 2025). Como esses pagamentos possuem prazos alongados, parte relevante dessas obrigações permanece em aberto na data de fechamento do balanço, contribuindo para uma aparente melhora da posição de caixa e da alavancagem no período.</p>
+                        <p>Isso implica que a posição de caixa e a alavancagem observadas na data de reporte representam uma fotografia pontual, possivelmente anterior a desembolsos relevantes com fornecedores. Assim, é razoável assumir que parte desse caixa será consumida logo no início do período seguinte, à medida que essas obrigações são liquidadas. Dessa forma, para fins analíticos, é importante considerar que a posição de caixa reportada ao final do período pode não refletir integralmente o nível médio de liquidez ao longo do trimestre.</p>
+                    </div>
+                    <div class="chart-container" style="margin-top: 16px;">
+                        <h4 class="chart-title">Fornecedores (R$ bilhões)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="fornecedoresChart"></canvas>
+                        </div>
+                        <p style="font-size: 11px; color: var(--gray-500); margin-top: 12px;">Fonte: ITR/DFP CVM (Sendas Distribuidora S.A.) via Dados de Mercado. Valores consolidados incluem convênio/risco sacado.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">🏦 Liquidez e Disponibilidade de Caixa</h3>
+                    <div class="card-content">
+                        <p>A Companhia encerrou 2025 com caixa ex-recebíveis descontados de R$ 4,5 bilhões, que representa a parcela mais líquida e recorrente da posição de caixa. Adicionalmente, ao considerar R$ 1,3 bilhão em recebíveis já antecipados, o caixa reportado totaliza R$ 5,9 bilhões. Há ainda R$ 2,8 bilhões em recebíveis não descontados, que podem ser rapidamente antecipados e funcionam como fonte adicional de liquidez, elevando a liquidez potencial para R$ 8,7 bilhões.</p>
+                        <p>O índice de liquidez imediata (Caixa / Dívida de Curto Prazo) encerrou o período em 2,4x (R$ 5,9 bilhões de caixa reportado vs. R$ 2,4 bilhões de passivo circulante financeiro), indicando conforto para cobertura dos vencimentos de curto prazo. Mesmo considerando o caixa ex-recebíveis descontados (R$ 4,5 bilhões), o índice permanece em 1,9x, patamar saudável para o setor.</p>
+                        <p>Por outro lado, o caixa médio ao longo do período foi significativamente inferior (R$ 1,48 bilhão no 4T25), sugerindo que a posição de fechamento pode refletir movimentos pontuais de gestão de liquidez. Assim, o caixa ex-recebíveis descontados e o caixa médio oferecem uma visão mais fiel da liquidez recorrente da Companhia.</p>
+                    </div>
+                    <div class="kpi-row" style="margin-top: 8px;">
+                        <div class="kpi"><div class="k-val">R$ 4,5 bi</div><div class="k-lab">Caixa ex-recebíveis descontados</div></div>
+                        <div class="kpi"><div class="k-val">R$ 5,9 bi</div><div class="k-lab">Caixa reportado</div></div>
+                        <div class="kpi"><div class="k-val">R$ 8,7 bi</div><div class="k-lab">Liquidez potencial</div></div>
+                        <div class="kpi"><div class="k-val">2,4x / 1,9x</div><div class="k-lab">Liquidez imediata (reportado / ex-receb.)</div></div>
+                    </div>
+                    <div class="chart-container" style="margin-top: 16px;">
+                        <h4 class="chart-title">Composição da Posição de Caixa (R$ bilhões)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="caixaCompChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 05: Perfil da Dívida e Cronograma de Vencimentos -->
+            <section class="section anchor" id="sec05">
+                <div class="section-header">
+                    <span class="section-number">05</span>
+                    <h2 class="section-title">Perfil da Dívida e Cronograma de Vencimentos</h2>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">🏗️ CAPEX e Disciplina de Capital</h3>
+                    <div class="card-content">
+                        <p>A Companhia mantém um nível relevante de investimentos, embora já se observe uma redução consistente no CAPEX em linha com a estratégia de desalavancagem. Em 2025, os investimentos brutos totalizaram R$ 915 milhões, abaixo dos R$ 1,47 bilhão registrados em 2024, refletindo menor ritmo de expansão e maior disciplina na alocação de capital.</p>
+                        <p>Adicionalmente, a Companhia realizou vendas de ativos no montante de R$ 260 milhões, principalmente por meio de operações de Sale &amp; Leaseback, nas quais monetiza ativos imobiliários mantendo sua utilização operacional. Como resultado, o CAPEX líquido foi de R$ 655 milhões em 2025, significativamente inferior aos R$ 1,47 bilhão observados no ano anterior.</p>
+                        <p>Essa dinâmica está alinhada à desaceleração no plano de expansão, com abertura de 10 lojas em 2025 (sendo 8 no 4T25), frente a um histórico recente de 25–30 inaugurações anuais, evidenciando o foco da Companhia na desalavancagem e otimização do retorno sobre o capital investido.</p>
+                    </div>
+                    <div class="table-scroll" style="margin-top: 12px;">
+                        <table class="data-table dense">
+                            <thead>
+                                <tr>
+                                    <th>R$ milhões</th>
+                                    <th class="number">4T25</th>
+                                    <th class="number">4T24</th>
+                                    <th class="number">Δ</th>
+                                    <th class="number">2025</th>
+                                    <th class="number">2024</th>
+                                    <th class="number">Δ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Novas lojas e aquisição de terrenos</td><td class="number mono">328</td><td class="number mono">367</td><td class="number mono">(39)</td><td class="number mono">529</td><td class="number mono">953</td><td class="number mono">(424)</td></tr>
+                                <tr><td>Reformas, manutenções e novos serviços</td><td class="number mono">74</td><td class="number mono">145</td><td class="number mono">(71)</td><td class="number mono">280</td><td class="number mono">386</td><td class="number mono">(106)</td></tr>
+                                <tr><td>Infraestrutura e outros</td><td class="number mono">50</td><td class="number mono">57</td><td class="number mono">(7)</td><td class="number mono">106</td><td class="number mono">133</td><td class="number mono">(27)</td></tr>
+                                <tr><td><strong>Total Investimentos - Bruto</strong></td><td class="number mono">452</td><td class="number mono">569</td><td class="number mono">(117)</td><td class="number mono">915</td><td class="number mono">1.472</td><td class="number mono">(557)</td></tr>
+                                <tr><td>Venda de ativos</td><td class="number mono">(258)</td><td class="number mono">1</td><td class="number mono">(259)</td><td class="number mono">(260)</td><td class="number mono">(3)</td><td class="number mono">(257)</td></tr>
+                                <tr><td><strong>Total Investimentos - Líquido</strong></td><td class="number mono"><strong>194</strong></td><td class="number mono">570</td><td class="number mono">(376)</td><td class="number mono"><strong>655</strong></td><td class="number mono">1.469</td><td class="number mono">(814)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📆 Cronograma de Amortizações e Perfil das Emissões</h3>
+                    <div class="card-content">
+                        <p>O cronograma de vencimento da dívida da Companhia apresenta perfil alongado, com concentração moderada no médio prazo. No curto prazo, os vencimentos entre 1 e 2 anos totalizam aproximadamente R$ 2,4 bilhões, indicando baixa pressão imediata de liquidez.</p>
+                        <p>A maior concentração de vencimentos ocorre entre 2 e 3 anos (c. R$ 6,2 bilhões), seguida por um volume também relevante entre 3 e 4 anos (c. R$ 5,3 bilhões), períodos em que a Companhia deverá enfrentar necessidades mais significativas de refinanciamento. Dado o volume de obrigações, é pouco provável que esses compromissos sejam integralmente liquidados apenas com geração de caixa operacional, sendo esperado o acesso ao mercado de capitais para alongamento do perfil da dívida.</p>
+                        <p>Nesse contexto, a capacidade de refinanciamento tende a ser favorecida pelo desempenho operacional sólido, pela consistente geração de caixa e pela trajetória de desalavancagem observada recentemente. Assim, é razoável esperar que a Companhia continue utilizando instrumentos como debêntures para rolagem de passivos, mantendo a gestão ativa de sua estrutura de capital.</p>
+                    </div>
+                    <div class="chart-container" style="margin-top: 16px;">
+                        <h4 class="chart-title">Cronograma de Vencimentos — 31 de dezembro de 2025 (R$ milhões)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="vencimentosChart"></canvas>
+                        </div>
+                        <p style="font-size: 11px; color: var(--gray-500); margin-top: 12px;">Valores de dívida (líquido do custo de captação por faixa). Total: R$ 14.225 mm | (-) Custo de Captação: R$ (93) mm.</p>
+                    </div>
+                    <div class="card-content" style="margin-top: 16px;">
+                        <p>A tabela a seguir detalha o perfil das emissões de dívida da Companhia, evidenciando uma combinação de captações realizadas ao longo dos últimos anos, com destaque para operações entre 2021 e 2023, período marcado pela separação do GPA e pelo ciclo mais intensivo de expansão. Essas emissões mais antigas apresentam, em geral, prazos mais longos, com vencimentos concentrados a partir de 2028. Por outro lado, as emissões mais recentes apresentam prazos relativamente mais curtos, o que pode refletir tanto o nível de alavancagem mais elevado no período quanto condições de mercado menos favoráveis para alongamento de passivos. Como consequência, observa-se uma concentração de vencimentos em 2028–2029.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📋 Perfil das Emissões de Dívida <span class="pill orange" style="margin-left:8px;">DFP 2025 — NE 16.9</span></h3>
+                    <div class="table-scroll" style="margin-top: 4px;">
+                        <table class="data-table dense" style="min-width: 900px;">
+                            <thead>
+                                <tr>
+                                    <th style="width:24%;">Emissão</th>
+                                    <th class="number">Valor de emissão (em milhares)</th>
+                                    <th class="number">Debêntures em circulação (unid.)</th>
+                                    <th class="number">Início</th>
+                                    <th class="number">Vencimento</th>
+                                    <th class="number">Encargos financeiros anuais</th>
+                                    <th class="number">Preço unitário (R$)</th>
+                                    <th class="number">31/12/2025</th>
+                                    <th class="number">31/12/2024</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>1ª Emissão de notas promissórias - 6ª série</td><td class="number mono">200</td><td class="number mono">4</td><td class="number mono">04/07/2019</td><td class="number mono">04/07/2025</td><td class="number mono">CDI + 0,72% a.a.</td><td class="number mono">–</td><td class="number mono">–</td><td class="number mono">322</td></tr>
+                                <tr><td>2ª Emissão de debêntures - 2ª série</td><td class="number mono">660.000</td><td class="number mono">660.000</td><td class="number mono">01/06/2021</td><td class="number mono">22/05/2028</td><td class="number mono">CDI + 1,95% a.a.</td><td class="number mono">1.017</td><td class="number mono">671</td><td class="number mono">669</td></tr>
+                                <tr><td>3ª Emissão de debêntures - 1ª série - CRI</td><td class="number mono">982.526</td><td class="number mono">982.526</td><td class="number mono">15/10/2021</td><td class="number mono">16/10/2028</td><td class="number mono">IPCA + 5,15% a.a.</td><td class="number mono">1.251</td><td class="number mono">1.229</td><td class="number mono">1.178</td></tr>
+                                <tr><td>3ª Emissão de debêntures - 2ª série - CRI</td><td class="number mono">517.474</td><td class="number mono">517.474</td><td class="number mono">15/10/2021</td><td class="number mono">15/10/2031</td><td class="number mono">IPCA + 5,27% a.a.</td><td class="number mono">1.252</td><td class="number mono">648</td><td class="number mono">620</td></tr>
+                                <tr><td>4ª Emissão de debêntures - série única</td><td class="number mono">2.000.000</td><td class="number mono">2.000.000</td><td class="number mono">07/01/2022</td><td class="number mono">26/11/2027</td><td class="number mono">CDI + 1,75% a.a.</td><td class="number mono">–</td><td class="number mono">–</td><td class="number mono">2.024</td></tr>
+                                <tr><td>1ª Emissão de notas comerciais escriturais - série única</td><td class="number mono">750.000</td><td class="number mono">750.000</td><td class="number mono">10/02/2022</td><td class="number mono">09/02/2025</td><td class="number mono">CDI + 1,70% a.a.</td><td class="number mono">–</td><td class="number mono">–</td><td class="number mono">786</td></tr>
+                                <tr><td>5ª Emissão de debêntures - série única - CRI</td><td class="number mono">250.000</td><td class="number mono">250.000</td><td class="number mono">05/04/2022</td><td class="number mono">28/03/2025</td><td class="number mono">CDI + 0,75% a.a.</td><td class="number mono">–</td><td class="number mono">–</td><td class="number mono">258</td></tr>
+                                <tr><td>6ª Emissão de debêntures - 1ª série - CRI</td><td class="number mono">72.962</td><td class="number mono">72.962</td><td class="number mono">28/06/2022</td><td class="number mono">11/06/2026</td><td class="number mono">CDI + 0,60% a.a.</td><td class="number mono">1.044</td><td class="number mono">76</td><td class="number mono">75</td></tr>
+                                <tr><td>6ª Emissão de debêntures - 2ª série - CRI</td><td class="number mono">55.245</td><td class="number mono">55.245</td><td class="number mono">28/06/2022</td><td class="number mono">13/06/2027</td><td class="number mono">CDI + 0,70% a.a.</td><td class="number mono">1.044</td><td class="number mono">58</td><td class="number mono">58</td></tr>
+                                <tr><td>6ª Emissão de debêntures - 3ª série - CRI</td><td class="number mono">471.793</td><td class="number mono">471.793</td><td class="number mono">28/06/2022</td><td class="number mono">13/06/2029</td><td class="number mono">IPCA + 6,70% a.a.</td><td class="number mono">1.181</td><td class="number mono">557</td><td class="number mono">534</td></tr>
+                                <tr><td>2ª Emissão de notas comerciais escriturais - série única</td><td class="number mono">400.000</td><td class="number mono">400.000</td><td class="number mono">26/12/2022</td><td class="number mono">28/12/2025</td><td class="number mono">CDI + 0,93% a.a.</td><td class="number mono">–</td><td class="number mono">–</td><td class="number mono">513</td></tr>
+                                <tr><td>7ª Emissão de debêntures - 1ª série - CRI</td><td class="number mono">145.721</td><td class="number mono">145.721</td><td class="number mono">25/07/2023</td><td class="number mono">15/07/2026</td><td class="number mono">CDI + 1,00% a.a.</td><td class="number mono">1.073</td><td class="number mono">156</td><td class="number mono">154</td></tr>
+                                <tr><td>7ª Emissão de debêntures - 2ª série - CRI</td><td class="number mono">878.503</td><td class="number mono">878.503</td><td class="number mono">25/07/2023</td><td class="number mono">15/07/2027</td><td class="number mono">Pré 11,75% a.a.</td><td class="number mono">1.054</td><td class="number mono">926</td><td class="number mono">925</td></tr>
+                                <tr><td>7ª Emissão de debêntures - 3ª série - CRI</td><td class="number mono">46.622</td><td class="number mono">46.622</td><td class="number mono">25/07/2023</td><td class="number mono">17/07/2028</td><td class="number mono">CDI + 1,15% a.a.</td><td class="number mono">1.074</td><td class="number mono">50</td><td class="number mono">50</td></tr>
+                                <tr><td>8ª Emissão de debêntures - 1ª série</td><td class="number mono">400.000</td><td class="number mono">400.000</td><td class="number mono">22/12/2023</td><td class="number mono">22/12/2027</td><td class="number mono">CDI + 1,85% a.a.</td><td class="number mono">1.004</td><td class="number mono">402</td><td class="number mono">401</td></tr>
+                                <tr><td>8ª Emissão de debêntures - 2ª série</td><td class="number mono">400.000</td><td class="number mono">400.000</td><td class="number mono">22/12/2023</td><td class="number mono">22/12/2029</td><td class="number mono">CDI + 1,95% a.a.</td><td class="number mono">1.004</td><td class="number mono">402</td><td class="number mono">401</td></tr>
+                                <tr><td>9ª Emissão de debêntures - série única</td><td class="number mono">500.000</td><td class="number mono">500.000</td><td class="number mono">28/03/2024</td><td class="number mono">28/03/2029</td><td class="number mono">CDI + 1,25% a.a.</td><td class="number mono">1.041</td><td class="number mono">521</td><td class="number mono">516</td></tr>
+                                <tr><td>10ª Emissão de debêntures - série única</td><td class="number mono">1.800.000</td><td class="number mono">1.800.000</td><td class="number mono">25/06/2024</td><td class="number mono">20/06/2029</td><td class="number mono">CDI + 1,25% a.a.</td><td class="number mono">1.004</td><td class="number mono">1.806</td><td class="number mono">1.805</td></tr>
+                                <tr><td>11ª Emissão de debêntures - série única</td><td class="number mono">2.800.000</td><td class="number mono">2.800.000</td><td class="number mono">01/10/2024</td><td class="number mono">25/09/2029</td><td class="number mono">CDI + 1,25% a.a.</td><td class="number mono">1.041</td><td class="number mono">2.915</td><td class="number mono">2.882</td></tr>
+                                <tr><td>12ª Emissão de debêntures - série única</td><td class="number mono">800.000</td><td class="number mono">800.000</td><td class="number mono">13/12/2024</td><td class="number mono">10/12/2029</td><td class="number mono">CDI + 1,25% a.a.</td><td class="number mono">1.009</td><td class="number mono">807</td><td class="number mono">804</td></tr>
+                                <tr><td>13ª Emissão de debêntures - série única</td><td class="number mono">1.500.000</td><td class="number mono">1.500.000</td><td class="number mono">13/06/2025</td><td class="number mono">05/06/2029</td><td class="number mono">CDI + 1,20% a.a.</td><td class="number mono">1.010</td><td class="number mono">1.515</td><td class="number mono">–</td></tr>
+                                <tr><td>Custo de captação</td><td class="number mono"></td><td class="number mono"></td><td class="number mono"></td><td class="number mono"></td><td class="number mono"></td><td class="number mono"></td><td class="number mono">(133)</td><td class="number mono">(176)</td></tr>
+                                <tr><td><strong>Total</strong></td><td class="number mono"></td><td class="number mono"></td><td class="number mono"></td><td class="number mono"></td><td class="number mono"></td><td class="number mono"></td><td class="number mono"><strong>12.606</strong></td><td class="number mono"><strong>14.799</strong></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="highlight-box" style="margin-top: 16px;">
+                        <h4>💡 Funding competitivo e sensibilidade ao CDI</h4>
+                        <p>A última emissão realizada em junho de 2025, a CDI + 1,20% a.a., indica manutenção de condições de funding competitivas, inclusive em patamar inferior a emissões anteriores, reforçando a percepção de crédito estável. Vale destacar que a maior parte da dívida é indexada ao CDI, o que implica sensibilidade direta ao ciclo de juros. Assim, eventual redução da taxa básica tende a aliviar o custo financeiro e melhorar a geração de caixa, podendo também contribuir para condições mais favoráveis em futuras captações.</p>
+                    </div>
+                    <div class="card-content" style="margin-top: 8px;">
+                        <p>Apesar dessa concentração, não se observa, no cenário base, risco relevante de refinanciamento. A Companhia apresenta fundamentos operacionais sólidos, com geração de caixa consistente, margens saudáveis e trajetória de desalavancagem, fatores que sustentam sua capacidade de acesso ao mercado de capitais. Em síntese, embora a concentração de vencimentos no médio prazo demande acompanhamento, a estrutura atual da dívida e os fundamentos da Companhia sugerem um risco de refinanciamento controlado, condicionado à manutenção do desempenho operacional e do acesso ao mercado.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 06: Riscos Off-Balance e Contingências -->
+            <section class="section anchor" id="sec06">
+                <div class="section-header">
+                    <span class="section-number">06</span>
+                    <h2 class="section-title">Riscos Off-Balance e Contingências</h2>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">🏬 Arrendamentos — Obrigações Fora da Métrica de Alavancagem</h3>
+                    <div class="card-content">
+                        <p>O Assaí opera 312 lojas majoritariamente em imóveis alugados, o que implica um volume significativo de obrigações de arrendamento. Sob o IFRS 16, essas obrigações são reconhecidas no balanço como passivo de arrendamento e ativo de direito de uso. No entanto, como a análise neste relatório — assim como a do mercado em geral — utiliza o EBITDA pré-IFRS 16, os pagamentos de aluguel são tratados como despesa operacional recorrente e não aparecem como dívida na métrica de alavancagem.</p>
+                        <p>A diferença entre o EBITDA pós-IFRS 16 (R$ 5,8 bilhões em 2025) e o EBITDA pré-IFRS 16 (R$ 4,4 bilhões) indica que a despesa anual com arrendamentos é da ordem de R$ 1,4 bilhão — montante que equivale a aproximadamente 32% do EBITDA pré-IFRS 16 e que representa uma obrigação contratual recorrente e inescapável. De acordo com as demonstrações financeiras, o passivo de arrendamento totaliza R$ 10,5 bilhões ao final de 2025 (vs. R$ 9,6 bilhões em 2024), montante praticamente equivalente à dívida líquida financeira (R$ 10,0 bilhões). Em outras palavras, as obrigações de aluguel representam, na prática, uma segunda camada de endividamento de magnitude similar à dívida financeira, que não é capturada pela métrica convencional de alavancagem.</p>
+                    </div>
+
+                    <div class="highlight-box warning" style="margin-top: 8px;">
+                        <h4>⚠️ Visão ampla de alavancagem</h4>
+                        <p>Incorporando o passivo de arrendamento (R$ 10,5 bi) à dívida líquida ajustada (R$ 11,3 bi) e utilizando o EBITDA pós-IFRS 16 (R$ 5,8 bi), a alavancagem total atingiria aproximadamente <strong>3,8x</strong>, patamar significativamente superior ao 2,56x reportado na métrica pré-IFRS 16. A alavancagem contratual (covenant) usa o EBITDA pós-IFRS 16 sem incluir o passivo de arrendamento como dívida, resultando em um índice de apenas <strong>1,19x</strong> — visão mais favorável, mas que não captura o real nível de compromissos financeiros.</p>
+                    </div>
+
+                    <div class="kpi-row" style="margin-top: 16px;">
+                        <div class="kpi"><div class="k-val">R$ 1,4 bi</div><div class="k-lab">Despesa anual de arrendamentos (~32% do EBITDA pré)</div></div>
+                        <div class="kpi"><div class="k-val">R$ 10,5 bi</div><div class="k-lab">Passivo de arrendamento (2025)</div></div>
+                        <div class="kpi"><div class="k-val">~3,8x</div><div class="k-lab">Alavancagem ampla (com arrendamento, pós-IFRS16)</div></div>
+                        <div class="kpi"><div class="k-val">1,19x</div><div class="k-lab">Alavancagem do covenant (pós-IFRS16, sem arrend.)</div></div>
+                    </div>
+
+                    <div class="card-content" style="margin-top: 16px;">
+                        <p>Adicionalmente, as operações de Sale &amp; Leaseback (R$ 260 milhões em 2025) merecem atenção sob a ótica de crédito: embora gerem caixa imediato e reduzam a dívida financeira reportada, criam novas obrigações futuras de aluguel que não aparecem na métrica de alavancagem pré-IFRS 16 utilizada pelo mercado. Em outras palavras, parte da desalavancagem observada pode refletir uma migração de dívida financeira para dívida operacional de arrendamento, sem alteração material do nível total de compromissos. Sob a perspectiva de um credor conservador, a obrigação de arrendamento deve ser monitorada em conjunto com a dívida financeira para uma leitura fiel da capacidade de pagamento da Companhia.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">⚖️ Contingências Fiscais — Risco GPA <span class="pill orange" style="margin-left:8px;">Risco de cauda</span></h3>
+                    <div class="card-content">
+                        <p>O risco relacionado às contingências fiscais do GPA deve ser analisado à luz da reorganização societária que levou à separação do Assaí em 2021. Embora o contrato de cisão estabeleça que passivos anteriores à separação são de responsabilidade do GPA, a Receita Federal tem buscado, com base no conceito de responsabilidade solidária, estender parte dessas obrigações ao Assaí. Nesse contexto, o arrolamento de bens configura um mecanismo de monitoramento dessas contingências, sem implicar desembolso imediato ou restrição operacional, mas caracterizando um passivo contingente que deve ser acompanhado.</p>
+                        <p>Adicionalmente, tais contingências — estimadas em cerca de R$ 12 bilhões no âmbito do GPA — não representam obrigações líquidas e certas, mas sim passivos ainda em discussão nas esferas administrativa e judicial, com horizonte de resolução tipicamente longo. Nesse sentido, não há, no momento, impacto direto no balanço da Companhia, uma vez que esses valores são classificados como possíveis e não provisionados, não afetando a dívida líquida, o EBITDA ou o fluxo de caixa.</p>
+                        <p>Do ponto de vista de mercado, a intensificação desse tema parece ter impactado a percepção de risco, refletida na abertura recente de spreads, ainda que sem deterioração dos fundamentos operacionais. A elevação da incerteza jurídica, especialmente considerando a menor capacidade financeira do GPA, reforça a necessidade de monitoramento, embora o Assaí tenha adotado postura defensiva, buscando garantias e proteção contratual junto ao GPA e ao Casino, o que mitiga parcialmente esse risco.</p>
+                        <p>Sob a ótica de crédito, trata-se de um risco de cauda, com baixa probabilidade de impacto material no curto prazo, mas potencial relevância em cenários adversos. Considerando o perfil de vencimento da dívida da Companhia, é pouco provável que eventuais desdobramentos afetem sua capacidade de refinanciamento no horizonte atual. Assim, a tese de crédito permanece suportada pelos fundamentos operacionais e pela consistente geração de caixa, ainda que com maior sensibilidade à percepção de risco por parte do mercado.</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📁 Provisões e Contingências Possíveis</h3>
+                    <div class="card-content">
+                        <p>Além das contingências fiscais potencialmente associadas ao GPA, a Companhia também possui provisões relacionadas a passivos próprios, totalizando aproximadamente R$ 260 milhões, valor considerado pouco relevante frente ao porte e à geração de caixa do Assaí. Essas provisões refletem perdas classificadas como prováveis, de acordo com a avaliação dos assessores jurídicos, e, portanto, já estão devidamente reconhecidas no balanço.</p>
+                    </div>
+
+                    <div class="grid-2" style="margin-top: 8px;">
+                        <div class="table-scroll">
+                            <table class="data-table dense">
+                                <thead>
+                                    <tr><th>R$ mm</th><th class="number">Tribut.</th><th class="number">Prev./Trab.</th><th class="number">Cíveis</th><th class="number">Total</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Saldo em 31/12/2023</td><td class="number mono">62</td><td class="number mono">163</td><td class="number mono">38</td><td class="number mono">263</td></tr>
+                                    <tr><td>Adições</td><td class="number mono">7</td><td class="number mono">225</td><td class="number mono">29</td><td class="number mono">261</td></tr>
+                                    <tr><td>Reversões</td><td class="number mono">(37)</td><td class="number mono">(114)</td><td class="number mono">(26)</td><td class="number mono">(177)</td></tr>
+                                    <tr><td>Pagamentos</td><td class="number mono">(9)</td><td class="number mono">(117)</td><td class="number mono">(15)</td><td class="number mono">(141)</td></tr>
+                                    <tr><td>Atualização monetária</td><td class="number mono">(7)</td><td class="number mono">17</td><td class="number mono">7</td><td class="number mono">17</td></tr>
+                                    <tr><td><strong>Saldo em 31/12/2024</strong></td><td class="number mono">16</td><td class="number mono">174</td><td class="number mono">33</td><td class="number mono">223</td></tr>
+                                    <tr><td>Depósito judicial</td><td class="number mono">(4)</td><td class="number mono">(2)</td><td class="number mono">(3)</td><td class="number mono">(9)</td></tr>
+                                    <tr><td>Provisões líq. de depósitos judiciais</td><td class="number mono">12</td><td class="number mono">172</td><td class="number mono">30</td><td class="number mono">214</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="table-scroll">
+                            <table class="data-table dense">
+                                <thead>
+                                    <tr><th>R$ mm</th><th class="number">Tribut.</th><th class="number">Prev./Trab.</th><th class="number">Cíveis</th><th class="number">Total</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>Saldo em 31/12/2024</td><td class="number mono">16</td><td class="number mono">174</td><td class="number mono">33</td><td class="number mono">223</td></tr>
+                                    <tr><td>Adições</td><td class="number mono">16</td><td class="number mono">295</td><td class="number mono">27</td><td class="number mono">338</td></tr>
+                                    <tr><td>Reversões</td><td class="number mono">–</td><td class="number mono">(133)</td><td class="number mono">(11)</td><td class="number mono">(144)</td></tr>
+                                    <tr><td>Pagamentos</td><td class="number mono">–</td><td class="number mono">(178)</td><td class="number mono">(10)</td><td class="number mono">(188)</td></tr>
+                                    <tr><td>Atualização monetária</td><td class="number mono">12</td><td class="number mono">20</td><td class="number mono">5</td><td class="number mono">37</td></tr>
+                                    <tr><td><strong>Saldo em 31/12/2025</strong></td><td class="number mono">44</td><td class="number mono">178</td><td class="number mono">44</td><td class="number mono">266</td></tr>
+                                    <tr><td>Depósito judicial</td><td class="number mono">(4)</td><td class="number mono">(1)</td><td class="number mono">(2)</td><td class="number mono">(7)</td></tr>
+                                    <tr><td>Provisões líq. de depósitos judiciais</td><td class="number mono">40</td><td class="number mono">177</td><td class="number mono">42</td><td class="number mono">259</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card-content" style="margin-top: 16px;">
+                        <p>Adicionalmente, existem contingências classificadas como possíveis — ou seja, casos em que a probabilidade de perda não é considerada suficiente para reconhecimento contábil. Esses valores permanecem fora do balanço (off-balance), mas são divulgados em notas explicativas e devem ser monitorados, ainda que, em geral, apresentem menor grau de materialidade e incerteza quanto à sua efetiva realização.</p>
+                    </div>
+
+                    <div class="table-scroll" style="margin-top: 8px;">
+                        <table class="data-table dense">
+                            <thead>
+                                <tr><th style="width:64%;">Contingências possíveis (não provisionadas)</th><th class="number">31/12/2025</th><th class="number">31/12/2024</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Imposto sobre operações financeiras - IOF — Processo de divergência de recolhimento</td><td class="number mono">15</td><td class="number mono">14</td></tr>
+                                <tr><td>PIS, COFINS — Divergências de recolhimentos e pagamentos a maior, multa por descumprimento de obrigação acessória, glosa de créditos de PIS e COFINS, entre outros</td><td class="number mono">995</td><td class="number mono">1.008</td></tr>
+                                <tr><td>ICMS — Apropriação de créditos de aquisições de fornecedores considerados inabilitados perante o cadastro da Secretaria da Fazenda Estadual, entre outros</td><td class="number mono">1.166</td><td class="number mono">1.210</td></tr>
+                                <tr><td>ISS, IPTU, Taxas e outros — Divergências de recolhimentos de IPTU, multas por descumprimento de obrigações acessórias, ISS, entre outros</td><td class="number mono">15</td><td class="number mono">20</td></tr>
+                                <tr><td>INSS — Divergências na Guia de recolhimento do FGTS e Informações à Previdência Social (GFIP), compensações não homologadas, entre outros</td><td class="number mono">15</td><td class="number mono">25</td></tr>
+                                <tr><td>Outras — Ações no âmbito da justiça e juizado especial cível</td><td class="number mono">1</td><td class="number mono">2</td></tr>
+                                <tr><td>Remuneração vinculado a taxa de sucesso dos advogados externos caso todos os processos fossem finalizados com êxito</td><td class="number mono">33</td><td class="number mono">27</td></tr>
+                                <tr><td><strong>Total</strong></td><td class="number mono"><strong>2.240</strong></td><td class="number mono"><strong>2.306</strong></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card-content" style="margin-top: 16px;">
+                        <p>As contingências classificadas como possíveis — e, portanto, não provisionadas — totalizam aproximadamente R$ 2,2 bilhões, concentradas majoritariamente em temas tributários. Embora representem valores relevantes em termos absolutos, sua materialidade é limitada quando comparada à capacidade de geração de caixa da Companhia, que apresenta EBITDA anual na ordem de R$ 4 bilhões. Nesse sentido, tais contingências não configuram, no cenário base, um risco transformacional para a estrutura financeira do Assaí.</p>
+                        <p>Em síntese, embora existam contingências relevantes fora do balanço, estas se mostram, em sua maioria, administráveis frente à geração de caixa do Assaí, permanecendo o principal vetor de risco associado a eventuais desdobramentos das discussões fiscais envolvendo o GPA, que seguem incertos e de longo prazo.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Divisor: Consolidação da Tese -->
+            <div class="block-divider"><span>Consolidação da Tese</span></div>
+
+            <!-- Section 07: Fluxo de Caixa Futuro -->
+            <section class="section anchor" id="sec07">
+                <div class="section-header">
+                    <span class="section-number">07</span>
+                    <h2 class="section-title">Fluxo de Caixa Futuro e Capacidade de Serviço da Dívida</h2>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">🧮 Premissas do Modelo <span class="pill green" style="margin-left:8px;">Cenário Conservador</span></h3>
+                    <div class="card-content">
+                        <p>O modelo de projeção replica a Cascata de Geração de Caixa divulgada pelo RI em regime de caixa, com 4 anos de dados históricos (2022-2025) integralmente validados. As projeções cobrem o horizonte 2026-2029 sob premissas conservadoras: receita crescendo 3,5-4,0% ao ano (abaixo do CAGR histórico de 14%), margem EBITDA comprimindo de 5,8% para 5,5%, Selic elevada (15% em 2026-2027, cedendo para 13% em 2029), spread fixo em CDI+1,4% (acima do CDI+1,20% da última emissão) e capital de giro consumindo R$ 500-600mm por ano.</p>
+                    </div>
+                    <div class="kpi-row" style="margin-top: 8px;">
+                        <div class="kpi"><div class="k-val">3,5–4,0%</div><div class="k-lab">Crescimento de receita a.a.</div></div>
+                        <div class="kpi"><div class="k-val">5,8% → 5,5%</div><div class="k-lab">Margem EBITDA (compressão)</div></div>
+                        <div class="kpi"><div class="k-val">15% → 13%</div><div class="k-lab">Selic (2026-27 → 2029)</div></div>
+                        <div class="kpi"><div class="k-val">CDI + 1,4%</div><div class="k-lab">Spread fixo (acima da última emissão)</div></div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📊 Cascata de Geração de Caixa — Cenário Conservador (R$ mm)</h3>
+                    <div class="table-scroll">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>R$ mm</th>
+                                    <th class="number">2025A</th>
+                                    <th class="number">2026E</th>
+                                    <th class="number">2027E</th>
+                                    <th class="number">2028E</th>
+                                    <th class="number">2029E</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>EBITDA Cash (ex equity)</td><td class="number mono">4.432</td><td class="number mono">4.452</td><td class="number mono">4.632</td><td class="number mono">4.710</td><td class="number mono">4.876</td></tr>
+                                <tr><td>(-) Capital de Giro</td><td class="number mono">(718)</td><td class="number mono">(600)</td><td class="number mono">(550)</td><td class="number mono">(500)</td><td class="number mono">(500)</td></tr>
+                                <tr><td>(-) CAPEX + SLB</td><td class="number mono">(872)</td><td class="number mono">(600)</td><td class="number mono">(700)</td><td class="number mono">(700)</td><td class="number mono">(700)</td></tr>
+                                <tr><td><strong style="color:var(--accent-green);">Caixa Livre (FCL)</strong></td><td class="number mono" style="color:var(--accent-green);">2.844</td><td class="number mono" style="color:var(--accent-green);">3.252</td><td class="number mono" style="color:var(--accent-green);">3.382</td><td class="number mono" style="color:var(--accent-green);">3.510</td><td class="number mono" style="color:var(--accent-green);">3.676</td></tr>
+                                <tr><td>(-) Juros pagos</td><td class="number mono">(2.177)</td><td class="number mono">(2.552)</td><td class="number mono">(2.438)</td><td class="number mono">(2.130)</td><td class="number mono">(1.775)</td></tr>
+                                <tr><td>(-) Dividendos</td><td class="number mono">(111)</td><td class="number mono">(130)</td><td class="number mono">(130)</td><td class="number mono">(130)</td><td class="number mono">(130)</td></tr>
+                                <tr><td><strong>Geração de Caixa Final</strong></td><td class="number mono"><strong>556</strong></td><td class="number mono"><strong>571</strong></td><td class="number mono"><strong>814</strong></td><td class="number mono"><strong>1.249</strong></td><td class="number mono"><strong>1.772</strong></td></tr>
+                                <tr><td>DL Ajustada</td><td class="number mono">11.339</td><td class="number mono">11.073</td><td class="number mono">10.259</td><td class="number mono">9.009</td><td class="number mono">7.238</td></tr>
+                                <tr><td><strong style="color:var(--primary-orange);">DL / EBITDA</strong></td><td class="number mono" style="color:var(--primary-orange);"><strong>2,56x</strong></td><td class="number mono" style="color:var(--primary-orange);"><strong>2,49x</strong></td><td class="number mono" style="color:var(--primary-orange);"><strong>2,21x</strong></td><td class="number mono" style="color:var(--primary-orange);"><strong>1,91x</strong></td><td class="number mono" style="color:var(--primary-orange);"><strong>1,48x</strong></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="font-size: 11px; color: var(--gray-500); margin-top: 8px;">Fonte: Release 4T25 e 4T23 RI Assaí (histórico); modelo próprio (projeções). EBITDA = Ajustado Pré-IFRS16 excluindo equity income FIC. Juros projetados via fórmula: Dívida Bruta Média × (Selic + Spread).</p>
+                </div>
+
+                <div class="grid-2" style="margin-top: 20px;">
+                    <div class="chart-container">
+                        <h4 class="chart-title">Trajetória de Desalavancagem — DL / EBITDA</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="trajetoriaChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h4 class="chart-title">FCL, Juros Pagos e Geração de Caixa Final (R$ mm)</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="fclJurosChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-content" style="margin-top: 16px; color: var(--gray-200);">
+                    <p>A projeção mostra que a operação gera Caixa Livre (FCL) robusto e crescente, entre R$ 3,3 bi e R$ 3,7 bi por ano. Esse patamar é sustentado pelo modelo de atacarejo — margens baixas compensadas por escala, capital de giro favorável (fornecedores financiam a operação) e CAPEX de manutenção relativamente baixo (~R$ 800mm/ano para 312 lojas). No entanto, os juros pagos consomem entre 70% e 78% do FCL nos primeiros anos, dado o estoque elevado de dívida (R$ 15,8 bi) e Selic acima de 14%. Após juros e dividendos, a Geração de Caixa Final — o montante efetivamente disponível para abater principal — fica entre R$ 571mm (2026E) e R$ 1.772mm (2029E).</p>
+                    <p>A trajetória de desalavancagem é consistente: de 2,56x (2025A) para 1,48x (2029E). O efeito bola de neve é positivo — menos dívida gera menos juros, que libera mais caixa para abater dívida, acelerando o processo. A cobertura FCL/Juros evolui de 1,27x (2026E) para 2,07x (2029E), e a cobertura EBITDA Cash/Juros de 1,74x para 2,75x, confirmando que o serviço corrente da dívida (juros) é confortável e melhora estruturalmente ao longo do horizonte.</p>
+                </div>
+
+                <div class="kpi-row" style="margin-top: 16px;">
+                    <div class="kpi"><div class="k-val">R$ 3,3–3,7 bi</div><div class="k-lab">Caixa Livre (FCL) por ano</div></div>
+                    <div class="kpi"><div class="k-val">70–78%</div><div class="k-lab">do FCL consumido por juros (1ºs anos)</div></div>
+                    <div class="kpi"><div class="k-val">1,27x → 2,07x</div><div class="k-lab">Cobertura FCL / Juros (2026E → 2029E)</div></div>
+                    <div class="kpi"><div class="k-val">1,74x → 2,75x</div><div class="k-lab">Cobertura EBITDA Cash / Juros</div></div>
+                </div>
+            </section>
+
+            <!-- Section 08: Esforço de Rolagem -->
+            <section class="section anchor" id="sec08">
+                <div class="section-header">
+                    <span class="section-number">08</span>
+                    <h2 class="section-title">Esforço de Rolagem — Projeção</h2>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="label">Dívida que vence 2026-2029</div>
+                        <div class="value">R$ 15,6 bi</div>
+                        <div class="delta neutral">Fonte: DFP 2025, NE 16.9.3</div>
+                    </div>
+                    <div class="metric-card green">
+                        <div class="label">Pagável com caixa próprio (GCF)</div>
+                        <div class="value">R$ 4,4 bi</div>
+                        <div class="delta positive">Geração de caixa do modelo</div>
+                    </div>
+                    <div class="metric-card highlight">
+                        <div class="label">Precisa rolar no mercado</div>
+                        <div class="value">R$ 11,2 bi</div>
+                        <div class="delta neutral">72% do total</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="label">Ano crítico — 2028</div>
+                        <div class="value">R$ 4,9 bi</div>
+                        <div class="delta neutral">80% dos vencimentos do ano</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <div class="card-content">
+                        <p>Dos R$ 15,6 bilhões de dívida que vencem entre 2026 e 2029 (fonte: DFP 2025, NE 16.9.3), a Companhia consegue pagar R$ 4,4 bilhões com caixa próprio e precisa rolar R$ 11,2 bilhões no mercado — 72% do total. A tabela abaixo detalha a dinâmica ano a ano:</p>
+                    </div>
+                    <div class="table-scroll" style="margin-top: 8px;">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>R$ mm</th>
+                                    <th class="number">2026E</th>
+                                    <th class="number">2027E</th>
+                                    <th class="number">2028E</th>
+                                    <th class="number">2029E</th>
+                                    <th class="number">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Dívida que vence</td><td class="number mono">1.712</td><td class="number mono">2.444</td><td class="number mono">6.177</td><td class="number mono">5.260</td><td class="number mono">15.593</td></tr>
+                                <tr><td>Caixa gerado (GCF)</td><td class="number mono">571</td><td class="number mono">814</td><td class="number mono">1.249</td><td class="number mono">1.772</td><td class="number mono">4.406</td></tr>
+                                <tr><td><strong>Precisa rolar</strong></td><td class="number mono"><strong>1.141</strong></td><td class="number mono"><strong>1.630</strong></td><td class="number mono"><strong>4.928</strong></td><td class="number mono"><strong>3.488</strong></td><td class="number mono"><strong>11.187</strong></td></tr>
+                                <tr><td><strong style="color:var(--primary-orange);">% que precisa rolar</strong></td><td class="number mono" style="color:var(--primary-orange);">67%</td><td class="number mono" style="color:var(--primary-orange);">67%</td><td class="number mono" style="color:var(--primary-orange);">80%</td><td class="number mono" style="color:var(--primary-orange);">66%</td><td class="number mono" style="color:var(--primary-orange);">72%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="font-size: 11px; color: var(--gray-500); margin-top: 8px;">Fonte: Vencimentos da DFP 2025, NE 16.9.3 — Cronograma de vencimentos não circulantes (31/12/2025). Geração de caixa do modelo próprio.</p>
+
+                    <div class="chart-container" style="margin-top: 16px;">
+                        <h4 class="chart-title">Esforço de Rolagem por Ano (R$ mm) — Caixa Próprio vs. Necessidade de Rolagem</h4>
+                        <div class="chart-wrapper">
+                            <canvas id="rolagemChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="card-content" style="margin-top: 16px;">
+                        <p>O ano crítico é 2028, quando vencem R$ 6,2 bilhões e a Companhia precisa refinanciar R$ 4,9 bilhões (80% do total do ano). Esse volume é factível dado o histórico recente — a 11ª emissão de debêntures captou R$ 2,8 bilhões em outubro/2024 (CDI+1,25%) e a 13ª emissão captou R$ 1,5 bilhão em maio/2025 (CDI+1,20%), ambas com spread em compressão, sinalizando conforto do mercado com o crédito. A gestão já está ativamente antecipando a rolagem: a 13ª emissão foi direcionada ao pré-pagamento da 4ª emissão (vencimento 2027), alongando prazo e reduzindo custo.</p>
+                    </div>
+
+                    <div class="highlight-box danger" style="margin-top: 8px;">
+                        <h4>🔴 Cenário Estressado</h4>
+                        <p>No cenário estressado (margem 4,8%, Selic 15,5%+, spread CDI+2,0%, capital de giro consumindo R$ 1.000mm), a Geração de Caixa Final fica negativa em 2026 e 2027 (R$ -230mm e R$ -130mm, respectivamente) e a necessidade de rolagem sobe para 96-100% dos vencimentos. Nesse cenário, a Companhia não teria margem de erro e qualquer fechamento temporário do mercado primário comprometeria o serviço da dívida.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 09: Premissas Mais Sensíveis -->
+            <section class="section anchor" id="sec09">
+                <div class="section-header">
+                    <span class="section-number">09</span>
+                    <h2 class="section-title">Premissas Mais Sensíveis para a Tese de Crédito</h2>
+                </div>
+
+                <div class="card-content" style="margin-bottom: 16px; color: var(--gray-200);">
+                    <p>As premissas estão ordenadas por impacto na tese de crédito, do mais crítico ao menos crítico:</p>
+                </div>
+
+                <div class="card">
+                    <div class="rank-item">
+                        <div class="rank-num">1</div>
+                        <div>
+                            <h4>Acesso ao mercado de capitais <span class="pill orange">risco existencial / binário</span></h4>
+                            <p>É a premissa binária. Se a Companhia mantém acesso, a tese funciona. Se perde, não funciona. Nenhuma outra variável isolada quebra a tese, mas a perda de acesso sim, porque R$ 4,9 bilhões de refinanciamento em 2028 não podem ser cobertos por geração de caixa. Os gatilhos que poderiam fechar o acesso seriam: escalada das contingências GPA/PARR levando a rebaixamento de rating, crise sistêmica no mercado de crédito privado (como o episódio Americanas em 2023), ou deterioração operacional abrupta. <em>(Ref: modelo, linha 128 — impacto de R$ -4.928mm)</em></p>
+                        </div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num">2</div>
+                        <div>
+                            <h4>Margem EBITDA <span class="pill orange">impacto alto: ~R$ 433mm por 50bps</span></h4>
+                            <p>Cada 50bps de compressão na margem retiram ~R$ 433mm da geração de caixa anual (RL 2028E de R$ 86,5 bi × 0,5%). A margem está em 5,8% hoje, mas o 4T25 mostrou sinais de pressão — SSS de apenas 0,9%, deflação simultânea em commodities como arroz (-37%) e leite (-16%). Se a margem comprimir para 4,8% — cenário possível com guerra de preços e novos entrantes regionais — a Geração de Caixa Final cairia para R$ 161mm com Selic a 15%, praticamente zerando a desalavancagem. <em>(Ref: modelo, tabela de sensibilidade GCF 2028E; Release 4T25 pg. 7)</em></p>
+                        </div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num">3</div>
+                        <div>
+                            <h4>Capital de Giro <span class="pill orange">impacto alto: oscilação de +/- R$ 500mm entre anos</span></h4>
+                            <p>O capital de giro foi fortemente positivo em 2022 (+R$ 1.309mm) e 2023 (+R$ 1.187mm), impulsionado pelo ciclo acelerado de expansão (dezenas de aberturas e 66 conversões do Extra). A abertura de novas lojas exigia compras intensivas de estoque, enquanto a Companhia operava com prazos favoráveis (pagamento a fornecedores ~65 dias vs. recebimento à vista/~25 dias), gerando entrada líquida de caixa — na prática, fornecedores financiavam a expansão.</p>
+                            <p>Com a desaceleração do ritmo de aberturas (de ~30 lojas/ano para ~15 em 2024 e 10 em 2025), esse efeito se inverteu: o crescimento de fornecedores perdeu força, os estoques já estavam formados e o capital de giro passou a consumir caixa (-R$ 973mm em 2024 e -R$ 718mm em 2025), refletindo a normalização após o fim desse "vento a favor".</p>
+                            <p>Para frente, com guidance de apenas ~5 lojas em 2026 e foco em desalavancagem, o capital de giro não deve voltar a ser fonte relevante de caixa. A tendência é de estabilização em um consumo estrutural de aproximadamente -R$ 400mm a -R$ 600mm ao ano, sendo projetado -R$ 600mm em 2026 e convergindo para ~-R$ 500mm a partir de 2028. Nesse contexto, o capital de giro se torna um dos principais pontos de risco do modelo, uma vez que sua dinâmica depende do ritmo de expansão, do mix de vendas e das condições comerciais com fornecedores — podendo apresentar volatilidade relevante caso essas variáveis se deteriorem.</p>
+                        </div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num">4</div>
+                        <div>
+                            <h4>Selic <span class="pill orange">impacto relevante: ~R$ 148mm por 100bps</span></h4>
+                            <p>Cada 100bps representa ~R$ 148mm/ano sobre a dívida bruta média (~R$ 14,8 bi). O modelo assume Selic de 15% em 2026-27, caindo para 13% em 2029. Se a Selic permanecer em 15% por todo horizonte, o impacto acumulado seria de ~R$ 400-500mm a menos de geração de caixa em 2029 versus o cenário base. <em>(Ref: modelo, decomposição custo dívida linhas 85-94)</em></p>
+                        </div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num">5</div>
+                        <div>
+                            <h4>Disciplina de CAPEX <span class="pill orange">impacto médio: R$ 300mm por R$ 300mm adicional</span></h4>
+                            <p>O CAPEX caiu de R$ 3,2 bilhões (2023) para R$ 1,1 bilhão (2025), sendo o principal motor da desalavancagem. Se a gestão decidir reabrir o ciclo de expansão agressiva — por pressão competitiva ou oportunismo — cada R$ 300mm adicionais de CAPEX reduzem a Geração de Caixa Final em R$ 300mm (impacto linear e direto). O guidance de 5 lojas para 2026 (versus 25-30 nos anos anteriores) sinaliza disciplina. <em>(Ref: modelo, linha 23)</em></p>
+                        </div>
+                    </div>
+                    <div class="rank-item">
+                        <div class="rank-num">6</div>
+                        <div>
+                            <h4>Spread de crédito <span class="pill orange">impacto menor isolado: ~R$ 73mm por 50bps</span></h4>
+                            <p>O impacto direto é modesto, mas o spread é um indicador antecedente: abertura de spread sinaliza deterioração da percepção de crédito pelo mercado, o que pode dificultar a rolagem — e aí volta ao ponto 1. A compressão recente (de CDI+1,95% em 2021 para CDI+1,20% em 2025) reflete a melhora percebida no perfil de risco. <em>(Ref: modelo, linha 127)</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-container" style="margin-top: 20px;">
+                    <h4 class="chart-title">Sensibilidade da Geração de Caixa às Premissas Marginais (R$ mm, por unidade indicada)</h4>
+                    <div class="chart-wrapper">
+                        <canvas id="tornadoChart"></canvas>
+                    </div>
+                    <p style="font-size: 11px; color: var(--gray-500); margin-top: 12px;">Sensibilidades por unidade de variação. O risco de "acesso ao mercado de capitais" (R$ -4.928mm) é binário/existencial e não marginal, portanto apresentado à parte.</p>
+                </div>
+            </section>
+
+            <!-- Section 10: Visão de Risco-Retorno -->
+            <section class="section anchor" id="sec10">
+                <div class="section-header">
+                    <span class="section-number">10</span>
+                    <h2 class="section-title">Visão de Risco-Retorno</h2>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">📊 Rating e Posicionamento</h3>
+                    <div class="card-content">
+                        <p>A Companhia carrega rating Fitch AAA (bra) com perspectiva estável, reafirmada em agosto/2025, tendo sido revisada de negativa para estável. Segundo a agência, o rating reflete o forte posicionamento no varejo de autosserviço, elevada escala e capilaridade, adequada rentabilidade e boa flexibilidade financeira. A última emissão de debêntures saiu a CDI+1,20% ao ano, com vencimento em 2029.</p>
+                    </div>
+                    <div class="rating-container" style="margin-top: 8px;">
+                        <div class="rating-box">
+                            <span class="rating-agency">Fitch Ratings</span>
+                            <span class="rating-value">AAA(bra)</span>
+                            <div class="rating-outlook">Perspectiva Estável (reafirmada ago/2025, revisada de negativa)</div>
+                        </div>
+                        <div class="rating-box">
+                            <span class="rating-agency">Última emissão (primário)</span>
+                            <span class="rating-value">CDI + 1,20%</span>
+                            <div class="rating-outlook">Vencimento em 2029</div>
+                        </div>
+                        <div class="rating-box">
+                            <span class="rating-agency">Recomendação (secundário)</span>
+                            <span class="rating-value">CDI + 1,40%+</span>
+                            <div class="rating-outlook">Risco-retorno atrativo</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">🎯 Tese de Risco-Retorno</h3>
+                    <div class="card-content">
+                        <p>CDI+1,20% no mercado primário é justo para o rating AAA, mas não remunera adequadamente a complexidade específica deste crédito — a parede de vencimentos de 2028 (R$ 6,2 bi) e o risco de cauda das contingências tributárias GPA (~R$ 12 bi). No mercado secundário, debêntures com vencimento em 2028-2029 a CDI+1,40% ou acima representariam um risco-retorno atrativo, pelas seguintes razões:</p>
+                    </div>
+                    <div style="margin-top: 8px;">
+                        <div class="list-item"><div class="list-icon green"></div><span><strong>(i)</strong> o cenário base de desalavancagem é sólido (2,56x → 1,48x), sustentado por EBITDA crescente e disciplina de CAPEX;</span></div>
+                        <div class="list-item"><div class="list-icon green"></div><span><strong>(ii)</strong> a cobertura de juros é confortável e crescente (FCL/Juros de 1,3x a 2,1x);</span></div>
+                        <div class="list-item"><div class="list-icon green"></div><span><strong>(iii)</strong> o rating é o máximo na escala nacional, com perspectiva estável;</span></div>
+                        <div class="list-item"><div class="list-icon green"></div><span><strong>(iv)</strong> o carrego com Selic em 15% é excepcional, e há potencial de compressão de spread à medida que a desalavancagem se materializa e a Selic cede;</span></div>
+                        <div class="list-item"><div class="list-icon green"></div><span><strong>(v)</strong> a Companhia demonstrou capacidade de acessar o mercado mesmo em janelas adversas (emitiu logo após o arrolamento da Receita Federal em out/2024).</span></div>
+                    </div>
+                    <div class="highlight-box" style="margin-top: 20px;">
+                        <h4>⚖️ Assimetria favorável ao credor</h4>
+                        <p>O principal risco que justifica exigir prêmio acima do primário é binário: se a Companhia perde acesso ao mercado por evento sistêmico ou escalada do contingente GPA, a tese colapsa. No entanto, a assimetria é favorável ao credor — muitas coisas precisam dar errado simultaneamente para quebrar a tese (margem comprimindo + Selic persistente + mercado fechado + contingência GPA se materializando), enquanto o cenário base entrega desalavancagem com carrego alto.</p>
+                    </div>
+                </div>
+
+                <div class="conclusion-box">
+                    <h3>📋 Conclusão — Risco-Retorno</h3>
+                    <p>Em síntese, a dívida do Assaí oferece um <strong style="color: var(--accent-green);">bom risco-retorno</strong> no cenário conservador, condicionado à manutenção do desempenho operacional, da disciplina financeira e do acesso contínuo ao mercado de capitais. O crédito é <strong style="color: var(--white);">investment grade de qualidade, mas não é risk-free</strong> — e o spread precisa refletir essa nuance.</p>
+                </div>
+            </section>
+
+            <!-- Section 11: Mercado Secundário -->
+            <section class="section anchor" id="sec11">
+                <div class="section-header">
+                    <span class="section-number">11</span>
+                    <h2 class="section-title">Assaí no Mercado Secundário — Análise de ASAI18 e ASAI19</h2>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card highlight">
+                        <div class="label">ASAI18 — 12ª Emissão</div>
+                        <div class="value">CDI + 1,25%</div>
+                        <div class="delta neutral">R$ 800 mm | venc. dez/2029</div>
+                    </div>
+                    <div class="metric-card highlight">
+                        <div class="label">ASAI19 — 13ª Emissão</div>
+                        <div class="value">CDI + 1,20%</div>
+                        <div class="delta neutral">R$ 1,5 bi | venc. jun/2029</div>
+                    </div>
+                    <div class="metric-card green">
+                        <div class="label">ASAI18 — giro semanal / estoque</div>
+                        <div class="value">15,9%</div>
+                        <div class="delta positive">2ª mais negociada (CDI+)</div>
+                    </div>
+                    <div class="metric-card green">
+                        <div class="label">ASAI19 — giro semanal / estoque</div>
+                        <div class="value">12,8%</div>
+                        <div class="delta positive">4ª mais negociada (CDI+)</div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 24px;">
+                    <h3 class="card-title">🏷️ Identificação dos Papéis</h3>
+                    <div class="grid-2">
+                        <div style="background: rgba(236, 112, 0, 0.08); border: 1px solid rgba(236, 112, 0, 0.3); border-radius: 12px; padding: 20px;">
+                            <h4 style="color: var(--primary-orange); font-size: 16px; margin-bottom: 12px;">ASAI18</h4>
+                            <div class="segment-metric"><span class="label">Emissão</span><span class="value">12ª, série única</span></div>
+                            <div class="segment-metric"><span class="label">Volume</span><span class="value">R$ 800 mi</span></div>
+                            <div class="segment-metric"><span class="label">Emissão / Vencimento</span><span class="value">dez/2024 → dez/2029</span></div>
+                            <div class="segment-metric"><span class="label">Remuneração</span><span class="value">CDI + 1,25% a.a.</span></div>
+                            <div class="segment-metric"><span class="label">Garantia / Rating</span><span class="value">Quirografária · AAA(bra)</span></div>
+                            <div class="segment-metric"><span class="label">Duration estimada</span><span class="value">2,5 – 3,5 anos</span></div>
+                        </div>
+                        <div style="background: rgba(166, 207, 46, 0.08); border: 1px solid rgba(166, 207, 46, 0.3); border-radius: 12px; padding: 20px;">
+                            <h4 style="color: var(--accent-green); font-size: 16px; margin-bottom: 12px;">ASAI19</h4>
+                            <div class="segment-metric"><span class="label">Emissão</span><span class="value">13ª, série única</span></div>
+                            <div class="segment-metric"><span class="label">Volume</span><span class="value">R$ 1,5 bi</span></div>
+                            <div class="segment-metric"><span class="label">Emissão / Vencimento</span><span class="value">jun/2025 → jun/2029</span></div>
+                            <div class="segment-metric"><span class="label">Remuneração</span><span class="value">CDI + 1,20% a.a.</span></div>
+                            <div class="segment-metric"><span class="label">Garantia / Rating</span><span class="value">Quirografária · AAA(bra)</span></div>
+                            <div class="segment-metric"><span class="label">Duration estimada</span><span class="value">2,5 – 3,5 anos</span></div>
+                        </div>
+                    </div>
+                    <div class="card-content" style="margin-top: 16px;">
+                        <p>ASAI18 corresponde à 12ª Emissão de Debêntures da Sendas Distribuidora S.A., série única, com volume de R$ 800 milhões, emitida em dezembro/2024 com vencimento em dezembro/2029, remuneração de CDI+1,25% ao ano, quirografária, rating AAA(bra) pela Fitch. ASAI19 corresponde à 13ª Emissão, série única, com volume de R$ 1,5 bilhão, emitida em junho/2025 com vencimento em junho/2029, remuneração de CDI+1,20% ao ano, mesma estrutura e rating. Ambas possuem duration estimada entre 2,5 e 3,5 anos.</p>
+                    </div>
+                </div>
+
+                <div class="grid-2" style="margin-top: 20px;">
+                    <div class="card">
+                        <h3 class="card-title">💧 Liquidez e Atividade no Secundário</h3>
+                        <div class="card-content">
+                            <p>Segundo o Relatório Semanal de Renda Fixa do Itaú BBA (22/03/2026), ASAI18 e ASAI19 figuraram entre as debêntures tradicionais (CDI+) mais negociadas na semana de 16 a 20 de março, ocupando respectivamente a 2ª e 4ª posição em volume relativo ao estoque: ASAI18 movimentou 15,9% do estoque e ASAI19 movimentou 12,8%. Esse nível de giro é excepcionalmente alto para debêntures tradicionais e muito acima da mediana do mercado, indicando que os papéis estão sendo ativamente reprecificados no contexto de abertura generalizada de spreads.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 class="card-title">📉 Contexto de Mercado: Abertura de Spreads</h3>
+                        <div class="card-content">
+                            <p>A semana de 16 a 20 de março foi marcada por abertura generalizada de spreads no crédito privado brasileiro. Debêntures CDI+ abriram em média +20 bps e IPCA+ +18 bps, com o índice IDA-DI recuando -0,23%, evidenciando performance abaixo do CDI. O movimento foi disseminado, com cerca de 50% dos ativos abrindo mais de 5 bps e apenas 2% fechando, caracterizando uma semana amplamente negativa para a classe.</p>
+                        </div>
+                        <div class="kpi-row" style="margin-top: 8px;">
+                            <div class="kpi"><div class="k-val">+20 bps</div><div class="k-lab">Abertura média CDI+</div></div>
+                            <div class="kpi"><div class="k-val">-0,23%</div><div class="k-lab">IDA-DI na semana</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📐 Dinâmica de Spreads AAA e Posicionamento do Assaí</h3>
+                    <div class="card-content">
+                        <p>A curva de spreads AAA no segmento CDI+ tem operado na faixa de 80 a 120 bps ao longo dos últimos 12 meses, com mínima próxima de 60 bps em meados de 2025 (período de forte compressão) e abertura gradual desde janeiro/2026. O spread médio AAA CDI+ em 20/03/2026 encontra-se próximo de 100 bps.</p>
+                        <p>Nesse contexto, ASAI18 (emitida a CDI+1,25%) e ASAI19 (emitida a CDI+1,20%) foram originadas com spread acima da média AAA vigente, o que reflete o prêmio específico que o mercado exige do Assaí por dois fatores: a alavancagem ainda elevada no momento da emissão (2,56x) e a percepção de risco associado às contingências tributárias do GPA.</p>
+                        <p>Do ponto de vista macroeconômico, o Copom entregou na semana o corte de 25 pontos-base esperado, levando a Selic a 14,75%. O Itaú BBA sinaliza que, se as condições permitirem, o BC tende a ficar confortável para acelerar para 50 pontos-base em abril. Se o ciclo de cortes prosseguir conforme precificado (Selic terminal de 13-14%), o investidor captura tanto o carrego elevado no curto prazo quanto a potencial compressão de spread à medida que a desalavancagem se materializa.</p>
+                    </div>
+                    <div class="kpi-row" style="margin-top: 8px;">
+                        <div class="kpi"><div class="k-val">80–120 bps</div><div class="k-lab">Faixa AAA CDI+ (12 meses)</div></div>
+                        <div class="kpi"><div class="k-val">~100 bps</div><div class="k-lab">Média AAA em 20/03/2026</div></div>
+                        <div class="kpi"><div class="k-val">14,75%</div><div class="k-lab">Selic pós-Copom (corte de 25 bps)</div></div>
+                        <div class="kpi"><div class="k-val">13–14%</div><div class="k-lab">Selic terminal precificada</div></div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 20px;">
+                    <h3 class="card-title">📈 Evolução Histórica dos Spreads e Eventos de Crédito</h3>
+                    <div class="card-content">
+                        <p>O gráfico abaixo ilustra a evolução dos spreads das debêntures tradicionais (CDI+) do Assaí ao longo dos últimos 15 meses. Observam-se três fases distintas na dinâmica de precificação:</p>
+                    </div>
+                    <div class="chart-container" style="margin-top: 12px;">
+                        <h4 class="chart-title">Spreads — Debêntures Assaí (CDI+) vs. Curva AAA (bps)</h4>
+                        <div class="chart-wrapper tall">
+                            <canvas id="spreadChart"></canvas>
+                        </div>
+                        <p style="font-size: 11px; color: var(--gray-500); margin-top: 12px;">Reflete as três fases descritas (compressão jan-out/25; abertura nov/25; nova abertura mar/26). Anchors de spread conforme níveis citados no relatório. Total agregado disparou para ~325 bps em mar/26, enquanto as debêntures individuais permaneceram em 150-175 bps.</p>
+                    </div>
+
+                    <div style="margin-top: 16px;">
+                        <div class="insight-card">
+                            <h4>Fase (i) — Compressão (jan-out/25)</h4>
+                            <p>Os spreads individuais das debêntures recuaram de ~220 bps para ~130 bps, acompanhando a trajetória de desalavancagem da Companhia (de 3,04x no 4T24 para patamares abaixo de 3,0x ao longo de 2025). Nesse período, o mercado precificou a melhora fundamental — redução de CAPEX, geração de caixa crescente e cumprimento do guidance.</p>
+                        </div>
+                        <div class="insight-card" style="border-left-color: var(--accent-green);">
+                            <h4 style="color: var(--accent-green);">Fase (ii) — Abertura em nov/25</h4>
+                            <p>Os spreads abriram de forma abrupta, coincidindo temporalmente com a divulgação de riscos de contingências tributárias pré-cisão potencialmente atribuíveis ao GPA. A intensificação do tema de arrolamento de bens pela Receita Federal elevou o prêmio de risco exigido pelo mercado, mesmo sem impacto imediato nos fundamentos operacionais do Assaí. Trata-se de um evento de percepção — passivos fora do core, difíceis de mensurar e com resolução incerta, voltaram a gerar preocupação.</p>
+                        </div>
+                        <div class="insight-card" style="border-left-color: var(--red);">
+                            <h4 style="color: var(--red);">Fase (iii) — Nova abertura em mar/26</h4>
+                            <p>O spread voltou a se ampliar, refletindo a deterioração mais aguda do crédito do GPA com o processo de recuperação judicial, contaminando a leitura de risco do Assaí por associação histórica e jurídica entre as companhias. Nota-se que a linha "Total" (cinza tracejada) disparou para ~325 bps, enquanto as debêntures individuais (linhas verdes) permaneceram mais contidas na faixa de 150-175 bps — sugerindo que a distorção do agregado pode refletir menor liquidez ou concentração em papéis específicos.</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box" style="margin-top: 16px;">
+                        <h4>💡 Dois pontos analíticos</h4>
+                        <p><strong>Primeiro</strong>, ambas as aberturas foram causadas por eventos exógenos ao negócio (risco GPA, não deterioração operacional), o que reforça a assimetria favorável ao credor: se o risco de contaminação for resolvido ou contido, o spread tem espaço para comprimir de volta para a faixa de 120-130 bps observada pré-evento. <strong>Segundo</strong>, a Companhia demonstrou capacidade de acessar o mercado mesmo em janelas adversas — a 13ª emissão (CDI+1,20%) ocorreu meses após o arrolamento da Receita Federal —, evidenciando que a percepção de risco no secundário não fechou a porta do primário.</p>
+                    </div>
+                </div>
+
+                <div class="conclusion-box">
+                    <h3>📋 Conclusão: vale a pena investir em ASAI18 e ASAI19?</h3>
+                    <p>A análise do secundário confirma a tese apresentada no início deste relatório: a dívida do Assaí oferece bom risco-retorno. <strong style="color: var(--accent-green);">Sim, no secundário a spreads de CDI+1,40% ou acima</strong>, com a seguinte fundamentação:</p>
+                    <p>O <strong style="color: var(--white);">carrego é excepcional</strong>. Com Selic a 14,75% e spread de CDI+1,40%+, a taxa bruta supera 16% ao ano — patamar raro para um crédito AAA(bra) de setor defensivo. O cenário base do modelo demonstra desalavancagem consistente (2,49x em 2026, 2,21x em 2027, 1,91x em 2028, 1,48x em 2029), com cobertura EBITDA/Juros crescente de 1,74x a 2,75x. A liquidez é confirmada pelo relatório Itaú BBA: ASAI18 e ASAI19 estão entre os papéis CDI+ mais negociados do mercado, o que garante capacidade de saída caso necessário. A assimetria é favorável: muitas coisas precisam dar errado simultaneamente para o crédito estressar (margem comprimindo para 4,5% + Selic persistente em 16% + mercado fechado + contingência GPA se materializando), enquanto o cenário base entrega desalavancagem contínua e potencial de compressão de spread à medida que o ciclo de cortes da Selic avança.</p>
+                    <p>O principal risco permanece binário: a perda de acesso ao mercado de capitais em 2028, quando a companhia precisa rolar ~R$ 5 bi. Para o investidor que aceita esse risco — e que avalia, como eu, que a probabilidade é baixa dado o rating AAA estável, o histórico de emissões bem-sucedidas e a trajetória operacional sólida — o prêmio oferecido pelo secundário mais do que compensa.</p>
+                    <div class="grid-2" style="margin-top: 20px;">
+                        <div style="background: rgba(236, 112, 0, 0.08); border: 1px solid rgba(236, 112, 0, 0.3); border-radius: 12px; padding: 20px;">
+                            <h4 style="color: var(--primary-orange); margin-bottom: 8px;">ASAI18 — escolha conservadora</h4>
+                            <p style="font-size: 14px; color: var(--gray-200);">Vence antes da parede de 2028, duration curta, carrego defensivo.</p>
+                        </div>
+                        <div style="background: rgba(166, 207, 46, 0.08); border: 1px solid rgba(166, 207, 46, 0.3); border-radius: 12px; padding: 20px;">
+                            <h4 style="color: var(--accent-green); margin-bottom: 8px;">ASAI19 — tese de desalavancagem</h4>
+                            <p style="font-size: 14px; color: var(--gray-200);">Maior upside se comprado acima de CDI+1,20% no secundário, estoque mais líquido de R$ 1,5 bi, exposição ao benefício pleno da queda de alavancagem para 1,48x.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 12: Fontes e Referências -->
+            <section class="section anchor" id="sec12">
+                <div class="section-header">
+                    <span class="section-number">12</span>
+                    <h2 class="section-title">Fontes e Referências</h2>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">Relações com Investidores — Assaí Atacadista (ri.assai.com.br)</h4>
+                        <p style="color: var(--gray-300); font-size: 13.5px; line-height: 1.7;">Release de Resultados 4T25 e 2025, divulgado em 11/02/2026 — dados operacionais e financeiros, cascata de geração de caixa, endividamento, guidance 2026 e transação FIC. Release de Resultados 4T23 e 2023 — dados históricos 2022-2023, cascata de caixa e dinâmica de capital de giro no ciclo de expansão. Dados_Operacionais.xlsx — planilha oficial do RI com séries históricas de DRE, DFC, Endividamento e Investimentos.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">Demonstrações Financeiras Padronizadas (DFP) — 31/12/2025</h4>
+                        <p style="color: var(--gray-300); font-size: 13.5px; line-height: 1.7;">NE 16.9 — Empréstimos e Debêntures: composição de cada emissão, encargos, datas e PU. NE 16.9.3 — Cronograma de Vencimentos Não Circulantes. NE 24 — Provisões e Contingências. Balanço Patrimonial e DFC — fornecedores, passivo de arrendamento, recebíveis descontados e fluxos de caixa.</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">Comunicados ao Mercado e Classificação de Risco</h4>
+                        <p style="color: var(--gray-300); font-size: 13.5px; line-height: 1.7;">Fitch Ratings — Reafirmação AAA(bra), perspectiva estável (27/08/2025). Comunicados de emissão: 11ª debênture (out/2024, CDI+1,25%); 12ª debênture (dez/2024, CDI+1,25%); 13ª debênture (mai/2025, CDI+1,20%). Fato Relevante — Transação FIC (08/12/2025).</p>
+                    </div>
+                    <div class="card">
+                        <h4 style="color: var(--primary-orange); margin-bottom: 12px; font-size: 15px;">Mercado Secundário &amp; Modelo de Crédito</h4>
+                        <p style="color: var(--gray-300); font-size: 13.5px; line-height: 1.7;">Relatório Semanal Renda Fixa — Itaú BBA, 22/03/2026 (Lucas Queiroz, Paula Toute, Clara Lustosa): dados de spreads, volumes negociados, variações semanais e ranking de papéis mais negociados (ASAI18 e ASAI19). Modelo próprio em Excel (arquivo em anexo): cascata de geração de caixa em regime de caixa, projeções 2026-2029E, cenário estressado, tabelas de sensibilidade, decomposição do custo da dívida e esforço de rolagem. Dados históricos 100% validados contra fontes primárias do RI.</p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px;">
+                <div>
+                    <h4 style="color: var(--primary-orange); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Fontes de Dados</h4>
+                    <ul style="list-style: none; font-size: 13px; color: var(--gray-400); line-height: 1.8;">
+                        <li>📄 Release de Resultados 4T25 e 2025 — RI Assaí (11/02/2026)
+                        <li>📊 DFP 31/12/2025 (CVM) — NE 16.9, 16.9.3 e 24
+                        <li>📈 Relatório Semanal de Renda Fixa — Itaú BBA (22/03/2026)
+                        <li>🧮 Modelo de Crédito próprio (Excel, em anexo)
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--primary-orange); font-size: 14px; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px;">Disclaimer</h4>
+                    <p style="font-size: 12px; color: var(--gray-500); line-height: 1.7;">
+                        Material elaborado para fins de avaliação, de caráter informativo e educacional, com base em informações públicas disponíveis.
+                        As análises e opiniões aqui expressas não constituem recomendação de investimento.
+                        Consulte seu assessor financeiro antes de tomar decisões de investimento.
+                    </p>
+                </div>
+            </div>
+            <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--dark-border); text-align: center;">
+                <p style="font-size: 12px; color: var(--gray-500);">
+                    <strong style="color: var(--gray-400);">Assaí Atacadista (Sendas Distribuidora S.A.) — Credit Research Report</strong> |
+                    Dados: 4T25 / 2025 | Igor Stramandinoli Moita Pontes | 23 de março de 2026
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ===== Chart.js base config (idêntico ao padrão do portfólio) =====
+        Chart.defaults.font.family = "'Source Sans Pro', sans-serif";
+        Chart.defaults.color = '#9CA3AF';
+
+        const colors = {
+            orange: '#EC7000', orangeLight: 'rgba(236, 112, 0, 0.3)',
+            green: '#A6CF2E', greenDark: '#8AB526', greenLight: 'rgba(166, 207, 46, 0.3)',
+            dark: '#091B1E', darkSecondary: '#133134',
+            blue: '#3B82F6', blueMuted: '#5B8FB9', red: '#EF4444',
+            gray: '#6B7280', grayLight: 'rgba(255, 255, 255, 0.1)'
+        };
+        const fmt = (v) => v.toLocaleString('pt-BR');
+        const xN = (v) => v.toFixed(2).replace('.', ',') + 'x';
+
+        // ===== 02 · Composição Acionária =====
+        new Chart(document.getElementById('shareholdersChart'), {
+            type: 'doughnut',
+            data: { labels: ['Outros', 'Orbis Invest', 'Grupo Muffato', 'Dynamo Investimentos', 'BlackRock'],
+                datasets: [{ data: [67.2, 11.6, 11.2, 5.0, 5.0],
+                    backgroundColor: [colors.blueMuted, colors.green, colors.blue, colors.greenDark, colors.orange],
+                    borderColor: colors.darkSecondary, borderWidth: 2 }] },
+            options: { responsive: true, maintainAspectRatio: false, cutout: '55%',
+                plugins: { legend: { position: 'bottom', labels: { color: '#FFFFFF', padding: 14, font: { size: 12 } } },
+                    tooltip: { callbacks: { label: (ctx) => ctx.label + ': ' + ctx.parsed + '%' } } } }
+        });
+
+        // ===== 03 · Receita Líquida =====
+        new Chart(document.getElementById('receitaChart'), {
+            type: 'bar',
+            data: { labels: ['2020','2021','2022','2023','2024','2025'],
+                datasets: [{ label: 'Receita Líquida (R$ mm)', data: [35950,41722,54520,66503,73819,77307],
+                    backgroundColor: colors.orange, borderColor: '#FF8C33', borderWidth: 1, borderRadius: 6 }] },
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => 'R$ ' + fmt(ctx.parsed.y) + ' mm' } } },
+                scales: { y: { beginAtZero: true, grid: { color: colors.grayLight }, ticks: { callback: (v) => fmt(v), color: '#9CA3AF' } },
+                    x: { grid: { display: false }, ticks: { color: '#FFFFFF' } } } }
+        });
+
+        // ===== 03 · Ciclo de Caixa (dias de CMV) =====
+        new Chart(document.getElementById('cicloCaixaChart'), {
+            type: 'line',
+            data: { labels: ['4T23','1T24','2T24','3T24','4T24','1T25','2T25','3T25','4T25'],
+                datasets: [
+                    { label: 'Fornecedores', data: [68.2,58.1,61.0,63.3,65.3,64.0,57.2,62.1,65.1], borderColor: colors.orange, backgroundColor: colors.orange, tension: 0.3, pointRadius: 3, borderWidth: 2 },
+                    { label: 'Estoques', data: [43.1,41.3,44.3,46.6,41.7,46.5,44.2,46.6,42.1], borderColor: colors.gray, backgroundColor: colors.gray, tension: 0.3, pointRadius: 3, borderWidth: 2 },
+                    { label: 'Recebíveis', data: [25.5,21.5,21.8,21.6,24.5,21.3,20.7,21.4,24.8], borderColor: colors.blue, backgroundColor: colors.blue, tension: 0.3, pointRadius: 3, borderWidth: 2 },
+                    { label: 'Supplier Financing (Forn. − Est.)', data: [25.0,16.8,16.7,16.7,23.6,17.6,13.0,15.5,23.0], borderColor: colors.green, backgroundColor: colors.green, borderDash: [5,4], tension: 0.3, pointRadius: 3, borderWidth: 2 },
+                    { label: 'Ciclo de Caixa', data: [0.5,4.6,5.0,4.9,0.9,3.7,7.7,5.9,1.8], borderColor: '#FF8C33', backgroundColor: '#FF8C33', tension: 0.3, pointRadius: 4, borderWidth: 3 }
+                ] },
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#FFFFFF', font: { size: 11 } } } },
+                scales: { y: { grid: { color: colors.grayLight }, ticks: { color: '#9CA3AF' }, title: { display: true, text: 'Dias de CMV', color: '#9CA3AF' } },
+                    x: { grid: { display: false }, ticks: { color: '#FFFFFF' } } } }
+        });
+
+        // ===== 03 · EBITDA Ajustado + Margem =====
+        new Chart(document.getElementById('ebitdaChart'), {
+            type: 'bar',
+            data: { labels: ['2020','2021','2022','2023','2024','2025'],
+                datasets: [
+                    { label: 'EBITDA Ajustado (R$ mm)', data: [2364,2802,2868,3444,4113,4432], backgroundColor: colors.orange, borderRadius: 6, yAxisID: 'y', order: 2 },
+                    { label: 'Margem EBITDA Ajustada (%)', data: [6.6,6.7,5.3,5.2,5.6,5.7], type: 'line', borderColor: colors.green, backgroundColor: colors.green, pointBackgroundColor: colors.green, pointRadius: 5, borderWidth: 3, tension: 0.4, yAxisID: 'y1', order: 1 }
+                ] },
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#FFFFFF' } } },
+                scales: { y: { beginAtZero: true, grid: { color: colors.grayLight }, ticks: { callback: (v) => fmt(v), color: '#9CA3AF' }, title: { display: true, text: 'R$ mm', color: '#9CA3AF' } },
+                    y1: { position: 'right', min: 0, max: 8, grid: { display: false }, ticks: { callback: (v) => v.toString().replace('.', ',') + '%', color: '#9CA3AF' }, title: { display: true, text: 'Margem (%)', color: '#9CA3AF' } },
+                    x: { grid: { display: false }, ticks: { color: '#FFFFFF' } } } }
+        });
+
+        // ===== 03 · Geração de Caixa (Op / Inv / Fin) =====
+        const gcOp = [3272,5144,5963,4932,5649];
+        const gcInv = [-3276,-3790,-3055,-1670,-924];
+        const gcFin = [-978,1938,3291,-3093,-4499];
+        const gcVar = gcOp.map((v,i) => v + gcInv[i] + gcFin[i]);
+        new Chart(document.getElementById('geracaoCaixaChart'), {
+            type: 'bar',
+            data: { labels: ['2021','2022','2023','2024','2025'],
+                datasets: [
+                    { label: 'Caixa Líquido Operacional', data: gcOp, backgroundColor: colors.darkSecondary, borderColor: colors.blueMuted, borderWidth: 1, borderRadius: 4, order: 3 },
+                    { label: 'Caixa Líquido Investimentos', data: gcInv, backgroundColor: 'rgba(184,197,199,0.45)', borderColor: colors.gray, borderWidth: 1, borderRadius: 4, order: 3 },
+                    { label: 'Caixa Líquido Financiamentos', data: gcFin, backgroundColor: colors.blue, borderColor: '#5BB5D5', borderWidth: 1, borderRadius: 4, order: 3 },
+                    { label: 'Variação de Caixa', data: gcVar, type: 'line', borderColor: colors.orange, backgroundColor: colors.orange, pointBackgroundColor: colors.orange, pointRadius: 4, borderWidth: 3, tension: 0.4, order: 1 }
+                ] },
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#FFFFFF', font: { size: 11 } } }, tooltip: { callbacks: { label: (ctx) => ctx.dataset.label + ': R$ ' + fmt(ctx.parsed.y) + ' mm' } } },
+                scales: { y: { grid: { color: colors.grayLight }, ticks: { callback: (v) => fmt(v), color: '#9CA3AF' } },
+                    x: { grid: { display: false }, ticks: { color: '#FFFFFF' } } } }
+        });
+
+        // ===== 04 · Dívida Líquida + Recebíveis e Alavancagem (anual) =====
+        new Chart(document.getElementById('dividaEvolChart'), {
+            type: 'bar',
+            data: { labels: ['2020','2021','2022','2023','2024','2025'],
+                datasets: [
+                    { label: 'Dívida Líquida + Recebíveis (R$ mm)', data: [4151,5351,6276,13085,12514,11339], backgroundColor: colors.darkSecondary, borderColor: colors.orange, borderWidth: 1, borderRadius: 6, yAxisID: 'y', order: 2 },
+                    { label: 'Dívida Líquida / EBITDA (x)', data: [1.76,1.91,2.19,3.80,3.04,2.56], type: 'line', borderColor: colors.green, backgroundColor: colors.green, pointBackgroundColor: colors.green, pointRadius: 5, borderWidth: 3, tension: 0.3, yAxisID: 'y1', order: 1 }
+                ] },
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#FFFFFF' } }, tooltip: { callbacks: { label: (ctx) => ctx.dataset.label.includes('EBITDA') ? ctx.dataset.label + ': ' + xN(ctx.parsed.y) : ctx.dataset.label + ': R$ ' + fmt(ctx.parsed.y) + ' mm' } } },
+                scales: { y: { beginAtZero: true, grid: { color: colors.grayLight }, ticks: { callback: (v) => fmt(v), color: '#9CA3AF' }, title: { display: true, text: 'R$ mm', color: '#9CA3AF' } },
+                    y1: { position: 'right', min: 0, max: 5, grid: { display: false }, ticks: { callback: (v) => v.toString().replace('.', ',') + 'x', color: '#9CA3AF' }, title: { display: true, text: 'Alavancagem (x)', color: '#9CA3AF' } },
+                    x: { grid: { display: false }, ticks: { color: '#FFFFFF' } } } }
+        });
+
+        // ===== 04 · Alavancagem com toggle (intra-anual / anual) =====
+        let leverageChart = null;
+        const leverageData = {
+            intra: { labels: ['1T24','2T24','3T24','4T24','1T25','2T25','3T25','4T25'], values: [3.75,3.65,3.52,3.04,3.15,3.17,3.03,2.56],
+                refLabel: 'Guidance 2025 (2,60x)', refValue: 2.60,
+                note: 'Fonte: releases de resultados do Assaí (ri.assai.com.br). Métrica: (Dívida Líquida + Recebíveis Descontados) / EBITDA Ajustado Pré-IFRS16 (LTM). Linha tracejada = Guidance 2025 (2,60x).' },
+            anual: { labels: ['4T21','4T22','4T23','4T24','4T25'], values: [3.85,4.37,3.80,3.04,2.56],
+                refLabel: 'Covenant contratual (3,0x)', refValue: 3.00,
+                note: 'Métrica: (Dívida Líquida + Recebíveis Descontados) / EBITDA Ajustado Pré-IFRS16 (LTM). Linha tracejada = Covenant contratual (3,0x). Desalavancagem de -1,29x entre 4T21 e 4T25.' }
+        };
+        function buildLeverage(mode) {
+            const d = leverageData[mode];
+            if (leverageChart) leverageChart.destroy();
+            leverageChart = new Chart(document.getElementById('leverageChart'), {
+                type: 'line',
+                data: { labels: d.labels, datasets: [
+                    { label: 'DL + Receb. / EBITDA Pré-IFRS16', data: d.values, borderColor: colors.orange, backgroundColor: 'rgba(236,112,0,0.12)', fill: true, pointBackgroundColor: colors.orange, pointRadius: 5, borderWidth: 3, tension: 0.35 },
+                    { label: d.refLabel, data: d.labels.map(() => d.refValue), borderColor: colors.green, borderDash: [6,5], pointRadius: 0, borderWidth: 2, fill: false }
+                ] },
+                options: { responsive: true, maintainAspectRatio: false, animation: { duration: 500 },
+                    plugins: { legend: { position: 'bottom', labels: { color: '#FFFFFF' } }, tooltip: { callbacks: { label: (ctx) => ctx.dataset.label + ': ' + xN(ctx.parsed.y) } } },
+                    scales: { y: { min: 2, max: 4.6, grid: { color: colors.grayLight }, ticks: { callback: (v) => v.toFixed(2).replace('.', ',') + 'x', color: '#9CA3AF' } },
+                        x: { grid: { display: false }, ticks: { color: '#FFFFFF' } } } }
+            });
+            document.getElementById('leverageNote').textContent = d.note;
+        }
+        function toggleLeverage(mode) {
+            document.getElementById('btnLevIntra').classList.toggle('active', mode === 'intra');
+            document.getElementById('btnLevAnual').classList.toggle('active', mode === 'anual');
+            buildLeverage(mode);
+        }
+        buildLeverage('intra');
+
+        // ===== 04 · Fornecedores =====
+        new Chart(document.getElementById('fornecedoresChart'), {
+            type: 'bar',
+            data: { labels: ['1T24','2T24','3T24','4T24','1T25','2T25','3T25','4T25'],
+                datasets: [
+                    { label: 'Fornecedores (R$ bi)', data: [9.8,10.4,11.0,11.7,11.4,10.3,11.3,12.4], backgroundColor: colors.blue, borderColor: '#5BB5D5', borderWidth: 1, borderRadius: 4, order: 2 },
+                    { label: 'Tendência', data: [9.8,10.4,11.0,11.7,11.4,10.3,11.3,12.4], type: 'line', borderColor: colors.green, backgroundColor: colors.green, pointBackgroundColor: colors.green, pointRadius: 4, borderWidth: 3, tension: 0.4, order: 1 }
+                ] },
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => 'R$ ' + ctx.parsed.y.toString().replace('.', ',') + ' bi' } } },
+                scales: { y: { min: 8, grid: { color: colors.grayLight }, ticks: { callback: (v) => v + ' bi', color: '#9CA3AF' } },
+                    x: { grid: { display: false }, ticks: { color: '#FFFFFF' } } } }
+        });
+
+        // ===== 04 · Composição da Posição de Caixa (stacked) =====
+        new Chart(document.getElementById('caixaCompChart'), {
+            type: 'bar',
+            data: { labels: ['4T24','1T25','2T25','3T25','4T25'],
+                datasets: [
+                    { label: 'Caixa (Exc. Receb. Descontados)', data: [3.7,2.5,2.4,2.5,4.5], backgroundColor: colors.darkSecondary, borderColor: colors.blueMuted, borderWidth: 1, stack: 's' },
+                    { label: 'Recebíveis Descontados', data: [2.0,1.9,2.1,2.0,1.3], backgroundColor: colors.blue, borderColor: '#5BB5D5', borderWidth: 1, stack: 's' },
+                    { label: 'Recebíveis Não Descontados', data: [1.9,1.6,1.4,1.6,2.8], backgroundColor: colors.orange, borderColor: '#FF8C33', borderWidth: 1, stack: 's' }
+                ] },
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#FFFFFF', font: { size: 11 } } }, tooltip: { callbacks: { label: (ctx) => ctx.dataset.label + ': R$ ' + ctx.parsed.y.toString().replace('.', ',') + ' bi' } } },
+                scales: { y: { beginAtZero: true, stacked: true, grid: { color: colors.grayLight }, ticks: { callback: (v) => v + ' bi', color: '#9CA3AF' } },
+                    x: { stacked: true, grid: { display: false }, ticks: { color: '#FFFFFF' } } } }
+        });
+
+        // ===== 05 · Cronograma de Vencimentos =====
+        new Chart(document.getElementById('vencimentosChart'), {
+            type: 'bar',
+            data: { labels: ['De 1 a 2 anos','De 2 a 3 anos','De 3 a 4 anos','De 4 a 5 anos','Após 5 anos'],
+                datasets: [{ label: 'Dívida (R$ mm)', data: [2444,6177,5260,172,172],
+                    backgroundColor: [colors.gray, colors.orange, colors.orange, colors.greenDark, colors.greenDark],
+                    borderColor: [colors.blueMuted, '#FF8C33', '#FF8C33', colors.green, colors.green], borderWidth: 1, borderRadius: 6 }] },
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => 'R$ ' + fmt(ctx.parsed.y) + ' mm' } } },
+                scales: { y: { beginAtZero: true, grid: { color: colors.grayLight }, ticks: { callback: (v) => fmt(v), color: '#9CA3AF' } },
+                    x: { grid: { display: false }, ticks: { color: '#FFFFFF' } } } }
+        });
+
+        // ===== 07 · Trajetória de Desalavancagem =====
+        new Chart(document.getElementById('trajetoriaChart'), {
+            type: 'line',
+            data: { labels: ['2025A','2026E','2027E','2028E','2029E'],
+                datasets: [{ label: 'DL / EBITDA', data: [2.56,2.49,2.21,1.91,1.48], borderColor: colors.orange, backgroundColor: 'rgba(236,112,0,0.15)', fill: true, pointBackgroundColor: colors.orange, pointRadius: 6, borderWidth: 3, tension: 0.35 }] },
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => xN(ctx.parsed.y) } } },
+                scales: { y: { min: 1, max: 3, grid: { color: colors.grayLight }, ticks: { callback: (v) => v.toFixed(2).replace('.', ',') + 'x', color: '#9CA3AF' } },
+                    x: { grid: { display: false }, ticks: { color: '#FFFFFF' } } } }
+        });
+
+        // ===== 07 · FCL, Juros e GCF =====
+        new Chart(document.getElementById('fclJurosChart'), {
+            type: 'bar',
+            data: { labels: ['2025A','2026E','2027E','2028E','2029E'],
+                datasets: [
+                    { label: 'Caixa Livre (FCL)', data: [2844,3252,3382,3510,3676], backgroundColor: colors.green, borderColor: '#B8E05E', borderWidth: 1, borderRadius: 4, order: 3 },
+                    { label: 'Juros pagos', data: [2177,2552,2438,2130,1775], backgroundColor: colors.orange, borderColor: '#FF8C33', borderWidth: 1, borderRadius: 4, order: 3 },
+                    { label: 'Geração de Caixa Final', data: [556,571,814,1249,1772], type: 'line', borderColor: '#FFFFFF', backgroundColor: '#FFFFFF', pointBackgroundColor: '#FFFFFF', pointRadius: 4, borderWidth: 3, tension: 0.4, order: 1 }
+                ] },
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#FFFFFF', font: { size: 11 } } }, tooltip: { callbacks: { label: (ctx) => ctx.dataset.label + ': R$ ' + fmt(ctx.parsed.y) + ' mm' } } },
+                scales: { y: { beginAtZero: true, grid: { color: colors.grayLight }, ticks: { callback: (v) => fmt(v), color: '#9CA3AF' } },
+                    x: { grid: { display: false }, ticks: { color: '#FFFFFF' } } } }
+        });
+
+        // ===== 08 · Esforço de Rolagem (stacked + % linha) =====
+        new Chart(document.getElementById('rolagemChart'), {
+            type: 'bar',
+            data: { labels: ['2026E','2027E','2028E','2029E'],
+                datasets: [
+                    { label: 'Caixa gerado (GCF)', data: [571,814,1249,1772], backgroundColor: colors.green, borderColor: '#B8E05E', borderWidth: 1, stack: 's', order: 3 },
+                    { label: 'Precisa rolar', data: [1141,1630,4928,3488], backgroundColor: colors.orange, borderColor: '#FF8C33', borderWidth: 1, stack: 's', order: 3 },
+                    { label: '% que precisa rolar', data: [67,67,80,66], type: 'line', borderColor: '#FFFFFF', backgroundColor: '#FFFFFF', pointBackgroundColor: '#FFFFFF', pointRadius: 4, borderWidth: 2, borderDash: [5,4], tension: 0.3, yAxisID: 'y1', order: 1 }
+                ] },
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#FFFFFF', font: { size: 11 } } },
+                    tooltip: { callbacks: { label: (ctx) => ctx.dataset.label.includes('%') ? ctx.dataset.label + ': ' + ctx.parsed.y + '%' : ctx.dataset.label + ': R$ ' + fmt(ctx.parsed.y) + ' mm' } } },
+                scales: { y: { beginAtZero: true, stacked: true, grid: { color: colors.grayLight }, ticks: { callback: (v) => fmt(v), color: '#9CA3AF' }, title: { display: true, text: 'R$ mm', color: '#9CA3AF' } },
+                    y1: { position: 'right', min: 0, max: 100, grid: { display: false }, ticks: { callback: (v) => v + '%', color: '#9CA3AF' }, title: { display: true, text: '% rolagem', color: '#9CA3AF' } },
+                    x: { stacked: true, grid: { display: false }, ticks: { color: '#FFFFFF' } } } }
+        });
+
+        // ===== 09 · Tornado de Sensibilidades =====
+        new Chart(document.getElementById('tornadoChart'), {
+            type: 'bar',
+            data: { labels: ['Capital de Giro (±, por ano)','Margem EBITDA (por 50bps)','CAPEX (por R$ 300mm)','Selic (por 100bps)','Spread (por 50bps)'],
+                datasets: [{ label: 'Impacto na geração de caixa (R$ mm)', data: [500,433,300,148,73],
+                    backgroundColor: [colors.orange, colors.orange, '#FF8C33', colors.greenDark, colors.green],
+                    borderColor: '#FF8C33', borderWidth: 1, borderRadius: 5 }] },
+            options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { display: false }, tooltip: { callbacks: { label: (ctx) => '~R$ ' + fmt(ctx.parsed.x) + ' mm' } } },
+                scales: { x: { beginAtZero: true, grid: { color: colors.grayLight }, ticks: { callback: (v) => fmt(v), color: '#9CA3AF' }, title: { display: true, text: 'R$ mm (magnitude do impacto)', color: '#9CA3AF' } },
+                    y: { grid: { display: false }, ticks: { color: '#FFFFFF' } } } }
+        });
+
+        // ===== 11 · Evolução dos Spreads (3 fases) =====
+        const spLabels = ['jan-25','fev-25','mar-25','abr-25','mai-25','jun-25','jul-25','ago-25','set-25','out-25','nov-25','dez-25','jan-26','fev-26','mar-26'];
+        new Chart(document.getElementById('spreadChart'), {
+            type: 'line',
+            data: { labels: spLabels,
+                datasets: [
+                    { label: 'Debêntures Assaí (CDI+)', data: [220,205,190,178,168,158,150,142,136,130,150,156,160,163,165], borderColor: colors.green, backgroundColor: 'rgba(166,207,46,0.10)', fill: true, pointRadius: 2, borderWidth: 3, tension: 0.35 },
+                    { label: 'Curva AAA CDI+', data: [120,108,96,84,72,62,60,66,76,86,90,93,96,98,100], borderColor: colors.orange, backgroundColor: 'transparent', borderDash: [6,4], pointRadius: 0, borderWidth: 2, tension: 0.35 },
+                    { label: 'Total agregado (mar/26)', data: [null,null,null,null,null,null,null,null,null,null,null,null,null,null,325], borderColor: colors.gray, backgroundColor: colors.gray, showLine: false, pointRadius: 6, pointStyle: 'rectRot' }
+                ] },
+            options: { responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom', labels: { color: '#FFFFFF', font: { size: 11 } } }, tooltip: { callbacks: { label: (ctx) => ctx.parsed.y === null ? '' : ctx.dataset.label + ': ~' + ctx.parsed.y + ' bps' } } },
+                scales: { y: { min: 50, max: 350, grid: { color: colors.grayLight }, ticks: { callback: (v) => v + ' bps', color: '#9CA3AF' } },
+                    x: { grid: { display: false }, ticks: { color: '#9CA3AF', maxRotation: 45, minRotation: 45 } } } }
+        });
+
+        // ===== Barra de progresso de leitura =====
+        const sp = document.getElementById('scrollProgress');
+        window.addEventListener('scroll', () => {
+            const h = document.documentElement;
+            const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+            sp.style.width = scrolled + '%';
+        }, { passive: true });
+
+        // ===== Navegação ativa por seção =====
+        const navLinks = Array.from(document.querySelectorAll('.topnav a'));
+        const sections = navLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+        const navObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = '#' + entry.target.id;
+                    navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
+                    const activeLink = navLinks.find(a => a.getAttribute('href') === id);
+                    if (activeLink) activeLink.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+                }
+            });
+        }, { rootMargin: '-20% 0px -75% 0px', threshold: 0 });
+        sections.forEach(s => navObserver.observe(s));
+    </script>
+</body>
+</html>
